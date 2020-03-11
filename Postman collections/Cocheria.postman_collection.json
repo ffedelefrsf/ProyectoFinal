@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "cc252f62-fd0a-4d9c-926e-35080cc3be9d",
+		"name": "Cocheria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Socio",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rest/socio/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"socio",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dni\": 40053701,\r\n    \"apellido\": \"FEDELE\",\r\n    \"nombre\": \"FAUSTO\",\r\n    \"direccion\": \"CANDIDO PUJATO 2754 PISO 9 DPTO B\",\r\n    \"telefono\": \"3404516973\",\r\n    \"email\": \"faustofedele2013@gmail.com\",\r\n    \"sexo\": \"Masculino\",\r\n    \"fechaNacimiento\": \"1997-05-05\",\r\n    \"usuarioAlta\": 1,\r\n    \"saldo\": 0.0,\r\n    \"idTarifa\": 1,\r\n    \"idZona\": 1,\r\n    \"idLocalidad\": 1,\r\n    \"idObraSocial\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/socio/insert",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"socio",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
