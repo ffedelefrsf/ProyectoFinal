@@ -29,6 +29,8 @@ public class SocioInsertRequestDTO {
     
     private Date fechaNacimiento;
     
+    private Date fechaCobertura;
+    
     private Integer usuarioAlta;
     
     private Double saldo;
@@ -44,7 +46,7 @@ public class SocioInsertRequestDTO {
     public SocioInsertRequestDTO() {
     }
 
-    public SocioInsertRequestDTO(Integer dni, String apellido, String nombre, String direccion, String telefono, String email, String sexo, Date fechaNacimiento, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
+    public SocioInsertRequestDTO(Integer dni, String apellido, String nombre, String direccion, String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -53,6 +55,7 @@ public class SocioInsertRequestDTO {
         this.email = email;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
+        this.fechaCobertura = fechaCobertura;
         this.usuarioAlta = usuarioAlta;
         this.saldo = saldo;
         this.idTarifa = idTarifa;
@@ -172,7 +175,13 @@ public class SocioInsertRequestDTO {
     public void setIdObraSocial(Integer idObraSocial) {
         this.idObraSocial = idObraSocial;
     }
-    
-    
+
+    public Date getFechaCobertura() {
+        return fechaCobertura;
+    }
+
+    public void setFechaCobertura(Date fechaCobertura) {
+        this.fechaCobertura = fechaCobertura;
+    }
     
 }

@@ -49,7 +49,7 @@ public class SocioREST {
         }
         
         // INSERTO EL SOCIO
-        final Socio socio = new Socio(socioInsertRequestDTO.getDni(), socioInsertRequestDTO.getApellido(), socioInsertRequestDTO.getNombre(), socioInsertRequestDTO.getDireccion(), socioInsertRequestDTO.getTelefono(), socioInsertRequestDTO.getEmail(), socioInsertRequestDTO.getSexo(), socioInsertRequestDTO.getFechaNacimiento(), socioInsertRequestDTO.getUsuarioAlta(), socioInsertRequestDTO.getSaldo(), socioInsertRequestDTO.getIdTarifa(), socioInsertRequestDTO.getIdZona(), socioInsertRequestDTO.getIdLocalidad(), socioInsertRequestDTO.getIdObraSocial());
+        final Socio socio = new Socio(socioInsertRequestDTO.getDni(), socioInsertRequestDTO.getApellido(), socioInsertRequestDTO.getNombre(), socioInsertRequestDTO.getDireccion(), socioInsertRequestDTO.getTelefono(), socioInsertRequestDTO.getEmail(), socioInsertRequestDTO.getSexo(), socioInsertRequestDTO.getFechaNacimiento(), socioInsertRequestDTO.getFechaCobertura(), socioInsertRequestDTO.getUsuarioAlta(), socioInsertRequestDTO.getSaldo(), socioInsertRequestDTO.getIdTarifa(), socioInsertRequestDTO.getIdZona(), socioInsertRequestDTO.getIdLocalidad(), socioInsertRequestDTO.getIdObraSocial());
         final SocioInsertResponseDTO socioInsertResponseDTO;
         socioInsertResponseDTO = new SocioInsertResponseDTO(socioController.insertSocio(socio));
         /*

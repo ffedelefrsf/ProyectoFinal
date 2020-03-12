@@ -26,56 +26,60 @@ public class Socio implements Serializable{
     
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (name = "id_socio")
+    @Column (name = "ID")
     private Integer idSocio;
     
-    @Column (name = "dni")
+    @Column (name = "DNI")
     private Integer dni;
     
-    @Column (name = "apellido")
+    @Column (name = "APELLIDO")
     private String apellido;
     
-    @Column (name = "nombre")
+    @Column (name = "NOMBRE")
     private String nombre;
     
-    @Column (name = "direccion")
+    @Column (name = "DIRECCION")
     private String direccion;
     
-    @Column (name = "telefono")
+    @Column (name = "TELEFONO")
     private String telefono;
     
-    @Column (name = "email")
+    @Column (name = "EMAIL")
     private String email;
     
-    @Column (name = "sexo")
+    @Column (name = "SEXO")
     private String sexo;
     
-    @Column (name = "fecha_nacimiento")
+    @Column (name = "FECHA_NACIMIENTO")
     @Temporal (TemporalType.DATE)
     private Date fechaNacimiento;
     
-    @Column (name = "usuario_alta")
+    @Column (name = "FECHA_COBERTURA")
+    @Temporal (TemporalType.DATE)
+    private Date fechaCobertura;
+    
+    @Column (name = "USUARIO_ALTA")
     private Integer usuarioAlta;
     
-    @Column (name = "saldo")
+    @Column (name = "SALDO")
     private Double saldo;
     
-    @Column (name = "id_tarifa")
+    @Column (name = "ID_TARIFA")
     private Integer idTarifa;
     
-    @Column (name = "id_zona")
+    @Column (name = "ID_ZONA")
     private Integer idZona;
     
-    @Column (name = "id_localidad")
+    @Column (name = "ID_LOCALIDAD")
     private Integer idLocalidad;
     
-    @Column (name = "id_obra_social")
+    @Column (name = "ID_OBRA_SOCIAL")
     private Integer idObraSocial;
 
     public Socio() {
     }
 
-    public Socio(Integer idSocio, Integer dni, String apellido, String nombre, String direccion, String telefono, String email, String sexo, Date fechaNacimiento, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
+    public Socio(Integer idSocio, Integer dni, String apellido, String nombre, String direccion, String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
         this.idSocio = idSocio;
         this.dni = dni;
         this.apellido = apellido;
@@ -85,6 +89,7 @@ public class Socio implements Serializable{
         this.email = email;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
+        this.fechaCobertura = fechaCobertura;
         this.usuarioAlta = usuarioAlta;
         this.saldo = saldo;
         this.idTarifa = idTarifa;
@@ -93,7 +98,7 @@ public class Socio implements Serializable{
         this.idObraSocial = idObraSocial;
     }
 
-    public Socio(Integer dni, String apellido, String nombre, String direccion, String telefono, String email, String sexo, Date fechaNacimiento, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
+    public Socio(Integer dni, String apellido, String nombre, String direccion, String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -102,6 +107,7 @@ public class Socio implements Serializable{
         this.email = email;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
+        this.fechaCobertura = fechaCobertura;
         this.usuarioAlta = usuarioAlta;
         this.saldo = saldo;
         this.idTarifa = idTarifa;
@@ -109,7 +115,6 @@ public class Socio implements Serializable{
         this.idLocalidad = idLocalidad;
         this.idObraSocial = idObraSocial;
     }
-    
 
     public Integer getIdSocio() {
         return idSocio;
@@ -183,6 +188,14 @@ public class Socio implements Serializable{
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public Date getFechaCobertura() {
+        return fechaCobertura;
+    }
+
+    public void setFechaCobertura(Date fechaCobertura) {
+        this.fechaCobertura = fechaCobertura;
+    }
+
     public Integer getUsuarioAlta() {
         return usuarioAlta;
     }
@@ -230,7 +243,6 @@ public class Socio implements Serializable{
     public void setIdObraSocial(Integer idObraSocial) {
         this.idObraSocial = idObraSocial;
     }
-    
-    
+
     
 }
