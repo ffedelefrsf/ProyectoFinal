@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "cc252f62-fd0a-4d9c-926e-35080cc3be9d",
-		"name": "Cocheria",
+		"name": "Funesoft",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -14,14 +14,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/rest/socio/getAll",
+							"raw": "http://localhost:8080/Funesoft/socio/getAll",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"rest",
+								"Funesoft",
 								"socio",
 								"getAll"
 							]
@@ -44,14 +44,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/rest/socio/insert",
+							"raw": "http://localhost:8080/Funesoft/socio/insert",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"rest",
+								"Funesoft",
 								"socio",
 								"insert"
 							]
