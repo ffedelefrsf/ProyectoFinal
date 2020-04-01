@@ -5,9 +5,11 @@
  */
 package com.funesoft.controller;
 
+import com.funesoft.dto.SocioDTO;
 import com.funesoft.model.Socio;
 import com.funesoft.repository.SocioRepository;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +28,16 @@ public class SocioController {
         return socioRepository.findAll();
     }
     
-    public Integer insertSocio (final Socio socio){
-        return socioRepository.save(socio).getIdSocio();
+    public Socio insertSocio (SocioDTO socioDTO){
+
+        //CALCULO LA COBERTURA
+        socioDTO.setFechaCobertura(calculoCobertura(socioDTO.getFechaNacimiento()));
+        Socio socio = new Socio(socioDTO);
+        return socioRepository.save(socio);
+
+    }
+
+    public Date calculoCobertura(Date fechaNacimiento){
+        return fechaNacimiento;
     }
 }

@@ -5,6 +5,11 @@
  */
 package com.funesoft.model;
 
+import com.funesoft.dto.SocioDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -22,6 +27,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table (name = "SOCIOS")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Socio implements Serializable{
     
     @Id
@@ -76,9 +84,6 @@ public class Socio implements Serializable{
     @Column (name = "ID_OBRA_SOCIAL")
     private Integer idObraSocial;
 
-    public Socio() {
-    }
-
     public Socio(Integer idSocio, Integer dni, String apellido, String nombre, String direccion, String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
         this.idSocio = idSocio;
         this.dni = dni;
@@ -116,133 +121,22 @@ public class Socio implements Serializable{
         this.idObraSocial = idObraSocial;
     }
 
-    public Integer getIdSocio() {
-        return idSocio;
+    public Socio(SocioDTO socioDTO){
+        this.dni = socioDTO.getDni();
+        this.apellido = socioDTO.getApellido();
+        this.nombre = socioDTO.getNombre();
+        this.direccion = socioDTO.getDireccion();
+        this.telefono = socioDTO.getTelefono();
+        this.email = socioDTO.getEmail();
+        this.sexo = socioDTO.getSexo();
+        this.fechaNacimiento = socioDTO.getFechaNacimiento();
+        this.fechaCobertura = socioDTO.getFechaCobertura();
+        this.usuarioAlta = socioDTO.getUsuarioAlta();
+        this.saldo = socioDTO.getSaldo();
+        this.idTarifa = socioDTO.getIdTarifa();
+        this.idZona = socioDTO.getIdZona();
+        this.idLocalidad = socioDTO.getIdLocalidad();
+        this.idObraSocial = socioDTO.getIdObraSocial();
     }
 
-    public void setIdSocio(Integer idSocio) {
-        this.idSocio = idSocio;
-    }
-
-    public Integer getDni() {
-        return dni;
-    }
-
-    public void setDni(Integer dni) {
-        this.dni = dni;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public Date getFechaCobertura() {
-        return fechaCobertura;
-    }
-
-    public void setFechaCobertura(Date fechaCobertura) {
-        this.fechaCobertura = fechaCobertura;
-    }
-
-    public Integer getUsuarioAlta() {
-        return usuarioAlta;
-    }
-
-    public void setUsuarioAlta(Integer usuarioAlta) {
-        this.usuarioAlta = usuarioAlta;
-    }
-
-    public Double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(Double saldo) {
-        this.saldo = saldo;
-    }
-
-    public Integer getIdTarifa() {
-        return idTarifa;
-    }
-
-    public void setIdTarifa(Integer idTarifa) {
-        this.idTarifa = idTarifa;
-    }
-
-    public Integer getIdZona() {
-        return idZona;
-    }
-
-    public void setIdZona(Integer idZona) {
-        this.idZona = idZona;
-    }
-
-    public Integer getIdLocalidad() {
-        return idLocalidad;
-    }
-
-    public void setIdLocalidad(Integer idLocalidad) {
-        this.idLocalidad = idLocalidad;
-    }
-
-    public Integer getIdObraSocial() {
-        return idObraSocial;
-    }
-
-    public void setIdObraSocial(Integer idObraSocial) {
-        this.idObraSocial = idObraSocial;
-    }
-
-    
 }
