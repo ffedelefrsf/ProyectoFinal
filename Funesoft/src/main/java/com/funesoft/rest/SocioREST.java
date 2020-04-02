@@ -17,39 +17,57 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.validation.Valid;
 
 /**
- *
  * @author faust
  */
 @RestController
 @RequestMapping("socio")
 @Api(description = "Servicios para AMBC de socios.")
 public class SocioREST {
-    
+
     @Autowired
     private SocioController socioController;
-    
+
     @GetMapping("getAll")
     @ApiOperation(value = "Obtiene un listado de todos los socios registrados en el sistema.")
-    public ResponseDTO getAll(){
-        return new FunesoftResponseDTO(
-                true,
-                socioController.getAllSocios(),
-                null,
-                null
-        );
+    public ResponseDTO getAll() {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    socioController.getAllSocios(),
+                    null,
+                    null
+            );
+        } catch (Exception e) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    "Error en la recuperación",
+                    e
+            );
+        }
     }
-    
-    @PostMapping("insert")
+
+    @PostMapping("insertUpdate")
     @ApiOperation(value = "Inserta un nuevo socio", response = SocioDTO.class)
-    private ResponseDTO insertSocio(@Valid @RequestBody SocioDTO socioDTO){
-        return new FunesoftResponseDTO(
-                true,
-                socioController.insertSocio(socioDTO),
-                null,
-                null
-        );
+    private ResponseDTO insertSocio(@Valid @RequestBody SocioDTO socioDTO) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    socioController.insertSocio(socioDTO),
+                    null,
+                    null
+            );
+        } catch (Exception e) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    "Error al insertar el socio - DNI: " + socioDTO.getDni(),
+                    e
+            );
+        }
     }
 }

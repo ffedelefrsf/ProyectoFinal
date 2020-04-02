@@ -12,7 +12,6 @@ public class ResponseDTO implements Serializable {
 
     private boolean success;
     private Object data;
-    private int errorCode;
     private String message;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Buenos_Aires")
@@ -23,10 +22,9 @@ public class ResponseDTO implements Serializable {
     public ResponseDTO() {
     }
 
-    public ResponseDTO(boolean success, Object data, int errorCode, String message, Date date, List<String> errores) {
+    public ResponseDTO(boolean success, Object data, String message, Date date, List<String> errores) {
         this.success = success;
         this.data = data;
-        this.errorCode = errorCode;
         this.message = message;
         this.date = date;
         this.errores = errores;
@@ -56,14 +54,6 @@ public class ResponseDTO implements Serializable {
 
     public void setData(Object data) {
         this.data = data;
-    }
-
-    public int getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
     }
 
     public String getMessage() {

@@ -25,11 +25,12 @@ import javax.persistence.TemporalType;
  *
  * @author faust
  */
-@Entity
-@Table (name = "SOCIOS")
+
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table (name = "SOCIOS")
 public class Socio implements Serializable{
     
     @Id
@@ -130,7 +131,6 @@ public class Socio implements Serializable{
         this.email = socioDTO.getEmail();
         this.sexo = socioDTO.getSexo();
         this.fechaNacimiento = socioDTO.getFechaNacimiento();
-        this.fechaCobertura = socioDTO.getFechaCobertura();
         this.usuarioAlta = socioDTO.getUsuarioAlta();
         this.saldo = socioDTO.getSaldo();
         this.idTarifa = socioDTO.getIdTarifa();

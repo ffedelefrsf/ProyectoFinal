@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -23,7 +22,6 @@ import java.util.Date;
 public class SocioDTO {
     @NotNull
     @Max(99999999)
-    @Min(999999)
     private Integer dni;
     @NotNull
     private String apellido;

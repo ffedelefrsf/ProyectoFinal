@@ -23,21 +23,21 @@ public class SocioController {
     
     @Autowired
     private SocioRepository socioRepository;
-    
+
+    @Autowired
+    private CoberturaController coberturaController;
+
     public List<Socio> getAllSocios (){
         return socioRepository.findAll();
     }
-    
+
     public Socio insertSocio (SocioDTO socioDTO){
 
         //CALCULO LA COBERTURA
-        socioDTO.setFechaCobertura(calculoCobertura(socioDTO.getFechaNacimiento()));
+        socioDTO.setFechaCobertura(coberturaController.calculoCobertura(socioDTO.getFechaNacimiento()));
         Socio socio = new Socio(socioDTO);
         return socioRepository.save(socio);
 
     }
 
-    public Date calculoCobertura(Date fechaNacimiento){
-        return fechaNacimiento;
-    }
 }
