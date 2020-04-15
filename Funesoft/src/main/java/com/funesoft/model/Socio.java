@@ -105,7 +105,7 @@ public class Socio implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "SALDO")
-    private float saldo;
+    private Double saldo;
     
     @JoinColumn(name = "ID_TARIFA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
@@ -128,69 +128,6 @@ public class Socio implements Serializable {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Socio other = (Socio) obj;
-        if (this.dni != other.dni) {
-            return false;
-        }
-        if (this.usuarioAlta != other.usuarioAlta) {
-            return false;
-        }
-        if (Float.floatToIntBits(this.saldo) != Float.floatToIntBits(other.saldo)) {
-            return false;
-        }
-        if (!Objects.equals(this.apellido, other.apellido)) {
-            return false;
-        }
-        if (!Objects.equals(this.nombre, other.nombre)) {
-            return false;
-        }
-        if (!Objects.equals(this.direccion, other.direccion)) {
-            return false;
-        }
-        if (!Objects.equals(this.telefono, other.telefono)) {
-            return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.sexo, other.sexo)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaNacimiento, other.fechaNacimiento)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaCobertura, other.fechaCobertura)) {
-            return false;
-        }
-        if (!Objects.equals(this.tarifa, other.tarifa)) {
-            return false;
-        }
-        if (!Objects.equals(this.zona, other.zona)) {
-            return false;
-        }
-        if (!Objects.equals(this.localidad, other.localidad)) {
-            return false;
-        }
-        if (!Objects.equals(this.obraSocial, other.obraSocial)) {
-            return false;
-        }
-        return true;
     }
 
     @Override
