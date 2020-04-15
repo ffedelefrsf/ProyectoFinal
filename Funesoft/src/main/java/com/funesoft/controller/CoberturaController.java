@@ -9,7 +9,7 @@ public class CoberturaController {
 
     public Date calculoCobertura(Date fechaNacimiento){
         //FALTA DESARROLLAR ESTA FUNCIÓN
-        //CALCULA LA FECHA DE COBERTURA BASANDOSE EN LA FECHA DE NACIMIENTO.
+        //CALCULA LA FECHA DE COBERTURA BASANDOSE EN LA FECHA DE NACIMIENTO y veremos sino pedimos alguna otra cosa.
         return fechaNacimiento;
     }
 

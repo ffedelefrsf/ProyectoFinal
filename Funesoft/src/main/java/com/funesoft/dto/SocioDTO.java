@@ -5,7 +5,6 @@ import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Max;
@@ -20,6 +19,8 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class SocioDTO {
+
+    private Integer idSocio;
     @NotNull
     @Max(99999999)
     private Integer dni;
@@ -54,7 +55,8 @@ public class SocioDTO {
     @NotNull
     private Integer idObraSocial;
 
-    public SocioDTO(@Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
+    public SocioDTO(Integer id, @Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
+        this.idSocio = id;
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;

@@ -9,6 +9,8 @@ import com.funesoft.controller.SocioController;
 import com.funesoft.dto.FunesoftResponseDTO;
 import com.funesoft.dto.ResponseDTO;
 import com.funesoft.dto.SocioDTO;
+import com.funesoft.model.Zona;
+import com.funesoft.utilities.BusinessException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,7 @@ public class SocioREST {
     }
 
     @PostMapping("insertUpdate")
-    @ApiOperation(value = "Inserta un nuevo socio", response = SocioDTO.class)
+    @ApiOperation(value = "Inserta o actualiza un socio", response = SocioDTO.class)
     private ResponseDTO insertSocio(@Valid @RequestBody SocioDTO socioDTO) {
         try {
             return new FunesoftResponseDTO(
@@ -70,4 +72,32 @@ public class SocioREST {
             );
         }
     }
+
+//    @PostMapping("delete")
+//    @ApiOperation(value = "Cambia el estado del socio", response = Zona.class)
+//    private ResponseDTO deleteSocio(@Valid @RequestBody Zona zona) {
+//        try {
+//            return new FunesoftResponseDTO(
+//                    true,
+//                    zonaController.deleteZona(zona),
+//                    null,
+//                    null
+//            );
+//        } catch (BusinessException be) {
+//            return new FunesoftResponseDTO(
+//                    false,
+//                    null,
+//                    be.getMessage(),
+//                    be
+//            );
+//        } catch (Exception e) {
+//            return new FunesoftResponseDTO(
+//                    false,
+//                    null,
+//                    "Error al eliminar la zona",
+//                    e
+//            );
+//        }
+//    }
+
 }

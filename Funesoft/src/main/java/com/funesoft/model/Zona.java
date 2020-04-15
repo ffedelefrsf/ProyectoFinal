@@ -1,5 +1,6 @@
 package com.funesoft.model;
 
+import com.funesoft.dto.ZonaDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,5 +30,11 @@ public class Zona {
         this.idZona = idZona;
         this.nroZona = nroZona;
         this.nombre = nombre;
+    }
+
+    public Zona(ZonaDTO zonaDTO) {
+        this.idZona = zonaDTO.getIdZona();
+        this.nroZona = zonaDTO.getNroZona();
+        this.nombre = zonaDTO.getNombre();
     }
 }

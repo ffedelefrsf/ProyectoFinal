@@ -11,6 +11,8 @@ import com.funesoft.repository.SocioRepository;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -31,10 +33,12 @@ public class SocioController {
         return socioRepository.findAll();
     }
 
-    public Socio insertSocio (SocioDTO socioDTO){
+    public Socio insertSocio (@NotNull SocioDTO socioDTO){
 
         //CALCULO LA COBERTURA
-        socioDTO.setFechaCobertura(coberturaController.calculoCobertura(socioDTO.getFechaNacimiento()));
+        if(socioDTO.getIdSocio() != null){
+            socioDTO.setFechaCobertura(coberturaController.calculoCobertura(socioDTO.getFechaNacimiento()));
+        }
         Socio socio = new Socio(socioDTO);
         return socioRepository.save(socio);
 

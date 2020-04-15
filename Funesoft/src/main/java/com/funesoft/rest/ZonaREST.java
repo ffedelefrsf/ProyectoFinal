@@ -5,6 +5,7 @@ import com.funesoft.controller.ZonaController;
 import com.funesoft.dto.FunesoftResponseDTO;
 import com.funesoft.dto.ResponseDTO;
 import com.funesoft.dto.SocioDTO;
+import com.funesoft.dto.ZonaDTO;
 import com.funesoft.model.Zona;
 import com.funesoft.utilities.BusinessException;
 import io.swagger.annotations.Api;
@@ -22,13 +23,13 @@ public class ZonaREST {
     @Autowired
     private ZonaController zonaController;
 
-    @GetMapping("getAll")
-    @ApiOperation(value = "Obtiene un listado de todas las zonas")
-    public ResponseDTO getAll() {
+    @PostMapping("get")
+    @ApiOperation(value = "Obtiene un listado de zonas")
+    public ResponseDTO get(@RequestBody ZonaDTO zonaDTO) {
         try {
             return new FunesoftResponseDTO(
                     true,
-                    zonaController.getAllZonas(),
+                    zonaController.getZonas(zonaDTO),
                     null,
                     null
             );
@@ -76,7 +77,7 @@ public class ZonaREST {
             return new FunesoftResponseDTO(
                     false,
                     null,
-                    "Error al eliminar la zona",
+                    be.getMessage(),
                     be
             );
         } catch (Exception e) {
