@@ -38,10 +38,10 @@ public class ZonaController {
     }
 
     public Integer deleteZona(@NotNull Zona zona) throws Exception {
-        Optional<Zona> zonaDelete = zonaRepository.findById(zona.getIdZona());
+        Optional<Zona> zonaDelete = zonaRepository.findById(zona.getId());
         if(zonaDelete.isPresent()){
             zonaRepository.delete(zonaDelete.get());
-            return zona.getIdZona();
+            return zona.getId();
         }else{
             throw new BusinessException("La zona especificada no existe");
         }

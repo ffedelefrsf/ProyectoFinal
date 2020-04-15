@@ -5,7 +5,6 @@
  */
 package com.funesoft.model;
 
-import com.funesoft.dto.SocioDTO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -16,7 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,8 +33,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "SOCIOS")
-public class Socio implements Serializable {
+@Table(name = "COBRADORES")
+public class Cobrador implements Serializable {
+    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,7 +81,7 @@ public class Socio implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 10)
     @Column(name = "SEXO")
     private String sexo;
     
@@ -93,36 +93,19 @@ public class Socio implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "FECHA_COBERTURA")
+    @Column(name = "FECHA_ALTA")
     @Temporal(TemporalType.DATE)
-    private Date fechaCobertura;
+    private Date fechaAlta;
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "USUARIO_ALTA")
-    private int usuarioAlta;
+    @Column(name = "FECHA_BAJA")
+    @Temporal(TemporalType.DATE)
+    private Date fechaBaja;
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "SALDO")
-    private float saldo;
-    
-    @JoinColumn(name = "ID_TARIFA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Tarifa tarifa;
-    
-    @JoinColumn(name = "ID_ZONA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Zona zona;
-    
-    @JoinColumn(name = "ID_LOCALIDAD", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "ID", referencedColumnName = "ID")
+    @OneToOne(optional = false)
     private Localidad localidad;
-    
-    @JoinColumn(name = "ID_OBRA_SOCIAL", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private ObraSocial obraSocial;
 
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -141,14 +124,8 @@ public class Socio implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Socio other = (Socio) obj;
+        final Cobrador other = (Cobrador) obj;
         if (this.dni != other.dni) {
-            return false;
-        }
-        if (this.usuarioAlta != other.usuarioAlta) {
-            return false;
-        }
-        if (Float.floatToIntBits(this.saldo) != Float.floatToIntBits(other.saldo)) {
             return false;
         }
         if (!Objects.equals(this.apellido, other.apellido)) {
@@ -175,19 +152,13 @@ public class Socio implements Serializable {
         if (!Objects.equals(this.fechaNacimiento, other.fechaNacimiento)) {
             return false;
         }
-        if (!Objects.equals(this.fechaCobertura, other.fechaCobertura)) {
+        if (!Objects.equals(this.fechaAlta, other.fechaAlta)) {
             return false;
         }
-        if (!Objects.equals(this.tarifa, other.tarifa)) {
-            return false;
-        }
-        if (!Objects.equals(this.zona, other.zona)) {
+        if (!Objects.equals(this.fechaBaja, other.fechaBaja)) {
             return false;
         }
         if (!Objects.equals(this.localidad, other.localidad)) {
-            return false;
-        }
-        if (!Objects.equals(this.obraSocial, other.obraSocial)) {
             return false;
         }
         return true;
@@ -195,32 +166,7 @@ public class Socio implements Serializable {
 
     @Override
     public String toString() {
-        return "Socio{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", usuarioAlta=" + usuarioAlta + ", saldo=" + saldo + ", idTarifa=" + tarifa + ", idZona=" + zona + ", idLocalidad=" + localidad + ", idObraSocial=" + obraSocial + '}';
+        return "Cobradores{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + ", localidad=" + localidad.toString() + '}';
     }
-    
-    public Socio(SocioDTO socioDTO){
-        this.dni = socioDTO.getDni();
-        this.apellido = socioDTO.getApellido();
-        this.nombre = socioDTO.getNombre();
-        this.direccion = socioDTO.getDireccion();
-        this.telefono = socioDTO.getTelefono();
-        this.email = socioDTO.getEmail();
-        this.sexo = socioDTO.getSexo();
-        this.fechaNacimiento = socioDTO.getFechaNacimiento();
-        this.usuarioAlta = socioDTO.getUsuarioAlta();
-        this.saldo = socioDTO.getSaldo();
-        final Tarifa tarifa = new Tarifa();
-        tarifa.setId(socioDTO.getIdTarifa());
-        this.tarifa = tarifa;
-        final Zona zona = new Zona();
-        zona.setId(socioDTO.getIdZona());
-        this.zona = zona;
-        final Localidad localidad = new Localidad();
-        localidad.setId(socioDTO.getIdLocalidad());
-        this.localidad = localidad;
-        final ObraSocial obraSocial = new ObraSocial();
-        obraSocial.setId(socioDTO.getIdObraSocial());
-        this.obraSocial = obraSocial;
-    }
-    
+
 }
