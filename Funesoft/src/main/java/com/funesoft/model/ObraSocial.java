@@ -6,6 +6,7 @@
 package com.funesoft.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -28,8 +31,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "ZONAS")
-public class Zona implements Serializable {
+@Table(name = "OBRAS_SOCIALES")
+public class ObraSocial implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,16 +40,26 @@ public class Zona implements Serializable {
     @Column(name = "ID")
     private Integer id;
     
-    @Column(name = "NRO_ZONA")
-    private Integer nroZona;
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "NOMBRE")
-    private String nombre;
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
     
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FECHA_ALTA")
+    @Temporal(TemporalType.DATE)
+    private Date fechaAlta;
     
+    @Column(name = "FECHA_BAJA")
+    @Temporal(TemporalType.DATE)
+    private Date fechaBaja;
+    
+    @Column(name = "USUARIO_ALTA")
+    private Integer usuarioAlta;
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -65,14 +78,20 @@ public class Zona implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Zona other = (Zona) obj;
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        final ObraSocial other = (ObraSocial) obj;
+        if (!Objects.equals(this.descripcion, other.descripcion)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.nroZona, other.nroZona)) {
+        if (!Objects.equals(this.fechaAlta, other.fechaAlta)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaBaja, other.fechaBaja)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioAlta, other.usuarioAlta)) {
             return false;
         }
         return true;
@@ -80,7 +99,7 @@ public class Zona implements Serializable {
 
     @Override
     public String toString() {
-        return "Zona{" + "id=" + id + ", nroZona=" + nroZona + ", nombre=" + nombre + '}';
+        return "ObrasSociales{" + "id=" + id + ", descripcion=" + descripcion + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + ", usuarioAlta=" + usuarioAlta + '}';
     }
-
+    
 }

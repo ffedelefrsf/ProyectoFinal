@@ -6,6 +6,7 @@
 package com.funesoft.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,7 +14,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -28,8 +33,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "ZONAS")
-public class Zona implements Serializable {
+@Table(name = "HISTORIAL_ESTADO_ADHERENTES")
+public class HistorialEstadoAdherente implements Serializable {
+    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,16 +43,25 @@ public class Zona implements Serializable {
     @Column(name = "ID")
     private Integer id;
     
-    @Column(name = "NRO_ZONA")
-    private Integer nroZona;
-    
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "NOMBRE")
-    private String nombre;
+    @Column(name = "FECHA_ALTA")
+    @Temporal(TemporalType.DATE)
+    private Date fechaAlta;
     
+    @Size(max = 50)
+    @Column(name = "MOTIVO_BAJA")
+    private String motivoBaja;
     
+    @JoinColumn(name = "ID_ADHERENTE", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Adherente adherente;
+    
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Estado estado;
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -65,14 +80,20 @@ public class Zona implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Zona other = (Zona) obj;
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        final HistorialEstadoAdherente other = (HistorialEstadoAdherente) obj;
+        if (!Objects.equals(this.motivoBaja, other.motivoBaja)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.nroZona, other.nroZona)) {
+        if (!Objects.equals(this.fechaAlta, other.fechaAlta)) {
+            return false;
+        }
+        if (!Objects.equals(this.adherente, other.adherente)) {
+            return false;
+        }
+        if (!Objects.equals(this.estado, other.estado)) {
             return false;
         }
         return true;
@@ -80,7 +101,7 @@ public class Zona implements Serializable {
 
     @Override
     public String toString() {
-        return "Zona{" + "id=" + id + ", nroZona=" + nroZona + ", nombre=" + nombre + '}';
+        return "HistorialEstadoAdherentes{" + "id=" + id + ", fechaAlta=" + fechaAlta + ", motivoBaja=" + motivoBaja + ", adherente=" + adherente.toString() + ", estado=" + estado.toString() + '}';
     }
-
+    
 }

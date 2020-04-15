@@ -2,6 +2,22 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.funesoft.model.Cobrador</class>
+    <class>com.funesoft.model.Estado</class>
+    <class>com.funesoft.model.Adherente</class>
+    <class>com.funesoft.model.HistorialEstadoSocio</class>
+    <class>com.funesoft.model.ObraSocial</class>
+    <class>com.funesoft.model.HistorialEstadoAdherente</class>
+    <class>com.funesoft.model.Pago</class>
+    <class>com.funesoft.model.ZonaCobrador</class>
+    <class>com.funesoft.model.Localidad</class>
+    <class>com.funesoft.model.ParametroEmpresa</class>
+    <class>com.funesoft.model.Comprobante</class>
+    <class>com.funesoft.model.Tarifa</class>
+    <class>com.funesoft.model.Plan</class>
+    <class>com.funesoft.model.RangoTarifa</class>
+    <class>com.funesoft.model.Zona</class>
+    <class>com.funesoft.model.Socio</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10328339?zeroDateTimeBehavior=convertToNull&amp;serverTimezone=UTC"/>

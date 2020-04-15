@@ -20,41 +20,56 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class SocioDTO {
+    
     @NotNull
     @Max(99999999)
     private Integer dni;
+    
     @NotNull
     private String apellido;
+    
     @NotNull
     private String nombre;
+    
     @NotNull
     private String direccion;
+    
     @NotNull
     @Size(min = 5, max = 10)
     private String telefono;
+    
     private String email;
+    
     @NotNull
     private String sexo;
+    
     @NotNull
     @DateTimeFormat(pattern="dd-MM-yyyy")
     private Date fechaNacimiento;
+    
     @DateTimeFormat(pattern="dd-MM-yyyy")
     @JsonIgnore
     private Date fechaCobertura;
+    
     @NotNull
     private Integer usuarioAlta;
+    
     @NotNull
-    private Double saldo;
+    private Float saldo;
+    
     @NotNull
     private Integer idTarifa;
+    
     @NotNull
     private Integer idZona;
+    
     @NotNull
     private Integer idLocalidad;
+    
     @NotNull
     private Integer idObraSocial;
 
-    public SocioDTO(@Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
+    public SocioDTO(@Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Float saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;

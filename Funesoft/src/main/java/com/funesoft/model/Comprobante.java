@@ -6,6 +6,7 @@
 package com.funesoft.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,9 +14,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,8 +32,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "ZONAS")
-public class Zona implements Serializable {
+@Table(name = "COMPROBANTES")
+public class Comprobante implements Serializable {
+    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,16 +42,22 @@ public class Zona implements Serializable {
     @Column(name = "ID")
     private Integer id;
     
-    @Column(name = "NRO_ZONA")
-    private Integer nroZona;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "NRO_COMPROBANTE")
+    private int nroComprobante;
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "NOMBRE")
-    private String nombre;
+    @Column(name = "FECHA_ALTA")
+    @Temporal(TemporalType.DATE)
+    private Date fechaAlta;
     
+    @JoinColumn(name = "ID_PARAMETRO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private ParametroEmpresa parametroEmpresa;
     
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -65,14 +76,17 @@ public class Zona implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Zona other = (Zona) obj;
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        final Comprobante other = (Comprobante) obj;
+        if (this.nroComprobante != other.nroComprobante) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.nroZona, other.nroZona)) {
+        if (!Objects.equals(this.fechaAlta, other.fechaAlta)) {
+            return false;
+        }
+        if (!Objects.equals(this.parametroEmpresa, other.parametroEmpresa)) {
             return false;
         }
         return true;
@@ -80,7 +94,7 @@ public class Zona implements Serializable {
 
     @Override
     public String toString() {
-        return "Zona{" + "id=" + id + ", nroZona=" + nroZona + ", nombre=" + nombre + '}';
+        return "Comprobantes{" + "id=" + id + ", nroComprobante=" + nroComprobante + ", fechaAlta=" + fechaAlta + ", parametro=" + parametroEmpresa.toString() + '}';
     }
-
+    
 }

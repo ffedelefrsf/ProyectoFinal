@@ -28,8 +28,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "ZONAS")
-public class Zona implements Serializable {
+@Table(name = "PLANES")
+public class Plan implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,16 +37,16 @@ public class Zona implements Serializable {
     @Column(name = "ID")
     private Integer id;
     
-    @Column(name = "NRO_ZONA")
-    private Integer nroZona;
+    @Column(name = "NRO_PLAN")
+    private Integer nroPlan;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "NOMBRE")
-    private String nombre;
-    
-    
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
+
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -65,14 +65,14 @@ public class Zona implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Zona other = (Zona) obj;
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        final Plan other = (Plan) obj;
+        if (!Objects.equals(this.descripcion, other.descripcion)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.nroZona, other.nroZona)) {
+        if (!Objects.equals(this.nroPlan, other.nroPlan)) {
             return false;
         }
         return true;
@@ -80,7 +80,7 @@ public class Zona implements Serializable {
 
     @Override
     public String toString() {
-        return "Zona{" + "id=" + id + ", nroZona=" + nroZona + ", nombre=" + nombre + '}';
+        return "Planes{" + "id=" + id + ", nroPlan=" + nroPlan + ", descripcion=" + descripcion + '}';
     }
-
+    
 }

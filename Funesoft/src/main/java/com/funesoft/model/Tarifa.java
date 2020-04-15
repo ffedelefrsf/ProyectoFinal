@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,8 +30,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "ZONAS")
-public class Zona implements Serializable {
+@Table(name = "TARIFAS")
+public class Tarifa implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,16 +39,25 @@ public class Zona implements Serializable {
     @Column(name = "ID")
     private Integer id;
     
-    @Column(name = "NRO_ZONA")
-    private Integer nroZona;
+    @Column(name = "NRO_TARIFA")
+    private Integer nroTarifa;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "NOMBRE")
-    private String nombre;
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
     
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "VALOR")
+    private float valor;
     
+    @JoinColumn(name = "ID_PLAN", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Plan plan;
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -65,14 +76,20 @@ public class Zona implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Zona other = (Zona) obj;
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        final Tarifa other = (Tarifa) obj;
+        if (Float.floatToIntBits(this.valor) != Float.floatToIntBits(other.valor)) {
+            return false;
+        }
+        if (!Objects.equals(this.descripcion, other.descripcion)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.nroZona, other.nroZona)) {
+        if (!Objects.equals(this.nroTarifa, other.nroTarifa)) {
+            return false;
+        }
+        if (!Objects.equals(this.plan, other.plan)) {
             return false;
         }
         return true;
@@ -80,7 +97,7 @@ public class Zona implements Serializable {
 
     @Override
     public String toString() {
-        return "Zona{" + "id=" + id + ", nroZona=" + nroZona + ", nombre=" + nombre + '}';
+        return "Tarifas{" + "id=" + id + ", nroTarifa=" + nroTarifa + ", descripcion=" + descripcion + ", valor=" + valor + ", idPlan=" + plan.toString() + '}';
     }
-
+    
 }

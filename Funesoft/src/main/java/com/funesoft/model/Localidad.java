@@ -8,11 +8,13 @@ package com.funesoft.model;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,17 +30,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "ZONAS")
-public class Zona implements Serializable {
-    
+@Table(name = "LOCALIDADES")
+public class Localidad implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
     
-    @Column(name = "NRO_ZONA")
-    private Integer nroZona;
+    @Column(name = "NRO_LOCALIDAD")
+    private Integer nroLocalidad;
     
     @Basic(optional = false)
     @NotNull
@@ -46,7 +48,7 @@ public class Zona implements Serializable {
     @Column(name = "NOMBRE")
     private String nombre;
     
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -65,14 +67,14 @@ public class Zona implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Zona other = (Zona) obj;
+        final Localidad other = (Localidad) obj;
         if (!Objects.equals(this.nombre, other.nombre)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.nroZona, other.nroZona)) {
+        if (!Objects.equals(this.nroLocalidad, other.nroLocalidad)) {
             return false;
         }
         return true;
@@ -80,7 +82,7 @@ public class Zona implements Serializable {
 
     @Override
     public String toString() {
-        return "Zona{" + "id=" + id + ", nroZona=" + nroZona + ", nombre=" + nombre + '}';
+        return "Localidades{" + "id=" + id + ", nroLocalidad=" + nroLocalidad + ", nombre=" + nombre + '}';
     }
-
+    
 }
