@@ -8,11 +8,9 @@ package com.funesoft.controller;
 import com.funesoft.dto.SocioDTO;
 import com.funesoft.model.Socio;
 import com.funesoft.repository.SocioRepository;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.Date;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

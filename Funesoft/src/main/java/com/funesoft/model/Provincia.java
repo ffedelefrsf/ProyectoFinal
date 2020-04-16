@@ -5,7 +5,7 @@
  */
 package com.funesoft.model;
 
-import com.funesoft.dto.TarifaDTO;
+import com.funesoft.dto.ProvinciaDTO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,8 +29,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "TARIFAS")
-public class Tarifa implements Serializable {
+@Table(name = "PROVINCIAS")
+public class Provincia implements Serializable {
+
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,24 +39,11 @@ public class Tarifa implements Serializable {
     @Column(name = "ID")
     private Integer id;
     
-    @Column(name = "NRO_TARIFA")
-    private Integer nroTarifa;
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VALOR")
-    private Float valor;
-    
-    @JoinColumn(name = "ID_PLAN", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Plan plan;
-    
+    @Column(name = "NOMBRE")
+    private String nombre;
 
     @Override
     public int hashCode() {
@@ -77,20 +63,11 @@ public class Tarifa implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Tarifa other = (Tarifa) obj;
-        if (Float.floatToIntBits(this.valor) != Float.floatToIntBits(other.valor)) {
-            return false;
-        }
-        if (!Objects.equals(this.descripcion, other.descripcion)) {
+        final Provincia other = (Provincia) obj;
+        if (!Objects.equals(this.nombre, other.nombre)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.nroTarifa, other.nroTarifa)) {
-            return false;
-        }
-        if (!Objects.equals(this.plan, other.plan)) {
             return false;
         }
         return true;
@@ -98,15 +75,11 @@ public class Tarifa implements Serializable {
 
     @Override
     public String toString() {
-        return "Tarifas{" + "id=" + id + ", nroTarifa=" + nroTarifa + ", descripcion=" + descripcion + ", valor=" + valor + ", idPlan=" + plan.toString() + '}';
+        return "Provincia{" + "id=" + id + ", nombre=" + nombre + '}';
     }
     
-    public Tarifa(TarifaDTO tarifaDTO){
-        this.id = tarifaDTO.getId();
-        this.descripcion = tarifaDTO.getDescripcion();
-        this.nroTarifa = tarifaDTO.getNroTarifa();
-        this.valor = tarifaDTO.getValor();
-        this.plan = tarifaDTO.getPlan();
+    public Provincia (final ProvinciaDTO provinciaDTO){
+        this.id = provinciaDTO.getId();
+        this.nombre = provinciaDTO.getNombre();
     }
-    
 }

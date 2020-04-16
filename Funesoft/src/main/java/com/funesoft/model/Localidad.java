@@ -5,16 +5,17 @@
  */
 package com.funesoft.model;
 
+import com.funesoft.dto.LocalidadDTO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,9 +45,17 @@ public class Localidad implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 60)
     @Column(name = "NOMBRE")
     private String nombre;
+    
+    @Basic(optional = false)
+    @Column(name = "CODIGO_POSTAL")
+    private Integer codigoPostal;
+    
+    @JoinColumn(name = "ID_PROVINCIA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Provincia provincia;
     
 
     @Override
@@ -77,12 +86,24 @@ public class Localidad implements Serializable {
         if (!Objects.equals(this.nroLocalidad, other.nroLocalidad)) {
             return false;
         }
+        if (!Objects.equals(this.codigoPostal, other.codigoPostal)) {
+            return false;
+        }
+        if (!Objects.equals(this.provincia, other.provincia)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Localidades{" + "id=" + id + ", nroLocalidad=" + nroLocalidad + ", nombre=" + nombre + '}';
+        return "Localidad{" + "id=" + id + ", nroLocalidad=" + nroLocalidad + ", nombre=" + nombre + ", codigoPostal=" + codigoPostal + ", provincia=" + provincia + '}';
     }
     
+    public Localidad (final LocalidadDTO localidadDTO){
+        this.id = localidadDTO.getId();
+        this.nroLocalidad = localidadDTO.getNroLocalidad();
+        this.nombre = localidadDTO.getNombre();
+        this.provincia = localidadDTO.getProvincia();
+    }
 }

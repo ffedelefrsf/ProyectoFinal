@@ -1,19 +1,16 @@
 package com.funesoft.controller;
 
-import com.funesoft.dto.SocioDTO;
 import com.funesoft.dto.ZonaDTO;
-import com.funesoft.model.Socio;
 import com.funesoft.model.Zona;
 import com.funesoft.repository.ZonaRepository;
 import com.funesoft.utilities.BusinessException;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.constraints.NotNull;
 
 @Controller
 public class ZonaController {

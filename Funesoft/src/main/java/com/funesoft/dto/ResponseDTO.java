@@ -14,7 +14,7 @@ public class ResponseDTO implements Serializable {
     private Object data;
     private String message;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Buenos_Aires")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "America/Buenos_Aires")
     private Date date = new Date();
 
     private List<String> errores;
