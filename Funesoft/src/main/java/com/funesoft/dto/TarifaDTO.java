@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TarifaDTO {
+public class TarifaDTO extends RequestDTO{
     
     private Integer id;
     private Integer nroTarifa;

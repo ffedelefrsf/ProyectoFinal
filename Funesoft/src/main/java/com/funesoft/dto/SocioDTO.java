@@ -18,7 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SocioDTO {
+public class SocioDTO extends RequestDTO{
 
     private Integer idSocio;
     @NotNull

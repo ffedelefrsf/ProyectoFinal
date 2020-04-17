@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ZonaDTO {
+public class ZonaDTO extends RequestDTO{
 
     private Integer idZona;
     private Integer nroZona;

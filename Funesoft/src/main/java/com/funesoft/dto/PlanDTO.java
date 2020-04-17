@@ -5,7 +5,6 @@
  */
 package com.funesoft.dto;
 
-import com.funesoft.model.Provincia;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,11 +16,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LocalidadDTO extends RequestDTO{
+public class PlanDTO extends RequestDTO{
     
     private Integer id;
-    private Integer nroLocalidad;
-    private String nombre;
-    private Provincia provincia;
+    private Integer nroPlan;
+    private String descripcion;
     
 }

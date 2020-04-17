@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProvinciaDTO {
+public class ProvinciaDTO extends RequestDTO{
     
     private Integer id;
     private String nombre;

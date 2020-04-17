@@ -5,6 +5,7 @@
  */
 package com.funesoft.model;
 
+import com.funesoft.dto.PlanDTO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -81,6 +82,12 @@ public class Plan implements Serializable {
     @Override
     public String toString() {
         return "Planes{" + "id=" + id + ", nroPlan=" + nroPlan + ", descripcion=" + descripcion + '}';
+    }
+    
+    public Plan (PlanDTO planDTO){
+        this.id = planDTO.getId();
+        this.nroPlan = planDTO.getNroPlan();
+        this.descripcion = planDTO.getDescripcion();
     }
     
 }

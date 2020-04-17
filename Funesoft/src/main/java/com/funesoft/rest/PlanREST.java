@@ -5,11 +5,11 @@
  */
 package com.funesoft.rest;
 
-import com.funesoft.controller.TarifaController;
+import com.funesoft.controller.PlanController;
 import com.funesoft.dto.FunesoftResponseDTO;
-import com.funesoft.dto.TarifaDTO;
+import com.funesoft.dto.PlanDTO;
 import com.funesoft.dto.ResponseDTO;
-import com.funesoft.model.Tarifa;
+import com.funesoft.model.Plan;
 import com.funesoft.utilities.BusinessException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,18 +25,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author faust
  */
 @RestController
-@RequestMapping("tarifa")
-@Api(description = "Servicios de ABMC para tarifas.")
-public class TarifaREST {
+@RequestMapping("plan")
+@Api(description = "Servicios de ABMC para planes.")
+public class PlanREST {
     
     @Autowired
-    private TarifaController tarifaController;
+    private PlanController planController;
     
     @PostMapping(path = "getAll")
-    @ApiOperation(value = "Obtiene un listado de todas las taridas registradas en el sistema con los parámetros establecidos.")
-    public ResponseDTO getAll(@RequestBody TarifaDTO tarifaDTO){
+    @ApiOperation(value = "Obtiene un listado de todos los planes registrados en el sistema con los parámetros establecidos.")
+    public ResponseDTO getAll(@RequestBody PlanDTO planDTO){
         try{
-            return new FunesoftResponseDTO(true, tarifaController.getAllTarifas(tarifaDTO), null, null);
+            return new FunesoftResponseDTO(true, planController.getAllPlanes(planDTO), null, null);
         }catch (Exception exception){
             return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
         }
@@ -44,9 +44,9 @@ public class TarifaREST {
     
     @PostMapping(path = "insert")
     @ApiOperation(value = "Inserta una tarifa en el sistema.")
-    public ResponseDTO insert(@Valid @RequestBody Tarifa tarifa){
+    public ResponseDTO insert(@Valid @RequestBody Plan plan){
         try{
-            return new FunesoftResponseDTO(true, tarifaController.insertTarifa(tarifa), null, null);
+            return new FunesoftResponseDTO(true, planController.insertPlan(plan), null, null);
         }catch (BusinessException businessException){
             return new FunesoftResponseDTO(false, null, businessException.getMessage(), businessException);
         }
@@ -54,9 +54,9 @@ public class TarifaREST {
     
     @PostMapping(path = "update")
     @ApiOperation(value = "Actualiza una tarifa en el sistema.")
-    public ResponseDTO update(@Valid @RequestBody Tarifa tarifa){
+    public ResponseDTO update(@Valid @RequestBody Plan plan){
         try{
-            return new FunesoftResponseDTO(true, tarifaController.updateTarifa(tarifa), null, null);
+            return new FunesoftResponseDTO(true, planController.updatePlan(plan), null, null);
         }catch (BusinessException businessException){
             return new FunesoftResponseDTO(false, null, businessException.getMessage(), businessException);
         }
@@ -64,9 +64,9 @@ public class TarifaREST {
     
     @PostMapping(path = "delete")
     @ApiOperation(value = "Elimina una tarifa en el sistema.")
-    public ResponseDTO delete(@RequestBody TarifaDTO tarifaDTO){
+    public ResponseDTO delete(@RequestBody PlanDTO planDTO){
         try{
-            return new FunesoftResponseDTO(true, tarifaController.deleteTarifa(tarifaDTO.getId()), null, null);
+            return new FunesoftResponseDTO(true, planController.deletePlan(planDTO.getId()), null, null);
         }catch (BusinessException exception){
             return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
         }
