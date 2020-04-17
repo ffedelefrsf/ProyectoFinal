@@ -20,7 +20,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class SocioDTO {
 
-    private Integer idSocio;
     @NotNull
     @Max(99999999)
     private Integer dni;
@@ -39,9 +38,6 @@ public class SocioDTO {
     @NotNull
     @DateTimeFormat(pattern="dd-MM-yyyy")
     private Date fechaNacimiento;
-    @DateTimeFormat(pattern="dd-MM-yyyy")
-    @JsonIgnore
-    private Date fechaCobertura;
     @NotNull
     private Integer usuarioAlta;
     @NotNull
@@ -56,7 +52,6 @@ public class SocioDTO {
     private Integer idObraSocial;
 
     public SocioDTO(Integer id, @Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
-        this.idSocio = id;
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -65,7 +60,6 @@ public class SocioDTO {
         this.email = email;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
-        this.fechaCobertura = fechaCobertura;
         this.usuarioAlta = usuarioAlta;
         this.saldo = saldo;
         this.idTarifa = idTarifa;

@@ -25,11 +25,11 @@ public class ZonaREST {
 
     @PostMapping("get")
     @ApiOperation(value = "Obtiene un listado de zonas")
-    public ResponseDTO get(@RequestBody ZonaDTO zonaDTO) {
+    public ResponseDTO get(@RequestBody Zona zona) {
         try {
             return new FunesoftResponseDTO(
                     true,
-                    zonaController.getZonas(zonaDTO),
+                    zonaController.getZonas(zona),
                     null,
                     null
             );
@@ -43,7 +43,7 @@ public class ZonaREST {
         }
     }
 
-    @PostMapping("insertUpdate")
+    @PostMapping("insert")
     @ApiOperation(value = "Inserta una nueva zona", response = Zona.class)
     private ResponseDTO insertZona(@Valid @RequestBody Zona zona) {
         try {
@@ -63,13 +63,33 @@ public class ZonaREST {
         }
     }
 
-    @PostMapping("delete")
-    @ApiOperation(value = "Elimina una zona", response = Zona.class)
-    private ResponseDTO deleteZona(@Valid @RequestBody Zona zona) {
+    @PostMapping("update")
+    @ApiOperation(value = "Actualiza una zona", response = Zona.class)
+    private ResponseDTO updateZona(@Valid @RequestBody Zona zona) {
         try {
             return new FunesoftResponseDTO(
                     true,
-                    zonaController.deleteZona(zona),
+                    zonaController.updateZona(zona),
+                    null,
+                    null
+            );
+        } catch (Exception e) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    "Error al insertar la zona - Número: " + zona.getNroZona(),
+                    e
+            );
+        }
+    }
+
+    @PostMapping("delete")
+    @ApiOperation(value = "Elimina una zona", response = Zona.class)
+    private ResponseDTO deleteZona(@Valid @RequestBody ZonaDTO zonaDTO) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    zonaController.deleteZona(zonaDTO.getIdZona()),
                     null,
                     null
             );

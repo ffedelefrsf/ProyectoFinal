@@ -60,7 +60,14 @@ public class HistorialEstadoSocio implements Serializable {
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Estado estado;
-    
+
+    public HistorialEstadoSocio(Date fechaAlta, String motivoBaja, Socio socio, Estado estado) {
+        this.fechaAlta = fechaAlta;
+        this.motivoBaja = motivoBaja;
+        this.socio = socio;
+        this.estado = estado;
+    }
+
 
     @Override
     public int hashCode() {

@@ -94,10 +94,5 @@ public class Tarifa implements Serializable {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "Tarifas{" + "id=" + id + ", nroTarifa=" + nroTarifa + ", descripcion=" + descripcion + ", valor=" + valor + ", idPlan=" + plan.toString() + '}';
-    }
     
 }

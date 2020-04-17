@@ -46,7 +46,7 @@ public class Socio implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "DNI")
-    private int dni;
+    private Integer dni;
     
     @Basic(optional = false)
     @NotNull
@@ -100,7 +100,7 @@ public class Socio implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "USUARIO_ALTA")
-    private int usuarioAlta;
+    private Integer usuarioAlta;
     
     @Basic(optional = false)
     @NotNull
@@ -110,15 +110,15 @@ public class Socio implements Serializable {
     @JoinColumn(name = "ID_TARIFA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Tarifa tarifa;
-    
+
     @JoinColumn(name = "ID_ZONA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Zona zona;
-    
+
     @JoinColumn(name = "ID_LOCALIDAD", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Localidad localidad;
-    
+
     @JoinColumn(name = "ID_OBRA_SOCIAL", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ObraSocial obraSocial;
@@ -146,18 +146,26 @@ public class Socio implements Serializable {
         this.fechaNacimiento = socioDTO.getFechaNacimiento();
         this.usuarioAlta = socioDTO.getUsuarioAlta();
         this.saldo = socioDTO.getSaldo();
-        final Tarifa tarifa = new Tarifa();
-        tarifa.setId(socioDTO.getIdTarifa());
-        this.tarifa = tarifa;
-        final Zona zona = new Zona();
-        zona.setId(socioDTO.getIdZona());
-        this.zona = zona;
-        final Localidad localidad = new Localidad();
-        localidad.setId(socioDTO.getIdLocalidad());
-        this.localidad = localidad;
-        final ObraSocial obraSocial = new ObraSocial();
-        obraSocial.setId(socioDTO.getIdObraSocial());
-        this.obraSocial = obraSocial;
+        if(socioDTO.getIdTarifa() != null){
+            final Tarifa tarifa = new Tarifa();
+            tarifa.setId(socioDTO.getIdTarifa());
+            this.tarifa = tarifa;
+        }
+        if(socioDTO.getIdZona() != null){
+            final Zona zona = new Zona();
+            zona.setId(socioDTO.getIdZona());
+            this.zona = zona;
+        }
+        if(socioDTO.getIdLocalidad() != null){
+            final Localidad localidad = new Localidad();
+            localidad.setId(socioDTO.getIdLocalidad());
+            this.localidad = localidad;
+        }
+        if(socioDTO.getIdObraSocial() != null){
+            final ObraSocial obraSocial = new ObraSocial();
+            obraSocial.setId(socioDTO.getIdObraSocial());
+            this.obraSocial = obraSocial;
+        }
     }
     
 }
