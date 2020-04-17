@@ -74,11 +74,10 @@
                 </exclusions>
             </dependency>
 
-            <!-- Lombok -->
+            <!-- LOMBOK ANNOTATIONS CONTRUCTORs, GETTERs & SETTERs -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.10</version>
                 <scope>provided</scope>
             </dependency>
 

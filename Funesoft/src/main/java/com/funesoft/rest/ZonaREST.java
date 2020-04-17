@@ -1,10 +1,8 @@
 package com.funesoft.rest;
 
-import com.funesoft.controller.SocioController;
 import com.funesoft.controller.ZonaController;
 import com.funesoft.dto.FunesoftResponseDTO;
 import com.funesoft.dto.ResponseDTO;
-import com.funesoft.dto.SocioDTO;
 import com.funesoft.dto.ZonaDTO;
 import com.funesoft.model.Zona;
 import com.funesoft.utilities.BusinessException;

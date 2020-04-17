@@ -2,7 +2,6 @@ package com.funesoft.dto;
 
 import com.funesoft.utilities.ExcepcionParser;
 
-import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.List;
 

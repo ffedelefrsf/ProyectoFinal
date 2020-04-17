@@ -5,11 +5,10 @@
  */
 package com.funesoft.rest;
 
-import com.funesoft.controller.LocalidadController;
+import com.funesoft.controller.ProvinciaController;
 import com.funesoft.dto.FunesoftResponseDTO;
-import com.funesoft.dto.LocalidadDTO;
+import com.funesoft.dto.ProvinciaDTO;
 import com.funesoft.dto.ResponseDTO;
-import com.funesoft.utilities.BusinessException;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,18 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author faust
  */
 @RestController
-@RequestMapping("localidad")
-@Api(description = "Servicio para consultar las localidades.")
-public class LocalidadREST {
+@RequestMapping("provincia")
+@Api(description = "Servicio para consultar las provincias.")
+public class ProvinciaREST {
     
     @Autowired
-    private LocalidadController localidadController;
+    private ProvinciaController provinciaController;
     
     @PostMapping(path = "getAll")
-    public ResponseDTO getAll(@RequestBody LocalidadDTO localidadRequestDTO){
-        try {
-            return new FunesoftResponseDTO(true, localidadController.getAllLocalidades(localidadRequestDTO), null, null);
-        } catch (Exception exception) {
+    public ResponseDTO getAll(@RequestBody ProvinciaDTO provinciaRequestDTO){
+        try{
+            return new FunesoftResponseDTO(true, provinciaController.getAllProvincias(provinciaRequestDTO), null, null);
+        }catch (Exception exception){
             return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
         }
     }

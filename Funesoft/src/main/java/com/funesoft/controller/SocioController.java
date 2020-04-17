@@ -10,9 +10,9 @@ import com.funesoft.model.Socio;
 import com.funesoft.repository.SocioRepository;
 import java.util.List;
 import java.util.Optional;
-
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.EstadoEnum;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;

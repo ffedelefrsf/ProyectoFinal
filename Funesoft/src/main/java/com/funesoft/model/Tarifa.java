@@ -5,6 +5,7 @@
  */
 package com.funesoft.model;
 
+import com.funesoft.dto.TarifaDTO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -51,7 +52,7 @@ public class Tarifa implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "VALOR")
-    private float valor;
+    private Float valor;
     
     @JoinColumn(name = "ID_PLAN", referencedColumnName = "ID")
     @ManyToOne(optional = false)
@@ -93,6 +94,14 @@ public class Tarifa implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    public Tarifa(TarifaDTO tarifaDTO){
+        this.id = tarifaDTO.getId();
+        this.descripcion = tarifaDTO.getDescripcion();
+        this.nroTarifa = tarifaDTO.getNroTarifa();
+        this.valor = tarifaDTO.getValor();
+        this.plan = tarifaDTO.getPlan();
     }
     
 }
