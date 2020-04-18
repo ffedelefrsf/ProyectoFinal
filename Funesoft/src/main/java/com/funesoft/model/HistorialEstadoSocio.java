@@ -36,7 +36,6 @@ import lombok.Setter;
 @Table(name = "HISTORIAL_ESTADO_SOCIOS")
 public class HistorialEstadoSocio implements Serializable {
 
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -48,11 +47,7 @@ public class HistorialEstadoSocio implements Serializable {
     @Column(name = "FECHA_ALTA")
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
-    
-    @Size(max = 50)
-    @Column(name = "MOTIVO_BAJA")
-    private String motivoBaja;
-    
+
     @JoinColumn(name = "ID_SOCIO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Socio socio;
@@ -61,9 +56,8 @@ public class HistorialEstadoSocio implements Serializable {
     @ManyToOne(optional = false)
     private Estado estado;
 
-    public HistorialEstadoSocio(Date fechaAlta, String motivoBaja, Socio socio, Estado estado) {
+    public HistorialEstadoSocio(Date fechaAlta, Socio socio, Estado estado) {
         this.fechaAlta = fechaAlta;
-        this.motivoBaja = motivoBaja;
         this.socio = socio;
         this.estado = estado;
     }
@@ -88,9 +82,6 @@ public class HistorialEstadoSocio implements Serializable {
             return false;
         }
         final HistorialEstadoSocio other = (HistorialEstadoSocio) obj;
-        if (!Objects.equals(this.motivoBaja, other.motivoBaja)) {
-            return false;
-        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -108,7 +99,7 @@ public class HistorialEstadoSocio implements Serializable {
 
     @Override
     public String toString() {
-        return "HistorialEstadoSocios{" + "id=" + id + ", fechaAlta=" + fechaAlta + ", motivoBaja=" + motivoBaja + ", socio=" + socio.toString() + ", estado=" + estado.toString() + '}';
+        return "HistorialEstadoSocios{" + "id=" + id + ", fechaAlta=" + fechaAlta + ", socio=" + socio.toString() + ", estado=" + estado.toString() + '}';
     }
 
 }

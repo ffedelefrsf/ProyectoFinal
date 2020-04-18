@@ -18,14 +18,9 @@ public class ZonaController {
     @Autowired
     private ZonaRepository zonaRepository;
 
-    public List<Zona> getZonas (ZonaDTO zonaDTO) throws BusinessException {
+    public List<Zona> getZonas (Zona zona){
 
-        Zona zona = new Zona(zonaDTO);
         List<Zona> result = zonaRepository.findAll(Example.of(zona));
-
-        if(result.size() <= 0){
-            throw new BusinessException("No existen zonas con los parametros informados");
-        }
 
         return result;
     }
@@ -34,11 +29,20 @@ public class ZonaController {
         return zonaRepository.save(zona);
     }
 
-    public Integer deleteZona(@NotNull Zona zona) throws Exception {
+    public Zona updateZona (@NotNull Zona zona) throws BusinessException {
         Optional<Zona> zonaDelete = zonaRepository.findById(zona.getId());
         if(zonaDelete.isPresent()){
+            return zonaRepository.save(zona);
+        }else{
+            throw new BusinessException("La zona especificada no existe");
+        }
+    }
+
+    public Zona deleteZona(@NotNull Integer idZona) throws BusinessException {
+        Optional<Zona> zonaDelete = zonaRepository.findById(idZona);
+        if(zonaDelete.isPresent()){
             zonaRepository.delete(zonaDelete.get());
-            return zona.getId();
+            return zonaDelete.get();
         }else{
             throw new BusinessException("La zona especificada no existe");
         }

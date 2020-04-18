@@ -87,7 +87,7 @@ public class ZonaREST {
         try {
             return new FunesoftResponseDTO(
                     true,
-                    zonaController.deleteZona(zonaDTO.getIdZona()),
+                    zonaController.deleteZona(zonaDTO.getId()),
                     null,
                     null
             );

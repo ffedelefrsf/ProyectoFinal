@@ -6,10 +6,7 @@
 package com.funesoft.rest;
 
 import com.funesoft.controller.SocioController;
-import com.funesoft.dto.FunesoftResponseDTO;
-import com.funesoft.dto.ResponseDTO;
-import com.funesoft.dto.SocioDTO;
-import com.funesoft.dto.ZonaDTO;
+import com.funesoft.dto.*;
 import com.funesoft.model.Socio;
 import com.funesoft.model.Zona;
 import com.funesoft.utilities.BusinessException;
@@ -97,11 +94,38 @@ public class SocioREST {
 
     @PostMapping("delete")
     @ApiOperation(value = "Cambia el estado del socio a baja", response = Zona.class)
-    private ResponseDTO deleteSocio(@Valid @RequestBody Socio socio) {
+    private ResponseDTO deleteSocio(@Valid @RequestBody SocioBajaDTO socioBajaDTO) {
         try {
             return new FunesoftResponseDTO(
                     true,
-                    socioController.deleteSocio(idSocio, idMotivoBaja),
+                    socioController.deleteSocio(socioBajaDTO),
+                    null,
+                    null
+            );
+        } catch (BusinessException be) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    be.getMessage(),
+                    be
+            );
+        } catch (Exception e) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    "Error al eliminar la zona",
+                    e
+            );
+        }
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Cambia el estado del socio a baja", response = Zona.class)
+    private ResponseDTO getEstado(@Valid @RequestBody SocioBajaDTO socioBajaDTO) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    socioController.deleteSocio(socioBajaDTO),
                     null,
                     null
             );

@@ -2,6 +2,7 @@ package com.funesoft.controller;
 
 import com.funesoft.model.Estado;
 import com.funesoft.model.HistorialEstadoSocio;
+import com.funesoft.model.MotivoBaja;
 import com.funesoft.model.Socio;
 import com.funesoft.repository.EstadoRepository;
 import com.funesoft.repository.HistorialEstadoSocioRepository;
@@ -25,15 +26,16 @@ public class HistorialEstadoSocioController {
     @Autowired
     private MotivoBajaRepository motivoBajaRepository;
 
-    public HistorialEstadoSocio insertHistorial(Socio socio, EstadoEnum estadoEnum, Integer idMotivoBaja){
+    public HistorialEstadoSocio insertHistorial(Socio socio, EstadoEnum estadoEnum){
         return historialSocioRepository.save(
                 new HistorialEstadoSocio(
                     new Date(),
-                    (motivoBajaRepository.findById(idMotivoBaja)).get().getDescripcion(),
                     socio,
                     estadoRepository.findFirstByNroEstado(estadoEnum.getCodigo())
                 )
         );
     }
+
+    
 
 }

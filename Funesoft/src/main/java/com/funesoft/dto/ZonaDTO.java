@@ -9,12 +9,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ZonaDTO extends RequestDTO{
 
-    private Integer idZona;
+    private Integer id;
     private Integer nroZona;
     private String nombre;
 
     public ZonaDTO(Integer idZona, Integer nroZona, String nombre) {
-        this.idZona = idZona;
+        this.id = idZona;
         this.nroZona = nroZona;
         this.nombre = nombre;
     }

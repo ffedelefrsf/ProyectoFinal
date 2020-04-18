@@ -44,7 +44,7 @@ public class Zona implements Serializable {
     private String nombre;
 
     public Zona(ZonaDTO zonaDTO) {
-        this.id = zonaDTO.getIdZona();
+        this.id = zonaDTO.getId();
         this.nombre = zonaDTO.getNombre();
         this.nroZona = zonaDTO.getNroZona();
     }
