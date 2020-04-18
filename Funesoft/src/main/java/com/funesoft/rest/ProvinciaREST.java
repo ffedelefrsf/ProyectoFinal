@@ -29,7 +29,7 @@ public class ProvinciaREST {
     private ProvinciaController provinciaController;
     
     @PostMapping(path = "getAll")
-    public ResponseDTO getAll(@RequestBody ProvinciaDTO provinciaRequestDTO){
+    public FunesoftResponseDTO getAll(@RequestBody ProvinciaDTO provinciaRequestDTO){
         try{
             return new FunesoftResponseDTO(true, provinciaController.getAllProvincias(provinciaRequestDTO), null, null);
         }catch (Exception exception){

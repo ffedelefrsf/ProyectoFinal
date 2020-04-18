@@ -30,7 +30,7 @@ public class LocalidadREST {
     private LocalidadController localidadController;
     
     @PostMapping(path = "getAll")
-    public ResponseDTO getAll(@RequestBody LocalidadDTO localidadRequestDTO){
+    public FunesoftResponseDTO getAll(@RequestBody LocalidadDTO localidadRequestDTO){
         try {
             return new FunesoftResponseDTO(true, localidadController.getAllLocalidades(localidadRequestDTO), null, null);
         } catch (Exception exception) {

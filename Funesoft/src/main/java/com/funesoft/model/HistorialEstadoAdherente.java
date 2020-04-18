@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,10 +48,6 @@ public class HistorialEstadoAdherente implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
     
-    @Size(max = 50)
-    @Column(name = "MOTIVO_BAJA")
-    private String motivoBaja;
-    
     @JoinColumn(name = "ID_ADHERENTE", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Adherente adherente;
@@ -61,6 +56,21 @@ public class HistorialEstadoAdherente implements Serializable {
     @ManyToOne(optional = false)
     private Estado estado;
     
+    @JoinColumn(name = "ID_MOTIVO_BAJA", referencedColumnName = "ID")
+    @ManyToOne(optional = true)
+    private MotivoBaja motivoBaja;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
+
+    public HistorialEstadoAdherente(Date fechaAlta, MotivoBaja motivoBaja, Adherente adherente, Estado estado, Usuario usuarioModifica) {
+        this.fechaAlta = fechaAlta;
+        this.motivoBaja = motivoBaja;
+        this.adherente = adherente;
+        this.estado = estado;
+        this.usuarioModifica = usuarioModifica;
+    }
 
     @Override
     public int hashCode() {
@@ -81,9 +91,6 @@ public class HistorialEstadoAdherente implements Serializable {
             return false;
         }
         final HistorialEstadoAdherente other = (HistorialEstadoAdherente) obj;
-        if (!Objects.equals(this.motivoBaja, other.motivoBaja)) {
-            return false;
-        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -96,12 +103,18 @@ public class HistorialEstadoAdherente implements Serializable {
         if (!Objects.equals(this.estado, other.estado)) {
             return false;
         }
+        if (!Objects.equals(this.motivoBaja, other.motivoBaja)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "HistorialEstadoAdherentes{" + "id=" + id + ", fechaAlta=" + fechaAlta + ", motivoBaja=" + motivoBaja + ", adherente=" + adherente.toString() + ", estado=" + estado.toString() + '}';
+        return "HistorialEstadoAdherente{" + "id=" + id + ", fechaAlta=" + fechaAlta + ", adherente=" + adherente.toString() + ", estado=" + estado.toString() + ", motivoBaja=" + motivoBaja == null ? null : motivoBaja.toString() + ", usuario=" + usuarioModifica.toString() +  '}';
     }
     
 }

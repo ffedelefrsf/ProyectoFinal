@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -55,11 +54,22 @@ public class HistorialEstadoSocio implements Serializable {
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Estado estado;
+    
+    @JoinColumn(name = "ID_MOTIVO_BAJA", referencedColumnName = "ID")
+    @ManyToOne(optional = true)
+    private MotivoBaja motivoBaja;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
+    
 
-    public HistorialEstadoSocio(Date fechaAlta, Socio socio, Estado estado) {
+    public HistorialEstadoSocio(Date fechaAlta, Socio socio, Estado estado, MotivoBaja motivoBaja, Usuario usuarioModifica) {
         this.fechaAlta = fechaAlta;
         this.socio = socio;
         this.estado = estado;
+        this.motivoBaja = motivoBaja;
+        this.usuarioModifica = usuarioModifica;
     }
 
 
@@ -94,12 +104,18 @@ public class HistorialEstadoSocio implements Serializable {
         if (!Objects.equals(this.estado, other.estado)) {
             return false;
         }
+        if (!Objects.equals(this.motivoBaja, other.motivoBaja)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "HistorialEstadoSocios{" + "id=" + id + ", fechaAlta=" + fechaAlta + ", socio=" + socio.toString() + ", estado=" + estado.toString() + '}';
+        return "HistorialEstadoSocio{" + "id=" + id + ", fechaAlta=" + fechaAlta + ", socio=" + socio.toString() + ", estado=" + estado.toString() + ", motivoBaja=" + motivoBaja == null ? null : motivoBaja.toString() + ", usuario=" + usuarioModifica.toString() + '}';
     }
-
+    
 }

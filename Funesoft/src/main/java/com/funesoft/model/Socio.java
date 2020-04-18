@@ -99,11 +99,6 @@ public class Socio implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "USUARIO_ALTA")
-    private Integer usuarioAlta;
-    
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "SALDO")
     private Double saldo;
     
@@ -122,7 +117,12 @@ public class Socio implements Serializable {
     @JoinColumn(name = "ID_OBRA_SOCIAL", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private ObraSocial obraSocial;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -131,8 +131,71 @@ public class Socio implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Socio other = (Socio) obj;
+        if (!Objects.equals(this.apellido, other.apellido)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.direccion, other.direccion)) {
+            return false;
+        }
+        if (!Objects.equals(this.telefono, other.telefono)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.sexo, other.sexo)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.dni, other.dni)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaNacimiento, other.fechaNacimiento)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaCobertura, other.fechaCobertura)) {
+            return false;
+        }
+        if (!Objects.equals(this.saldo, other.saldo)) {
+            return false;
+        }
+        if (!Objects.equals(this.tarifa, other.tarifa)) {
+            return false;
+        }
+        if (!Objects.equals(this.zona, other.zona)) {
+            return false;
+        }
+        if (!Objects.equals(this.localidad, other.localidad)) {
+            return false;
+        }
+        if (!Objects.equals(this.obraSocial, other.obraSocial)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public String toString() {
-        return "Socio{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", usuarioAlta=" + usuarioAlta + ", saldo=" + saldo + ", idTarifa=" + tarifa + ", idZona=" + zona + ", idLocalidad=" + localidad + ", idObraSocial=" + obraSocial + '}';
+        return "Socio{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", saldo=" + saldo + ", tarifa=" + tarifa.toString() + ", zona=" + zona.toString() + ", localidad=" + localidad.toString() + ", obraSocial=" + obraSocial.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
     
     public Socio(SocioDTO socioDTO){
@@ -144,7 +207,7 @@ public class Socio implements Serializable {
         this.email = socioDTO.getEmail();
         this.sexo = socioDTO.getSexo();
         this.fechaNacimiento = socioDTO.getFechaNacimiento();
-        this.usuarioAlta = socioDTO.getUsuarioAlta();
+        this.usuarioModifica = socioDTO.getUsuarioModifica();
         this.saldo = socioDTO.getSaldo();
         if(socioDTO.getIdTarifa() != null){
             final Tarifa tarifa = new Tarifa();

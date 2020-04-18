@@ -23,7 +23,7 @@ public class ZonaREST {
 
     @PostMapping("get")
     @ApiOperation(value = "Obtiene un listado de zonas")
-    public ResponseDTO get(@RequestBody Zona zona) {
+    public FunesoftResponseDTO get(@RequestBody Zona zona) {
         try {
             return new FunesoftResponseDTO(
                     true,
@@ -43,7 +43,7 @@ public class ZonaREST {
 
     @PostMapping("insert")
     @ApiOperation(value = "Inserta una nueva zona", response = Zona.class)
-    private ResponseDTO insertZona(@Valid @RequestBody Zona zona) {
+    private FunesoftResponseDTO insertZona(@Valid @RequestBody Zona zona) {
         try {
             return new FunesoftResponseDTO(
                     true,
@@ -63,7 +63,7 @@ public class ZonaREST {
 
     @PostMapping("update")
     @ApiOperation(value = "Actualiza una zona", response = Zona.class)
-    private ResponseDTO updateZona(@Valid @RequestBody Zona zona) {
+    private FunesoftResponseDTO updateZona(@Valid @RequestBody Zona zona) {
         try {
             return new FunesoftResponseDTO(
                     true,
@@ -83,7 +83,7 @@ public class ZonaREST {
 
     @PostMapping("delete")
     @ApiOperation(value = "Elimina una zona", response = Zona.class)
-    private ResponseDTO deleteZona(@Valid @RequestBody ZonaDTO zonaDTO) {
+    private FunesoftResponseDTO deleteZona(@Valid @RequestBody ZonaDTO zonaDTO) {
         try {
             return new FunesoftResponseDTO(
                     true,

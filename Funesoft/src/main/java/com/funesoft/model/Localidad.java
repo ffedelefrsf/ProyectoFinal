@@ -57,6 +57,10 @@ public class Localidad implements Serializable {
     @ManyToOne(optional = false)
     private Provincia provincia;
     
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
+    
 
     @Override
     public int hashCode() {
@@ -92,12 +96,15 @@ public class Localidad implements Serializable {
         if (!Objects.equals(this.provincia, other.provincia)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Localidad{" + "id=" + id + ", nroLocalidad=" + nroLocalidad + ", nombre=" + nombre + ", codigoPostal=" + codigoPostal + ", provincia=" + provincia + '}';
+        return "Localidad{" + "id=" + id + ", nroLocalidad=" + nroLocalidad + ", nombre=" + nombre + ", codigoPostal=" + codigoPostal + ", provincia=" + provincia + ", usuario=" + usuarioModifica + '}';
     }
     
     public Localidad (final LocalidadDTO localidadDTO){
@@ -105,5 +112,6 @@ public class Localidad implements Serializable {
         this.nroLocalidad = localidadDTO.getNroLocalidad();
         this.nombre = localidadDTO.getNombre();
         this.provincia = localidadDTO.getProvincia();
+        this.usuarioModifica = localidadDTO.getUsuarioModifica();
     }
 }

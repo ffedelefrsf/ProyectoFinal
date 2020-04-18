@@ -56,7 +56,12 @@ public class RangoTarifa implements Serializable {
     @JoinColumn(name = "ID_TARIFA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Tarifa tarifa;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -91,12 +96,15 @@ public class RangoTarifa implements Serializable {
         if (!Objects.equals(this.tarifa, other.tarifa)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "RangosTarifas{" + "id=" + id + ", edadDesde=" + edadDesde + ", edadHasta=" + edadHasta + ", valor=" + valor + ", idTarifa=" + tarifa.toString() + '}';
+        return "RangoTarifa{" + "id=" + id + ", edadDesde=" + edadDesde + ", edadHasta=" + edadHasta + ", valor=" + valor + ", tarifa=" + tarifa.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
     
 }

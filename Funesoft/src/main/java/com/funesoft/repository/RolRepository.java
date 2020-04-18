@@ -5,17 +5,13 @@
  */
 package com.funesoft.repository;
 
-import com.funesoft.model.Estado;
+import com.funesoft.model.Rol;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author faust
  */
-@Repository
-public interface EstadoRepository extends JpaRepository<Estado, Integer>{
-
-    public Estado findByNroEstado(Integer nroEstado);
+public interface RolRepository extends JpaRepository<Rol, Integer>{
     
 }

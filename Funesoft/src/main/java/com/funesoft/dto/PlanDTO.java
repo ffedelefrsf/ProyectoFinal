@@ -5,6 +5,7 @@
  */
 package com.funesoft.dto;
 
+import com.funesoft.model.Usuario;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,10 +17,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PlanDTO extends RequestDTO{
+public class PlanDTO{
     
     private Integer id;
     private Integer nroPlan;
     private String descripcion;
+    private Usuario usuarioModifica;
     
 }

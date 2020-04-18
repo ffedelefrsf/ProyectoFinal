@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -104,6 +105,10 @@ public class Cobrador implements Serializable {
     @JoinColumn(name = "ID", referencedColumnName = "ID")
     @OneToOne(optional = false)
     private Localidad localidad;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
     
     @Override
@@ -161,12 +166,15 @@ public class Cobrador implements Serializable {
         if (!Objects.equals(this.localidad, other.localidad)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Cobradores{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + ", localidad=" + localidad.toString() + '}';
+        return "Cobrador{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + ", localidad=" + localidad.toString() + ", usuario=" + usuarioModifica.toString() + '}';
     }
-
+    
 }

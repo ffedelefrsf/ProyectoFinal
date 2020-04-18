@@ -9,12 +9,12 @@ import com.funesoft.dto.PlanDTO;
 import com.funesoft.model.Plan;
 import com.funesoft.repository.PlanRepository;
 import com.funesoft.utilities.BusinessException;
+import com.funesoft.utilities.CurrentUser;
 import java.util.List;
+import java.util.NoSuchElementException;
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -28,34 +28,13 @@ public class PlanController {
     private PlanRepository planRepository;
     
     public List<Plan> getAllPlanes(PlanDTO planDTO){
-        
-        final Plan plan = new Plan(planDTO);
-        
-        final List<Plan> planes;
-        final Integer pagina = planDTO.getPagina(), cantidad = planDTO.getCantidad();
-        final String sortField = planDTO.getSortField();
-        final Boolean sortWay = planDTO.getSortWay();
-        if (pagina != null && cantidad != null){
-            if (sortField != null && sortWay != null){
-                if (sortWay){
-                    planes = planRepository.findAll(Example.of(plan), PageRequest.of(pagina, cantidad, Sort.by(sortField).ascending())).getContent();
-                }else{
-                    planes = planRepository.findAll(Example.of(plan), PageRequest.of(pagina, cantidad, Sort.by(sortField).descending())).getContent();
-                }
-            }else{
-                planes = planRepository.findAll(Example.of(plan), PageRequest.of(pagina, cantidad)).getContent();
-            }
-        }else{
-            planes = planRepository.findAll(Example.of(plan));
-        }
-        
-        return planes;
-        
+        return planRepository.findAll(Example.of(new Plan(planDTO)));
     }
     
     public Plan insertPlan(@NotNull final Plan plan) throws BusinessException{
         if (!planRepository.findById(plan.getId()).isPresent()){
             try{
+                plan.setUsuarioModifica(CurrentUser.getInstance());
                 return planRepository.save(plan);
             }catch(Exception exception){
                 throw new BusinessException(exception.getMessage());
@@ -68,6 +47,7 @@ public class PlanController {
     public Plan updatePlan(@NotNull final Plan plan) throws BusinessException{
         if (planRepository.findById(plan.getId()).isPresent()){
             try{
+                plan.setUsuarioModifica(CurrentUser.getInstance());
                 return planRepository.save(plan);
             }catch(Exception exception){
                 throw new BusinessException(exception.getMessage());
@@ -77,15 +57,19 @@ public class PlanController {
         }
     }
     
-    public Integer deletePlan(@NotNull final Integer idPlan) throws BusinessException{
-        if (planRepository.findById(idPlan).isPresent()){
+    public Plan deletePlan(@NotNull final Integer idPlan) throws BusinessException{
+        final Plan plan;
+        try{
+            plan = planRepository.findById(idPlan).get();
             try{
+                plan.setUsuarioModifica(CurrentUser.getInstance());
+                planRepository.save(plan);
                 planRepository.deleteById(idPlan);
-                return idPlan;
+                return plan;
             }catch (Exception exception){
                 throw new BusinessException(exception.getMessage());
             }
-        }else{
+        }catch (NoSuchElementException nseex){
             throw new BusinessException("El plan especificado no existe.");
         }
     }

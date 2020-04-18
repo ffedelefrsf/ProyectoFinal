@@ -33,22 +33,22 @@ public class TarifaController {
         final Tarifa tarifa = new Tarifa(tarifaDTO);
         
         final List<Tarifa> tarifas;
-        final Integer pagina = tarifaDTO.getPagina(), cantidad = tarifaDTO.getCantidad();
-        final String sortField = tarifaDTO.getSortField();
-        final Boolean sortWay = tarifaDTO.getSortWay();
-        if (pagina != null && cantidad != null){
-            if (sortField != null && sortWay != null){
-                if (sortWay){
-                    tarifas = tarifaRepository.findAll(Example.of(tarifa), PageRequest.of(pagina, cantidad, Sort.by(sortField).ascending())).getContent();
-                }else{
-                    tarifas = tarifaRepository.findAll(Example.of(tarifa), PageRequest.of(pagina, cantidad, Sort.by(sortField).descending())).getContent();
-                }
-            }else{
-                tarifas = tarifaRepository.findAll(Example.of(tarifa), PageRequest.of(pagina, cantidad)).getContent();
-            }
-        }else{
+//        final Integer pagina = tarifaDTO.getPagina(), cantidad = tarifaDTO.getCantidad();
+//        final String sortField = tarifaDTO.getSortField();
+//        final Boolean sortWay = tarifaDTO.getSortWay();
+//        if (pagina != null && cantidad != null){
+//            if (sortField != null && sortWay != null){
+//                if (sortWay){
+//                    tarifas = tarifaRepository.findAll(Example.of(tarifa), PageRequest.of(pagina, cantidad, Sort.by(sortField).ascending())).getContent();
+//                }else{
+//                    tarifas = tarifaRepository.findAll(Example.of(tarifa), PageRequest.of(pagina, cantidad, Sort.by(sortField).descending())).getContent();
+//                }
+//            }else{
+//                tarifas = tarifaRepository.findAll(Example.of(tarifa), PageRequest.of(pagina, cantidad)).getContent();
+//            }
+//        }else{
             tarifas = tarifaRepository.findAll(Example.of(tarifa));
-        }
+//        }
         
         return tarifas;
     }

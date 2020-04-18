@@ -58,6 +58,10 @@ public class Tarifa implements Serializable {
     @ManyToOne(optional = false)
     private Plan plan;
     
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
+
 
     @Override
     public int hashCode() {
@@ -78,9 +82,6 @@ public class Tarifa implements Serializable {
             return false;
         }
         final Tarifa other = (Tarifa) obj;
-        if (Float.floatToIntBits(this.valor) != Float.floatToIntBits(other.valor)) {
-            return false;
-        }
         if (!Objects.equals(this.descripcion, other.descripcion)) {
             return false;
         }
@@ -90,10 +91,21 @@ public class Tarifa implements Serializable {
         if (!Objects.equals(this.nroTarifa, other.nroTarifa)) {
             return false;
         }
+        if (!Objects.equals(this.valor, other.valor)) {
+            return false;
+        }
         if (!Objects.equals(this.plan, other.plan)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Tarifa{" + "id=" + id + ", nroTarifa=" + nroTarifa + ", descripcion=" + descripcion + ", valor=" + valor + ", plan=" + plan.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
     
     public Tarifa(TarifaDTO tarifaDTO){
@@ -102,6 +114,7 @@ public class Tarifa implements Serializable {
         this.nroTarifa = tarifaDTO.getNroTarifa();
         this.valor = tarifaDTO.getValor();
         this.plan = tarifaDTO.getPlan();
+        this.usuarioModifica = tarifaDTO.getUsuarioModifica();
     }
     
 }

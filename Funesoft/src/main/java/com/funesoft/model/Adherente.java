@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -96,18 +97,14 @@ public class Adherente implements Serializable {
     @Column(name = "FECHA_COBERTURA")
     @Temporal(TemporalType.DATE)
     private Date fechaCobertura;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "USUARIO_ALTA")
-    private int usuarioAlta;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "SALDO")
     private float saldo;
     
-    @ManyToOne(optional = false)
     @JoinColumn(name = "ID_ZONA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
     private Zona zona;
     
     @JoinColumn(name = "ID_SOCIO", referencedColumnName = "ID")
@@ -122,6 +119,13 @@ public class Adherente implements Serializable {
     @ManyToOne(optional = false)
     private ObraSocial obraSocial;
     
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
+    @OneToOne(optional = false)
+    private Estado estado;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
     
     @Override
     public int hashCode() {
@@ -145,13 +149,7 @@ public class Adherente implements Serializable {
         if (this.dni != other.dni) {
             return false;
         }
-        if (this.usuarioAlta != other.usuarioAlta) {
-            return false;
-        }
         if (Float.floatToIntBits(this.saldo) != Float.floatToIntBits(other.saldo)) {
-            return false;
-        }
-        if (this.zona != other.zona) {
             return false;
         }
         if (!Objects.equals(this.apellido, other.apellido)) {
@@ -181,6 +179,9 @@ public class Adherente implements Serializable {
         if (!Objects.equals(this.fechaCobertura, other.fechaCobertura)) {
             return false;
         }
+        if (!Objects.equals(this.zona, other.zona)) {
+            return false;
+        }
         if (!Objects.equals(this.socio, other.socio)) {
             return false;
         }
@@ -190,12 +191,18 @@ public class Adherente implements Serializable {
         if (!Objects.equals(this.obraSocial, other.obraSocial)) {
             return false;
         }
+        if (!Objects.equals(this.estado, other.estado)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Adherentes{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", usuarioAlta=" + usuarioAlta + ", saldo=" + saldo + ", zona=" + zona.toString() + ", socio=" + socio.toString() + ", localidad=" + localidad.toString() + ", obraSocial=" + obraSocial.toString() + '}';
+        return "Adherente{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", saldo=" + saldo + ", zona=" + zona.toString() + ", socio=" + socio.toString() + ", localidad=" + localidad.toString() + ", obraSocial=" + obraSocial.toString() + ", estado=" + estado.toString() + ", usuario=" + usuarioModifica.toString() + '}';
     }
-
+    
 }

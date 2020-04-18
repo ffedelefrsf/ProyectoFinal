@@ -63,6 +63,10 @@ public class Pago implements Serializable {
     @JoinColumn(name = "ID_COMPROBANTE", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Comprobante comprobante;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
     
     @Override
@@ -102,12 +106,15 @@ public class Pago implements Serializable {
         if (!Objects.equals(this.comprobante, other.comprobante)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Pagos{" + "id=" + id + ", valor=" + valor + ", fechaAlta=" + fechaAlta + ", socio=" + socio.toString() + ", cobrador=" + cobrador.toString() + ", comprobante=" + comprobante.toString() + '}';
+        return "Pago{" + "id=" + id + ", valor=" + valor + ", fechaAlta=" + fechaAlta + ", socio=" + socio.toString() + ", cobrador=" + cobrador.toString() + ", comprobante=" + comprobante.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
-    
+
 }

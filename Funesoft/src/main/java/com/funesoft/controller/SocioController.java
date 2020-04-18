@@ -113,9 +113,9 @@ public class SocioController {
 
     }
 
-    public Estado getEstado (Socio socio){
-        return historialEstadoSocioController.findAll(Example.of(socio));
-    }
+//    public Estado getEstado (Socio socio){
+//        return historialEstadoSocioController.findAll(Example.of(socio));
+//    }
 
 
 }

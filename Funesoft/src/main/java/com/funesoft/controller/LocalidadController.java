@@ -27,28 +27,7 @@ public class LocalidadController {
     private LocalidadRepository localidadRepository;
     
     public List<Localidad> getAllLocalidades(final LocalidadDTO localidadDTO){
-        
-        final Localidad localidad = new Localidad(localidadDTO);
-        
-        final List<Localidad> localidades;
-        final Integer pagina = localidadDTO.getPagina(), cantidad = localidadDTO.getCantidad();
-        final String sortField = localidadDTO.getSortField();
-        final Boolean sortWay = localidadDTO.getSortWay();
-        if (pagina != null && cantidad != null){
-            if (sortField != null && sortWay != null){
-                if (sortWay){
-                    localidades = localidadRepository.findAll(Example.of(localidad), PageRequest.of(pagina, cantidad, Sort.by(sortField).ascending())).getContent();
-                }else{
-                    localidades = localidadRepository.findAll(Example.of(localidad), PageRequest.of(pagina, cantidad, Sort.by(sortField).descending())).getContent();
-                }
-            }else{
-                localidades = localidadRepository.findAll(Example.of(localidad), PageRequest.of(pagina, cantidad)).getContent();
-            }
-        }else{
-            localidades = localidadRepository.findAll(Example.of(localidad));
-        }
-        
-        return localidades;
+        return localidadRepository.findAll(Example.of(new Localidad(localidadDTO)));
     }
     
 }
