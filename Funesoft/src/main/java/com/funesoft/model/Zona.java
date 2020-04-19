@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.funesoft.dto.ZonaDTO;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,11 +44,16 @@ public class Zona implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "NOMBRE")
     private String nombre;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
     public Zona(ZonaDTO zonaDTO) {
         this.id = zonaDTO.getId();
         this.nombre = zonaDTO.getNombre();
         this.nroZona = zonaDTO.getNroZona();
+        this.usuarioModifica = zonaDTO.getUsuarioModifica();
     }
 
     @Override
@@ -77,12 +84,15 @@ public class Zona implements Serializable {
         if (!Objects.equals(this.nroZona, other.nroZona)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Zona{" + "id=" + id + ", nroZona=" + nroZona + ", nombre=" + nombre + '}';
+        return "Zona{" + "id=" + id + ", nroZona=" + nroZona + ", nombre=" + nombre + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
 
 }

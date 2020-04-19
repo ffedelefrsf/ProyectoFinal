@@ -57,6 +57,10 @@ public class Comprobante implements Serializable {
     @ManyToOne(optional = false)
     private ParametroEmpresa parametroEmpresa;
     
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
+    
 
     @Override
     public int hashCode() {
@@ -89,12 +93,15 @@ public class Comprobante implements Serializable {
         if (!Objects.equals(this.parametroEmpresa, other.parametroEmpresa)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Comprobantes{" + "id=" + id + ", nroComprobante=" + nroComprobante + ", fechaAlta=" + fechaAlta + ", parametro=" + parametroEmpresa.toString() + '}';
+        return "Comprobante{" + "id=" + id + ", nroComprobante=" + nroComprobante + ", fechaAlta=" + fechaAlta + ", parametroEmpresa=" + parametroEmpresa.toString() + ", usuario=" + usuarioModifica.toString() + '}';
     }
     
 }

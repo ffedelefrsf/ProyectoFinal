@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -56,9 +58,9 @@ public class ObraSocial implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaBaja;
     
-    @Column(name = "USUARIO_ALTA")
-    private Integer usuarioAlta;
-    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
     @Override
     public int hashCode() {
@@ -91,7 +93,7 @@ public class ObraSocial implements Serializable {
         if (!Objects.equals(this.fechaBaja, other.fechaBaja)) {
             return false;
         }
-        if (!Objects.equals(this.usuarioAlta, other.usuarioAlta)) {
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
             return false;
         }
         return true;
@@ -99,7 +101,7 @@ public class ObraSocial implements Serializable {
 
     @Override
     public String toString() {
-        return "ObrasSociales{" + "id=" + id + ", descripcion=" + descripcion + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + ", usuarioAlta=" + usuarioAlta + '}';
+        return "ObrasSociales{" + "id=" + id + ", descripcion=" + descripcion + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + ", usuario=" + usuarioModifica.toString() + '}';
     }
     
 }

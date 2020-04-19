@@ -5,8 +5,8 @@
  */
 package com.funesoft.dto;
 
-import com.funesoft.model.Plan;
-import com.funesoft.model.Usuario;
+import com.funesoft.model.MotivoBaja;
+import com.funesoft.model.Socio;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,13 +18,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TarifaDTO{
+public class RemoveAllBySocioDTO {
     
-    private Integer id;
-    private Integer nroTarifa;
-    private String descripcion;
-    private Float valor;
-    private Plan plan;
-    private Usuario usuarioModifica;
+    private Socio socio;
+    private MotivoBaja motivoBaja;
     
 }

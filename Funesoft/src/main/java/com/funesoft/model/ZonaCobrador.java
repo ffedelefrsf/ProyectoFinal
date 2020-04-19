@@ -45,6 +45,9 @@ public class ZonaCobrador implements Serializable {
     @ManyToOne
     private Cobrador cobrador;
 
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
     
     @Override
     public int hashCode() {
@@ -74,12 +77,15 @@ public class ZonaCobrador implements Serializable {
         if (!Objects.equals(this.cobrador, other.cobrador)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "ZonasCobradores{" + "id=" + id + ", idZona=" + zona.toString() + ", idCobrador=" + cobrador.toString() + '}';
+        return "ZonaCobrador{" + "id=" + id + ", zona=" + zona.toString() + ", cobrador=" + cobrador.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
-    
+
 }

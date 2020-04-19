@@ -92,7 +92,11 @@ public class ParametroEmpresa implements Serializable {
     
     @JoinColumn(name = "ID_LOCALIDAD", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Localidad idLocalidad;
+    private Localidad localidad;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
     
     @Override
@@ -141,7 +145,10 @@ public class ParametroEmpresa implements Serializable {
         if (!Objects.equals(this.inicioActividades, other.inicioActividades)) {
             return false;
         }
-        if (!Objects.equals(this.idLocalidad, other.idLocalidad)) {
+        if (!Objects.equals(this.localidad, other.localidad)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
             return false;
         }
         return true;
@@ -149,7 +156,7 @@ public class ParametroEmpresa implements Serializable {
 
     @Override
     public String toString() {
-        return "ParametrosEmpresa{" + "id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", cuit=" + cuit + ", inicioActividades=" + inicioActividades + ", condicionIva=" + condicionIva + ", condicionIibb=" + condicionIibb + ", telefono=" + telefono + ", email=" + email + ", idLocalidad=" + idLocalidad + '}';
+        return "ParametroEmpresa{" + "id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", cuit=" + cuit + ", inicioActividades=" + inicioActividades + ", condicionIva=" + condicionIva + ", condicionIibb=" + condicionIibb + ", telefono=" + telefono + ", email=" + email + ", idLocalidad=" + localidad.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
-    
+
 }

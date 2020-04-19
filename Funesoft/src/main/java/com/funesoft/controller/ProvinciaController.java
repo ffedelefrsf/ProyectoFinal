@@ -25,12 +25,7 @@ public class ProvinciaController {
     private ProvinciaRepository provinciaRepository;
     
     public List<Provincia> getAllProvincias(final ProvinciaDTO provinciaDTO){
-        
-        final Provincia provincia = new Provincia(provinciaDTO);
-        
-        final List<Provincia> provincias = provinciaRepository.findAll(Example.of(provincia));
-        
-        return provincias;
+        return provinciaRepository.findAll(Example.of(new Provincia(provinciaDTO)));
     }
     
 }

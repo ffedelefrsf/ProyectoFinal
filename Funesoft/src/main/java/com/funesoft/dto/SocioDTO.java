@@ -1,7 +1,6 @@
 package com.funesoft.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.funesoft.model.Socio;
+import com.funesoft.model.Usuario;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,6 +53,8 @@ public class SocioDTO{
     @NotNull
     private Integer idEstado;
 
+    private Usuario usuarioModifica;
+
     public SocioDTO(Integer id, @Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial, Integer idEstado) {
         this.dni = dni;
         this.apellido = apellido;
@@ -63,30 +64,12 @@ public class SocioDTO{
         this.email = email;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
-        this.usuarioAlta = usuarioAlta;
+        this.usuarioModifica = usuarioModifica;
         this.saldo = saldo;
         this.idTarifa = idTarifa;
         this.idZona = idZona;
         this.idLocalidad = idLocalidad;
         this.idObraSocial = idObraSocial;
-        this.idEstado = idEstado;
-    }
-
-    public SocioDTO(Socio socio, Integer idEstado){
-        this.dni = socio.getDni();
-        this.apellido = socio.getApellido();
-        this.nombre = socio.getNombre();
-        this.direccion = socio.getDireccion();
-        this.telefono = socio.getTelefono();
-        this.email = socio.getEmail();
-        this.sexo = socio.getSexo();
-        this.fechaNacimiento = socio.getFechaNacimiento();
-        this.usuarioAlta = socio.getUsuarioAlta();
-        this.saldo = socio.getSaldo();
-        this.idTarifa = socio.getTarifa().getId();
-        this.idZona = socio.getZona().getId();
-        this.idLocalidad = socio.getLocalidad().getId();
-        this.idObraSocial = socio.getObraSocial().getId();
         this.idEstado = idEstado;
     }
 

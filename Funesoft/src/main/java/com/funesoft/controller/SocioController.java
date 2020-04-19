@@ -48,21 +48,8 @@ public class SocioController {
     @Autowired
     private SocioBajaRepository socioBajaRepository;
 
-    public List<SocioDTO> getSocios (Socio socio){
-        List<Socio> listaSocios = socioRepository.findAll(Example.of(socio));
-        List<SocioDTO> result = new ArrayList<SocioDTO>();
-
-        for(Socio item : listaSocios){
-            SocioDTO dto = new SocioDTO(
-                    item,
-                    historialEstadoSocioController.getEstado(item).get().getEstado().getId()
-            );
-
-            result.add(dto);
-        }
-
-        return result;
-
+    public List<Socio> getSocios (Socio socio){
+        return socioRepository.findAll(Example.of(socio));
     }
 
     public Socio insertSocio (@NotNull SocioDTO socioDTO){
@@ -124,5 +111,4 @@ public class SocioController {
         return socio.get();
 
     }
-
 }

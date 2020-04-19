@@ -34,7 +34,7 @@ public class PlanREST {
     
     @PostMapping(path = "getAll")
     @ApiOperation(value = "Obtiene un listado de todos los planes registrados en el sistema con los parámetros establecidos.")
-    public ResponseDTO getAll(@RequestBody PlanDTO planDTO){
+    public FunesoftResponseDTO getAll(@RequestBody PlanDTO planDTO){
         try{
             return new FunesoftResponseDTO(true, planController.getAllPlanes(planDTO), null, null);
         }catch (Exception exception){
@@ -44,7 +44,7 @@ public class PlanREST {
     
     @PostMapping(path = "insert")
     @ApiOperation(value = "Inserta una tarifa en el sistema.")
-    public ResponseDTO insert(@Valid @RequestBody Plan plan){
+    public FunesoftResponseDTO insert(@Valid @RequestBody Plan plan){
         try{
             return new FunesoftResponseDTO(true, planController.insertPlan(plan), null, null);
         }catch (BusinessException businessException){
@@ -54,7 +54,7 @@ public class PlanREST {
     
     @PostMapping(path = "update")
     @ApiOperation(value = "Actualiza una tarifa en el sistema.")
-    public ResponseDTO update(@Valid @RequestBody Plan plan){
+    public FunesoftResponseDTO update(@Valid @RequestBody Plan plan){
         try{
             return new FunesoftResponseDTO(true, planController.updatePlan(plan), null, null);
         }catch (BusinessException businessException){
@@ -64,7 +64,7 @@ public class PlanREST {
     
     @PostMapping(path = "delete")
     @ApiOperation(value = "Elimina una tarifa en el sistema.")
-    public ResponseDTO delete(@RequestBody PlanDTO planDTO){
+    public FunesoftResponseDTO delete(@RequestBody PlanDTO planDTO){
         try{
             return new FunesoftResponseDTO(true, planController.deletePlan(planDTO.getId()), null, null);
         }catch (BusinessException exception){

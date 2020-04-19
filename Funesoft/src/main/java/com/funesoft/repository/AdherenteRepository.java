@@ -6,6 +6,8 @@
 package com.funesoft.repository;
 
 import com.funesoft.model.Adherente;
+import com.funesoft.model.Socio;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AdherenteRepository extends JpaRepository<Adherente, Integer>{
+    
+    public List<Adherente> findBySocio(Socio socio);
     
 }

@@ -1,5 +1,7 @@
 package com.funesoft.model;
 
+import java.io.Serializable;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "ADHERENTES_BAJA")
-public class AdherenteBaja {
+public class AdherenteBaja implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +24,44 @@ public class AdherenteBaja {
     @JoinColumn(name = "ID_MOTIVO_BAJA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private MotivoBaja motivoBaja;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AdherenteBaja other = (AdherenteBaja) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.motivoBaja, other.motivoBaja)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "AdherenteBaja{" + "id=" + id + ", motivoBaja=" + motivoBaja + ", usuario=" + usuarioModifica + '}';
+    }
+    
 }

@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,7 +46,12 @@ public class Provincia implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "NOMBRE")
     private String nombre;
+    
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -70,16 +77,20 @@ public class Provincia implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
+        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Provincia{" + "id=" + id + ", nombre=" + nombre + '}';
+        return "Provincia{" + "id=" + id + ", nombre=" + nombre + ", usuarioModifica=" + usuarioModifica + '}';
     }
     
     public Provincia (final ProvinciaDTO provinciaDTO){
         this.id = provinciaDTO.getId();
         this.nombre = provinciaDTO.getNombre();
+        this.usuarioModifica = provinciaDTO.getUsuarioModifica();
     }
 }

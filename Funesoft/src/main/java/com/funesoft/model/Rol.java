@@ -5,14 +5,11 @@
  */
 package com.funesoft.model;
 
-import com.funesoft.dto.PlanDTO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,33 +28,26 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "PLANES")
-public class Plan implements Serializable {
+@Table(name = "ROLES")
+public class Rol implements Serializable {
+    
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "ID")
     private Integer id;
     
-    @Column(name = "NRO_PLAN")
-    private Integer nroPlan;
-    
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
+    @Size(min = 1, max = 10)
+    @Column(name = "NOMBRE")
+    private String nombre;
     
-    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Usuario usuarioModifica;
-
-
+    
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
         return hash;
     }
 
@@ -72,17 +62,11 @@ public class Plan implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Plan other = (Plan) obj;
-        if (!Objects.equals(this.descripcion, other.descripcion)) {
+        final Rol other = (Rol) obj;
+        if (!Objects.equals(this.nombre, other.nombre)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.nroPlan, other.nroPlan)) {
-            return false;
-        }
-        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
             return false;
         }
         return true;
@@ -90,15 +74,7 @@ public class Plan implements Serializable {
 
     @Override
     public String toString() {
-        return "Plan{" + "id=" + id + ", nroPlan=" + nroPlan + ", descripcion=" + descripcion + ", usuarioModifica=" + usuarioModifica.toString() + '}';
-    }
-    
-    
-    public Plan (PlanDTO planDTO){
-        this.id = planDTO.getId();
-        this.nroPlan = planDTO.getNroPlan();
-        this.descripcion = planDTO.getDescripcion();
-        this.usuarioModifica = planDTO.getUsuarioModifica();
+        return "Rol{" + "id=" + id + ", nombre=" + nombre + '}';
     }
     
 }

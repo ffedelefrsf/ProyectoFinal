@@ -34,7 +34,7 @@ public class SocioREST {
 
     @PostMapping("get")
     @ApiOperation(value = "Obtiene un listado de todos los socios registrados en el sistema.")
-    public ResponseDTO get(@RequestBody Socio socio) {
+    public FunesoftResponseDTO get(@RequestBody Socio socio) {
         try {
             return new FunesoftResponseDTO(
                     true,
@@ -54,7 +54,7 @@ public class SocioREST {
 
     @PostMapping("insert")
     @ApiOperation(value = "Inserta un socio", response = SocioDTO.class)
-    private ResponseDTO insertSocio(@Valid @RequestBody SocioDTO socioDTO) {
+    private FunesoftResponseDTO insertSocio(@Valid @RequestBody SocioDTO socioDTO) {
         try {
             return new FunesoftResponseDTO(
                     true,
@@ -74,7 +74,7 @@ public class SocioREST {
 
     @PostMapping("update")
     @ApiOperation(value = "Actualiza un socio", response = SocioDTO.class)
-    private ResponseDTO updateSocio(@Valid @RequestBody Socio socio) {
+    private FunesoftResponseDTO updateSocio(@Valid @RequestBody Socio socio) {
         try {
             return new FunesoftResponseDTO(
                     true,
@@ -94,7 +94,7 @@ public class SocioREST {
 
     @PostMapping("delete")
     @ApiOperation(value = "Cambia el estado del socio a baja", response = Zona.class)
-    private ResponseDTO deleteSocio(@Valid @RequestBody SocioBajaDTO socioBajaDTO) {
+    private FunesoftResponseDTO deleteSocio(@Valid @RequestBody SocioBajaDTO socioBajaDTO) {
         try {
             return new FunesoftResponseDTO(
                     true,
@@ -118,5 +118,4 @@ public class SocioREST {
             );
         }
     }
-
 }

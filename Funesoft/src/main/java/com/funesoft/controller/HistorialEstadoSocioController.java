@@ -25,13 +25,14 @@ public class HistorialEstadoSocioController {
     private EstadoRepository estadoRepository;
 
     public HistorialEstadoSocio insertHistorial(Socio socio, EstadoEnum estadoEnum){
-        return historialSocioRepository.save(
-                new HistorialEstadoSocio(
-                    new Date(),
-                    socio,
-                    estadoRepository.findFirstByNroEstado(estadoEnum.getCodigo())
-                )
-        );
+//        return historialSocioRepository.save(
+//                new HistorialEstadoSocio(
+//                    new Date(),
+//                    socio,
+//                    estadoRepository.findByNroEstado(estadoEnum.getCodigo())
+//                )
+//        );
+        return null;
     }
 
     public Optional<HistorialEstadoSocio> getEstado(Socio socio){
