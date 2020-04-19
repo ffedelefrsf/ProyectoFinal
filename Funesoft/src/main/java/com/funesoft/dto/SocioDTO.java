@@ -1,6 +1,7 @@
 package com.funesoft.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.funesoft.model.Socio;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SocioDTO extends RequestDTO{
+public class SocioDTO{
 
     @NotNull
     @Max(99999999)
@@ -50,8 +51,10 @@ public class SocioDTO extends RequestDTO{
     private Integer idLocalidad;
     @NotNull
     private Integer idObraSocial;
+    @NotNull
+    private Integer idEstado;
 
-    public SocioDTO(Integer id, @Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
+    public SocioDTO(Integer id, @Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial, Integer idEstado) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -66,6 +69,25 @@ public class SocioDTO extends RequestDTO{
         this.idZona = idZona;
         this.idLocalidad = idLocalidad;
         this.idObraSocial = idObraSocial;
+        this.idEstado = idEstado;
+    }
+
+    public SocioDTO(Socio socio, Integer idEstado){
+        this.dni = socio.getDni();
+        this.apellido = socio.getApellido();
+        this.nombre = socio.getNombre();
+        this.direccion = socio.getDireccion();
+        this.telefono = socio.getTelefono();
+        this.email = socio.getEmail();
+        this.sexo = socio.getSexo();
+        this.fechaNacimiento = socio.getFechaNacimiento();
+        this.usuarioAlta = socio.getUsuarioAlta();
+        this.saldo = socio.getSaldo();
+        this.idTarifa = socio.getTarifa().getId();
+        this.idZona = socio.getZona().getId();
+        this.idLocalidad = socio.getLocalidad().getId();
+        this.idObraSocial = socio.getObraSocial().getId();
+        this.idEstado = idEstado;
     }
 
 }

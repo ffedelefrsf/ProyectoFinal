@@ -7,13 +7,12 @@ package com.funesoft.controller;
 
 import com.funesoft.dto.SocioBajaDTO;
 import com.funesoft.dto.SocioDTO;
-import com.funesoft.model.Estado;
-import com.funesoft.model.MotivoBaja;
-import com.funesoft.model.Socio;
-import com.funesoft.model.SocioBaja;
+import com.funesoft.model.*;
 import com.funesoft.repository.MotivoBajaRepository;
 import com.funesoft.repository.SocioBajaRepository;
 import com.funesoft.repository.SocioRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import com.funesoft.utilities.BusinessException;
@@ -49,8 +48,21 @@ public class SocioController {
     @Autowired
     private SocioBajaRepository socioBajaRepository;
 
-    public List<Socio> getSocios (Socio socio){
-        return socioRepository.findAll(Example.of(socio));
+    public List<SocioDTO> getSocios (Socio socio){
+        List<Socio> listaSocios = socioRepository.findAll(Example.of(socio));
+        List<SocioDTO> result = new ArrayList<SocioDTO>();
+
+        for(Socio item : listaSocios){
+            SocioDTO dto = new SocioDTO(
+                    item,
+                    historialEstadoSocioController.getEstado(item).get().getEstado().getId()
+            );
+
+            result.add(dto);
+        }
+
+        return result;
+
     }
 
     public Socio insertSocio (@NotNull SocioDTO socioDTO){
@@ -112,10 +124,5 @@ public class SocioController {
         return socio.get();
 
     }
-
-    public Estado getEstado (Socio socio){
-        return historialEstadoSocioController.findAll(Example.of(socio));
-    }
-
 
 }

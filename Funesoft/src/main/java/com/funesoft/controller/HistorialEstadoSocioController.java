@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class HistorialEstadoSocioController {
@@ -22,9 +23,6 @@ public class HistorialEstadoSocioController {
 
     @Autowired
     private EstadoRepository estadoRepository;
-
-    @Autowired
-    private MotivoBajaRepository motivoBajaRepository;
 
     public HistorialEstadoSocio insertHistorial(Socio socio, EstadoEnum estadoEnum){
         return historialSocioRepository.save(
@@ -36,6 +34,8 @@ public class HistorialEstadoSocioController {
         );
     }
 
-    
+    public Optional<HistorialEstadoSocio> getEstado(Socio socio){
+        return historialSocioRepository.findFirstBySocioOrderByFechaAlta(socio);
+    }
 
 }
