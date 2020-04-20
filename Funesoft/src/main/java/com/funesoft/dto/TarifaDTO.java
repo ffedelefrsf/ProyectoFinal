@@ -6,6 +6,7 @@
 package com.funesoft.dto;
 
 import com.funesoft.model.Plan;
+import com.funesoft.model.RangoTarifa;
 import com.funesoft.model.Usuario;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class TarifaDTO{
     private Integer nroTarifa;
     private String descripcion;
     private Float valor;
+    private RangoTarifa rangoTarifa;
     private Plan plan;
     private Usuario usuarioModifica;
     
