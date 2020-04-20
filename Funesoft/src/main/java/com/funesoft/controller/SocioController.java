@@ -91,12 +91,14 @@ public class SocioController {
 
         //ACTUALIZO EL ESTADO DEL SOCIO
         socio.get().setEstado(estadoRepository.findByNroEstado(EstadoEnum.BAJA.getCodigo()));
+        socio.get().setUsuarioModifica(CurrentUser.getInstance());
 
         //CARGO EL MOTIVO DE LA BAJA
         socioBajaRepository.save(
                 new SocioBaja(
                         socio.get(),
-                        motivoBaja.get()
+                        motivoBaja.get(),
+                        CurrentUser.getInstance()
                 )
         );
 

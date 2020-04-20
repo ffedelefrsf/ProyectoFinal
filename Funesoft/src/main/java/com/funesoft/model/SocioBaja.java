@@ -70,8 +70,9 @@ public class SocioBaja {
         return "SocioBaja{" + "id=" + id + ", socio=" + socio.toString() + ", motivoBaja=" + motivoBaja.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
 
-    public SocioBaja(Socio socio, MotivoBaja motivoBaja) {
+    public SocioBaja(Socio socio, MotivoBaja motivoBaja, Usuario usuarioModifica) {
         this.socio = socio;
         this.motivoBaja = motivoBaja;
+        this.usuarioModifica = usuarioModifica;
     }
 }
