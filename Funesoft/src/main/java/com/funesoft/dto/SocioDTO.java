@@ -1,6 +1,5 @@
 package com.funesoft.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.funesoft.model.Usuario;
 import com.sun.istack.NotNull;
 import lombok.Getter;
@@ -51,10 +50,8 @@ public class SocioDTO{
     private Integer idLocalidad;
     @NotNull
     private Integer idObraSocial;
-    @NotNull
-    private Usuario usuarioModifica;
 
-    public SocioDTO(Integer id, @Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Usuario usuarioModifica, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial) {
+    public SocioDTO(Integer id, @Size(min = 7, max = 8) Integer dni, String apellido, String nombre, String direccion, @Size(min = 5, max = 10) String telefono, String email, String sexo, Date fechaNacimiento, Date fechaCobertura, Integer usuarioAlta, Double saldo, Integer idTarifa, Integer idZona, Integer idLocalidad, Integer idObraSocial, Integer idEstado) {
         this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -63,7 +60,6 @@ public class SocioDTO{
         this.email = email;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
-        this.usuarioModifica = usuarioModifica;
         this.saldo = saldo;
         this.idTarifa = idTarifa;
         this.idZona = idZona;

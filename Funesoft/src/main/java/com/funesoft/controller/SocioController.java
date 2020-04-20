@@ -7,16 +7,17 @@ package com.funesoft.controller;
 
 import com.funesoft.dto.SocioBajaDTO;
 import com.funesoft.dto.SocioDTO;
-import com.funesoft.model.Estado;
-import com.funesoft.model.MotivoBaja;
-import com.funesoft.model.Socio;
-import com.funesoft.model.SocioBaja;
+import com.funesoft.model.*;
+import com.funesoft.repository.EstadoRepository;
 import com.funesoft.repository.MotivoBajaRepository;
 import com.funesoft.repository.SocioBajaRepository;
 import com.funesoft.repository.SocioRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import com.funesoft.utilities.BusinessException;
+import com.funesoft.utilities.CurrentUser;
 import com.funesoft.utilities.EstadoEnum;
 import javax.validation.constraints.NotNull;
 
@@ -41,13 +42,13 @@ public class SocioController {
     private CoberturaController coberturaController;
 
     @Autowired
-    private HistorialEstadoSocioController historialEstadoSocioController;
-
-    @Autowired
     private MotivoBajaRepository motivoBajaRepository;
 
     @Autowired
     private SocioBajaRepository socioBajaRepository;
+
+    @Autowired
+    private EstadoRepository estadoRepository;
 
     public List<Socio> getSocios (Socio socio){
         return socioRepository.findAll(Example.of(socio));
@@ -60,19 +61,17 @@ public class SocioController {
         //CALCULO LA COBERTURA
         socio.setFechaCobertura(coberturaController.calculoCobertura(socioDTO.getFechaNacimiento()));
 
-        Socio nuevoSocio = socioRepository.save(socio);
+        socio.setUsuarioModifica(CurrentUser.getInstance());
+        socio.setEstado(estadoRepository.findByNroEstado(EstadoEnum.ALTA.getCodigo()));
 
-        //INSERTO EL HISTORIAL DEL SOCIO (ALTA)
-        historialEstadoSocioController.insertHistorial(nuevoSocio, EstadoEnum.ALTA);
-
-        return nuevoSocio;
-
+        return socioRepository.save(socio);
     }
 
     public Socio updateSocio (@NotNull Socio socio) throws BusinessException {
         if(!(socioRepository.findById(socio.getId()).isPresent())){
             throw new BusinessException("El socio informado no existe");
         }
+        socio.setUsuarioModifica(CurrentUser.getInstance());
         return socioRepository.save(socio);
     }
 
@@ -90,11 +89,8 @@ public class SocioController {
             throw new BusinessException("El motivo informado no existe");
         }
 
-        //CAMBIO EL ESTADO A 'BAJA'
-        historialEstadoSocioController.insertHistorial(
-                socio.get(),
-                EstadoEnum.BAJA
-        );
+        //ACTUALIZO EL ESTADO DEL SOCIO
+        socio.get().setEstado(estadoRepository.findByNroEstado(EstadoEnum.BAJA.getCodigo()));
 
         //CARGO EL MOTIVO DE LA BAJA
         socioBajaRepository.save(
@@ -104,18 +100,6 @@ public class SocioController {
                 )
         );
 
-        //FALTA VERIFICAR SI EL PRIMER ADHERENTE PASA A SER SOCIO DEPENDIENDO SI EL PLAN
-        //ES DECIR SI TIENE ADHERENTES O NO
-        //SE DEBERÍA TOMAR COMO SOCIO AL ADHERENTE MÁS PRÓXIMO O EL MAYOR DE EDAD
-        //O VER SI SE LE PREGUNTA A LOS MISMOS.
-
-        return socio.get();
-
+        return socioRepository.save(socio.get());
     }
-
-//    public Estado getEstado (Socio socio){
-//        return historialEstadoSocioController.findAll(Example.of(socio));
-//    }
-
-
 }

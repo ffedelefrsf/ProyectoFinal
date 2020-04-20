@@ -118,32 +118,4 @@ public class SocioREST {
             );
         }
     }
-
-    @GetMapping
-    @ApiOperation(value = "Cambia el estado del socio a baja", response = Zona.class)
-    private FunesoftResponseDTO getEstado(@Valid @RequestBody SocioBajaDTO socioBajaDTO) {
-        try {
-            return new FunesoftResponseDTO(
-                    true,
-                    socioController.deleteSocio(socioBajaDTO),
-                    null,
-                    null
-            );
-        } catch (BusinessException be) {
-            return new FunesoftResponseDTO(
-                    false,
-                    null,
-                    be.getMessage(),
-                    be
-            );
-        } catch (Exception e) {
-            return new FunesoftResponseDTO(
-                    false,
-                    null,
-                    "Error al eliminar la zona",
-                    e
-            );
-        }
-    }
-
 }
