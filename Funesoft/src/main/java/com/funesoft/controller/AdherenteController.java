@@ -8,11 +8,9 @@ package com.funesoft.controller;
 import com.funesoft.dto.RemoveAllBySocioDTO;
 import com.funesoft.model.Adherente;
 import com.funesoft.model.Estado;
-import com.funesoft.model.HistorialEstadoAdherente;
 import com.funesoft.model.Socio;
 import com.funesoft.repository.AdherenteRepository;
 import com.funesoft.repository.EstadoRepository;
-import com.funesoft.repository.HistorialEstadoAdherenteRepository;
 import com.funesoft.repository.SocioRepository;
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
@@ -39,10 +37,6 @@ public class AdherenteController {
     
     @Autowired
     private EstadoRepository estadoRepository;
-    
-    @Autowired
-    private HistorialEstadoAdherenteRepository historialEstadoAdherenteRepository;
-    
     public List<Adherente> removeAllBySocio(final RemoveAllBySocioDTO removeAllBySocioDTO) throws Exception {
         final Socio socioDB;
         try{
@@ -56,8 +50,6 @@ public class AdherenteController {
             final Estado estadoBaja;
             try{
                 estadoBaja = estadoRepository.findByNroEstado(EstadoEnum.BAJA.getCodigo());
-                final HistorialEstadoAdherente historialEstadoAdherente = new HistorialEstadoAdherente(Calendar.getInstance().getTime(), removeAllBySocioDTO.getMotivoBaja(), adherente, estadoBaja, CurrentUser.getInstance());
-                historialEstadoAdherenteRepository.save(historialEstadoAdherente);
             }catch (NoResultException | NoSuchElementException | NullPointerException exception){
                 throw new BusinessException("Error al obtener estado de baja.");
             }

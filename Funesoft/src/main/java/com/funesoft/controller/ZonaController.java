@@ -4,6 +4,7 @@ import com.funesoft.dto.ZonaDTO;
 import com.funesoft.model.Zona;
 import com.funesoft.repository.ZonaRepository;
 import com.funesoft.utilities.BusinessException;
+import com.funesoft.utilities.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
@@ -19,33 +20,31 @@ public class ZonaController {
     private ZonaRepository zonaRepository;
 
     public List<Zona> getZonas (Zona zona){
-
-        List<Zona> result = zonaRepository.findAll(Example.of(zona));
-
-        return result;
+        return zonaRepository.findAll(Example.of(zona));
     }
 
     public Zona insertZona (@NotNull Zona zona){
+        zona.setUsuarioModifica(CurrentUser.getInstance());
         return zonaRepository.save(zona);
     }
 
     public Zona updateZona (@NotNull Zona zona) throws BusinessException {
-        Optional<Zona> zonaDelete = zonaRepository.findById(zona.getId());
-        if(zonaDelete.isPresent()){
-            return zonaRepository.save(zona);
-        }else{
+        Optional<Zona> zonaUpdate = zonaRepository.findById(zona.getId());
+        if(!zonaUpdate.isPresent()){
             throw new BusinessException("La zona especificada no existe");
         }
+        zona.setUsuarioModifica(CurrentUser.getInstance());
+        return zonaRepository.save(zona);
     }
 
     public Zona deleteZona(@NotNull Integer idZona) throws BusinessException {
         Optional<Zona> zonaDelete = zonaRepository.findById(idZona);
-        if(zonaDelete.isPresent()){
-            zonaRepository.delete(zonaDelete.get());
-            return zonaDelete.get();
-        }else{
+        if(!zonaDelete.isPresent()){
             throw new BusinessException("La zona especificada no existe");
         }
+        zonaDelete.get().setUsuarioModifica(CurrentUser.getInstance());
+        zonaRepository.delete(zonaRepository.save(zonaDelete.get()));
+        return zonaDelete.get();
     }
 
 

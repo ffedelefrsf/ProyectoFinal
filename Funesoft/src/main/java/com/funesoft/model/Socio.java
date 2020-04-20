@@ -122,6 +122,41 @@ public class Socio implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
 
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Estado estado;
+
+    public Socio(SocioDTO socioDTO){
+        this.dni = socioDTO.getDni();
+        this.apellido = socioDTO.getApellido();
+        this.nombre = socioDTO.getNombre();
+        this.direccion = socioDTO.getDireccion();
+        this.telefono = socioDTO.getTelefono();
+        this.email = socioDTO.getEmail();
+        this.sexo = socioDTO.getSexo();
+        this.fechaNacimiento = socioDTO.getFechaNacimiento();
+        this.saldo = socioDTO.getSaldo();
+        if(socioDTO.getIdTarifa() != null){
+            final Tarifa tarifa = new Tarifa();
+            tarifa.setId(socioDTO.getIdTarifa());
+            this.tarifa = tarifa;
+        }
+        if(socioDTO.getIdZona() != null){
+            final Zona zona = new Zona();
+            zona.setId(socioDTO.getIdZona());
+            this.zona = zona;
+        }
+        if(socioDTO.getIdLocalidad() != null){
+            final Localidad localidad = new Localidad();
+            localidad.setId(socioDTO.getIdLocalidad());
+            this.localidad = localidad;
+        }
+        if(socioDTO.getIdObraSocial() != null){
+            final ObraSocial obraSocial = new ObraSocial();
+            obraSocial.setId(socioDTO.getIdObraSocial());
+            this.obraSocial = obraSocial;
+        }
+    }
     
     @Override
     public int hashCode() {
@@ -196,39 +231,6 @@ public class Socio implements Serializable {
     @Override
     public String toString() {
         return "Socio{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", saldo=" + saldo + ", tarifa=" + tarifa.toString() + ", zona=" + zona.toString() + ", localidad=" + localidad.toString() + ", obraSocial=" + obraSocial.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
-    }
-    
-    public Socio(SocioDTO socioDTO){
-        this.dni = socioDTO.getDni();
-        this.apellido = socioDTO.getApellido();
-        this.nombre = socioDTO.getNombre();
-        this.direccion = socioDTO.getDireccion();
-        this.telefono = socioDTO.getTelefono();
-        this.email = socioDTO.getEmail();
-        this.sexo = socioDTO.getSexo();
-        this.fechaNacimiento = socioDTO.getFechaNacimiento();
-        this.usuarioModifica = socioDTO.getUsuarioModifica();
-        this.saldo = socioDTO.getSaldo();
-        if(socioDTO.getIdTarifa() != null){
-            final Tarifa tarifa = new Tarifa();
-            tarifa.setId(socioDTO.getIdTarifa());
-            this.tarifa = tarifa;
-        }
-        if(socioDTO.getIdZona() != null){
-            final Zona zona = new Zona();
-            zona.setId(socioDTO.getIdZona());
-            this.zona = zona;
-        }
-        if(socioDTO.getIdLocalidad() != null){
-            final Localidad localidad = new Localidad();
-            localidad.setId(socioDTO.getIdLocalidad());
-            this.localidad = localidad;
-        }
-        if(socioDTO.getIdObraSocial() != null){
-            final ObraSocial obraSocial = new ObraSocial();
-            obraSocial.setId(socioDTO.getIdObraSocial());
-            this.obraSocial = obraSocial;
-        }
     }
     
 }
