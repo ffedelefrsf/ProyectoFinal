@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -48,6 +49,9 @@ public class Plan implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "DESCRIPCION")
     private String descripcion;
+    
+    @Transient
+    public static final String INDIVIDUAL = "INDIVIDUAL", TITULAR_Y_ADHERENTE = "TITULAR Y ADHERENTE", FAMILIAR = "FAMILIAR", FAMILIAR_CON_OS = "FAMILIAR CON OS", JUBILADOS = "JUBILADOS";
     
     @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
     @ManyToOne(optional = false)

@@ -42,34 +42,4 @@ public class PlanREST {
         }
     }
     
-    @PostMapping(path = "insert")
-    @ApiOperation(value = "Inserta una tarifa en el sistema.")
-    public FunesoftResponseDTO insert(@Valid @RequestBody Plan plan){
-        try{
-            return new FunesoftResponseDTO(true, planController.insertPlan(plan), null, null);
-        }catch (BusinessException businessException){
-            return new FunesoftResponseDTO(false, null, businessException.getMessage(), businessException);
-        }
-    }
-    
-    @PostMapping(path = "update")
-    @ApiOperation(value = "Actualiza una tarifa en el sistema.")
-    public FunesoftResponseDTO update(@Valid @RequestBody Plan plan){
-        try{
-            return new FunesoftResponseDTO(true, planController.updatePlan(plan), null, null);
-        }catch (BusinessException businessException){
-            return new FunesoftResponseDTO(false, null, businessException.getMessage(), businessException);
-        }
-    }
-    
-    @PostMapping(path = "delete")
-    @ApiOperation(value = "Elimina una tarifa en el sistema.")
-    public FunesoftResponseDTO delete(@RequestBody PlanDTO planDTO){
-        try{
-            return new FunesoftResponseDTO(true, planController.deletePlan(planDTO.getId()), null, null);
-        }catch (BusinessException exception){
-            return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
-        }
-    }
-    
 }

@@ -7,6 +7,7 @@ package com.funesoft.model;
 
 import com.funesoft.dto.SocioDTO;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -20,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -125,6 +127,10 @@ public class Socio implements Serializable {
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Estado estado;
+    
+    @Transient
+    private Short edad;
+    
 
     public Socio(SocioDTO socioDTO){
         this.dni = socioDTO.getDni();
@@ -156,6 +162,12 @@ public class Socio implements Serializable {
             obraSocial.setId(socioDTO.getIdObraSocial());
             this.obraSocial = obraSocial;
         }
+    }
+    
+    public short getEdad(){
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(calendar.getTimeInMillis()-this.fechaNacimiento.getTime());
+        return (short) calendar.get(Calendar.YEAR);
     }
     
     @Override

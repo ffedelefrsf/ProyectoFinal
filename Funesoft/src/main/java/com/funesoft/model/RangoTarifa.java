@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -53,6 +54,10 @@ public class RangoTarifa implements Serializable {
     @Column(name = "VALOR")
     private float valor;
     
+    @JoinColumn(name = "ID_TARIFA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Tarifa tarifa;
+    
     @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
@@ -89,6 +94,9 @@ public class RangoTarifa implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
+        if (!Objects.equals(this.tarifa, other.tarifa)) {
+            return false;
+        }
         if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
             return false;
         }
@@ -97,7 +105,7 @@ public class RangoTarifa implements Serializable {
 
     @Override
     public String toString() {
-        return "RangoTarifa{" + "id=" + id + ", edadDesde=" + edadDesde + ", edadHasta=" + edadHasta + ", valor=" + valor + ", usuarioModifica=" + usuarioModifica.toString() + '}';
+        return "RangoTarifa{" + "id=" + id + ", edadDesde=" + edadDesde + ", edadHasta=" + edadHasta + ", valor=" + valor + ", tarifa=" + tarifa.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
-    
+
 }

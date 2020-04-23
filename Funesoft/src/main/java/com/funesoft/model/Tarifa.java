@@ -16,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -59,14 +58,6 @@ public class Tarifa implements Serializable {
     @ManyToOne(optional = false)
     private Plan plan;
     
-    @JoinColumn(name = "ID_RANGO_TARIFA", referencedColumnName = "ID")
-    @OneToOne(optional = true)
-    private RangoTarifa rangoTarifa;
-    
-    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Usuario usuarioModifica;
-
 
     @Override
     public int hashCode() {
@@ -102,18 +93,12 @@ public class Tarifa implements Serializable {
         if (!Objects.equals(this.plan, other.plan)) {
             return false;
         }
-        if (!Objects.equals(this.rangoTarifa, other.rangoTarifa)) {
-            return false;
-        }
-        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Tarifa{" + "id=" + id + ", nroTarifa=" + nroTarifa + ", descripcion=" + descripcion + ", valor=" + valor + ", plan=" + plan + ", rangoTarifa=" + rangoTarifa == null? null : rangoTarifa.toString() + ", usuarioModifica=" + usuarioModifica + '}';
+        return "Tarifas{" + "id=" + id + ", nroTarifa=" + nroTarifa + ", descripcion=" + descripcion + ", valor=" + valor + ", idPlan=" + plan.toString() + '}';
     }
     
     public Tarifa(TarifaDTO tarifaDTO){
@@ -121,9 +106,7 @@ public class Tarifa implements Serializable {
         this.descripcion = tarifaDTO.getDescripcion();
         this.nroTarifa = tarifaDTO.getNroTarifa();
         this.valor = tarifaDTO.getValor();
-        this.rangoTarifa = tarifaDTO.getRangoTarifa();
         this.plan = tarifaDTO.getPlan();
-        this.usuarioModifica = tarifaDTO.getUsuarioModifica();
     }
     
 }

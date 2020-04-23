@@ -7,7 +7,7 @@ public enum EstadoEnum {
     
     private final Integer codigo;
 
-    EstadoEnum(final Integer codigo) {
+    private EstadoEnum(final Integer codigo) {
         this.codigo = codigo;
     }
 

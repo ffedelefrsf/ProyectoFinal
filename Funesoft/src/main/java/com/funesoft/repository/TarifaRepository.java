@@ -5,6 +5,7 @@
  */
 package com.funesoft.repository;
 
+import com.funesoft.model.Socio;
 import com.funesoft.model.Tarifa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,5 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TarifaRepository extends JpaRepository<Tarifa, Integer>{
+    
+    public Tarifa findBySocio(Socio socio);
     
 }
