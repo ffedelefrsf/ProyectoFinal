@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+<div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Login form</h4>
+        <p class="card-description">
+          Ingresar
+        </p>
+        <form class="form-login" *ngIf="!loading" [formGroup]="authForm" (ngSubmit)="auth()">
+          <div class="form-group">
+            <label for="inputEmail">Username</label>
+            <input type="text" class="form-control" formControlName="username" id="inputEmail" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label for="inputPassword">Password</label>
+            <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-success mr-2">Sign in</button>
+          <button class="btn btn-light">Cancel</button>
+        </form>
+        <br>
+        <div class="alert alert-danger" role="alert" *ngIf="!loading && wrongCredentials">
+            Usuario o contraseña incorrectos.
+        </div>
+      </div>
+      <div class="spinner-border text-primary" role="status" *ngIf="loading" style = "display: block; position: fixed; z-index: 1031; top: calc( 50% - ( 15px / 2) ); right: calc( 50% - ( 15px / 2) );">
+        <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+<div class="card" *ngIf="!loading">
+    <div class="card-body">
+      <h4 class="card-title">Listar provincias en consola</h4>
+        <button type="button" class="btn btn-dark btn-fw" (click)="getProvincias()">Listar</button>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Deslogearse</h4>
+          <button type="button" class="btn btn-light btn-fw" (click)="logout()">Sign out</button>
+      </div>
+  </div>

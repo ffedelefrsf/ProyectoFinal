@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +31,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  *
@@ -45,6 +49,7 @@ public class Security extends WebSecurityConfigurerAdapter{
     @Autowired
     private UsuarioRepository usuarioRepository;
     
+    private static final String URL_FRONT = "http://localhost:4200";
     
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
@@ -77,6 +82,7 @@ public class Security extends WebSecurityConfigurerAdapter{
           .authorizeRequests()
 //          .antMatchers("/admin/**").hasRole("ADMIN")
 //          .antMatchers("/anonymous*").anonymous()
+          .antMatchers(HttpMethod.OPTIONS).permitAll()
           .antMatchers("/**").hasAuthority(RolEnum.ADMIN.toString())
 //          .antMatchers("/**").permitAll()
           .and().httpBasic()
@@ -105,7 +111,8 @@ public class Security extends WebSecurityConfigurerAdapter{
 
         @Override
         public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authEx) throws IOException {
-            response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName());
+            if (request.getHeader("Origin") == null || !request.getHeader("Origin").equals(URL_FRONT))
+                response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName()); // MUESTRA EL DIALOGO DE LOGEO EN LA WEB
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             PrintWriter writer = response.getWriter();
             writer.println("HTTP Status 401 - " + authEx.getMessage());
