@@ -39,6 +39,9 @@ public class TarifaController {
     private RangoTarifaRepository rangoTarifaRepository;
     
     @Autowired
+    private SocioRepository socioRepository;
+    
+    @Autowired
     private AdherenteRepository adherenteRepository;
 
     @Autowired
