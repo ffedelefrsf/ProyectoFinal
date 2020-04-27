@@ -43,9 +43,6 @@ public class TarifaController {
     
     @Autowired
     private AdherenteRepository adherenteRepository;
-
-    @Autowired
-    private SocioRepository socioRepository;
     
     public List<Tarifa> getAllTarifas(final TarifaDTO tarifaDTO){
         
