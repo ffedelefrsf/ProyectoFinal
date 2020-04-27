@@ -6,6 +6,9 @@
 package com.funesoft.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -22,6 +25,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.funesoft.dto.CobradorDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,8 +41,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "COBRADORES")
 public class Cobrador implements Serializable {
-    
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -102,7 +106,7 @@ public class Cobrador implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaBaja;
     
-    @JoinColumn(name = "ID", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_LOCALIDAD", referencedColumnName = "ID")
     @OneToOne(optional = false)
     private Localidad localidad;
     
@@ -110,7 +114,23 @@ public class Cobrador implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
 
-    
+    public Cobrador(CobradorDTO dto) {
+
+        this.id = dto.getId();
+        this.dni = dto.getDni();
+        this.apellido = dto.getApellido();
+        this.nombre = dto.getNombre();
+        this.direccion = dto.getDireccion();
+        this.telefono = dto.getTelefono();
+        this.email = dto.getEmail();
+        this.sexo = dto.getSexo();
+        this.fechaNacimiento = dto.getFechaNacimiento();
+        this.fechaAlta = new Timestamp(Calendar.getInstance().getTimeInMillis());
+        this.fechaBaja = null;
+        this.localidad = dto.getLocalidad();
+        this.usuarioModifica = dto.getUsuarioModifica();
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -170,11 +190,6 @@ public class Cobrador implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Cobrador{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + ", localidad=" + localidad.toString() + ", usuario=" + usuarioModifica.toString() + '}';
     }
     
 }

@@ -13,6 +13,7 @@ import com.funesoft.model.Socio;
 import com.funesoft.model.Tarifa;
 import com.funesoft.repository.AdherenteRepository;
 import com.funesoft.repository.RangoTarifaRepository;
+import com.funesoft.repository.SocioRepository;
 import com.funesoft.repository.TarifaRepository;
 import com.funesoft.utilities.BusinessException;
 import java.util.HashMap;
@@ -39,6 +40,9 @@ public class TarifaController {
     
     @Autowired
     private AdherenteRepository adherenteRepository;
+
+    @Autowired
+    private SocioRepository socioRepository;
     
     public List<Tarifa> getAllTarifas(final TarifaDTO tarifaDTO){
         
@@ -68,7 +72,7 @@ public class TarifaController {
     public Map<Integer, Float> getValorTarifaByAsociado(@NotNull final Socio socio) throws BusinessException{
         final Tarifa tarifa;
         try{
-            tarifa = tarifaRepository.findBySocio(socio);
+            tarifa = socioRepository.findById(socio.getId()).get().getTarifa();
         }catch (NoResultException nrex){
             throw new BusinessException("El socio no existe.");
         }
