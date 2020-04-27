@@ -87,11 +87,11 @@ public class ZonaCobradorREST {
 
     @PostMapping("delete")
     @ApiOperation(value = "Elimina una zona", response = Zona.class)
-    private FunesoftResponseDTO deleteZona(@Valid @RequestBody ZonaDTO zonaDTO) {
+    private FunesoftResponseDTO deleteZonaCobrador(@Valid @RequestBody ZonaCobrador zonacobrador) {
         try {
             return new FunesoftResponseDTO(
                     true,
-                    zonaCobradorController.deleteZonaCobrador(zonaDTO.getId()),
+                    zonaCobradorController.deleteZonaCobrador(zonacobrador.getId()),
                     null,
                     null
             );
