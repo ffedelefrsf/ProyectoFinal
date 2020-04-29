@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie';
 
 import { AuthService } from '@app/services/auth.service';
-import { ProvinciaService } from '@app/services/provincia.service';
-import { Provincia } from '@app/model/provincia';
+import { PageEnum } from '@app/utils/page.enum';
 
 
 @Component({
@@ -22,9 +20,8 @@ export class AuthComponent implements OnInit {
   constructor( 
     private formBuilder: FormBuilder,
     private router: Router,
-    private cookieService:CookieService,
-    private provnciaService: ProvinciaService,
     private authService: AuthService) { 
+
    }
 
   ngOnInit(): void {
@@ -40,56 +37,18 @@ export class AuthComponent implements OnInit {
     this.wrongCredentials = false;
     this.authService.auth(loginDTO).subscribe(
       response => {
-        this.loading = false;
-        console.log('response', response);
+        if (response){
+          this.router.navigate(['/'+PageEnum.MENU]);
+        }else{
+          this.wrongCredentials = true;
+          this.loading = false;
+        }
       },
       err => {
-        this.loading = false;
         this.wrongCredentials = true;
-      },
-      () => console.log('Finally')
-    );
-  }
-
-  getProvincias(){
-    this.loading = true;
-    let provincia: Provincia = {
-      id: 1,
-      nombre: 'BUENOS AIRES',
-      usuarioModifica: {
-          id: 1,
-          username: 'fausto',
-          password: 'fedele',
-          rol: {
-              id: 1,
-              nombre: 'ADMIN'
-          },
-          // enabled: true,
-          // accountNonLocked: true,
-          // credentialsNonExpired: true,
-          // accountNonExpired: true,
-          // authorities: [
-          //     {
-          //         authority: 'ADMIN'
-          //     }
-          // ]
+        this.loading = false;
       }
-    };
-    this.provnciaService.getProvincias(provincia).subscribe(
-      response => {
-        this.loading = false;
-        console.log('response', response);
-      },
-      err => {
-        this.loading = false;
-      },
-      () => console.log('Finally')
     );
-  }
-
-  logout(){
-    this.cookieService.remove('JSESSIONID');
-    // this.router.navigate(['/login']);
   }
 
 }

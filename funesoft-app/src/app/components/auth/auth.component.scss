@@ -1,0 +1,51 @@
+.login {
+    width: 500px;
+    height: 600px;
+
+    position:absolute; /*it can be fixed too*/
+    left:0; 
+    right:0;
+    top:0; 
+    bottom:0;
+    margin:auto;
+
+    /*this to solve "the content will not be cut when the window is smaller than the content": */
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+
+.logo-image{
+    max-width: 100%;
+    height: auto !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+
+#sign-in{
+    width: 50%;
+}
+
+#cancel{
+    width: 50%;
+}
+
+.buttons-section{
+    display: flex;
+    margin-top: 30px;
+}
+
+.spinner-border{
+    position:absolute;
+    left:0; 
+    right:0;
+    top:0; 
+    bottom:0;
+    margin:auto;
+
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}

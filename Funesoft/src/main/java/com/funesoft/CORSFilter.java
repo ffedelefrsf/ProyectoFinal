@@ -25,10 +25,11 @@ public class CORSFilter implements Filter {
             final HttpServletRequest request = (HttpServletRequest) req;
             final HttpServletResponse response = (HttpServletResponse) res;
             
+            // MÁXIMO TIEMPO DE INACTIVIDAD
+            request.getSession().setMaxInactiveInterval(900);
             response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
-            response.setHeader("Access-Control-Max-Age", "3600");
             response.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization, Origin, Accept, Access-Control-Request-Method, Access-Control-Request-Headers, token");
 
             chain.doFilter(req, res);

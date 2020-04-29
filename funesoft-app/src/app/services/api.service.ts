@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MethodEnum } from '@app/utils/methodEnum';
-import { EndpointEnum } from '@app/utils/endpointEnum';
+import { MethodEnum } from '@app/utils/method.enum';
+import { EndpointEnum } from '@app/utils/endpoint.enum';
 import { Observable } from 'rxjs';
 
 @Injectable({

@@ -3,8 +3,8 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 
 import { Provincia } from '@app/model/provincia';
-import { EndpointEnum } from '@app/utils/endpointEnum';
-import { MethodEnum } from '@app/utils/methodEnum';
+import { EndpointEnum } from '@app/utils/endpoint.enum';
+import { MethodEnum } from '@app/utils/method.enum';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
