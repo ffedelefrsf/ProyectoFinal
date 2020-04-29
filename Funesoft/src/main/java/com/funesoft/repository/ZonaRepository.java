@@ -1,6 +1,8 @@
 package com.funesoft.repository;
 
+import com.funesoft.model.Cobrador;
 import com.funesoft.model.Zona;
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

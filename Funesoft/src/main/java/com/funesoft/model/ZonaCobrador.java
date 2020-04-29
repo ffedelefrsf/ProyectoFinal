@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.funesoft.dto.ZonaCobradorDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,7 +50,7 @@ public class ZonaCobrador implements Serializable {
     @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
