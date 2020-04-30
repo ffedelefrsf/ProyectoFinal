@@ -7,7 +7,10 @@ package com.funesoft.repository;
 
 import com.funesoft.model.Comprobante;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.math.BigInteger;
 
 /**
  *
@@ -15,5 +18,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ComprobanteRepository extends JpaRepository<Comprobante, Integer>{
-    
+    @Query("SELECT MAX(c.nroComprobante) FROM Comprobante c ")
+    BigInteger ultimoNroComprobante();
 }

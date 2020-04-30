@@ -48,16 +48,6 @@ public class ObraSocial implements Serializable {
     @Column(name = "DESCRIPCION")
     private String descripcion;
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA_ALTA")
-    @Temporal(TemporalType.DATE)
-    private Date fechaAlta;
-    
-    @Column(name = "FECHA_BAJA")
-    @Temporal(TemporalType.DATE)
-    private Date fechaBaja;
-    
     @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
@@ -87,12 +77,6 @@ public class ObraSocial implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.fechaAlta, other.fechaAlta)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaBaja, other.fechaBaja)) {
-            return false;
-        }
         if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
             return false;
         }
@@ -101,7 +85,7 @@ public class ObraSocial implements Serializable {
 
     @Override
     public String toString() {
-        return "ObrasSociales{" + "id=" + id + ", descripcion=" + descripcion + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + ", usuario=" + usuarioModifica.toString() + '}';
+        return "ObrasSociales{" + "id=" + id + ", descripcion=" + descripcion + ", usuario=" + usuarioModifica.toString() + '}';
     }
     
 }

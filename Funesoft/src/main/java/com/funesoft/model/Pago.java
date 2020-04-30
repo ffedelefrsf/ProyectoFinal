@@ -46,12 +46,6 @@ public class Pago implements Serializable {
     @Column(name = "VALOR")
     private float valor;
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA_ALTA")
-    @Temporal(TemporalType.DATE)
-    private Date fechaAlta;
-    
     @JoinColumn(name = "ID_SOCIO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Socio socio;
@@ -94,9 +88,6 @@ public class Pago implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.fechaAlta, other.fechaAlta)) {
-            return false;
-        }
         if (!Objects.equals(this.socio, other.socio)) {
             return false;
         }
@@ -114,7 +105,7 @@ public class Pago implements Serializable {
 
     @Override
     public String toString() {
-        return "Pago{" + "id=" + id + ", valor=" + valor + ", fechaAlta=" + fechaAlta + ", socio=" + socio.toString() + ", cobrador=" + cobrador.toString() + ", comprobante=" + comprobante.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
+        return "Pago{" + "id=" + id + ", valor=" + valor + ", socio=" + socio.toString() + ", cobrador=" + cobrador.toString() + ", comprobante=" + comprobante.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
 
 }

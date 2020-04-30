@@ -96,16 +96,6 @@ public class Cobrador implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA_ALTA")
-    @Temporal(TemporalType.DATE)
-    private Date fechaAlta;
-    
-    @Column(name = "FECHA_BAJA")
-    @Temporal(TemporalType.DATE)
-    private Date fechaBaja;
-    
     @JoinColumn(name = "ID_LOCALIDAD", referencedColumnName = "ID")
     @OneToOne(optional = false)
     private Localidad localidad;
@@ -125,8 +115,6 @@ public class Cobrador implements Serializable {
         this.email = dto.getEmail();
         this.sexo = dto.getSexo();
         this.fechaNacimiento = dto.getFechaNacimiento();
-        this.fechaAlta = new Timestamp(Calendar.getInstance().getTimeInMillis());
-        this.fechaBaja = null;
         this.localidad = dto.getLocalidad();
         this.usuarioModifica = dto.getUsuarioModifica();
     }
@@ -175,12 +163,6 @@ public class Cobrador implements Serializable {
             return false;
         }
         if (!Objects.equals(this.fechaNacimiento, other.fechaNacimiento)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaAlta, other.fechaAlta)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaBaja, other.fechaBaja)) {
             return false;
         }
         if (!Objects.equals(this.localidad, other.localidad)) {

@@ -21,6 +21,8 @@ import java.util.Date;
 public class SocioDTO{
 
     @NotNull
+    private Integer id;
+    @NotNull
     @Max(99999999)
     private Integer dni;
     @NotNull

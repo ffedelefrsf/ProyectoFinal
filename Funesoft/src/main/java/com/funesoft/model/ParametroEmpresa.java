@@ -6,6 +6,7 @@
 package com.funesoft.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -57,7 +58,7 @@ public class ParametroEmpresa implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "CUIT")
-    private int cuit;
+    private BigInteger cuit;
     
     @Basic(optional = false)
     @NotNull

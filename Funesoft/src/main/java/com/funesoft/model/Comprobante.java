@@ -6,6 +6,7 @@
 package com.funesoft.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -23,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -45,13 +47,12 @@ public class Comprobante implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "NRO_COMPROBANTE")
-    private int nroComprobante;
-    
+    private BigInteger nroComprobante;
+
     @Basic(optional = false)
     @NotNull
-    @Column(name = "FECHA_ALTA")
-    @Temporal(TemporalType.DATE)
-    private Date fechaAlta;
+    @Column(name = "IMPORTE_TOTAL")
+    private Double importeTotal;
     
     @JoinColumn(name = "ID_PARAMETRO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
@@ -60,7 +61,13 @@ public class Comprobante implements Serializable {
     @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
-    
+
+    public Comprobante(BigInteger nroComprobante, Double importeTotal, ParametroEmpresa parametroEmpresa, Usuario usuarioModifica) {
+        this.nroComprobante = nroComprobante;
+        this.importeTotal = importeTotal;
+        this.parametroEmpresa = parametroEmpresa;
+        this.usuarioModifica = usuarioModifica;
+    }
 
     @Override
     public int hashCode() {
@@ -87,9 +94,6 @@ public class Comprobante implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.fechaAlta, other.fechaAlta)) {
-            return false;
-        }
         if (!Objects.equals(this.parametroEmpresa, other.parametroEmpresa)) {
             return false;
         }
@@ -101,7 +105,7 @@ public class Comprobante implements Serializable {
 
     @Override
     public String toString() {
-        return "Comprobante{" + "id=" + id + ", nroComprobante=" + nroComprobante + ", fechaAlta=" + fechaAlta + ", parametroEmpresa=" + parametroEmpresa.toString() + ", usuario=" + usuarioModifica.toString() + '}';
+        return "Comprobante{" + "id=" + id + ", nroComprobante=" + nroComprobante + ", parametroEmpresa=" + parametroEmpresa.toString() + ", usuario=" + usuarioModifica.toString() + '}';
     }
     
 }

@@ -31,7 +31,6 @@ public class CobradorController {
 
     public Cobrador insertCobrador (@NotNull Cobrador cobrador){
         cobrador.setUsuarioModifica(CurrentUser.getInstance());
-        cobrador.setFechaAlta(Date.from(Instant.now()));
         return cobradorRepository.save(cobrador);
     }
 
