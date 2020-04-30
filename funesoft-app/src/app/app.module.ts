@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { CookieModule } from 'ngx-cookie';
 
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { AuthService } from '@app/services/auth.service';
+import { MainMenuComponent } from '@app/components/main-menu/main-menu.component';
 import { AuthComponent } from '@app/components/auth/auth.component';
 import { NavbarComponent } from '@app/views/navbar/navbar.component';
 import { SidebarComponent } from '@app/views/sidebar/sidebar.component';
@@ -30,7 +30,7 @@ import { CarouselComponent } from '@app/views/carousel/carousel.component';
 import { TabsComponent } from '@app/views/tabs/tabs.component';
 import { LoginComponent } from '@app/views/login/login.component';
 import { ProvinciaService } from '@app/services/provincia.service';
-import {AuthInterceptor} from '@app/services/auth-interceptor.service';
+import { AuthInterceptor } from '@app/services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -55,10 +55,10 @@ import {AuthInterceptor} from '@app/services/auth-interceptor.service';
     TooltipsComponent,
     CarouselComponent,
     TabsComponent,
-    LoginComponent
+    LoginComponent,
+    MainMenuComponent
   ],
   imports: [
-    CookieModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

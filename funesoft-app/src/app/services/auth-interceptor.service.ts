@@ -18,11 +18,15 @@ export class AuthInterceptor implements HttpInterceptor {
     return next
       .handle(req)
       .do(event => {
-        if (event instanceof HttpResponse) {}
+        if (event instanceof HttpResponse) {
+          console.log('event', event);
+        }
       }, (error: any) => {
         if (error instanceof HttpErrorResponse) {
+          console.log('error', error);
           if (error.status === 401) {
-            this.router.navigate(['/login']);
+            console.log('401', 'asd');
+            this.router.navigate(['/auth']);
           }
         }
       });
