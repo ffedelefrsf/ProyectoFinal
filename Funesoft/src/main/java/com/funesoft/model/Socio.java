@@ -7,6 +7,8 @@ package com.funesoft.model;
 
 import com.funesoft.dto.SocioDTO;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -166,8 +168,11 @@ public class Socio implements Serializable {
     
     public short getEdad(){
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(calendar.getTimeInMillis()-this.fechaNacimiento.getTime());
-        return (short) calendar.get(Calendar.YEAR);
+        calendar.setTime(this.fechaNacimiento);
+        final Integer year = calendar.get(Calendar.YEAR), month = calendar.get(Calendar.MONTH)+1, day = calendar.get(Calendar.DAY_OF_MONTH);
+        final LocalDate fechaNacimientoAux = LocalDate.of (year, month, day);
+        final LocalDate fechaActual = LocalDate.now();
+        return (short) ChronoUnit.YEARS.between(fechaNacimientoAux, fechaActual);
     }
     
     @Override
