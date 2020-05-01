@@ -1,5 +1,6 @@
 package com.funesoft.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "SOCIOS_BAJA")
-public class SocioBaja {
+public class SocioBaja implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

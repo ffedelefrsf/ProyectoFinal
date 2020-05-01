@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '@env/environment';
-import { LoginDTO } from '@app/dtos/loginDTO';
+import { LoginDTO } from '@app/dtos/login.dto';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { MethodEnum } from '@app/utils/method.enum';

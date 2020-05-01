@@ -20,6 +20,10 @@ public class AdherenteBaja implements Serializable{
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    
+    @JoinColumn(name = "ID_ADHERENTE", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Adherente adherente;
 
     @JoinColumn(name = "ID_MOTIVO_BAJA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
@@ -50,6 +54,9 @@ public class AdherenteBaja implements Serializable{
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
+        if (!Objects.equals(this.adherente, other.adherente)) {
+            return false;
+        }
         if (!Objects.equals(this.motivoBaja, other.motivoBaja)) {
             return false;
         }
@@ -61,7 +68,7 @@ public class AdherenteBaja implements Serializable{
 
     @Override
     public String toString() {
-        return "AdherenteBaja{" + "id=" + id + ", motivoBaja=" + motivoBaja + ", usuario=" + usuarioModifica + '}';
+        return "AdherenteBaja{" + "id=" + id + ", adherente=" + adherente.toString() + ", motivoBaja=" + motivoBaja.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
     
 }
