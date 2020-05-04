@@ -16,6 +16,7 @@ export abstract class ApiService {
 
   protected request(method: MethodEnum, endpoint: EndpointEnum, headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'}), body?: any): Observable<any>{
     const url = this.entrypoint + endpoint;
+    console.log('url', url);
      switch(method){
        case MethodEnum.GET:
         return this.http.get(url, {headers: headers});

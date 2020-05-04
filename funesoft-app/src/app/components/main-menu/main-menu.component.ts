@@ -6,6 +6,7 @@ import { AuthService } from '@app/services/auth.service'
 import { ProvinciaService } from '@app/services/provincia.service';
 import { Provincia } from '@app/model/provincia';
 import { PageEnum } from '@app/utils/page.enum';
+import { FunesoftResponseDTO } from '@app/dtos/funesoftRequest.dto';
 
 @Component({
   selector: 'app-main-menu',
@@ -30,16 +31,16 @@ export class MainMenuComponent implements OnInit {
   getProvincias(){
     this.loading = true;
     let provincia: Provincia = {
-      id: 1,
-      nombre: 'BUENOS AIRES',
-      usuarioModifica: {
-          id: 1,
-          username: 'fausto',
-          password: 'fedele',
-          rol: {
-              id: 1,
-              nombre: 'ADMIN'
-          },
+      id: null,
+      // nombre: 'BUENOS AIRES',
+      // usuarioModifica: {
+      //     id: 1,
+      //     username: 'fausto',
+      //     password: 'fedele',
+      //     rol: {
+      //         id: 1,
+      //         nombre: 'ADMIN'
+      //     },
           // enabled: true,
           // accountNonLocked: true,
           // credentialsNonExpired: true,
@@ -49,11 +50,11 @@ export class MainMenuComponent implements OnInit {
           //         authority: 'ADMIN'
           //     }
           // ]
-      }
+      // }
     };
     this.provinciaService.getProvincias(provincia).subscribe(
       response => {
-        console.log('Provincias', response);
+        console.log('Provincias', response.data);
       },
       error => {
         if (error.status === 401){
