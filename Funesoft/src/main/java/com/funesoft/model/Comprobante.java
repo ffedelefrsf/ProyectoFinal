@@ -7,7 +7,6 @@ package com.funesoft.model;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,13 +17,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -36,7 +32,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "COMPROBANTES")
 public class Comprobante implements Serializable {
-    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,59 +48,47 @@ public class Comprobante implements Serializable {
     @NotNull
     @Column(name = "IMPORTE_TOTAL")
     private Double importeTotal;
-    
-    @JoinColumn(name = "ID_PARAMETRO", referencedColumnName = "ID")
+
+    @JoinColumn(name = "ID_SOCIO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private ParametroEmpresa parametroEmpresa;
+    private Socio socio;
     
     @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
 
-    public Comprobante(BigInteger nroComprobante, Double importeTotal, ParametroEmpresa parametroEmpresa, Usuario usuarioModifica) {
+    public Comprobante(BigInteger nroComprobante, Double importeTotal, Usuario usuarioModifica, Socio socio) {
         this.nroComprobante = nroComprobante;
         this.importeTotal = importeTotal;
-        this.parametroEmpresa = parametroEmpresa;
         this.usuarioModifica = usuarioModifica;
+        this.socio = socio;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comprobante that = (Comprobante) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(nroComprobante, that.nroComprobante) &&
+                Objects.equals(importeTotal, that.importeTotal) &&
+                Objects.equals(socio, that.socio) &&
+                Objects.equals(usuarioModifica, that.usuarioModifica);
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Comprobante other = (Comprobante) obj;
-        if (this.nroComprobante != other.nroComprobante) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.parametroEmpresa, other.parametroEmpresa)) {
-            return false;
-        }
-        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
-            return false;
-        }
-        return true;
+        return Objects.hash(id, nroComprobante, importeTotal, socio, usuarioModifica);
     }
 
     @Override
     public String toString() {
-        return "Comprobante{" + "id=" + id + ", nroComprobante=" + nroComprobante + ", parametroEmpresa=" + parametroEmpresa.toString() + ", usuario=" + usuarioModifica.toString() + '}';
+        return "Comprobante{" +
+                "id=" + id +
+                ", nroComprobante=" + nroComprobante +
+                ", importeTotal=" + importeTotal +
+                ", socio=" + socio +
+                ", usuarioModifica=" + usuarioModifica +
+                '}';
     }
-    
 }

@@ -23,13 +23,31 @@ public class ComprobanteREST {
     private ComprobanteController comprobanteController;
 
     //GENERACIÓN DE COMPROBANTES MASIVO
-    //GENERA UNA INSTANCIA DE COMPROBANTE POR CADA SOCIO CON ESTADO 'ALTA'
+    //GENERA UNA INSTANCIA DE COMPROBANTE POR CADA SOCIO CON ESTADO 1 - 'ALTA'
     //DECREMENTA EL SALDO DE UN SOCIO
+    @PostMapping("generarComprobantesMasivos")
+    private FunesoftResponseDTO generarComprobanteMasivos() {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    comprobanteController.generarComprobantesMasivos(),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+    }
 
     //GENERACIÓN DE COMPROBANTE PARA UN SOCIO
     //DECREMENTA EL SALDO DE UN SOCIO
     @PostMapping("generarComprobante")
-    private FunesoftResponseDTO generarcomprobante(@Valid @RequestBody SocioDTO socioDTO) {
+    private FunesoftResponseDTO generarComprobante(@Valid @RequestBody SocioDTO socioDTO) {
         try {
             return new FunesoftResponseDTO(
                     true,

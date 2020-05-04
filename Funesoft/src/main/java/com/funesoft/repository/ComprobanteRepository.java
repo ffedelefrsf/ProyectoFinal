@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
+import java.util.Optional;
 
 /**
  *
@@ -18,6 +19,6 @@ import java.math.BigInteger;
  */
 @Repository
 public interface ComprobanteRepository extends JpaRepository<Comprobante, Integer>{
-    @Query("SELECT MAX(c.nroComprobante) FROM Comprobante c ")
-    BigInteger ultimoNroComprobante();
+    @Query(value = "SELECT * FROM COMPROBANTES ORDER BY 2 DESC LIMIT 1", nativeQuery = true)
+    Optional<Comprobante> findUltimoComprobante();
 }
