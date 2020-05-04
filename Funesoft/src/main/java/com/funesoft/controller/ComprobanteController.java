@@ -10,6 +10,7 @@ import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigInteger;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @Controller
 public class ComprobanteController {
@@ -33,9 +36,16 @@ public class ComprobanteController {
     @Autowired
     private ParametroEmpresaRepository parametroEmpresaRepository;
 
+    public List<Comprobante> generarComprobantesMasivos() throws BusinessException, ExecutionException, InterruptedException {
+
+        Future<List<Comprobante>> listComprobantes = generarComprobantesMasivosAsync();
+
+        return listComprobantes.get();
+
+    }
 
     @Async
-    public List<Comprobante> generarComprobantesMasivos() throws BusinessException {
+    public Future<List<Comprobante>> generarComprobantesMasivosAsync() throws BusinessException {
 
         //RECUPERO LA LISTA DE SOCIOS ACTIVOS
         List<Socio> socios = socioRepository.findAllActivo();
@@ -44,7 +54,7 @@ public class ComprobanteController {
             throw new BusinessException("No existen socios dados de alta");
         }
 
-        return createComprobantes(socios);
+        return new AsyncResult(createComprobantes(socios));
 
     }
 
