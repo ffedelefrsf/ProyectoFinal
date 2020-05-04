@@ -1,0 +1,140 @@
+<div id="modificacion-socios">
+    <app-navbar></app-navbar>
+    <app-sidebar></app-sidebar>
+    <div class="card"> 
+        <div class="card-body">
+            <h4 class="card-title">Horizontal Two column</h4>
+            <form class="form-sample">
+            <p class="card-description">
+                Editar Socio
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Nombre</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" value="{{socio.nombre}}" />
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Apellido</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" value="{{socio.apellido}}"/>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Número de documento</label>
+                    <div class="col-sm-9">
+                    <input type="number" class="form-control" value="{{socio.dni}}"/>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                        <input type="text" class="form-control" value="{{socio.email}}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Sexo</label>
+                    <div class="col-sm-9">
+                    <select class="form-control">
+                        <option [selected]="socio.sexo=='Masculino'">Masculino</option>
+                        <option [selected]="socio.sexo=='Femenino'">Femenino</option>
+                    </select>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
+                    <div class="col-sm-9">
+                    <input class="form-control" placeholder="dd/mm/yyyy" value="{{socio.fechaNacimiento}}"/>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Domicilio</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" value="{{socio.direccion}}"/>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Teléfono</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" value="{{socio.telefono}}"/>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Zona</label>
+                    <div class="col-sm-9">
+                    <select class="form-control">
+                        <option>America</option>
+                        <option>Italy</option>
+                        <option>Russia</option>
+                        <option>Britain</option>
+                    </select>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Localidad</label>
+                    <div class="col-sm-9">
+                    <select class="form-control">
+                        <option>America</option>
+                        <option>Italy</option>
+                        <option>Russia</option>
+                        <option>Britain</option>
+                    </select>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Obra social</label>
+                    <div class="col-sm-9">
+                    <select class="form-control">
+                        <option>America</option>
+                        <option>Italy</option>
+                        <option>Russia</option>
+                        <option>Britain</option>
+                    </select>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Fecha de cobertura</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" placeholder="dd/mm/yyyy" value="{{socio.fechaCobertura}}"/>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

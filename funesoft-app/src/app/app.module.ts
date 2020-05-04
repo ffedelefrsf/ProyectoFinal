@@ -31,6 +31,10 @@ import { TabsComponent } from '@app/views/tabs/tabs.component';
 import { LoginComponent } from '@app/views/login/login.component';
 import { ProvinciaService } from '@app/services/provincia.service';
 import { AuthInterceptor } from '@app/services/auth-interceptor.service';
+import { AltaComponent } from '@app/components/socio/alta/alta.component';
+import { ModificacionComponent } from '@app/components/socio/modificacion/modificacion.component';
+import { ListadoComponent } from '@app/components/socio/listado/listado.component';
+import { SocioService } from '@app/services/socio.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +60,10 @@ import { AuthInterceptor } from '@app/services/auth-interceptor.service';
     CarouselComponent,
     TabsComponent,
     LoginComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    AltaComponent,
+    ModificacionComponent,
+    ListadoComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +73,9 @@ import { AuthInterceptor } from '@app/services/auth-interceptor.service';
     FormsModule,
     NgbModule
   ],
-  providers: [AuthService, ProvinciaService,
+  providers:  [AuthService, 
+              ProvinciaService,
+              SocioService,
               {
                 provide: HTTP_INTERCEPTORS,
                 useClass: AuthInterceptor,
