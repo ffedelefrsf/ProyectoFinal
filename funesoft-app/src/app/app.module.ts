@@ -35,6 +35,8 @@ import { AltaComponent } from '@app/components/socio/alta/alta.component';
 import { ModificacionComponent } from '@app/components/socio/modificacion/modificacion.component';
 import { ListadoComponent } from '@app/components/socio/listado/listado.component';
 import { SocioService } from '@app/services/socio.service';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { SocioService } from '@app/services/socio.service';
     MainMenuComponent,
     AltaComponent,
     ModificacionComponent,
-    ListadoComponent
+    ListadoComponent,
+    SideMenuComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
