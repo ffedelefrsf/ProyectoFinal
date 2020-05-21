@@ -5,6 +5,7 @@
  */
 package com.funesoft.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,6 +35,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @Entity
 @Table(name = "USUARIOS")
+@JsonIgnoreProperties(value = { "authorities" })
 public class Usuario implements Serializable, UserDetails {
     
     

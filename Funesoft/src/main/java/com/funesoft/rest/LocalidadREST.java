@@ -8,8 +8,6 @@ package com.funesoft.rest;
 import com.funesoft.controller.LocalidadController;
 import com.funesoft.dto.FunesoftResponseDTO;
 import com.funesoft.dto.LocalidadDTO;
-import com.funesoft.dto.ResponseDTO;
-import com.funesoft.utilities.BusinessException;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +31,15 @@ public class LocalidadREST {
     public FunesoftResponseDTO getAll(@RequestBody LocalidadDTO localidadRequestDTO){
         try {
             return new FunesoftResponseDTO(true, localidadController.getAllLocalidades(localidadRequestDTO), null, null);
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
+        }
+    }
+    
+    @PostMapping(path = "getAllNombres")
+    public FunesoftResponseDTO getAllNombres(@RequestBody LocalidadDTO localidadRequestDTO){
+        try {
+            return new FunesoftResponseDTO(true, localidadController.getAllNombres(localidadRequestDTO), null, null);
         } catch (Exception exception) {
             return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
         }
