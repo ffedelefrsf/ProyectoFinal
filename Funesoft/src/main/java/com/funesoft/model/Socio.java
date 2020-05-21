@@ -5,6 +5,7 @@
  */
 package com.funesoft.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.funesoft.dto.SocioDTO;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -131,6 +132,7 @@ public class Socio implements Serializable {
     private Estado estado;
     
     @Transient
+    @JsonIgnore
     private Short edad;
     
 
@@ -243,11 +245,6 @@ public class Socio implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Socio{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", saldo=" + saldo + ", tarifa=" + tarifa.toString() + ", zona=" + zona.toString() + ", localidad=" + localidad.toString() + ", obraSocial=" + obraSocial.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
     
 }

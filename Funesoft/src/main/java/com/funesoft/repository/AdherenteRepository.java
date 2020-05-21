@@ -8,6 +8,8 @@ package com.funesoft.repository;
 import com.funesoft.model.Adherente;
 import com.funesoft.model.Socio;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdherenteRepository extends JpaRepository<Adherente, Integer>{
     
-    public List<Adherente> findBySocio(Socio socio);
-    
+    List<Adherente> findBySocioOrderByFechaNacimientoAsc(Socio socio);
+
+    Optional<Adherente> findByDni(Integer dni);
 }

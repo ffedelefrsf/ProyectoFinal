@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.funesoft.dto.PagoDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -59,7 +61,36 @@ public class Pago implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
 
-    
+    public Pago(PagoDTO dto) {
+
+        this.valor = dto.getValor().floatValue();
+
+        if(dto.getIdSocio() != null){
+            final Socio socio = new Socio();
+            socio.setId(dto.getIdSocio());
+            this.socio = socio;
+        }
+
+        if(dto.getIdCobrador() != null){
+            final Cobrador cobrador = new Cobrador();
+            cobrador.setId(dto.getIdCobrador());
+            this.cobrador = cobrador;
+        }
+
+        if(dto.getIdComprobante() != null){
+            final Comprobante cbte = new Comprobante();
+            cbte.setId(dto.getIdComprobante());
+            this.comprobante = cbte;
+        }
+
+        if(dto.getIdUsuario() != null){
+            final Usuario user = new Usuario();
+            user.setId(dto.getIdUsuario());
+            this.usuarioModifica = user;
+        }
+
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -98,11 +129,6 @@ public class Pago implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Pago{" + "id=" + id + ", valor=" + valor + ", socio=" + socio.toString() + ", cobrador=" + cobrador.toString() + ", comprobante=" + comprobante.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
     }
 
 }

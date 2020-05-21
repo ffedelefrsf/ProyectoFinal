@@ -10,7 +10,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,4 +23,6 @@ import java.util.Optional;
 public interface ComprobanteRepository extends JpaRepository<Comprobante, Integer>{
     @Query(value = "SELECT * FROM COMPROBANTES ORDER BY 2 DESC LIMIT 1", nativeQuery = true)
     Optional<Comprobante> findUltimoComprobante();
+
+    List<Comprobante> findByImpreso(Boolean impreso);
 }

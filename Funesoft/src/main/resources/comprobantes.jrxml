@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobantes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="99768eba-38d4-4bad-beea-99efcc444e5a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql - LocalHost"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="227"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="762"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="485"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="501"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+
+	LPAD(C.NRO_COMPROBANTE, 8, '0') as nroComprobabte,
+	T.NRO_TARIFA as nroTarifa,
+	T.DESCRIPCION as descricionTarifa,
+	p.NRO_PLAN as nroPlan,
+	p.DESCRIPCION as descripcionPlan,
+	
+	
+	-- INFO SOCIO
+	S.ID as idSocio,
+	S.DNI as dniSocio, 
+	concat(S.APELLIDO, " ", S.NOMBRE) as NombreSocio,
+	S.FECHA_NACIMIENTO as fechaNacSocio,
+	S.FECHA_COBERTURA as fechaCoberturaSocio,
+	S.DIRECCION as domicilioSocio,
+	L.NOMBRE as ciudadNombre,	
+	pr.NOMBRE as provinciaNombre,
+	zn.NOMBRE as zonaNombre,
+	C.IMPORTE_TOTAL + S.saldo as debeSocio,
+	
+	-- INFO ADHERENTE
+	A.ID as idAdherente,
+	A.DNI as dniAdherente, 
+	concat(A.APELLIDO, " ", A.NOMBRE) as NombreAdherente,
+	A.FECHA_NACIMIENTO as fechaNacAdh,
+	A.FECHA_COBERTURA as fechaCoberturaAdh,
+	
+	ic.ID as idImpresioncomprobante,
+	
+	coalesce(C.IMPORTE_TOTAL, 0.0) as importeTotal,
+	coalesce(IC.IMPORTE, 0.0) as importeAdherente,
+	suma.totalesAdherentes as sumaAdherente,
+	coalesce(C.IMPORTE_TOTAL - coalesce(suma.totalesAdherentes,0.0), 0.0) as cuotaSocio
+	
+FROM comprobantes C
+left join impresion_comprobantes ic on ic.ID_COMPROBANTE = c.ID and C.impreso  = 0
+inner join socios s on s.ID = c.ID_SOCIO 
+left join adherentes a on a.ID = IC.ID_ADHERENTE 
+inner join tarifas t on t.ID = s.ID_TARIFA 
+inner join planes p on p.ID = t.ID_PLAN 
+inner join localidades L on S.ID_LOCALIDAD = L.ID 
+inner join provincias pr on l.ID_PROVINCIA = pr.id
+inner join zonas zn on s.ID_ZONA = zn.id
+left join (	select ID, ID_COMPROBANTE, SUM(IMPORTE) as totalesAdherentes
+			from impresion_comprobantes icSum
+			group by ID_COMPROBANTE ) suma on suma.ID_COMPROBANTE = C.ID
+where C.impreso = 0]]>
+	</queryString>
+	<field name="nroComprobabte" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nroComprobabte"/>
+	</field>
+	<field name="nroTarifa" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="nroTarifa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tarifas"/>
+	</field>
+	<field name="descricionTarifa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricionTarifa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tarifas"/>
+	</field>
+	<field name="nroPlan" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="nroPlan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="planes"/>
+	</field>
+	<field name="descripcionPlan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descripcionPlan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="planes"/>
+	</field>
+	<field name="idSocio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idSocio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="socios"/>
+	</field>
+	<field name="dniSocio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="dniSocio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="socios"/>
+	</field>
+	<field name="NombreSocio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NombreSocio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="socios"/>
+	</field>
+	<field name="fechaNacSocio" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fechaNacSocio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="socios"/>
+	</field>
+	<field name="fechaCoberturaSocio" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fechaCoberturaSocio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="socios"/>
+	</field>
+	<field name="domicilioSocio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="domicilioSocio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="socios"/>
+	</field>
+	<field name="ciudadNombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ciudadNombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="localidades"/>
+	</field>
+	<field name="provinciaNombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="provinciaNombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="provincias"/>
+	</field>
+	<field name="zonaNombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="zonaNombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="zonas"/>
+	</field>
+	<field name="debeSocio" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="debeSocio"/>
+	</field>
+	<field name="idAdherente" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idAdherente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="adherentes"/>
+	</field>
+	<field name="dniAdherente" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="dniAdherente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="adherentes"/>
+	</field>
+	<field name="NombreAdherente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NombreAdherente"/>
+	</field>
+	<field name="fechaNacAdh" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fechaNacAdh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="adherentes"/>
+	</field>
+	<field name="fechaCoberturaAdh" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fechaCoberturaAdh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="adherentes"/>
+	</field>
+	<field name="idImpresioncomprobante" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idImpresioncomprobante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="impresion_comprobantes"/>
+	</field>
+	<field name="importeTotal" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="importeTotal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comprobantes"/>
+	</field>
+	<field name="importeAdherente" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="importeAdherente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="impresion_comprobantes"/>
+	</field>
+	<field name="sumaAdherente" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="sumaAdherente"/>
+	</field>
+	<field name="cuotaSocio" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="cuotaSocio"/>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{idSocio}]]></groupExpression>
+		<groupHeader>
+			<band height="102">
+				<rectangle>
+					<reportElement x="0" y="90" width="555" height="12" backcolor="#FFDBB5" uuid="38e79c14-7f19-44b1-99f3-859ac21a6859">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+					</reportElement>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="0" y="60" width="555" height="12" backcolor="#FFDBB5" uuid="1ca29ed1-968f-41c9-b5aa-c743640ccfb4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<image>
+					<reportElement x="0" y="0" width="110" height="40" uuid="2625580c-37f0-461e-8a0a-7f6094a1111d"/>
+					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<imageExpression><![CDATA["https://i.ibb.co/WGm1GhX/logococheria.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="0" y="72" width="70" height="12" uuid="2de85ce4-9bfd-4f21-9144-850084c1dc5e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Narrow"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $F{dniSocio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="110" y="20" width="220" height="20" uuid="18e1618a-8307-4dc5-b712-3629c64e94d7">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tel.: 03438-427073 | Alte. Brown 156]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="110" y="0" width="290" height="20" uuid="5619cf8c-e90e-49dd-bca6-87f5d0dc0003">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cocheria Zurdo - Servicios Sociales | Bovril - Entre Ríos]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="400" y="0" width="155" height="20" uuid="d02a759a-15f3-4464-a878-e08b4ccd1985">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Bottom" markup="styled">
+						<font size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Fecha de emisión: " + new SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="330" y="20" width="225" height="20" uuid="3ce4163a-cf6b-4647-8fea-f44144940d5a">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Top" markup="styled">
+						<font size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Comprobante de pago n°: " + $F{nroComprobabte}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="60" width="70" height="12" uuid="eb1ce733-ee0b-4c09-9871-a0407fd959fa">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ DNI Socio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="280" y="60" width="90" height="12" uuid="1a6eaefe-2957-4db3-a7fe-7100f881434d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Nacimiento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="370" y="60" width="103" height="12" uuid="4fbc023d-8f38-4bad-85cb-b9b0358e6c5f"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Cobertura]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="473" y="60" width="80" height="12" uuid="54045603-773a-4f94-8616-00d1961be2e7">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cuota ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="80" y="60" width="200" height="12" uuid="e0859bd2-a37b-4894-a4a0-a5d53933bd28"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="80" y="72" width="200" height="12" uuid="ed521ca0-1eb8-4b62-afcf-9cff1fb859d2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Narrow"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NombreSocio}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="280" y="72" width="90" height="12" uuid="f2d7b6cd-b2e0-4c53-85b2-fa2f1ffbfa2e"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaNacSocio})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="90" width="70" height="12" printWhenGroupChanges="Group1" uuid="b0ea9954-b025-444c-8061-00ce1fa3e8fa">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ DNI Adherente]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="370" y="72" width="103" height="12" uuid="d89b9f24-7ef9-46db-9348-7e430f3dc8b4"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaNacSocio})]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement x="397" y="90" width="76" height="12" backcolor="#FFDBB5" uuid="e2a5c327-5551-4d68-a491-15d36ede1606">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} == null]]></printWhenExpression>
+					</reportElement>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="397" y="90" width="73" height="12" uuid="33043351-2757-490e-b771-e544fc581e34">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} == null]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total: $]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="473" y="90" width="80" height="12" uuid="0044df39-c50b-43f8-b53c-078862c8480b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} == null]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{importeTotal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="40" width="555" height="20" uuid="3c2b3881-1ff3-41c9-a2f1-47fdf40416fc">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Narrow" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" Plan: " + $F{descripcionPlan} + " | Zona: " + $F{zonaNombre} + " | Domicilio: " + $F{domicilioSocio} + " | Localidad: " + $F{ciudadNombre} + " | Provincia: " + $F{provinciaNombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="473" y="72" width="80" height="12" uuid="76839563-63f5-4de8-b27a-457c84581308"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cuotaSocio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="90" width="394" height="12" printWhenGroupChanges="Group1" uuid="37700160-f755-4376-8b6d-4f8b7faf38e6">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} == null && $F{debeSocio} < 0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial Narrow" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Existen comprobantes anteriores sin abonar]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="44">
+				<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+				<rectangle>
+					<reportElement x="395" y="10" width="78" height="12" backcolor="#FFDBB5" uuid="34a31c47-54ed-4cff-b0ae-2e9b5d804f2c">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+					</reportElement>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="397" y="10" width="73" height="12" uuid="d9db98ce-592a-49c8-8be3-c995e2be4c79">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total: $]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="473" y="10" width="80" height="12" uuid="faaf0ad4-8699-4487-a428-047ef0c716b6">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial Narrow"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{importeTotal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="10" width="394" height="12" printWhenGroupChanges="Group1" uuid="3d976f6f-edc2-420a-910b-b98e3343ec5f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<printWhenExpression><![CDATA[$F{idAdherente} != null && $F{debeSocio} < 0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial Narrow" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Existen comprobantes anteriores sin abonar]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="70" height="12" uuid="718c12a2-7fbd-4045-bce6-9dab3652fca8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $F{dniAdherente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="208" height="12" uuid="ee9c85a6-2fca-4874-9cd4-0a4bfdbbde53">
+					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreAdherente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="473" y="0" width="80" height="12" uuid="800e3c29-24be-4afa-a008-2f68b215c952">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importeAdherente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="103" height="12" uuid="41baf0b3-a53b-440a-a1f0-49df2dcf1e4b">
+					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaCoberturaAdh})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="90" height="12" uuid="7a40f872-2e99-4d6f-9e1e-c202f0566662">
+					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaNacAdh})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

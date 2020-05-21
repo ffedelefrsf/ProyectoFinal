@@ -5,14 +5,26 @@ import com.funesoft.controller.LocalidadController;
 import com.funesoft.dto.FunesoftResponseDTO;
 import com.funesoft.dto.SocioDTO;
 import com.funesoft.model.Cobrador;
+import com.funesoft.model.Comprobante;
+import com.funesoft.repository.ComprobanteRepository;
 import io.swagger.annotations.Api;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Connection;
+import java.util.*;
 
 @RestController
 @RequestMapping("comprobante")
@@ -71,11 +83,28 @@ public class ComprobanteREST {
     //GET ONE COMPROBANTE
     //PARA UNA POSIBLE REIMPRESIÓN. INPUT MES(PERIODO) IDSOCIO
 
-    //GET INFO PARA POBLAR UN COMPROBANTE A IMPRIMIR
-    //ESTE SERVICIO SERÁ CONSUMIDO POR ALGÚN FRAMEWORK PARA LA GENERACIÓN DE UN PDF
-    //SE PODRÁ PASAR UNA LISTA DE SOCIOS SIEMPRE Y CUANDO YA ESTÉ GENERADO EL COMPROBANTE PARA LOS MISMOS.
-    //DEVOLVERÁ UN DTO 
+    //GET ALL COMPROBANTES PAGADOS (LOS QUE TENGAN UNA RELACIÓN CON PAGOS)
 
     //ELIMINAR UN COMPROBANTE
+
+    @GetMapping("generarPDF")
+    public FunesoftResponseDTO generarReporte(HttpServletResponse response) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    comprobanteController.generateReport(response),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+
+    }
 
 }
