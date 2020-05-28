@@ -49,6 +49,11 @@ public class Comprobante implements Serializable {
     @Column(name = "IMPORTE_TOTAL")
     private Double importeTotal;
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IMPRESO")
+    private Boolean impreso;
+
     @JoinColumn(name = "ID_SOCIO", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Socio socio;
@@ -57,11 +62,12 @@ public class Comprobante implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
 
-    public Comprobante(BigInteger nroComprobante, Double importeTotal, Usuario usuarioModifica, Socio socio) {
+    public Comprobante(BigInteger nroComprobante, Double importeTotal, Usuario usuarioModifica, Socio socio, Boolean impreso) {
         this.nroComprobante = nroComprobante;
         this.importeTotal = importeTotal;
         this.usuarioModifica = usuarioModifica;
         this.socio = socio;
+        this.impreso = impreso;
     }
 
     @Override

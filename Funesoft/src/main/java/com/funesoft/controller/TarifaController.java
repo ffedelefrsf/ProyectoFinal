@@ -88,11 +88,11 @@ public class TarifaController {
         switch (plan.getDescripcion()){
             case Plan.INDIVIDUAL:
                 try{
+                    Float total = 0F;
                     for (RangoTarifa rango : rangosTarifa){
                         final Short edad = socio.getEdad();
-                        Float total = 0F;
                         if (rango.getEdadDesde() <= edad && rango.getEdadHasta() >= edad){
-                            mapSalida.put(socio.getId(), rango.getValor());
+                            mapSalida.put(socio.getDni(), rango.getValor());
                             total += rango.getValor();
                         }
                         mapSalida.put(0, total);
@@ -103,10 +103,10 @@ public class TarifaController {
                 }
             case Plan.TITULAR_Y_ADHERENTE:
                 try{
-                    final Adherente adherente = adherenteRepository.findBySocio(socio).get(0);
+                    final Adherente adherente = adherenteRepository.findBySocioOrderByFechaNacimientoAsc(socio).get(0);
+                    Float total = 0F;
                     for (RangoTarifa rango : rangosTarifa){
                         final Short edadSocio = socio.getEdad(), edadAdherente = adherente.getEdad();
-                        Float total = 0F;
                         if (rango.getEdadDesde() <= edadSocio && rango.getEdadHasta() >= edadSocio){
                             total += rango.getValor();
                             mapSalida.put(socio.getDni(), rango.getValor());
@@ -123,25 +123,30 @@ public class TarifaController {
                 }
             case Plan.FAMILIAR:
                 try{
-                    final List<Adherente> adherentes = adherenteRepository.findBySocio(socio);
+                    final List<Adherente> adherentes = adherenteRepository.findBySocioOrderByFechaNacimientoAsc(socio);
                     Float total = 0F;
-                    final Short edadSocio = socio.getEdad();
-                    for (RangoTarifa rango : rangosTarifa){
-                        if (rango.getEdadDesde() <= edadSocio && rango.getEdadHasta() >= edadSocio){
-                            total += rango.getValor();
-                            mapSalida.put(socio.getDni(), rango.getValor());
-                        }
-                    }
+
+                    //ESTE VALOR ABARCA EL SOCIO Y EL PRIMER ADHERENTE
+                    mapSalida.put(socio.getDni(), tarifa.getValor());
+
+                    int iterator = 0;
+
                     for (Adherente adh : adherentes){
-                        final Short edadAdherente = adh.getEdad();
-                        for (RangoTarifa rango : rangosTarifa){
-                            if (rango.getEdadDesde() <= edadAdherente && rango.getEdadHasta() >= edadAdherente){
-                                total += rango.getValor();
-                                mapSalida.put(adh.getDni(), rango.getValor());
+
+                        if(iterator == 0){
+                            mapSalida.put(adh.getDni(), 0F);
+                        }else{
+                            final Short edadAdherente = adh.getEdad();
+                            for (RangoTarifa rango : rangosTarifa){
+                                if (rango.getEdadDesde() <= edadAdherente && rango.getEdadHasta() >= edadAdherente){
+                                    total += rango.getValor();
+                                    mapSalida.put(adh.getDni(), rango.getValor());
+                                }
                             }
                         }
+                        iterator++;
                     }
-                    mapSalida.put(0, total);
+                    mapSalida.put(0, total + tarifa.getValor());
                     return mapSalida;
                 }catch(Exception exception){
                     throw new BusinessException(exception.getMessage());

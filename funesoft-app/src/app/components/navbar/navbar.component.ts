@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -9,23 +11,64 @@ import { PageEnum } from '@app/utils/page.enum';
 import { FunesoftResponseDTO } from '@app/dtos/funesoftRequest.dto';
 
 @Component({
-  selector: 'app-main-menu',
-  templateUrl: './main-menu.component.html',
-  styleUrls: ['./main-menu.component.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
+  providers: [NgbDropdownConfig]
 })
-export class MainMenuComponent implements OnInit {
+export class NavbarComponent implements OnInit {
 
+  public sidebarOpened = false;
   loading: boolean = false;
   authForm: FormGroup;
 
-  constructor(private authService: AuthService,
+  toggleOffcanvas() {
+    this.sidebarOpened = !this.sidebarOpened;
+    if (this.sidebarOpened) {
+      document.querySelector('.sidebar-offcanvas').classList.add('active');
+    }
+    else {
+      document.querySelector('.sidebar-offcanvas').classList.remove('active');
+    }
+  }
+
+  constructor(config: NgbDropdownConfig,
+              private authService: AuthService,
               private provinciaService: ProvinciaService,
               private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router) {
+    config.placement = 'bottom-right';
+  }
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
     });
+
+    if (!this.authService.check) {
+      this.router.navigate(['/auth']);
+    }
+
+  }
+  
+  logout(){
+    this.loading = true;
+    this.authService.logout().subscribe(
+      response => {
+        if (response){
+          console.log('response', 'DESLOGEADO');
+        }else{
+          console.log('response', 'ERROR');
+        }
+      },
+      error => {
+        if (error.status === 401){
+          this.router.navigate(['/'+PageEnum.AUTH]);
+        }else{
+          console.log('ERROR', error);
+        }
+      },
+      () => this.loading = false // finally
+    );
   }
 
   getProvincias(){
@@ -64,27 +107,6 @@ export class MainMenuComponent implements OnInit {
         }
       },
       () => this.loading = false
-    );
-  }
-
-  logout(){
-    this.loading = true;
-    this.authService.logout().subscribe(
-      response => {
-        if (response){
-          console.log('response', 'DESLOGEADO');
-        }else{
-          console.log('response', 'ERROR');
-        }
-      },
-      error => {
-        if (error.status === 401){
-          this.router.navigate(['/'+PageEnum.AUTH]);
-        }else{
-          console.log('ERROR', error);
-        }
-      },
-      () => this.loading = false // finally
     );
   }
 

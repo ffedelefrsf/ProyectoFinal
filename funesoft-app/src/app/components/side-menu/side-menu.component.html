@@ -1,131 +1,379 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
-      <li class="nav-item nav-profile">
-        <div class="nav-link">
-          <div class="user-wrapper">
-            <div class="profile-image">
-              <img src="assets/images/faces/face1.jpg" alt="profile image">
-            </div>
-            <div class="text-wrapper">
-              <p class="profile-name">Richard V.Welsh</p>
-              <div>
-                <small class="designation text-muted">Manager</small>
-                <span class="status-indicator online"></span>
-              </div>
+  <ul class="nav">
+    <li class="nav-item nav-profile">
+      <div class="nav-link">
+        <div class="user-wrapper">
+          <div class="profile-image">
+            <img src="assets/images/faces/face1.jpg" alt="profile image">
+          </div>
+          <div class="text-wrapper">
+            <p class="profile-name">Cocheria Zurdo</p>
+            <div>
+              <small class="designation text-muted">Activo</small>
+              <span class="status-indicator online"></span>
             </div>
           </div>
-          <button class="btn btn-success btn-block">New Project
-            <i class="mdi mdi-plus"></i>
-          </button>
         </div>
-      </li>
-      <li class="nav-item" type="button" (click)="socioGroup = !socioGroup">
-        <a class="nav-link">
-          <i class="fa fa-angle-down" *ngIf="socioGroup"></i>
-          <i class="fa fa-angle-up" *ngIf="!socioGroup"></i>
-          <span class="menu-title">Socio</span>
-        </a>
-      </li>
-      <li class="nav-item" type="button" [ngbCollapse]="socioGroup" routerLink="/socio/alta" routerLinkActive="active">
-        <a class="nav-link">
-          <span class="menu-title">Alta</span>
-        </a>
-      </li>
-      <li class="nav-item" type="button" [ngbCollapse]="socioGroup" routerLink="/socio" routerLinkActive="active">
-        <a class="nav-link">
-          <span class="menu-title">Listado</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/forms" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-notification-clear-all"></i>
-          <span class="menu-title">Form elements</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/buttons" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-dna"></i>
-          <span class="menu-title">Buttons</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/progressbar" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-trackpad"></i>
-          <span class="menu-title">Progress bar</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/carousel" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-texture"></i>
-          <span class="menu-title">Carousal</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/tooltips" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-content-copy"></i>
-          <span class="menu-title">Tooltip</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/tabs" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-lightbulb-outline"></i>
-          <span class="menu-title">Tabs</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dropdowns" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-backup-restore"></i>
-          <span class="menu-title">Dropdown</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/breadcrumbs" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-flag-outline"></i>
-          <span class="menu-title">Breadcrumb</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/pagination" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-loupe"></i>
-          <span class="menu-title">Pagination</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/tables" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-table"></i>
-          <span class="menu-title">Tables</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/alerts" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-shield-outline"></i>
-          <span class="menu-title">Alerts</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/accordions" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-altimeter"></i>
-          <span class="menu-title">Accordion</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/badges" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-checkbox-multiple-blank-circle-outline"></i>
-          <span class="menu-title">Badges</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/icons" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-chart-bubble"></i>
-          <span class="menu-title">Icons</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/typography" routerLinkActive="active">
-          <i class="menu-icon mdi mdi-format-italic"></i>
-          <span class="menu-title">Typography</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  
+        <button class="btn btn-success btn-block" routerLink="/socio/alta">Nuevo Socio! 
+          <i class="mdi mdi-plus"></i>
+        </button>
+      </div>
+    </li>
+
+    <li class="nav-item" type="button" (click)="socioGroup = !socioGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="socioGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!socioGroup"></i>
+        <span class="menu-title">Socios</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="socioGroup" routerLink="/socio" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Padrón</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="socioGroup" routerLink="/socio/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Alta</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="socioGroup" routerLink="/socio/baja" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Baja</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="socioGroup" routerLink="/socio/modificacion" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Actualización</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item" type="button" (click)="adherenteGroup = !adherenteGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="adherenteGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!adherenteGroup"></i>
+        <span class="menu-title">Adherentes</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="adherenteGroup" routerLink="/socio" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Padrón</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="adherenteGroup" routerLink="/socio/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Alta</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="adherenteGroup" routerLink="/socio/baja" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Baja</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="adherenteGroup" routerLink="/socio/modificacion" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Actualización</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item" type="button" (click)="tarifaGroup = !tarifaGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="tarifaGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!tarifaGroup"></i>
+        <span class="menu-title">Tarifas</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="tarifaGroup" routerLink="/socio" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Padrón</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="tarifaGroup" routerLink="/socio/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Alta</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="tarifaGroup" routerLink="/socio/baja" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Baja</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="tarifaGroup" routerLink="/socio/modificacion" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Actualización</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" (click)="zonaGroup = !zonaGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="zonaGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!zonaGroup"></i>
+        <span class="menu-title">Zonas</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="zonaGroup" routerLink="/socio" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Padrón</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="zonaGroup" routerLink="/socio/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Alta</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="zonaGroup" routerLink="/socio/baja" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Baja</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="zonaGroup" routerLink="/socio/modificacion" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Actualización</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" (click)="cobradorGroup = !cobradorGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="cobradorGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!cobradorGroup"></i>
+        <span class="menu-title">Cobradores</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="cobradorGroup" routerLink="/socio" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Padrón</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="cobradorGroup" routerLink="/socio/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Alta</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="cobradorGroup" routerLink="/socio/baja" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Baja</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="cobradorGroup" routerLink="/socio/modificacion" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Actualización</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item" type="button" (click)="obraSocialGroup = !obraSocialGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="obraSocialGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!obraSocialGroup"></i>
+        <span class="menu-title">Obra sociales</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="obraSocialGroup" routerLink="/socio" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Padrón</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="obraSocialGroup" routerLink="/socio/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Alta</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="obraSocialGroup" routerLink="/socio/baja" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Baja</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="obraSocialGroup" routerLink="/socio/modificacion" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Actualización</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item" type="button" (click)="comprobanteGroup = !comprobanteGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="comprobanteGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!comprobanteGroup"></i>
+        <span class="menu-title">Comprobantes</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="comprobanteGroup" routerLink="/socio" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Generación</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="comprobanteGroup" routerLink="/socio/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Impresión</span>
+      </a>
+    </li>
+
+
+    <li class="nav-item" type="button" (click)="pagoGroup = !pagoGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="pagoGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!pagoGroup"></i>
+        <span class="menu-title">Pagos</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="pagoGroup" routerLink="/socio" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Informar</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="pagoGroup" routerLink="/socio/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Cancelar</span>
+      </a>
+    </li>
+
+    <!-- <li class="nav-item">
+      <a class="nav-link" routerLink="/forms" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-notification-clear-all"></i>
+        <span class="menu-title">Form elements</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/buttons" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-dna"></i>
+        <span class="menu-title">Buttons</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/progressbar" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-trackpad"></i>
+        <span class="menu-title">Progress bar</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/carousel" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-texture"></i>
+        <span class="menu-title">Carousal</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/tooltips" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-content-copy"></i>
+        <span class="menu-title">Tooltip</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/tabs" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-lightbulb-outline"></i>
+        <span class="menu-title">Tabs</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/dropdowns" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-backup-restore"></i>
+        <span class="menu-title">Dropdown</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/breadcrumbs" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-flag-outline"></i>
+        <span class="menu-title">Breadcrumb</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/pagination" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-loupe"></i>
+        <span class="menu-title">Pagination</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/tables" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-table"></i>
+        <span class="menu-title">Tables</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/alerts" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-shield-outline"></i>
+        <span class="menu-title">Alerts</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/accordions" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-altimeter"></i>
+        <span class="menu-title">Accordion</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/badges" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-checkbox-multiple-blank-circle-outline"></i>
+        <span class="menu-title">Badges</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/icons" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-chart-bubble"></i>
+        <span class="menu-title">Icons</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/typography" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-format-italic"></i>
+        <span class="menu-title">Typography</span>
+      </a>
+    </li> -->
+  </ul>
+</nav>

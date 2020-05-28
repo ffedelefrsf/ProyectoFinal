@@ -8,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class SideMenuComponent implements OnInit {
 
   socioGroup: boolean = true;
+  adherenteGroup: boolean = true;
+  tarifaGroup: boolean = true;
+  zonaGroup: boolean = true;
+  cobradorGroup: boolean = true;
+  obraSocialGroup: boolean = true;
+  comprobanteGroup: boolean = true;
 
   constructor() { }
 

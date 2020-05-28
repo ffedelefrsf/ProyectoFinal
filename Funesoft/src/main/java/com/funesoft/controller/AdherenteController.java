@@ -44,7 +44,7 @@ public class AdherenteController {
         }catch (NoResultException | NoSuchElementException | NullPointerException exception){
             throw new BusinessException("El socio ingresado no existe.");
         }
-        final List<Adherente> adherentes = adherenteRepository.findBySocio(socioDB);
+        final List<Adherente> adherentes = adherenteRepository.findBySocioOrderByFechaNacimientoAsc(socioDB);
         // SI NO HAY ADHERENTES NO SE RETORNA ERROR YA QUE NO ME PARECE NECESARIO FRENAR EL FLUJO POR ALGO IRRELEVANTE
         for (Adherente adherente : adherentes){
             final Estado estadoBaja;

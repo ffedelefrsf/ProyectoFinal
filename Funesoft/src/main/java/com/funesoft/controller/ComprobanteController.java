@@ -1,28 +1,35 @@
 package com.funesoft.controller;
 
-import com.funesoft.model.Comprobante;
-import com.funesoft.model.ParametroEmpresa;
-import com.funesoft.model.Socio;
-import com.funesoft.repository.ComprobanteRepository;
-import com.funesoft.repository.ParametroEmpresaRepository;
-import com.funesoft.repository.SocioRepository;
+import com.funesoft.model.*;
+import com.funesoft.repository.*;
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
+import net.sf.jasperreports.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.sql.Connection;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Controller
 public class ComprobanteController {
+
+    @Autowired
+    @Qualifier("jdbcTemplate")
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private ComprobanteRepository comprobanteRepository;
@@ -35,6 +42,12 @@ public class ComprobanteController {
 
     @Autowired
     private ParametroEmpresaRepository parametroEmpresaRepository;
+
+    @Autowired
+    private ImpresionComprobanteRepository impresionComprobanteRepository;
+
+    @Autowired
+    private AdherenteRepository adherenteRepository;
 
     public List<Comprobante> generarComprobantesMasivos() throws BusinessException, ExecutionException, InterruptedException {
 
@@ -77,20 +90,23 @@ public class ComprobanteController {
 
     private List<Comprobante> createComprobantes(List<Socio> socios) throws BusinessException {
 
+        List<Comprobante> result = new ArrayList<>();
+
         //Recupero el último comprobante
         Optional<Comprobante> ultimoCbte = comprobanteRepository.findUltimoComprobante();
         BigInteger nroComprobante = ultimoCbte.isPresent() ? ultimoCbte.get().getNroComprobante().add(BigInteger.ONE) : BigInteger.ONE;
 
-        List<Comprobante> result = new ArrayList<>();
-
-        for(Socio socio : socios){
+        for (Socio socio : socios) {
 
             //RECUPERO EL IMPORTE QUE PAGA EL SOCIO
             Map<Integer, Float> map = tarifaController.getValorTarifaByAsociado(socio);
 
+            //NO TENGO EN CUENTA EL SALDO DEL SOCIO. SI TIENE SALDO NEGATIVO SE LE INFORMADA MEDIANTE UN STRING
+            Double valorCbte = map.get(0).doubleValue(); // - socio.getSaldo();
+
             Comprobante cbte = newComprobante(
                     nroComprobante,
-                    map.get(0).doubleValue() - socio.getSaldo(),
+                    valorCbte < 0D ? 0D : valorCbte,
                     socio
             );
 
@@ -100,8 +116,10 @@ public class ComprobanteController {
 
             result.add(cbte);
 
+            cargarDatosImpresion(map, cbte);
+
             //INCREMENTO EL PRÓXIMO NRO DE COMPROBANTE
-            nroComprobante.add(BigInteger.ONE);
+            nroComprobante = nroComprobante.add(BigInteger.ONE);
 
         }
 
@@ -109,18 +127,82 @@ public class ComprobanteController {
 
     }
 
-    private Comprobante newComprobante(BigInteger nroComprobante, Double importeTotal, Socio socio){
+    private Comprobante newComprobante(BigInteger nroComprobante, Double importeTotal, Socio socio) {
 
         return comprobanteRepository.save(
                 new Comprobante(
                         nroComprobante,
                         importeTotal,
                         CurrentUser.getInstance(),
-                        socio
+                        socio,
+                        false
                 )
         );
 
     }
 
+    private void cargarDatosImpresion(Map<Integer, Float> map, Comprobante cbte) {
+
+        //ELIMINO EL TOTAL DEL CBTE
+        map.remove(0);
+        
+        for (Map.Entry<Integer, Float> entry : map.entrySet()) {
+
+            //CHEQUEO Y RECUPERO SI EL MAP TIENE UN ADHERENTE
+            Optional<Adherente> adh = adherenteRepository.findByDni(entry.getKey());
+
+            ImpresionComprobante impresion = new ImpresionComprobante();
+            impresion.setComprobante(cbte);
+
+            if(adh.isPresent()){
+                impresion.setAdherente(adh.get());
+                impresion.setImporte(entry.getValue().doubleValue());
+                impresion.setUsuarioModifica(CurrentUser.getInstance());
+                impresionComprobanteRepository.save(impresion);
+            }
+
+        }
+
+    }
+
+    public String generateReport(HttpServletResponse response) {
+        try {
+
+            response.setContentType("application/x-download");
+            response.setHeader("Content-Disposition", String.format("attachment; filename=\"comprobantes.pdf\""));
+
+            OutputStream out = response.getOutputStream();
+
+            String reportPath = "classpath:comprobantes.jrxml";
+
+            File file = ResourceUtils.getFile(reportPath);
+            InputStream input = new FileInputStream(file);
+            JasperReport jasperReport = JasperCompileManager.compileReport(input);
+
+            Connection conn = jdbcTemplate.getDataSource().getConnection();
+
+            Map<String, Object> parameters = new HashMap<>();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            JasperExportManager.exportReportToPdfStream(jasperPrint, out);
+
+            actualizarImpresos();
+
+            return "PDF File Generated";
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
+
+    private List<Comprobante> actualizarImpresos() {
+        List<Comprobante> listImpresos = comprobanteRepository.findByImpreso(false);
+
+        for (Comprobante cbte : listImpresos) {
+            cbte.setImpreso(true);
+        }
+
+        return comprobanteRepository.saveAll(listImpresos);
+
+    }
 
 }
