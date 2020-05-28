@@ -19,6 +19,8 @@ import { Zona } from '@app/model/zona';
 import { Localidad } from '@app/model/localidad';
 import { PageEnum } from '@app/utils/page.enum';
 import { SocioService } from '@app/services/socio.service';
+import { Tarifa } from '@app/model/tarifa';
+import { TarifaService } from '@app/services/tarifa.service';
 
 
 @Component({
@@ -37,6 +39,7 @@ export class ModificacionComponent implements OnInit {
   localidadesNombres: String[];
   localidades: Localidad[];
   obrasSociales: ObraSocial[];
+  tarifas: Tarifa[];
   editSocioForm: FormGroup;
   currentYear: number;
   currentMonth: number;
@@ -48,12 +51,12 @@ export class ModificacionComponent implements OnInit {
               private zonaService: ZonaService,
               private obraSocialService: ObraSocialService,
               private socioService: SocioService,
+              private tarifaService: TarifaService,
               private formBuilder: FormBuilder,
               private location: Location) {
 
     this.socio = JSON.parse(this.router.getCurrentNavigation().extras.state.socio);
     // FECHA ACTUAL
-    
 
     var currentDate :Date = new Date();
     this.currentYear = currentDate.getFullYear();
@@ -76,7 +79,8 @@ export class ModificacionComponent implements OnInit {
       zona: this.formBuilder.control(this.socio.zona.nombre, [Validators.required]),
       localidad: this.formBuilder.control(this.socio.localidad.nombre, [Validators.required]),
       obraSocial: this.formBuilder.control(this.socio.obraSocial.descripcion, [Validators.required]),
-      fechaCobertura: this.formBuilder.control(this.socio.fechaCobertura, [Validators.required])
+      fechaCobertura: this.formBuilder.control(this.socio.fechaCobertura, [Validators.required]),
+      tarifa: this.formBuilder.control(this.socio.tarifa.descripcion, [Validators.required])
     });
 
     var fechaNacimiento: Date = new Date(this.socio.fechaNacimiento);
@@ -105,6 +109,21 @@ export class ModificacionComponent implements OnInit {
                     this.obraSocialService.getObrasSociales(obraSocial).subscribe(
                       obraSocialResponse => {
                         this.obrasSociales = obraSocialResponse.data;
+                        var tarifa: Tarifa = {};
+                        this.tarifaService.getTarifas(tarifa).subscribe(
+                          tarifaResponse => {
+                            this.tarifas = tarifaResponse.data;
+                            this.loading = false;
+                          },
+                          errorTarifas => {
+                            if (errorTarifas.status === 401){
+                              this.router.navigate(['/'+PageEnum.AUTH]);
+                              this.loading = false;
+                            }else{
+                              console.log('ERROR', errorTarifas);
+                            }
+                          }
+                        );
                         this.loading = false;
                       },
                       errorObrasSociales => {
@@ -199,6 +218,10 @@ export class ModificacionComponent implements OnInit {
 
   updateLocalidades(event: any){
     this.socio.localidad = this.localidades[event.target.selectedIndex];
+  }
+
+  updateTarifa(event: any){
+    this.socio.tarifa = this.tarifas[event.target.selectedIndex];
   }
 
   updateZonas(event: any){

@@ -1,0 +1,162 @@
+<div class="modal-header">
+    <h4 class="modal-title">Detalle</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div id="detalle-socios">
+        <div class="card" *ngIf="!loading">
+            <div class="card-body">
+                <form class="form-sample" [formGroup]="detailSocioForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Nombre</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="nombre"
+                                        value="{{socio.nombre}}" disabled="true" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Apellido</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="apellido"
+                                        value="{{socio.apellido}}" disabled="true" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Número de documento</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="dni" value="{{socio.dni}}"
+                                        disabled="true" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="email"
+                                        value="{{socio.email}}" disabled="true" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Sexo</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="sexo" disabled="true">
+                                        <option [selected]="true">{{socio.sexo}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" formControlName="fechaNacimiento"
+                                        value="{{socio.fechaNacimiento}}" ngbDatepicker
+                                        #fechaNacimientoDatePicker="ngbDatepicker" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Domicilio</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="direccion"
+                                        value="{{socio.direccion}}" disabled="true" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Teléfono</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="telefono"
+                                        value="{{socio.telefono}}" disabled="true" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Zona</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="zona" disabled="true">
+                                        <option [value]="socio.zona.nombre">{{socio.zona.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Localidad</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="localidad" disabled="true">
+                                        <option [value]="socio.localidad.nombre">{{socio.localidad.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Obra social</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="obraSocial" disabled="true">
+                                        <option [value]="socio.obraSocial.descripcion">{{socio.obraSocial.descripcion}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Fecha de cobertura</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="Fecha de cobertura"
+                                        formControlName="fechaCobertura" ngbDatepicker
+                                        #fechaCoberturaDatePicker="ngbDatepicker" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tarifa</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="tarifa" disabled="true">
+                                        <option [value]="socio.tarifa.descripcion">{{socio.tarifa.descripcion}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group buttons-section">
+                        <button type="button" id="accept" class="btn btn-light"
+                            (click)="activeModal.close('Close click')">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="spinner-border text-primary" role="status" *ngIf="loading">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>

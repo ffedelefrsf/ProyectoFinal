@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Socio } from '@app/model/socio';
 import { SocioService } from '@app/services/socio.service';
 import { PageEnum } from '@app/utils/page.enum';
+import { DetalleComponent } from '../detalle/detalle.component';
 
 @Component({
   selector: 'app-listado',
@@ -20,6 +21,7 @@ export class ListadoComponent implements OnInit {
 
   constructor(private socioService: SocioService,
               private router: Router,
+              private modalService: NgbModal,
               config: NgbDropdownConfig) 
     {config.placement = 'bottom-right'; }
 
@@ -58,6 +60,11 @@ export class ListadoComponent implements OnInit {
     this.router.navigate(['/'+PageEnum.SOCIO_MODIFICACION], { 
       state: { socio: JSON.stringify(socio) } 
     });
+  }
+
+  detalleSocio(socio: Socio){
+    const modalRef = this.modalService.open(DetalleComponent, { size: 'xl' });
+    modalRef.componentInstance.socio = socio;
   }
 
   toggleOffcanvas() {

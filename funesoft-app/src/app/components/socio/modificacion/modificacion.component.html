@@ -131,6 +131,19 @@
                     </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tarifa</label>
+                            <div class="col-sm-9">
+                            <select class="form-control" formControlName="tarifa" (change)="updateTarifa($event)">
+                                <option *ngFor="let tarifa of tarifas" [value]="tarifa.descripcion" [selected]="socio.tarifa.descripcion==tarifa.descripcion">{{tarifa.descripcion}}</option>
+                            </select>
+                            <i class="fa fa-exclamation-circle" title="Debe seleccionar una tarifa" *ngIf="editSocioForm.controls['tarifa'].errors && editSocioForm.controls['tarifa'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group buttons-section">
                     <button type="button" id="cancel" class="btn btn-light" (click)="onCancel()">Cancel</button>
                     <button type="submit" id="modificar" class="btn btn-dark mr-2" [disabled]="!editSocioForm.valid || editSocioForm.pending">Modificar</button>

@@ -28,7 +28,7 @@
                             <label class="badge badge-success" *ngIf="socio.estado.nroEstado === 1">{{socio.estado.descripcion}}</label>
                         </td>
                         <td>
-                            <i class="fa fa-search fa-lg" routerLink="/socio/alta" [state]="{ example: 'data' }" routerLinkActive="active"></i>
+                            <i class="fa fa-search fa-lg" (click)="detalleSocio(socio)"></i>
                             <i class="fa fa-edit fa-lg" (click)="editSocio(socio)"></i>
                             <i class="fa fa-plus-square fa-lg" *ngIf="socio.estado.nroEstado === 0" routerLink="/icons" routerLinkActive="active"></i>
                             <i class="fa fa-minus-square fa-lg" *ngIf="socio.estado.nroEstado === 1" routerLink="/icons" routerLinkActive="active"></i>
