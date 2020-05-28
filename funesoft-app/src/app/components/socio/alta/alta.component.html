@@ -1,149 +1,208 @@
-<div id="alta-socios">
-    <app-toolbar></app-toolbar>
-    <app-side-menu></app-side-menu>
-    <div class="card" *ngIf="!loading"> 
-        <div class="card-body">
-            <h4 class="card-title">Horizontal Two column</h4>
-            <form class="form-sample" [formGroup]="altaSocioForm" (ngSubmit)="createSocio()">
-                <p class="card-description">
-                    Alta Socio
-                </p>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Nombre</label>
-                        <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre" value="" [style.border]="altaSocioForm.controls['nombre'].errors && altaSocioForm.controls['nombre'].touched ? '1px solid red' : null" maxlength="100"/>
-                        <i class="fa fa-exclamation-circle" title="El nombre ingresado es incorrecto" *ngIf="altaSocioForm.controls['nombre'].errors && altaSocioForm.controls['nombre'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Apellido</label>
-                        <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Apellido" formControlName="apellido" value="" [style.border]="altaSocioForm.controls['apellido'].errors && altaSocioForm.controls['apellido'].touched ? '1px solid red' : null" maxlength="100"/>
-                        <i class="fa fa-exclamation-circle" title="El apellido ingresado es incorrecto" *ngIf="altaSocioForm.controls['apellido'].errors && altaSocioForm.controls['apellido'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Número de documento</label>
-                        <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Número de documento" formControlName="dni" value="" [style.border]="altaSocioForm.controls['dni'].errors && altaSocioForm.controls['dni'].touched ? '1px solid red' : null" maxlength="8"/>
-                        <i class="fa fa-exclamation-circle" title="El número de documento ingresado es incorrecto" *ngIf="altaSocioForm.controls['dni'].errors && altaSocioForm.controls['dni'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Email</label>
-                            <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Email" formControlName="email" value="" [style.border]="altaSocioForm.controls['email'].errors && altaSocioForm.controls['email'].touched ? '1px solid red' : null" maxlength="100"/>
-                            <i class="fa fa-exclamation-circle" title="El email ingresado es incorrecto" *ngIf="altaSocioForm.controls['email'].errors && altaSocioForm.controls['email'].touched"></i>
+<div class="container-scroller">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+        <app-side-menu></app-side-menu>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div id="alta-socios">
+                    <div class="card" *ngIf="!loading">
+                        <div class="card-body">
+                            <h4 class="card-title">Nuevo socio</h4>
+                            <form class="form-sample" [formGroup]="altaSocioForm" (ngSubmit)="createSocio()">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Nombre</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Nombre"
+                                                    formControlName="nombre" value=""
+                                                    [style.border]="altaSocioForm.controls['nombre'].errors && altaSocioForm.controls['nombre'].touched ? '1px solid red' : null"
+                                                    maxlength="100" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El nombre ingresado es incorrecto"
+                                                    *ngIf="altaSocioForm.controls['nombre'].errors && altaSocioForm.controls['nombre'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Apellido</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Apellido"
+                                                    formControlName="apellido" value=""
+                                                    [style.border]="altaSocioForm.controls['apellido'].errors && altaSocioForm.controls['apellido'].touched ? '1px solid red' : null"
+                                                    maxlength="100" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El apellido ingresado es incorrecto"
+                                                    *ngIf="altaSocioForm.controls['apellido'].errors && altaSocioForm.controls['apellido'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Número de documento</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Número de documento" formControlName="dni" value=""
+                                                    [style.border]="altaSocioForm.controls['dni'].errors && altaSocioForm.controls['dni'].touched ? '1px solid red' : null"
+                                                    maxlength="8" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El número de documento ingresado es incorrecto"
+                                                    *ngIf="altaSocioForm.controls['dni'].errors && altaSocioForm.controls['dni'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Email"
+                                                    formControlName="email" value=""
+                                                    [style.border]="altaSocioForm.controls['email'].errors && altaSocioForm.controls['email'].touched ? '1px solid red' : null"
+                                                    maxlength="100" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El email ingresado es incorrecto"
+                                                    *ngIf="altaSocioForm.controls['email'].errors && altaSocioForm.controls['email'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Sexo</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="sexo">
+                                                    <option>Masculino</option>
+                                                    <option>Femenino</option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle" title="Debe seleccionar un sexo"
+                                                    *ngIf="altaSocioForm.controls['sexo'].errors && altaSocioForm.controls['sexo'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="text" placeholder="dd/mm/yyyy"
+                                                    formControlName="fechaNacimiento" value=""
+                                                    [style.border]="altaSocioForm.controls['fechaNacimiento'].errors && altaSocioForm.controls['fechaNacimiento'].touched ? '1px solid red' : null"
+                                                    ngbDatepicker #fechaNacimientoDatePicker="ngbDatepicker"
+                                                    [minDate]="{year: 1900, month: 1, day: 1}"
+                                                    [maxDate]="{year: currentYear, month: currentMonth, day: currentDay}"
+                                                    (click)="fechaNacimientoDatePicker.toggle()" readonly />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="Debe seleccionar una fecha de nacimiento"
+                                                    *ngIf="altaSocioForm.controls['fechaNacimiento'].errors && altaSocioForm.controls['fechaNacimiento'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Domicilio</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Domicilio"
+                                                    formControlName="direccion" value=""
+                                                    [style.border]="altaSocioForm.controls['direccion'].errors && altaSocioForm.controls['direccion'].touched ? '1px solid red' : null"
+                                                    maxlength="100" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="La dirección ingresada es incorrecta"
+                                                    *ngIf="altaSocioForm.controls['direccion'].errors && altaSocioForm.controls['direccion'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Teléfono</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Teléfono"
+                                                    formControlName="telefono" value=""
+                                                    [style.border]="altaSocioForm.controls['telefono'].errors && altaSocioForm.controls['telefono'].touched ? '1px solid red' : null"
+                                                    maxlength="10" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El número de teléfono ingresado es incorrecto"
+                                                    *ngIf="altaSocioForm.controls['telefono'].errors && altaSocioForm.controls['telefono'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Zona</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="zona"
+                                                    (change)="updateZonas($event)">
+                                                    <option *ngFor="let zona of zonas" [value]="zona.nombre">
+                                                        {{zona.nombre}}</option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una zona"
+                                                    *ngIf="altaSocioForm.controls['zona'].errors && altaSocioForm.controls['zona'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Localidad</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="localidad"
+                                                    (change)="updateLocalidades($event)">
+                                                    <option *ngFor="let localidad of localidades"
+                                                        [value]="localidad.nombre">{{localidad.nombre}}</option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="Debe seleccionar una localidad"
+                                                    *ngIf="altaSocioForm.controls['localidad'].errors && altaSocioForm.controls['localidad'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Obra social</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="obraSocial"
+                                                    (change)="updateObraSocial($event)">
+                                                    <option *ngFor="let obraSocial of obrasSociales"
+                                                        [value]="obraSocial.descripcion">{{obraSocial.descripcion}}
+                                                    </option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="Debe seleccionar una obra social"
+                                                    *ngIf="altaSocioForm.controls['obraSocial'].errors && altaSocioForm.controls['obraSocial'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group buttons-section">
+                                    <button type="button" id="cancel" class="btn btn-light"
+                                        (click)="onCancel()">Cancel</button>
+                                    <button type="submit" id="crear" class="btn btn-dark mr-2"
+                                        [disabled]="!altaSocioForm.valid || altaSocioForm.pending">Crear</button>
+                                </div>
+                            </form>
+                            <br>
+                            <div class="alert alert-fill-success" role="alert" *ngIf="success && !loading">
+                                <i class="mdi mdi-alert-circle"></i>
+                                El socio ha sido creado con éxito.
+                            </div>
+                            <div class="alert alert-danger" role="alert" *ngIf="error && !loading">
+                                Ha ocurrido un error.
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Sexo</label>
-                        <div class="col-sm-9">
-                        <select class="form-control" formControlName="sexo">
-                            <option>Masculino</option>
-                            <option>Femenino</option>
-                        </select>
-                        <i class="fa fa-exclamation-circle" title="Debe seleccionar un sexo" *ngIf="altaSocioForm.controls['sexo'].errors && altaSocioForm.controls['sexo'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
-                        <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="dd/mm/yyyy" formControlName="fechaNacimiento" value="" [style.border]="altaSocioForm.controls['fechaNacimiento'].errors && altaSocioForm.controls['fechaNacimiento'].touched ? '1px solid red' : null" ngbDatepicker #fechaNacimientoDatePicker="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: currentYear, month: currentMonth, day: currentDay}" (click)="fechaNacimientoDatePicker.toggle()" readonly/>
-                        <i class="fa fa-exclamation-circle" title="Debe seleccionar una fecha de nacimiento" *ngIf="altaSocioForm.controls['fechaNacimiento'].errors && altaSocioForm.controls['fechaNacimiento'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
+                <div class="spinner-border text-primary" role="status" *ngIf="loading">
+                    <span class="sr-only">Loading...</span>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Domicilio</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Domicilio" formControlName="direccion" value="" [style.border]="altaSocioForm.controls['direccion'].errors && altaSocioForm.controls['direccion'].touched ? '1px solid red' : null" maxlength="100"/>
-                            <i class="fa fa-exclamation-circle" title="La dirección ingresada es incorrecta" *ngIf="altaSocioForm.controls['direccion'].errors && altaSocioForm.controls['direccion'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Teléfono</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Teléfono" formControlName="telefono" value="" [style.border]="altaSocioForm.controls['telefono'].errors && altaSocioForm.controls['telefono'].touched ? '1px solid red' : null" maxlength="10"/>
-                            <i class="fa fa-exclamation-circle" title="El número de teléfono ingresado es incorrecto" *ngIf="altaSocioForm.controls['telefono'].errors && altaSocioForm.controls['telefono'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Zona</label>
-                        <div class="col-sm-9">
-                        <select class="form-control" formControlName="zona" (change)="updateZonas($event)">
-                            <option *ngFor="let zona of zonas" [value]="zona.nombre">{{zona.nombre}}</option>
-                        </select>
-                        <i class="fa fa-exclamation-circle" title="Debe seleccionar una zona" *ngIf="altaSocioForm.controls['zona'].errors && altaSocioForm.controls['zona'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Localidad</label>
-                        <div class="col-sm-9">
-                        <select class="form-control" formControlName="localidad" (change)="updateLocalidades($event)">
-                            <option *ngFor="let localidad of localidades" [value]="localidad.nombre">{{localidad.nombre}}</option>
-                        </select>
-                        <i class="fa fa-exclamation-circle" title="Debe seleccionar una localidad" *ngIf="altaSocioForm.controls['localidad'].errors && altaSocioForm.controls['localidad'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Obra social</label>
-                        <div class="col-sm-9">
-                        <select class="form-control" formControlName="obraSocial" (change)="updateObraSocial($event)">
-                            <option *ngFor="let obraSocial of obrasSociales" [value]="obraSocial.descripcion">{{obraSocial.descripcion}}</option>
-                        </select>
-                        <i class="fa fa-exclamation-circle" title="Debe seleccionar una obra social" *ngIf="altaSocioForm.controls['obraSocial'].errors && altaSocioForm.controls['obraSocial'].touched"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="form-group buttons-section">
-                    <button type="button" id="cancel" class="btn btn-light" (click)="onCancel()">Cancel</button>
-                    <button type="submit" id="crear" class="btn btn-dark mr-2" [disabled]="!altaSocioForm.valid || altaSocioForm.pending">Crear</button>
-                </div>
-            </form>
-            <br>
-            <div class="alert alert-fill-success" role="alert" *ngIf="success && !loading">
-                <i class="mdi mdi-alert-circle"></i>
-                El socio ha sido creado con éxito.
             </div>
-            <div class="alert alert-danger" role="alert" *ngIf="error && !loading">
-                Ha ocurrido un error.
-            </div>
+            <app-footer></app-footer>
         </div>
     </div>
-</div>
-<div class="spinner-border text-primary" role="status" *ngIf="loading">
-    <span class="sr-only">Loading...</span>
 </div>

@@ -1,152 +1,214 @@
-<div id="modificacion-socios">
-    <app-toolbar></app-toolbar>
-    <app-side-menu></app-side-menu>
-    <div class="card" *ngIf="!loading"> 
-        <div class="card-body">
-            <h4 class="card-title">Horizontal Two column</h4>
-            <form class="form-sample" [formGroup]="editSocioForm" (ngSubmit)="editSocio()">
-                <p class="card-description">
-                    Editar Socio
-                </p>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Nombre</label>
-                        <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre" value="{{socio.nombre}}" [style.border]="editSocioForm.controls['nombre'].errors ? '1px solid red' : null" maxlength="100"/>
-                        <i class="fa fa-exclamation-circle" title="El nombre ingresado es incorrecto" *ngIf="editSocioForm.controls['nombre'].errors"></i>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Apellido</label>
-                        <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Apellido" formControlName="apellido" value="{{socio.apellido}}" [style.border]="editSocioForm.controls['apellido'].errors ? '1px solid red' : null" maxlength="100"/>
-                        <i class="fa fa-exclamation-circle" title="El apellido ingresado es incorrecto" *ngIf="editSocioForm.controls['apellido'].errors"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Número de documento</label>
-                        <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Número de documento" formControlName="dni" value="{{socio.dni}}" [style.border]="editSocioForm.controls['dni'].errors ? '1px solid red' : null" maxlength="8"/>
-                        <i class="fa fa-exclamation-circle" title="El número de documento ingresado es incorrecto" *ngIf="editSocioForm.controls['dni'].errors"></i>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Email</label>
-                            <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Email" formControlName="email" value="{{socio.email}}" [style.border]="editSocioForm.controls['email'].errors ? '1px solid red' : null" maxlength="100"/>
-                            <i class="fa fa-exclamation-circle" title="El email ingresado es incorrecto" *ngIf="editSocioForm.controls['email'].errors"></i>
+<div class="container-scroller">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+        <app-side-menu></app-side-menu>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div id="modificacion-socios">
+                    <div class="card" *ngIf="!loading">
+                        <div class="card-body">
+                            <h4 class="card-title">Actualización de datos del asociado</h4>
+                            <form class="form-sample" [formGroup]="editSocioForm" (ngSubmit)="editSocio()">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Nombre</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Nombre"
+                                                    formControlName="nombre" value="{{socio.nombre}}"
+                                                    [style.border]="editSocioForm.controls['nombre'].errors ? '1px solid red' : null"
+                                                    maxlength="100" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El nombre ingresado es incorrecto"
+                                                    *ngIf="editSocioForm.controls['nombre'].errors"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Apellido</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Apellido"
+                                                    formControlName="apellido" value="{{socio.apellido}}"
+                                                    [style.border]="editSocioForm.controls['apellido'].errors ? '1px solid red' : null"
+                                                    maxlength="100" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El apellido ingresado es incorrecto"
+                                                    *ngIf="editSocioForm.controls['apellido'].errors"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Número de documento</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Número de documento" formControlName="dni"
+                                                    value="{{socio.dni}}"
+                                                    [style.border]="editSocioForm.controls['dni'].errors ? '1px solid red' : null"
+                                                    maxlength="8" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El número de documento ingresado es incorrecto"
+                                                    *ngIf="editSocioForm.controls['dni'].errors"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Email"
+                                                    formControlName="email" value="{{socio.email}}"
+                                                    [style.border]="editSocioForm.controls['email'].errors ? '1px solid red' : null"
+                                                    maxlength="100" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El email ingresado es incorrecto"
+                                                    *ngIf="editSocioForm.controls['email'].errors"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Sexo</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="sexo">
+                                                    <option [selected]="socio.sexo=='Masculino'">Masculino</option>
+                                                    <option [selected]="socio.sexo=='Femenino'">Femenino</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="text" placeholder="dd/mm/yyyy"
+                                                    formControlName="fechaNacimiento" value="{{socio.fechaNacimiento}}"
+                                                    [style.border]="editSocioForm.controls['fechaNacimiento'].errors ? '1px solid red' : null"
+                                                    ngbDatepicker #fechaNacimientoDatePicker="ngbDatepicker"
+                                                    [minDate]="{year: 1900, month: 1, day: 1}"
+                                                    [maxDate]="{year: currentYear, month: currentMonth, day: currentDay}"
+                                                    (click)="fechaNacimientoDatePicker.toggle()" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Domicilio</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Domicilio"
+                                                    formControlName="direccion" value="{{socio.direccion}}"
+                                                    [style.border]="editSocioForm.controls['direccion'].errors ? '1px solid red' : null"
+                                                    maxlength="100" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="La dirección ingresada es incorrecta"
+                                                    *ngIf="editSocioForm.controls['direccion'].errors"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Teléfono</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" placeholder="Teléfono"
+                                                    formControlName="telefono" value="{{socio.telefono}}"
+                                                    [style.border]="editSocioForm.controls['telefono'].errors ? '1px solid red' : null"
+                                                    maxlength="10" />
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="El número de teléfono ingresado es incorrecto"
+                                                    *ngIf="editSocioForm.controls['telefono'].errors"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Zona</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="zona"
+                                                    (change)="updateZonas($event)">
+                                                    <option *ngFor="let zona of zonas" [value]="zona.nombre"
+                                                        [selected]="zona.nombre==socio.zona.nombre">{{zona.nombre}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Localidad</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="localidad"
+                                                    (change)="updateLocalidades($event)">
+                                                    <option *ngFor="let localidad of localidades"
+                                                        [value]="localidad.nombre"
+                                                        [selected]="localidad.nombre==socio.localidad.nombre">
+                                                        {{localidad.nombre}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Obra social</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="obraSocial"
+                                                    (change)="updateObraSocial($event)">
+                                                    <option *ngFor="let obraSocial of obrasSociales"
+                                                        [value]="obraSocial.descripcion"
+                                                        [selected]="socio.obraSocial.descripcion==obraSocial.descripcion">
+                                                        {{obraSocial.descripcion}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Fecha de cobertura</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" placeholder="Fecha de cobertura"
+                                                    formControlName="fechaCobertura"
+                                                    [style.border]="editSocioForm.controls['fechaCobertura'].errors ? '1px solid red' : null"
+                                                    ngbDatepicker #fechaCoberturaDatePicker="ngbDatepicker"
+                                                    [minDate]="{year: 1900, month: 1, day: 1}"
+                                                    [maxDate]="{year: 2300, month: 1, day: 1}"
+                                                    (click)="fechaCoberturaDatePicker.toggle()" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group buttons-section">
+                                    <button type="button" id="cancel" class="btn btn-light"
+                                        (click)="onCancel()">Cancel</button>
+                                    <button type="submit" id="modificar" class="btn btn-dark mr-2"
+                                        [disabled]="!editSocioForm.valid || editSocioForm.pending">Modificar</button>
+                                </div>
+                            </form>
+                            <br>
+                            <div class="alert alert-fill-success" role="alert" *ngIf="success && !loading">
+                                <i class="mdi mdi-alert-circle"></i>
+                                El socio ha sido modificado con éxito.
+                            </div>
+                            <div class="alert alert-danger" role="alert" *ngIf="error && !loading">
+                                Ha ocurrido un error.
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Sexo</label>
-                        <div class="col-sm-9">
-                        <select class="form-control" formControlName="sexo">
-                            <option [selected]="socio.sexo=='Masculino'">Masculino</option>
-                            <option [selected]="socio.sexo=='Femenino'">Femenino</option>
-                        </select>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
-                        <div class="col-sm-9">
-                        <input class="form-control" type="text" placeholder="dd/mm/yyyy" formControlName="fechaNacimiento" value="{{socio.fechaNacimiento}}" [style.border]="editSocioForm.controls['fechaNacimiento'].errors ? '1px solid red' : null" ngbDatepicker #fechaNacimientoDatePicker="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: currentYear, month: currentMonth, day: currentDay}" (click)="fechaNacimientoDatePicker.toggle()" readonly/>
-                        </div>
-                    </div>
-                    </div>
+                <div class="spinner-border text-primary" role="status" *ngIf="loading">
+                    <span class="sr-only">Loading...</span>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Domicilio</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Domicilio" formControlName="direccion" value="{{socio.direccion}}" [style.border]="editSocioForm.controls['direccion'].errors ? '1px solid red' : null" maxlength="100"/>
-                            <i class="fa fa-exclamation-circle" title="La dirección ingresada es incorrecta" *ngIf="editSocioForm.controls['direccion'].errors"></i>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Teléfono</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Teléfono" formControlName="telefono" value="{{socio.telefono}}" [style.border]="editSocioForm.controls['telefono'].errors ? '1px solid red' : null" maxlength="10"/>
-                            <i class="fa fa-exclamation-circle" title="El número de teléfono ingresado es incorrecto" *ngIf="editSocioForm.controls['telefono'].errors"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Zona</label>
-                        <div class="col-sm-9">
-                        <select class="form-control" formControlName="zona" (change)="updateZonas($event)">
-                            <option *ngFor="let zona of zonas" [value]="zona.nombre" [selected]="zona.nombre==socio.zona.nombre">{{zona.nombre}}</option>
-                        </select>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Localidad</label>
-                        <div class="col-sm-9">
-                        <select class="form-control" formControlName="localidad" (change)="updateLocalidades($event)">
-                            <option *ngFor="let localidad of localidades" [value]="localidad.nombre" [selected]="localidad.nombre==socio.localidad.nombre">{{localidad.nombre}}</option>
-                        </select>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Obra social</label>
-                        <div class="col-sm-9">
-                        <select class="form-control" formControlName="obraSocial" (change)="updateObraSocial($event)">
-                            <option *ngFor="let obraSocial of obrasSociales" [value]="obraSocial.descripcion" [selected]="socio.obraSocial.descripcion==obraSocial.descripcion">{{obraSocial.descripcion}}</option>
-                        </select>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Fecha de cobertura</label>
-                        <div class="col-sm-9">
-                            <input class="form-control" placeholder="Fecha de cobertura" formControlName="fechaCobertura" [style.border]="editSocioForm.controls['fechaCobertura'].errors ? '1px solid red' : null" ngbDatepicker #fechaCoberturaDatePicker="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2300, month: 1, day: 1}" (click)="fechaCoberturaDatePicker.toggle()" readonly/>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="form-group buttons-section">
-                    <button type="button" id="cancel" class="btn btn-light" (click)="onCancel()">Cancel</button>
-                    <button type="submit" id="modificar" class="btn btn-dark mr-2" [disabled]="!editSocioForm.valid || editSocioForm.pending">Modificar</button>
-                </div>
-            </form>
-            <br>
-            <div class="alert alert-fill-success" role="alert" *ngIf="success && !loading">
-                <i class="mdi mdi-alert-circle"></i>
-                El socio ha sido modificado con éxito.
             </div>
-            <div class="alert alert-danger" role="alert" *ngIf="error && !loading">
-                Ha ocurrido un error.
-            </div>
+            <app-footer></app-footer>
         </div>
     </div>
-</div>
-<div class="spinner-border text-primary" role="status" *ngIf="loading">
-    <span class="sr-only">Loading...</span>
 </div>

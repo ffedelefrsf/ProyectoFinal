@@ -5,9 +5,7 @@
     <class>com.funesoft.model.Cobrador</class>
     <class>com.funesoft.model.Estado</class>
     <class>com.funesoft.model.Adherente</class>
-    <class>com.funesoft.model.HistorialEstadoSocio</class>
     <class>com.funesoft.model.ObraSocial</class>
-    <class>com.funesoft.model.HistorialEstadoAdherente</class>
     <class>com.funesoft.model.Pago</class>
     <class>com.funesoft.model.ZonaCobrador</class>
     <class>com.funesoft.model.Localidad</class>

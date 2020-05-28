@@ -7,12 +7,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { AuthService } from '@app/services/auth.service';
-import { MainMenuComponent } from '@app/components/main-menu/main-menu.component';
 import { AuthComponent } from '@app/components/auth/auth.component';
-import { NavbarComponent } from '@app/views/navbar/navbar.component';
+import { NavbarComponent } from '@app/components/navbar/navbar.component';
 import { SidebarComponent } from '@app/views/sidebar/sidebar.component';
-import { FooterComponent } from '@app/views/footer/footer.component';
-import { DashboardComponent } from '@app/views/dashboard/dashboard.component';
+import { FooterComponent } from '@app/components/footer/footer.component';
+import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
 import { FormsComponent } from '@app/views/forms/forms.component';
 import { ButtonsComponent } from '@app/views/buttons/buttons.component';
 import { TablesComponent } from '@app/views/tables/tables.component';
@@ -62,7 +61,6 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     CarouselComponent,
     TabsComponent,
     LoginComponent,
-    MainMenuComponent,
     AltaComponent,
     ModificacionComponent,
     ListadoComponent,

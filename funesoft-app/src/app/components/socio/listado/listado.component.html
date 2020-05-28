@@ -1,48 +1,73 @@
-<div id="listado-socios">
-    <app-toolbar></app-toolbar>
-    <app-side-menu></app-side-menu>
-    <div class="card" *ngIf="!loading && !error">
-        <div class="card-body">
-            <h4 class="card-title">Hoverable Table</h4>
-            <p class="card-description">
-            Listado de socios
-            </p>
-            <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Número de documento</th>
-                    <th>Apellido</th>
-                    <th>Nombre</th>
-                    <th>Estado</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let socio of sociosArray">
-                        <td>{{socio.dni}}</td>
-                        <td>{{socio.apellido}}</td>
-                        <td>{{socio.nombre}}</td>
-                        <td>
-                            <label class="badge badge-danger" *ngIf="socio.estado.nroEstado === 0">{{socio.estado.descripcion}}</label>
-                            <label class="badge badge-success" *ngIf="socio.estado.nroEstado === 1">{{socio.estado.descripcion}}</label>
-                        </td>
-                        <td>
-                            <i class="fa fa-search fa-lg" routerLink="/socio/alta" [state]="{ example: 'data' }" routerLinkActive="active"></i>
+<div class="container-scroller">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+        <app-side-menu></app-side-menu>
+        <div class="main-panel">
+            <div class="content-wrapper">
+
+                <div id="listado-socios">
+                    <div class="card" *ngIf="!loading && !error">
+                        <div class="card-body">
+                            <h4 class="card-title">Padrón de socios titulares</h4>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Número de documento</th>
+                                            <th>Apellido</th>
+                                            <th>Nombre</th>
+                                            <th>Estado</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let socio of sociosArray">
+                                            <td>{{socio.dni}}</td>
+                                            <td>{{socio.apellido}}</td>
+                                            <td>{{socio.nombre}}</td>
+                                            <td>
+                                                <label class="badge badge-danger"
+                                                    *ngIf="socio.estado.nroEstado === 2">{{socio.estado.descripcion}}</label>
+                                                <label class="badge badge-success"
+                                                    *ngIf="socio.estado.nroEstado === 1">{{socio.estado.descripcion}}</label>
+                                            </td>
+                                            <td>
+                                                <!-- <i class="fa fa-search fa-lg" routerLink="/socio/alta" [state]="{ example: 'data' }" routerLinkActive="active"></i>
                             <i class="fa fa-edit fa-lg" (click)="editSocio(socio)"></i>
                             <i class="fa fa-plus-square fa-lg" *ngIf="socio.estado.nroEstado === 0" routerLink="/icons" routerLinkActive="active"></i>
                             <i class="fa fa-minus-square fa-lg" *ngIf="socio.estado.nroEstado === 1" routerLink="/icons" routerLinkActive="active"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+ -->
+                                                <div ngbDropdown class="d-inline-block">
+                                                    <button class="btn btn-outline-primary" type="button"
+                                                        id="dropdownMenuOutlineButton1" ngbDropdownToggle>
+                                                        Acciones
+                                                    </button>
+                                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1">
+                                                        <a class="dropdown-header" href="#">Información</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-header" href="#">Dar de baja</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-header" href="#">Modificar</a>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
+                        Ha ocurrido un error, inténtelo más tarde.
+                    </div>
+                </div>
+                <div class="spinner-border text-primary" role="status" *ngIf="loading">
+                    <span class="sr-only">Loading...</span>
+                </div>
+
             </div>
+            <app-footer></app-footer>
         </div>
     </div>
-    <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
-        Ha ocurrido un error, inténtelo más tarde.
-    </div>
-</div>
-<div class="spinner-border text-primary" role="status" *ngIf="loading">
-    <span class="sr-only">Loading...</span>
 </div>

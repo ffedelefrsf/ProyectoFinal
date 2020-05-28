@@ -38,7 +38,7 @@ export class AuthComponent implements OnInit {
     this.authService.auth(loginDTO).subscribe(
       response => {
         if (response){
-          this.router.navigate(['/'+PageEnum.MENU]);
+          this.router.navigate(['/'+PageEnum.DASHBOARD]);
         }else{
           this.wrongCredentials = true;
           this.loading = false;
