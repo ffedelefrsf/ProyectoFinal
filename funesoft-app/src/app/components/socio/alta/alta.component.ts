@@ -14,6 +14,10 @@ import { ObraSocialService } from '@app/services/obra-social.service';
 import { SocioService } from '@app/services/socio.service';
 import { PageEnum } from '@app/utils/page.enum';
 import { Socio } from '@app/model/socio';
+import { Estado } from '@app/model/estado';
+import { TarifaService } from '@app/services/tarifa.service';
+import { Tarifa } from '@app/model/tarifa';
+import { SocioAltaDTO } from '@app/dtos/socioAlta.dto';
 
 @Component({
   selector: 'app-alta',
@@ -22,7 +26,7 @@ import { Socio } from '@app/model/socio';
 })
 export class AltaComponent implements OnInit {
 
-  socioToInsert: Socio;
+  socioToInsert: SocioAltaDTO;
   loading: boolean = false;
   success: boolean = false;
   error: boolean = false;
@@ -31,6 +35,7 @@ export class AltaComponent implements OnInit {
   localidadesNombres: String[];
   localidades: Localidad[];
   obrasSociales: ObraSocial[];
+  tarifas: Tarifa[];
   altaSocioForm: FormGroup;
   currentYear: number;
   currentMonth: number;
@@ -42,11 +47,12 @@ export class AltaComponent implements OnInit {
     private zonaService: ZonaService,
     private obraSocialService: ObraSocialService,
     private socioService: SocioService,
+    private tarifaService: TarifaService,
     private formBuilder: FormBuilder,
     private location: Location) {
 
       this.socioToInsert = {};
-      var currentDate :Date = new Date();
+      var currentDate: Date = new Date();
       this.currentYear = currentDate.getFullYear();
       this.currentMonth = currentDate.getMonth() + 1;
       this.currentDay = currentDate.getDate();
@@ -66,7 +72,8 @@ export class AltaComponent implements OnInit {
       telefono: this.formBuilder.control('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]*')]),
       zona: this.formBuilder.control('', [Validators.required]),
       localidad: this.formBuilder.control('', [Validators.required]),
-      obraSocial: this.formBuilder.control('', [Validators.required])
+      obraSocial: this.formBuilder.control('', [Validators.required]),
+      tarifa: this.formBuilder.control('', [Validators.required])
     });
 
     var provincia: Provincia = {};
@@ -88,7 +95,21 @@ export class AltaComponent implements OnInit {
                     this.obraSocialService.getObrasSociales(obraSocial).subscribe(
                       obraSocialResponse => {
                         this.obrasSociales = obraSocialResponse.data;
-                        this.loading = false;
+                        var tarifa: Tarifa = {};
+                        this.tarifaService.getTarifas(tarifa).subscribe(
+                          tarifaResponse => {
+                            this.tarifas = tarifaResponse.data;
+                            this.loading = false;
+                          },
+                          errorTarifas => {
+                            if (errorTarifas.status === 401){
+                              this.router.navigate(['/'+PageEnum.AUTH]);
+                              this.loading = false;
+                            }else{
+                              console.log('ERROR', errorTarifas);
+                            }
+                          }
+                        );
                       },
                       errorObrasSociales => {
                         if (errorObrasSociales.status === 401){
@@ -146,14 +167,21 @@ export class AltaComponent implements OnInit {
       var socioForm : Socio = this.altaSocioForm.getRawValue();
       this.socioToInsert.nombre = socioForm.nombre;
       this.socioToInsert.apellido = socioForm.apellido;
+      this.socioToInsert.dni = socioForm.dni;
       this.socioToInsert.direccion = socioForm.direccion;
       this.socioToInsert.email = socioForm.email;
       this.socioToInsert.fechaNacimiento = socioForm.fechaNacimiento;
       this.socioToInsert.telefono = socioForm.telefono;
       this.socioToInsert.sexo = socioForm.sexo;
-      socioForm.fechaNacimiento = new Date(socioForm.fechaNacimiento['year'] + '-' + socioForm.fechaNacimiento['month'] + '-' + socioForm.fechaNacimiento['day']);
-      console.log(socioForm);
-      this.socioService.createSocio(socioForm).subscribe(
+      var estado: Estado = {
+        id: 1,
+        nroEstado: 1,
+        descripcion: 'ALTA'
+      };
+      this.socioToInsert.fechaNacimiento = new Date(socioForm.fechaNacimiento['year'] + '-' + socioForm.fechaNacimiento['month'] + '-' + socioForm.fechaNacimiento['day']);
+      this.socioToInsert.saldo = 0;
+      console.log(this.socioToInsert);
+      this.socioService.createSocio(this.socioToInsert).subscribe(
         response => {
           if (response.success){
             this.success = true;
@@ -173,15 +201,19 @@ export class AltaComponent implements OnInit {
   }
 
   updateObraSocial(event: any){
-    this.socioToInsert.obraSocial = this.obrasSociales[event.target.selectedIndex];
+    this.socioToInsert.idObraSocial = this.obrasSociales[event.target.selectedIndex].id;
   }
 
   updateLocalidades(event: any){
-    this.socioToInsert.localidad = this.localidades[event.target.selectedIndex];
+    this.socioToInsert.idLocalidad = this.localidades[event.target.selectedIndex].id;
+  }
+  
+  updateTarifa(event: any){
+    this.socioToInsert.idTarifa = this.tarifas[event.target.selectedIndex].id;
   }
 
   updateZonas(event: any){
-    this.socioToInsert.zona = this.zonas[event.target.selectedIndex];
+    this.socioToInsert.idZona = this.zonas[event.target.selectedIndex].id;
   }
 
   onCancel(){

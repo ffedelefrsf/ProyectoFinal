@@ -10,5 +10,6 @@ export enum EndpointEnum{
     GET_LOCALIDADES = '/localidad/getAll',
     GET_NOMBRES_LOCALIDADES = '/localidad/getAllNombres',
     GET_ZONAS = '/zona/get',
-    GET_OBRAS_SOCIALES = '/obraSocial/getAll'
+    GET_OBRAS_SOCIALES = '/obraSocial/getAll',
+    GET_TARIFAS = '/tarifa/getAll'
 }
