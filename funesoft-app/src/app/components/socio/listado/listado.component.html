@@ -43,11 +43,11 @@
                                                         Acciones
                                                     </button>
                                                     <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1">
-                                                        <a class="dropdown-header" href="#">Información</a>
+                                                        <a type="button" class="dropdown-header" (click)="detalleSocio(socio)">Información</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-header" href="#">Dar de baja</a>
                                                         <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-header" href="#">Modificar</a>
+                                                        <a type="button" class="dropdown-header" (click)="editSocio(socio)">Modificar</a>
                                                     </div>
                                                 </div>
 
