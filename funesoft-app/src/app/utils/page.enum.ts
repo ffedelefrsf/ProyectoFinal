@@ -5,5 +5,6 @@ export enum PageEnum{
     SOCIO_ALTA = 'socio/alta',
     SOCIO_DETALLE = 'socio/detalle',
     SOCIO_MODIFICACION = 'socio/modificar',
-    DASHBOARD = 'dashboard'
+    DASHBOARD = 'dashboard',
+    ZONA_LISTADO = 'zona'
 }
