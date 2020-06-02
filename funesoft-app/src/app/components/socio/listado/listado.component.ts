@@ -5,7 +5,8 @@ import { NgbDropdownConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Socio } from '@app/model/socio';
 import { SocioService } from '@app/services/socio.service';
 import { PageEnum } from '@app/utils/page.enum';
-import { DetalleComponent } from '../detalle/detalle.component';
+import { DetalleComponent } from '@app/components/socio/detalle/detalle.component';
+import { BajaComponent } from '@app/components/socio/baja/baja.component';
 
 @Component({
   selector: 'app-listado',
@@ -65,6 +66,20 @@ export class ListadoComponent implements OnInit {
   detalleSocio(socio: Socio){
     const modalRef = this.modalService.open(DetalleComponent, { size: 'xl' });
     modalRef.componentInstance.socio = socio;
+  }
+
+  deleteSocio(socio: Socio){
+    const modalRef = this.modalService.open(BajaComponent, { size: 'xl' });
+    modalRef.componentInstance.socio = socio;
+    modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
+        if (receivedEntry){
+          socio.estado = {
+            id: 2,
+            nroEstado: 2,
+            descripcion: 'BAJA'
+          };
+        }
+      });
   }
 
   toggleOffcanvas() {
