@@ -12,5 +12,7 @@ export enum EndpointEnum{
     GET_ZONAS = '/zona/get',
     GET_OBRAS_SOCIALES = '/obraSocial/getAll',
     GET_TARIFAS = '/tarifa/getAll',
-    GET_MOTIVOS_BAJA = '/motivoBaja/getAll'
+    GET_MOTIVOS_BAJA = '/motivoBaja/getAll',
+    CREATE_COMPROBANTES = '/comprobante/generarComprobantesMasivos',
+    DESCARGAR_COMPROBANTES = '/comprobante/generarPDF'
 }

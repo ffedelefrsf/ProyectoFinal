@@ -39,6 +39,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DetalleComponent } from './components/socio/detalle/detalle.component';
 import { ZonasComponent } from './components/zonas/listado/zonas.component';
 import { BajaComponent } from './components/socio/baja/baja.component';
+import { ComprobanteComponent } from './components/comprobante/comprobante.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { BajaComponent } from './components/socio/baja/baja.component';
     ToolbarComponent,
     DetalleComponent,
     ZonasComponent,
-    BajaComponent
+    BajaComponent,
+    ComprobanteComponent
   ],
   imports: [
     BrowserModule,

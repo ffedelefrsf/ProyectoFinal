@@ -7,7 +7,7 @@ import { ZonaService } from '@app/services/zona.service';
 import { PageEnum } from '@app/utils/page.enum';
 
 @Component({
-  selector: 'app-zonas',
+  selector: 'app-zonas-listado',
   templateUrl: './zonas.component.html',
   styleUrls: ['./zonas.component.scss']
 })

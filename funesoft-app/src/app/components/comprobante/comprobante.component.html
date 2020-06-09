@@ -1,0 +1,57 @@
+<div class="container-scroller">
+  <app-navbar></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-side-menu></app-side-menu>
+    <div class="main-panel">
+      <div class="content-wrapper">
+
+        <div class="row">
+          <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Comprobantes</h4>
+                <ngb-accordion [closeOthers]="true" activeIds="static-7" class="accordion accordion-danger">
+                  <ngb-panel id="static-7">
+                    <ng-template ngbPanelTitle>
+                      <h6 class="mb-0">
+                        Generación masiva de comprobantes
+                      </h6>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                      <button type="button" class="btn btn-outline-primary"
+                        (click)="generarComprobantes($event)">Generar comprobantes</button>
+                      <br><br>
+                      <div class="alert alert-warning" role="alert" *ngIf="loading">
+                        Generando comprobantes...
+                      </div>
+                      <div class="alert alert-info" role="alert" *ngIf="generados">
+                        Los comprobantes han sido generados con exito!
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel id="static-8">
+                    <ng-template ngbPanelTitle>
+                      <h6 class="mb-0">
+                        Impresión de comprobantes
+                      </h6>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                      <button type="button" class="btn btn-success" (click)="imprimirComprobantes($event)"><i
+                          class="mdi mdi-cloud-download"></i>Descargar PDF</button>
+                      <br><br>
+                      <div class="alert alert-success" role="alert" *ngIf="impresos">
+                        La descarga comenzará en breve...
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
+                </ngb-accordion>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>
