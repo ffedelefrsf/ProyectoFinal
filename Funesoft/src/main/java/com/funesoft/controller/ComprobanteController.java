@@ -189,6 +189,7 @@ public class ComprobanteController {
 
             return "PDF File Generated";
         } catch (Exception e) {
+            e.printStackTrace();
             e.getMessage();
         }
         return null;
