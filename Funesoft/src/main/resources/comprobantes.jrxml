@@ -155,9 +155,9 @@ where C.impreso = 0]]>
 	<group name="Group1">
 		<groupExpression><![CDATA[$F{idSocio}]]></groupExpression>
 		<groupHeader>
-			<band height="102">
+			<band height="92">
 				<rectangle>
-					<reportElement x="0" y="90" width="555" height="12" backcolor="#FFDBB5" uuid="38e79c14-7f19-44b1-99f3-859ac21a6859">
+					<reportElement x="0" y="80" width="555" height="12" backcolor="#FFDBB5" uuid="38e79c14-7f19-44b1-99f3-859ac21a6859">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
@@ -167,7 +167,7 @@ where C.impreso = 0]]>
 					</graphicElement>
 				</rectangle>
 				<rectangle>
-					<reportElement x="0" y="60" width="555" height="12" backcolor="#FFDBB5" uuid="1ca29ed1-968f-41c9-b5aa-c743640ccfb4">
+					<reportElement x="0" y="50" width="555" height="12" backcolor="#FFDBB5" uuid="1ca29ed1-968f-41c9-b5aa-c743640ccfb4">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<graphicElement>
@@ -185,11 +185,11 @@ where C.impreso = 0]]>
 					<imageExpression><![CDATA["https://i.ibb.co/WGm1GhX/logococheria.png"]]></imageExpression>
 				</image>
 				<textField>
-					<reportElement x="0" y="72" width="70" height="12" uuid="2de85ce4-9bfd-4f21-9144-850084c1dc5e">
+					<reportElement x="0" y="62" width="70" height="12" uuid="2de85ce4-9bfd-4f21-9144-850084c1dc5e">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial Narrow"/>
+						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $F{dniSocio}]]></textFieldExpression>
 				</textField>
@@ -198,7 +198,7 @@ where C.impreso = 0]]>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Top">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Tel.: 03438-427073 | Alte. Brown 156]]></text>
 				</staticText>
@@ -208,7 +208,7 @@ where C.impreso = 0]]>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Cocheria Zurdo - Servicios Sociales | Bovril - Entre Ríos]]></text>
 				</staticText>
@@ -218,7 +218,7 @@ where C.impreso = 0]]>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Bottom" markup="styled">
-						<font size="6" isBold="true"/>
+						<font fontName="Arial" size="6" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Fecha de emisión: " + new SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
 				</textField>
@@ -228,85 +228,85 @@ where C.impreso = 0]]>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Top" markup="styled">
-						<font size="6" isBold="true"/>
+						<font fontName="Arial" size="6" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Comprobante de pago n°: " + $F{nroComprobabte}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="60" width="70" height="12" uuid="eb1ce733-ee0b-4c09-9871-a0407fd959fa">
+					<reportElement x="0" y="50" width="70" height="12" uuid="eb1ce733-ee0b-4c09-9871-a0407fd959fa">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[ DNI Socio]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="280" y="60" width="90" height="12" uuid="1a6eaefe-2957-4db3-a7fe-7100f881434d"/>
+					<reportElement x="280" y="50" width="90" height="12" uuid="1a6eaefe-2957-4db3-a7fe-7100f881434d"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Fecha Nacimiento]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="370" y="60" width="103" height="12" uuid="4fbc023d-8f38-4bad-85cb-b9b0358e6c5f"/>
+					<reportElement x="370" y="50" width="103" height="12" uuid="4fbc023d-8f38-4bad-85cb-b9b0358e6c5f"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Fecha Cobertura]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="473" y="60" width="80" height="12" uuid="54045603-773a-4f94-8616-00d1961be2e7">
+					<reportElement x="473" y="50" width="80" height="12" uuid="54045603-773a-4f94-8616-00d1961be2e7">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Cuota ]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="80" y="60" width="200" height="12" uuid="e0859bd2-a37b-4894-a4a0-a5d53933bd28"/>
+					<reportElement x="80" y="50" width="200" height="12" uuid="e0859bd2-a37b-4894-a4a0-a5d53933bd28"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Nombre]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="80" y="72" width="200" height="12" uuid="ed521ca0-1eb8-4b62-afcf-9cff1fb859d2"/>
+					<reportElement x="80" y="62" width="200" height="12" uuid="ed521ca0-1eb8-4b62-afcf-9cff1fb859d2"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial Narrow"/>
+						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{NombreSocio}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="280" y="72" width="90" height="12" uuid="f2d7b6cd-b2e0-4c53-85b2-fa2f1ffbfa2e"/>
+					<reportElement x="280" y="62" width="90" height="12" uuid="f2d7b6cd-b2e0-4c53-85b2-fa2f1ffbfa2e"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow"/>
+						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaNacSocio})]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="90" width="70" height="12" printWhenGroupChanges="Group1" uuid="b0ea9954-b025-444c-8061-00ce1fa3e8fa">
+					<reportElement x="0" y="80" width="70" height="12" printWhenGroupChanges="Group1" uuid="b0ea9954-b025-444c-8061-00ce1fa3e8fa">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[ DNI Adherente]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="370" y="72" width="103" height="12" uuid="d89b9f24-7ef9-46db-9348-7e430f3dc8b4"/>
+					<reportElement x="370" y="62" width="103" height="12" uuid="d89b9f24-7ef9-46db-9348-7e430f3dc8b4"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow"/>
+						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaNacSocio})]]></textFieldExpression>
 				</textField>
 				<rectangle>
-					<reportElement x="397" y="90" width="76" height="12" backcolor="#FFDBB5" uuid="e2a5c327-5551-4d68-a491-15d36ede1606">
+					<reportElement x="397" y="80" width="76" height="12" backcolor="#FFDBB5" uuid="e2a5c327-5551-4d68-a491-15d36ede1606">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<printWhenExpression><![CDATA[$F{idAdherente} == null]]></printWhenExpression>
@@ -316,29 +316,29 @@ where C.impreso = 0]]>
 					</graphicElement>
 				</rectangle>
 				<staticText>
-					<reportElement x="397" y="90" width="73" height="12" uuid="33043351-2757-490e-b771-e544fc581e34">
+					<reportElement x="397" y="80" width="73" height="12" uuid="33043351-2757-490e-b771-e544fc581e34">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<printWhenExpression><![CDATA[$F{idAdherente} == null]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total: $]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="473" y="90" width="80" height="12" uuid="0044df39-c50b-43f8-b53c-078862c8480b">
+					<reportElement x="473" y="80" width="80" height="12" uuid="0044df39-c50b-43f8-b53c-078862c8480b">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<printWhenExpression><![CDATA[$F{idAdherente} == null]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow"/>
+						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{importeTotal}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="40" width="555" height="20" uuid="3c2b3881-1ff3-41c9-a2f1-47fdf40416fc">
+					<reportElement x="0" y="40" width="555" height="10" uuid="3c2b3881-1ff3-41c9-a2f1-47fdf40416fc">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					</reportElement>
 					<box>
@@ -348,32 +348,32 @@ where C.impreso = 0]]>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial Narrow" isBold="true"/>
+						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" Plan: " + $F{descripcionPlan} + " | Zona: " + $F{zonaNombre} + " | Domicilio: " + $F{domicilioSocio} + " | Localidad: " + $F{ciudadNombre} + " | Provincia: " + $F{provinciaNombre}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="473" y="72" width="80" height="12" uuid="76839563-63f5-4de8-b27a-457c84581308"/>
+					<reportElement x="473" y="62" width="80" height="12" uuid="76839563-63f5-4de8-b27a-457c84581308"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow"/>
+						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{cuotaSocio}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="90" width="394" height="12" printWhenGroupChanges="Group1" uuid="37700160-f755-4376-8b6d-4f8b7faf38e6">
+					<reportElement x="0" y="80" width="324" height="12" printWhenGroupChanges="Group1" uuid="37700160-f755-4376-8b6d-4f8b7faf38e6">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<printWhenExpression><![CDATA[$F{idAdherente} == null && $F{debeSocio} < 0]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font fontName="Arial Narrow" size="10" isBold="false"/>
+						<font fontName="Arial" size="8" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Existen comprobantes anteriores sin abonar]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="44">
+			<band height="26">
 				<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
 				<rectangle>
 					<reportElement x="395" y="10" width="78" height="12" backcolor="#FFDBB5" uuid="34a31c47-54ed-4cff-b0ae-2e9b5d804f2c">
@@ -393,7 +393,7 @@ where C.impreso = 0]]>
 						<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow" size="10" isBold="true"/>
+						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total: $]]></text>
 				</staticText>
@@ -404,7 +404,7 @@ where C.impreso = 0]]>
 						<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial Narrow"/>
+						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{importeTotal}]]></textFieldExpression>
 				</textField>
@@ -415,7 +415,7 @@ where C.impreso = 0]]>
 						<printWhenExpression><![CDATA[$F{idAdherente} != null && $F{debeSocio} < 0]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font fontName="Arial Narrow" size="10" isBold="false"/>
+						<font fontName="Arial" size="8" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Existen comprobantes anteriores sin abonar]]></text>
 				</staticText>
@@ -433,7 +433,7 @@ where C.impreso = 0]]>
 					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow"/>
+					<font fontName="Arial Narrow" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $F{dniAdherente}]]></textFieldExpression>
 			</textField>
@@ -442,7 +442,7 @@ where C.impreso = 0]]>
 					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow"/>
+					<font fontName="Arial Narrow" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NombreAdherente}]]></textFieldExpression>
 			</textField>
@@ -452,7 +452,7 @@ where C.impreso = 0]]>
 					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial Narrow"/>
+					<font fontName="Arial Narrow" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{importeAdherente}]]></textFieldExpression>
 			</textField>
@@ -461,7 +461,7 @@ where C.impreso = 0]]>
 					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial Narrow"/>
+					<font fontName="Arial Narrow" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaCoberturaAdh})]]></textFieldExpression>
 			</textField>
@@ -470,7 +470,7 @@ where C.impreso = 0]]>
 					<printWhenExpression><![CDATA[$F{idAdherente} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial Narrow"/>
+					<font fontName="Arial Narrow" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaNacAdh})]]></textFieldExpression>
 			</textField>

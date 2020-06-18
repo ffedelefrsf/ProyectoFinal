@@ -14,12 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.math.BigInteger;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -165,7 +163,7 @@ public class ComprobanteController {
 
     }
 
-    public String generateReport(HttpServletResponse response) {
+    public String generateReport(HttpServletResponse response) throws SQLException, IOException, JRException {
         try {
 
             response.setContentType("application/x-download");
@@ -191,8 +189,9 @@ public class ComprobanteController {
         } catch (Exception e) {
             e.printStackTrace();
             e.getMessage();
+            throw e;
         }
-        return null;
+
     }
 
     private List<Comprobante> actualizarImpresos() {
