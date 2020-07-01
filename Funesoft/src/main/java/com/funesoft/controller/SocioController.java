@@ -19,6 +19,7 @@ import java.util.Optional;
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
 import com.funesoft.utilities.EstadoEnum;
+import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 import jdk.nashorn.internal.runtime.options.Option;
@@ -59,7 +60,8 @@ public class SocioController {
         Socio socio = new Socio(socioDTO);
 
         //CALCULO LA COBERTURA
-        socio.setFechaCobertura(coberturaController.calculoCobertura(socioDTO.getFechaNacimiento()));
+//        socio.setFechaCobertura(coberturaController.calculoCobertura(socioDTO.getFechaNacimiento()));
+        socio.setFechaCobertura(new Date());
 
         socio.setUsuarioModifica(CurrentUser.getInstance());
         socio.setEstado(estadoRepository.findByNroEstado(EstadoEnum.ALTA.getCodigo()));
