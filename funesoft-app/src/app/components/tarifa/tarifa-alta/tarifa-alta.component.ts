@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/observable';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -21,6 +22,10 @@ export class TarifaAltaComponent implements OnInit {
   currentRate: any;
   public typeaheadBasicModel: any;
   public typeaheadFocusModel: any;
+
+  altaTarifaForm: FormGroup;
+  loading: boolean = false;
+  success: boolean = false;
 
   constructor() { }
 
@@ -44,6 +49,10 @@ export class TarifaAltaComponent implements OnInit {
 
   ngOnInit() {
     this.currentRate = 8;
+  }
+
+  createTarifa(){
+
   }
 
 }
