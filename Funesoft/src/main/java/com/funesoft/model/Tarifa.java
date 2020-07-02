@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.funesoft.utilities.CurrentUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,7 +59,10 @@ public class Tarifa implements Serializable {
     @JoinColumn(name = "ID_PLAN", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Plan plan;
-    
+
+    @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuarioModifica;
 
     @Override
     public int hashCode() {
@@ -107,6 +112,7 @@ public class Tarifa implements Serializable {
         this.nroTarifa = tarifaDTO.getNroTarifa();
         this.valor = tarifaDTO.getValor();
         this.plan = tarifaDTO.getPlan();
+        this.usuarioModifica = CurrentUser.getInstance();
     }
     
 }

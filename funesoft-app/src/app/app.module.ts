@@ -12,7 +12,6 @@ import { NavbarComponent } from '@app/components/navbar/navbar.component';
 import { SidebarComponent } from '@app/views/sidebar/sidebar.component';
 import { FooterComponent } from '@app/components/footer/footer.component';
 import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
-import { FormsComponent } from '@app/views/forms/forms.component';
 import { ButtonsComponent } from '@app/views/buttons/buttons.component';
 import { TablesComponent } from '@app/views/tables/tables.component';
 import { TypographyComponent } from '@app/views/typography/typography.component';
@@ -27,7 +26,6 @@ import { DropdownComponent } from '@app/views/dropdown/dropdown.component';
 import { TooltipsComponent } from '@app/views/tooltips/tooltips.component';
 import { CarouselComponent } from '@app/views/carousel/carousel.component';
 import { TabsComponent } from '@app/views/tabs/tabs.component';
-import { LoginComponent } from '@app/views/login/login.component';
 import { ProvinciaService } from '@app/services/provincia.service';
 import { AuthInterceptor } from '@app/services/auth-interceptor.service';
 import { AltaComponent } from '@app/components/socio/alta/alta.component';
@@ -40,6 +38,11 @@ import { DetalleComponent } from './components/socio/detalle/detalle.component';
 import { ZonasComponent } from './components/zonas/listado/zonas.component';
 import { BajaComponent } from './components/socio/baja/baja.component';
 import { ComprobanteComponent } from './components/comprobante/comprobante.component';
+import { TarifaListadoComponent } from './components/tarifa/tarifa-listado/tarifa-listado.component';
+import { TarifaAltaComponent } from './components/tarifa/tarifa-alta/tarifa-alta.component';
+import { RangosTarifaListadoComponent } from './components/rangos-tarifa/rangos-tarifa-listado/rangos-tarifa-listado.component';
+import { RangosTarifasAltaComponent } from './components/rangos-tarifa/rangos-tarifas-alta/rangos-tarifas-alta.component';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +52,6 @@ import { ComprobanteComponent } from './components/comprobante/comprobante.compo
     SidebarComponent,
     FooterComponent,
     DashboardComponent,
-    FormsComponent,
     ButtonsComponent,
     TablesComponent,
     TypographyComponent,
@@ -64,7 +66,6 @@ import { ComprobanteComponent } from './components/comprobante/comprobante.compo
     TooltipsComponent,
     CarouselComponent,
     TabsComponent,
-    LoginComponent,
     AltaComponent,
     ModificacionComponent,
     ListadoComponent,
@@ -73,7 +74,11 @@ import { ComprobanteComponent } from './components/comprobante/comprobante.compo
     DetalleComponent,
     ZonasComponent,
     BajaComponent,
-    ComprobanteComponent
+    ComprobanteComponent,
+    TarifaListadoComponent,
+    TarifaAltaComponent,
+    RangosTarifaListadoComponent,
+    RangosTarifasAltaComponent
   ],
   imports: [
     BrowserModule,

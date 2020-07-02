@@ -18,6 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RangoTarifaRepository extends JpaRepository<RangoTarifa, Integer>{
     
-    public List<RangoTarifa> findByTarifa(Tarifa tarifa);
+    List<RangoTarifa> findByTarifa(Tarifa tarifa);
     
 }

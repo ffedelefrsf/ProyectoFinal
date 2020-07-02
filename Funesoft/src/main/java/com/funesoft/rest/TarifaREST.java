@@ -44,9 +44,9 @@ public class TarifaREST {
     
     @PostMapping(path = "insert")
     @ApiOperation(value = "Inserta una tarifa en el sistema.")
-    public FunesoftResponseDTO insert(@Valid @RequestBody Tarifa tarifa){
+    public FunesoftResponseDTO insert(@Valid @RequestBody TarifaDTO tarifaDTO){
         try{
-            return new FunesoftResponseDTO(true, tarifaController.insertTarifa(tarifa), null, null);
+            return new FunesoftResponseDTO(true, tarifaController.insertTarifa(tarifaDTO), null, null);
         }catch (BusinessException businessException){
             return new FunesoftResponseDTO(false, null, businessException.getMessage(), businessException);
         }

@@ -12,6 +12,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  *
  * @author faust
@@ -25,8 +28,8 @@ public class TarifaDTO{
     private Integer nroTarifa;
     private String descripcion;
     private Float valor;
-    private RangoTarifa rangoTarifa;
     private Plan plan;
+    private List<RangoTarifa> listRango;
     private Usuario usuarioModifica;
     
 }

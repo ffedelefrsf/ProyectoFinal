@@ -8,5 +8,8 @@ export enum PageEnum{
     ZONA_LISTADO = 'zona',
     SOCIO_BAJA = 'socio/baja',
     DASHBOARD = 'dashboard',
-    COMPROBANTE = 'comprobante'
+    COMPROBANTE = 'comprobante',
+    TARIFA_LISTADO = 'tarifa',
+    TARIFA_ALTA = 'tarifa/alta',
+    RANGOS_TARIFA = 'rangos'
 }

@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.funesoft.dto.RangoTarifaDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -61,7 +63,22 @@ public class RangoTarifa implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
 
-    
+    public RangoTarifa(RangoTarifaDTO dto, Tarifa tarifa, Usuario user) {
+        this.edadDesde = dto.getEdadDesde();
+        this.edadHasta = dto.getEdadHasta();
+        this.valor = dto.getValor().floatValue();
+        this.tarifa = tarifa;
+        this.usuarioModifica = user;
+    }
+
+    public RangoTarifa(RangoTarifa rango, Tarifa tarifa, Usuario user) {
+        this.edadDesde = rango.getEdadDesde();
+        this.edadHasta = rango.getEdadHasta();
+        this.valor = rango.getValor();
+        this.tarifa = tarifa;
+        this.usuarioModifica = user;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
