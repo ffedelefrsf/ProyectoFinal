@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface CoberturaEdadRepository extends JpaRepository<CoberturaEdad, Integer>{
     
-    @Query("SELECT CE FROM CoberturaEdad CE WHERE CE.edadDesde >= :edad AND CE.edadHasta <= :edad")
+    @Query("SELECT CE FROM CoberturaEdad CE WHERE CE.edadDesde <= :edad AND CE.edadHasta >= :edad")
     public CoberturaEdad findByRangoEdad(Short edad);
     
 }

@@ -18,6 +18,8 @@ import { Estado } from '@app/model/estado';
 import { TarifaService } from '@app/services/tarifa.service';
 import { Tarifa } from '@app/model/tarifa';
 import { SocioAltaDTO } from '@app/dtos/socioAlta.dto';
+import { Enfermedad } from '@app/model/enfermedad';
+import { EnfermedadService } from '@app/services/enfermedad.service';
 
 @Component({
   selector: 'app-alta',
@@ -36,6 +38,7 @@ export class AltaComponent implements OnInit {
   localidades: Localidad[];
   obrasSociales: ObraSocial[];
   tarifas: Tarifa[];
+  enfermedades: Enfermedad[];
   altaSocioForm: FormGroup;
   currentYear: number;
   currentMonth: number;
@@ -48,6 +51,7 @@ export class AltaComponent implements OnInit {
     private obraSocialService: ObraSocialService,
     private socioService: SocioService,
     private tarifaService: TarifaService,
+    private enfermedadService: EnfermedadService,
     private formBuilder: FormBuilder,
     private location: Location) {
 
@@ -73,7 +77,8 @@ export class AltaComponent implements OnInit {
       zona: this.formBuilder.control('', [Validators.required]),
       localidad: this.formBuilder.control('', [Validators.required]),
       obraSocial: this.formBuilder.control('', [Validators.required]),
-      tarifa: this.formBuilder.control('', [Validators.required])
+      tarifa: this.formBuilder.control('', [Validators.required]),
+      enfermedad: this.formBuilder.control('SIN ENFERMEDAD', [Validators.required])
     });
 
     var provincia: Provincia = {};
@@ -99,7 +104,21 @@ export class AltaComponent implements OnInit {
                         this.tarifaService.getTarifas(tarifa).subscribe(
                           tarifaResponse => {
                             this.tarifas = tarifaResponse.data;
-                            this.loading = false;
+                            var enfermedad: Enfermedad = {};
+                            this.enfermedadService.getEnfermedades(enfermedad).subscribe(
+                              enfermedadResponse => {
+                                this.enfermedades = enfermedadResponse.data;
+                                this.loading = false;
+                              },
+                              errorEnfermedad => {
+                                if (errorEnfermedad.status === 401){
+                                  this.router.navigate(['/'+PageEnum.AUTH]);
+                                  this.loading = false;
+                                }else{
+                                  console.log('ERROR', errorEnfermedad);
+                                }
+                              }
+                            );
                           },
                           errorTarifas => {
                             if (errorTarifas.status === 401){
@@ -216,9 +235,13 @@ export class AltaComponent implements OnInit {
     this.socioToInsert.idZona = this.zonas[event.target.selectedIndex].id;
   }
 
+  updateEnfermedad(event: any){
+    this.socioToInsert.idEnfermedad = this.enfermedades[event.target.selectedIndex].id;
+  }
+
   onCancel(){
     console.log(this.altaSocioForm.controls);
-    this.location.back();
+    // this.location.back();
   }
 
 }

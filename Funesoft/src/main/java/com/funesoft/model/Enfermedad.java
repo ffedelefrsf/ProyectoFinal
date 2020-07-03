@@ -5,6 +5,7 @@
  */
 package com.funesoft.model;
 
+import com.funesoft.dto.EnfermedadDTO;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -33,6 +34,11 @@ public class Enfermedad implements Serializable{
     public Enfermedad() {
     }
 
+    public Enfermedad(EnfermedadDTO enfermedadDTO) {
+        this.id = enfermedadDTO.getId();
+        this.descripcion = enfermedadDTO.getDescripcion();
+    }
+    
     public Integer getId() {
         return id;
     }

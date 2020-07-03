@@ -58,10 +58,9 @@ public class SocioController {
     public Socio insertSocio (@NotNull SocioDTO socioDTO){
 
         Socio socio = new Socio(socioDTO);
-
+        
         //CALCULO LA COBERTURA
-//        socio.setFechaCobertura(coberturaController.calculoCobertura(socioDTO.getFechaNacimiento()));
-        socio.setFechaCobertura(new Date());
+        socio.setFechaCobertura(coberturaController.calculoCobertura(socio));
 
         socio.setUsuarioModifica(CurrentUser.getInstance());
         socio.setEstado(estadoRepository.findByNroEstado(EstadoEnum.ALTA.getCodigo()));

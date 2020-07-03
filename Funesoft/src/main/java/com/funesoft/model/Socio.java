@@ -131,6 +131,10 @@ public class Socio implements Serializable {
     @ManyToOne(optional = false)
     private Estado estado;
     
+    @ManyToOne
+    @JoinColumn (name = "ID_ENFERMEDAD", referencedColumnName = "ID", nullable = false)
+    private Enfermedad enfermedad;
+    
     @Transient
     @JsonIgnore
     private Short edad;
@@ -166,6 +170,11 @@ public class Socio implements Serializable {
             obraSocial.setId(socioDTO.getIdObraSocial());
             this.obraSocial = obraSocial;
         }
+        if(socioDTO.getIdEnfermedad() != null){
+            final Enfermedad enfermedad = new Enfermedad();
+            enfermedad.setId(socioDTO.getIdEnfermedad());
+            this.enfermedad = enfermedad;
+        }
     }
     
     public short getEdad(){
@@ -176,11 +185,10 @@ public class Socio implements Serializable {
         final LocalDate fechaActual = LocalDate.now();
         return (short) ChronoUnit.YEARS.between(fechaNacimientoAux, fechaActual);
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
         return hash;
     }
 
@@ -244,7 +252,21 @@ public class Socio implements Serializable {
         if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
             return false;
         }
+        if (!Objects.equals(this.estado, other.estado)) {
+            return false;
+        }
+        if (!Objects.equals(this.enfermedad, other.enfermedad)) {
+            return false;
+        }
+        if (!Objects.equals(this.edad, other.edad)) {
+            return false;
+        }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Socio{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", saldo=" + saldo + ", tarifa=" + tarifa + ", zona=" + zona + ", localidad=" + localidad + ", obraSocial=" + obraSocial + ", usuarioModifica=" + usuarioModifica + ", estado=" + estado + ", enfermedad=" + enfermedad + ", edad=" + edad + '}';
     }
     
 }

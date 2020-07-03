@@ -131,14 +131,26 @@ public class Adherente implements Serializable {
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
     
+    @ManyToOne
+    @JoinColumn (name = "ID_ENFERMEDAD", referencedColumnName = "ID", nullable = false)
+    private Enfermedad enfermedad;
+    
     @Transient
     private Short edad;
     
     
+    public short getEdad(){
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.fechaNacimiento);
+        final Integer year = calendar.get(Calendar.YEAR), month = calendar.get(Calendar.MONTH)+1, day = calendar.get(Calendar.DAY_OF_MONTH);
+        final LocalDate fechaNacimientoAux = LocalDate.of (year, month, day);
+        final LocalDate fechaActual = LocalDate.now();
+        return (short) ChronoUnit.YEARS.between(fechaNacimientoAux, fechaActual);
+    }
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
         return hash;
     }
 
@@ -205,21 +217,18 @@ public class Adherente implements Serializable {
         if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
             return false;
         }
+        if (!Objects.equals(this.enfermedad, other.enfermedad)) {
+            return false;
+        }
+        if (!Objects.equals(this.edad, other.edad)) {
+            return false;
+        }
         return true;
-    }
-    
-    public short getEdad(){
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(this.fechaNacimiento);
-        final Integer year = calendar.get(Calendar.YEAR), month = calendar.get(Calendar.MONTH)+1, day = calendar.get(Calendar.DAY_OF_MONTH);
-        final LocalDate fechaNacimientoAux = LocalDate.of (year, month, day);
-        final LocalDate fechaActual = LocalDate.now();
-        return (short) ChronoUnit.YEARS.between(fechaNacimientoAux, fechaActual);
     }
 
     @Override
     public String toString() {
-        return "Adherente{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", saldo=" + saldo + ", zona=" + zona.toString() + ", socio=" + socio.toString() + ", localidad=" + localidad.toString() + ", obraSocial=" + obraSocial.toString() + ", estado=" + estado.toString() + ", usuario=" + usuarioModifica.toString() + '}';
+        return "Adherente{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", fechaCobertura=" + fechaCobertura + ", saldo=" + saldo + ", zona=" + zona + ", socio=" + socio + ", localidad=" + localidad + ", obraSocial=" + obraSocial + ", estado=" + estado + ", usuarioModifica=" + usuarioModifica + ", enfermedad=" + enfermedad + ", edad=" + edad + '}';
     }
-    
+
 }

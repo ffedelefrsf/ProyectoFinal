@@ -11,6 +11,8 @@ import com.funesoft.repository.CoberturaPesoRepository;
 import com.funesoft.repository.EnfermedadRepository;
 import com.funesoft.utilities.CualidadCoberturaEnum;
 import com.ibm.icu.util.Calendar;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import org.springframework.stereotype.Controller;
 
 import java.util.Date;
@@ -33,12 +35,11 @@ public class CoberturaController {
     public Date calculoCobertura(Socio socio){
         //FALTA DESARROLLAR ESTA FUNCIÓN
         //CALCULA LA FECHA DE COBERTURA BASANDOSE EN LA FECHA DE NACIMIENTO y veremos sino pedimos alguna otra cosa.
-//        return calcular(socio.getEdad(), socio.getEnfermedad());
-        return null;
+        return calcular(socio.getEdad(), socio.getEnfermedad());
     }
     
     private Date calcular(Short edad, Enfermedad enfermedad){
-        final Calendar calendar = Calendar.getInstance();
+        final LocalDate fechaActual = LocalDate.now();
         
         final CoberturaEnfermedad coberturaEnfermedad = coberturaEnfermedadRepository.findByEnfermedad(enfermedad);
         final CoberturaEdad coberturaEdad = coberturaEdadRepository.findByRangoEdad(edad);
@@ -48,9 +49,7 @@ public class CoberturaController {
         
         final Integer cantidadDiasEspera = Math.round(CONSTANTE * ((coberturaPesoEnfermedad.getPeso() * coberturaEnfermedad.getIndicador()) + (coberturaPesoEdad.getPeso() * coberturaEdad.getIndicador())));
         
-        calendar.add(Calendar.DAY_OF_YEAR, cantidadDiasEspera);
-        
-        return calendar.getTime();
+        return Date.from(fechaActual.plusDays(cantidadDiasEspera).atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
 }

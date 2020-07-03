@@ -12,5 +12,6 @@ export interface SocioAltaDTO{
     idTarifa?: number,
     idZona?: number,
     idLocalidad?: number,
-    idObraSocial?: number
+    idObraSocial?: number,
+    idEnfermedad?: number
 }

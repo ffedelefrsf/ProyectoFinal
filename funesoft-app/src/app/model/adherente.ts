@@ -4,6 +4,7 @@ import { ObraSocial } from './obraSocial';
 import { Estado } from './estado';
 import { Socio } from './socio';
 import { Zona } from './zona';
+import { Enfermedad } from './enfermedad';
 
 export interface Adherente{
     id?: number,
@@ -23,5 +24,6 @@ export interface Adherente{
     obraSocial?: ObraSocial,
     estado?: Estado,
     usuarioModifica?: Usuario,
+    enfermedad?: Enfermedad,
     edad?: number
 }

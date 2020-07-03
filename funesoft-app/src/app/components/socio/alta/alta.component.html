@@ -179,6 +179,41 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Enfermedad</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="enfermedad"
+                                                    (change)="updateEnfermedad($event)">
+                                                    <option *ngFor="let enfermedad of enfermedades"
+                                                        [value]="enfermedad.descripcion"
+                                                        [selected]="enfermedad.descripcion=='SIN ENFERMEDAD'">{{enfermedad.descripcion}}
+                                                    </option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="Debe seleccionar una enfermedad"
+                                                    *ngIf="altaSocioForm.controls['enfermedad'].errors && altaSocioForm.controls['enfermedad'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Tarifa</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="tarifa"
+                                                    (change)="updateTarifa($event)">
+                                                    <option *ngFor="let tarifa of tarifas"
+                                                        [value]="tarifa.descripcion">{{tarifa.descripcion}}
+                                                    </option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="Debe seleccionar una tarifa"
+                                                    *ngIf="altaSocioForm.controls['tarifa'].errors && altaSocioForm.controls['tarifa'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group buttons-section">
                                     <button type="button" id="cancel" class="btn btn-light"
