@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location, formatDate } from '@angular/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -11,7 +12,6 @@ import { Socio } from '@app/model/socio';
 import { LocalidadService } from '@app/services/localidad.service';
 import { ZonaService } from '@app/services/zona.service';
 import { ObraSocialService } from '@app/services/obra-social.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProvinciaService } from '@app/services/provincia.service';
 import { Provincia } from '@app/model/provincia';
 import { ObraSocial } from '@app/model/obraSocial';

@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <h4 class="modal-title">Fecha de cobertura</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="grid-margin">
+        <div class="card" *ngIf="!loading">
+            <div class="card-body">
+                <form class="form-sample" [formGroup]="fechaCoberturaForm">
+                    <div class="row">
+                        <div class="form-group row">
+                            <label for="fecha-cobertura-input">Fecha de cobertura</label>
+                            <div id="fecha-cobertura">
+                                <input id="fecha-cobertura-input" class="form-control" placeholder="Fecha de cobertura"
+                                    formControlName="fechaCobertura"
+                                    [style.border]="fechaCoberturaForm.controls['fechaCobertura'].errors ? '1px solid red' : null"
+                                    ngbDatepicker #fechaCoberturaDatePicker="ngbDatepicker"
+                                    [minDate]="{year: 1900, month: 1, day: 1}"
+                                    [maxDate]="{year: 2300, month: 1, day: 1}"
+                                    (click)="fechaCoberturaDatePicker.toggle()" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row buttons-section">
+                        <button type="button" id="accept" class="btn btn-light" (click)="updateFechaCobertura()" [disabled]="!fechaCoberturaForm.valid || fechaCoberturaForm.pending">Aceptar</button>
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="error && !loading">
+                        Ha ocurrido un error.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="spinner-border text-primary" role="status" *ngIf="loading">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { Provincia } from '@app/model/provincia';
 import { Zona } from '@app/model/zona';
@@ -20,6 +21,7 @@ import { Tarifa } from '@app/model/tarifa';
 import { SocioAltaDTO } from '@app/dtos/socioAlta.dto';
 import { Enfermedad } from '@app/model/enfermedad';
 import { EnfermedadService } from '@app/services/enfermedad.service';
+import { FechaCoberturaComponent } from './fecha-cobertura/fecha-cobertura.component';
 
 @Component({
   selector: 'app-alta',
@@ -53,8 +55,11 @@ export class AltaComponent implements OnInit {
     private tarifaService: TarifaService,
     private enfermedadService: EnfermedadService,
     private formBuilder: FormBuilder,
+    private modalService: NgbModal,
+    config: NgbDropdownConfig,
     private location: Location) {
 
+      config.placement = 'bottom-right';
       this.socioToInsert = {};
       var currentDate: Date = new Date();
       this.currentYear = currentDate.getFullYear();
@@ -199,13 +204,20 @@ export class AltaComponent implements OnInit {
       };
       this.socioToInsert.fechaNacimiento = new Date(socioForm.fechaNacimiento['year'] + '-' + socioForm.fechaNacimiento['month'] + '-' + socioForm.fechaNacimiento['day']);
       this.socioToInsert.saldo = 0;
+      this.socioToInsert.idEnfermedad = this.socioToInsert.idEnfermedad == null ? this.enfermedades[0].id : this.socioToInsert.idEnfermedad;
       console.log(this.socioToInsert);
       this.socioService.createSocio(this.socioToInsert).subscribe(
         response => {
           if (response.success){
-            this.success = true;
+            
             this.error = false;
             this.loading = false;
+            const modalRef = this.modalService.open(FechaCoberturaComponent, { size: 'xl' });
+            modalRef.componentInstance.socio = response.data;
+            modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
+              if (receivedEntry)
+                this.success = true;
+            });
           }else{
             this.loading = false;
             this.error = true;

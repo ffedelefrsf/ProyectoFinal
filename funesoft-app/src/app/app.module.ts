@@ -32,16 +32,17 @@ import { AltaComponent } from '@app/components/socio/alta/alta.component';
 import { ModificacionComponent } from '@app/components/socio/modificacion/modificacion.component';
 import { ListadoComponent } from '@app/components/socio/listado/listado.component';
 import { SocioService } from '@app/services/socio.service';
-import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { DetalleComponent } from './components/socio/detalle/detalle.component';
-import { ZonasComponent } from './components/zonas/listado/zonas.component';
-import { BajaComponent } from './components/socio/baja/baja.component';
-import { ComprobanteComponent } from './components/comprobante/comprobante.component';
-import { TarifaListadoComponent } from './components/tarifa/tarifa-listado/tarifa-listado.component';
-import { TarifaAltaComponent } from './components/tarifa/tarifa-alta/tarifa-alta.component';
-import { RangosTarifaListadoComponent } from './components/rangos-tarifa/rangos-tarifa-listado/rangos-tarifa-listado.component';
-import { RangosTarifasAltaComponent } from './components/rangos-tarifa/rangos-tarifas-alta/rangos-tarifas-alta.component';
+import { SideMenuComponent } from '@app/components/side-menu/side-menu.component';
+import { ToolbarComponent } from '@app/components/toolbar/toolbar.component';
+import { DetalleComponent } from '@app/components/socio/detalle/detalle.component';
+import { ZonasComponent } from '@app/components/zonas/listado/zonas.component';
+import { BajaComponent } from '@app/components/socio/baja/baja.component';
+import { ComprobanteComponent } from '@app/components/comprobante/comprobante.component';
+import { TarifaListadoComponent } from '@app/components/tarifa/tarifa-listado/tarifa-listado.component';
+import { TarifaAltaComponent } from '@app/components/tarifa/tarifa-alta/tarifa-alta.component';
+import { RangosTarifaListadoComponent } from '@app/components/rangos-tarifa/rangos-tarifa-listado/rangos-tarifa-listado.component';
+import { RangosTarifasAltaComponent } from '@app/components/rangos-tarifa/rangos-tarifas-alta/rangos-tarifas-alta.component';
+import { FechaCoberturaComponent } from '@app/components/socio/alta/fecha-cobertura/fecha-cobertura.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { RangosTarifasAltaComponent } from './components/rangos-tarifa/rangos-ta
     TarifaListadoComponent,
     TarifaAltaComponent,
     RangosTarifaListadoComponent,
-    RangosTarifasAltaComponent
+    RangosTarifasAltaComponent,
+    FechaCoberturaComponent
   ],
   imports: [
     BrowserModule,
