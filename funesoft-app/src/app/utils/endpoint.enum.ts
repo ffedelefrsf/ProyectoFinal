@@ -11,6 +11,7 @@ export enum EndpointEnum{
     GET_NOMBRES_LOCALIDADES = '/localidad/getAllNombres',
     GET_ZONAS = '/zona/get',
     GET_OBRAS_SOCIALES = '/obraSocial/getAll',
+    GET_PLANES = '/plan/getAll',
     GET_TARIFAS = '/tarifa/getAll',
     GET_MOTIVOS_BAJA = '/motivoBaja/getAll',
     CREATE_COMPROBANTES = '/comprobante/generarComprobantesMasivos',
