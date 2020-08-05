@@ -112,6 +112,7 @@ public class Tarifa implements Serializable {
         this.nroTarifa = tarifaDTO.getNroTarifa();
         this.valor = tarifaDTO.getValor();
         this.plan = tarifaDTO.getPlan();
+        this.usuarioModifica = CurrentUser.getInstance();
     }
     
 }
