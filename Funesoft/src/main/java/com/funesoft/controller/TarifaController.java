@@ -20,6 +20,7 @@ import com.funesoft.utilities.BusinessException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.persistence.NoResultException;
 import javax.validation.constraints.NotNull;
 
@@ -190,8 +191,12 @@ public class TarifaController {
     }
 
     public Integer deleteTarifa(@NotNull final Integer idTarifa) throws BusinessException {
-        if (tarifaRepository.findById(idTarifa).isPresent()) {
+        Optional<Tarifa> tarifa = tarifaRepository.findById(idTarifa);
+        if (tarifa.isPresent()) {
             try {
+                //RECUPERO LOS RANGOS DE DICHA TARIFA
+                List<RangoTarifa> rangos = rangoTarifaRepository.findByTarifa(tarifa.get());
+                rangoTarifaRepository.deleteAll(rangos);
                 tarifaRepository.deleteById(idTarifa);
                 return idTarifa;
             } catch (Exception exception) {

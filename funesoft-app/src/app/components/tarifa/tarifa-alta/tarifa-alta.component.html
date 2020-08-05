@@ -10,48 +10,206 @@
                           <div class="card-body">
                             <h4 class="card-title">Nueva tarifa</h4>
                             <form class="forms-sample" [formGroup]="altaTarifaForm" (ngSubmit)="createTarifa()">
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">N° Tarifa</label>
-                                            <input type="number" class="form-control" placeholder="Número de documento" formControlName="nroTarifa" value="0">
+                                            <label for="nroTarifaLabel">N° Tarifa</label>
+                                            <input type="number" class="form-control" placeholder="Número de tarifa" formControlName="nroTarifa" value="0">
                                           </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Descripción</label>
-                                            <input type="text" class="form-control" placeholder="Descripción" formControlName="descTarifa" value="">
+                                            <label for="descripcionLabel">Descripción</label>
+                                            <input type="text" class="form-control" placeholder="Descripción" formControlName="descripcion" value="">
                                           </div> 
                                     </div>
                                 </div>
-                                <div class="row">
+
+                                <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Valor $</label>
-                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorTarifa" value="0">
-                                          </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Plan</label>
-                                            
-                                            <input id="typeahead-focus" type="text" class="form-control" [(ngModel)]="typeaheadFocusModel"
+                                            <label for="planLabel">Plan</label>
+                                            <input id="typeahead-focus" type="text" class="form-control" formControlName="plan" 
+                                            [(ngModel)]="typeaheadFocusModel" placeholder="Elija un plan"
                                             [ngbTypeahead]="focusSearch" (focus)="focus$.next($event.target.value)"
                                             (click)="click$.next($event.target.value)" #instance="ngbTypeahead"/>
-
                                         </div> 
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="valorLabel">Valor $ (Este precio incluye al titular y al primer adherente)</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valor" value="0" ng-disabled="disableField">
+                                          </div>
+                                    </div>
                                 </div>
-                              <button type="submit" class="btn btn-success mr-2">Agregar</button>
-                              <button class="btn btn-light">Cancelar</button>
+
+                                <h4 class="card-title">Precios por edad</h4>
+
+                                <div class="row ticket-card">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango1Label">Rango 1 - 0 a 5 años</label>
+                                            <input type="number" min="0" class="form-control" placeholder="Valor rango" formControlName="valorRango1" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango2Label">Rango 2 - 6 a 10 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango2" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango3Label">Rango 3 - 11 a 15 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango3" value="0">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row ticket-card">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango4Label">Rango 4 - 16 a 20 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor rango" formControlName="valorRango4" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango5Label">Rango 5 - 21 a 25 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango5" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango6Label">Rango 6 - 26 a 30 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango6" value="0">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row ticket-card">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango7Label">Rango 7 - 31 a 35 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor rango" formControlName="valorRango7" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango8Label">Rango 8 - 36 a 40 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango8" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango9Label">Rango 9 - 41 a 45 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango9" value="0">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row ticket-card">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango10Label">Rango 10 - 46 a 50 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor rango" formControlName="valorRango10" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango11Label">Rango 11 - 51 a 55 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango11" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango12Label">Rango 12 - 56 a 60 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango12" value="0">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row ticket-card">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango13Label">Rango 13 - 61 a 65 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor rango" formControlName="valorRango13" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango14Label">Rango 14 - 66 a 70 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango14" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango15Label">Rango 15 - 71 a 75 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango15" value="0">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row ticket-card">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango16Label">Rango 16 - 76 a 80 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor rango" formControlName="valorRango13" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango17Label">Rango 17 - 81 a 85 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango14" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango18Label">Rango 18 - 86 a 90 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango15" value="0">
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="row ticket-card">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango19Label">Rango 19 - 91 a 95 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor rango" formControlName="valorRango13" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango20Label">Rango 20 - 96 a 100 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango14" value="0">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="rango21Label">Rango 21 - 101 a 105 años</label>
+                                            <input type="number" class="form-control" placeholder="Valor base de la tarifa" formControlName="valorRango15" value="0">
+                                          </div>
+                                    </div>
+                                </div>
+
+                            <button type="submit" class="btn btn-success mr-2">Agregar</button>
+                            <button class="btn btn-light" (click)="onCancel()">Cancelar</button>
+                            <br><br>
+                            <div class="alert alert-success" role="alert" *ngIf="success && !error">
+                                La tarifa ha sido agregada con exito!
+                            </div>
+
+                            <div class="alert alert-danger" role="alert" *ngIf="error && !success">
+                                Hubo un problema al agregar la tarifa. Intente nuevamente.
+                            </div>
+
                             </form>
                           </div>
                         </div>
                     </div>
                 </div>
-                <div class="spinner-border text-primary" role="status" *ngIf="loading">
-                    <span class="sr-only">Loading...</span>
-                </div>
+
             </div>
             <app-footer></app-footer>
         </div>

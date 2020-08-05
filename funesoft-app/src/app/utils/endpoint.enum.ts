@@ -16,5 +16,6 @@ export enum EndpointEnum{
     CREATE_COMPROBANTES = '/comprobante/generarComprobantesMasivos',
     DESCARGAR_COMPROBANTES = '/comprobante/generarPDF',
     GET_RANGOS_TARIFA = '/rangoTarifa/getRango',
-    GET_ENFERMEDADES = '/enfermedad/getAll'
+    GET_ENFERMEDADES = '/enfermedad/getAll',
+    CREATE_TARIFA = '/tarifa/insert'
 }
