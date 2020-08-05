@@ -22,6 +22,8 @@ import { SocioAltaDTO } from '@app/dtos/socioAlta.dto';
 import { Enfermedad } from '@app/model/enfermedad';
 import { EnfermedadService } from '@app/services/enfermedad.service';
 import { FechaCoberturaComponent } from './fecha-cobertura/fecha-cobertura.component';
+import { PlanService } from '@app/services/plan.service';
+import { Plan } from '@app/model/plan';
 
 @Component({
   selector: 'app-alta',
@@ -40,6 +42,7 @@ export class AltaComponent implements OnInit {
   localidades: Localidad[];
   obrasSociales: ObraSocial[];
   tarifas: Tarifa[];
+  planes: Plan[];
   enfermedades: Enfermedad[];
   altaSocioForm: FormGroup;
   currentYear: number;
@@ -53,6 +56,7 @@ export class AltaComponent implements OnInit {
     private obraSocialService: ObraSocialService,
     private socioService: SocioService,
     private tarifaService: TarifaService,
+    private planService: PlanService,
     private enfermedadService: EnfermedadService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -83,6 +87,7 @@ export class AltaComponent implements OnInit {
       localidad: this.formBuilder.control('', [Validators.required]),
       obraSocial: this.formBuilder.control('', [Validators.required]),
       tarifa: this.formBuilder.control('', [Validators.required]),
+      plan: this.formBuilder.control('', [Validators.required]),
       enfermedad: this.formBuilder.control('SIN ENFERMEDAD', [Validators.required])
     });
 
@@ -105,10 +110,10 @@ export class AltaComponent implements OnInit {
                     this.obraSocialService.getObrasSociales(obraSocial).subscribe(
                       obraSocialResponse => {
                         this.obrasSociales = obraSocialResponse.data;
-                        var tarifa: Tarifa = {};
-                        this.tarifaService.getTarifas(tarifa).subscribe(
-                          tarifaResponse => {
-                            this.tarifas = tarifaResponse.data;
+                        var plan: Plan = {};
+                        this.planService.getPlanes(plan).subscribe(
+                          planResponse => {
+                            this.planes = planResponse.data;
                             var enfermedad: Enfermedad = {};
                             this.enfermedadService.getEnfermedades(enfermedad).subscribe(
                               enfermedadResponse => {
@@ -125,12 +130,12 @@ export class AltaComponent implements OnInit {
                               }
                             );
                           },
-                          errorTarifas => {
-                            if (errorTarifas.status === 401){
+                          errorPlanes => {
+                            if (errorPlanes.status === 401){
                               this.router.navigate(['/'+PageEnum.AUTH]);
                               this.loading = false;
                             }else{
-                              console.log('ERROR', errorTarifas);
+                              console.log('ERROR', errorPlanes);
                             }
                           }
                         );
@@ -237,6 +242,28 @@ export class AltaComponent implements OnInit {
 
   updateLocalidades(event: any){
     this.socioToInsert.idLocalidad = this.localidades[event.target.selectedIndex].id;
+  }
+
+  updatePlan(event: any){
+    var tarifa: Tarifa = {
+      plan: {
+        id: this.planes[event.target.selectedIndex].id
+      }
+    };
+    this.tarifaService.getTarifas(tarifa).subscribe(
+      tarifasResponse => {
+        this.tarifas = tarifasResponse.data;
+      },
+      errorTarifas => {
+        if (errorTarifas.status === 401){
+          this.router.navigate(['/'+PageEnum.AUTH]);
+          this.loading = false;
+        }else{
+          console.log('ERROR', errorTarifas);
+        }
+      }
+    );
+    this.altaSocioForm.controls['tarifa'].reset();
   }
   
   updateTarifa(event: any){
