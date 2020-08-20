@@ -15,7 +15,7 @@ import { SocioBajaDTO } from '@app/dtos/socioBaja.dto';
   templateUrl: './baja.component.html',
   styleUrls: ['./baja.component.scss']
 })
-export class BajaComponent implements OnInit {
+export class BajaSocioComponent implements OnInit {
 
   @Input() socio: Socio;
 

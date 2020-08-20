@@ -1,5 +1,6 @@
 package com.funesoft.controller;
 
+import com.funesoft.model.Adherente;
 import com.funesoft.model.CoberturaEdad;
 import com.funesoft.model.CoberturaEnfermedad;
 import com.funesoft.model.CoberturaPeso;
@@ -36,6 +37,12 @@ public class CoberturaController {
         //FALTA DESARROLLAR ESTA FUNCIÓN
         //CALCULA LA FECHA DE COBERTURA BASANDOSE EN LA FECHA DE NACIMIENTO y veremos sino pedimos alguna otra cosa.
         return calcular(socio.getEdad(), socio.getEnfermedad());
+    }
+    
+    public Date calculoCobertura(Adherente adherente){
+        //FALTA DESARROLLAR ESTA FUNCIÓN
+        //CALCULA LA FECHA DE COBERTURA BASANDOSE EN LA FECHA DE NACIMIENTO y veremos sino pedimos alguna otra cosa.
+        return calcular(adherente.getEdad(), adherente.getEnfermedad());
     }
     
     private Date calcular(Short edad, Enfermedad enfermedad){

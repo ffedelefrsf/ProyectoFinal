@@ -139,10 +139,32 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Plan</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="plan" disabled="true">
+                                        <option [value]="socio.tarifa.plan.descripcion">{{socio.tarifa.plan.descripcion}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Tarifa</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="tarifa" disabled="true">
                                         <option [value]="socio.tarifa.descripcion">{{socio.tarifa.descripcion}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Enfermedad</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="enfermedad" disabled="true">
+                                        <option [value]="socio.enfermedad.descripcion">{{socio.enfermedad.descripcion}}</option>
                                     </select>
                                 </div>
                             </div>

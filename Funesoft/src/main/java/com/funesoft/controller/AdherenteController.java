@@ -5,6 +5,7 @@
  */
 package com.funesoft.controller;
 
+import com.funesoft.dto.AdherenteDTO;
 import com.funesoft.dto.RemoveAllBySocioDTO;
 import com.funesoft.model.Adherente;
 import com.funesoft.model.Estado;
@@ -15,10 +16,10 @@ import com.funesoft.repository.SocioRepository;
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
 import com.funesoft.utilities.EstadoEnum;
-import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
 import javax.persistence.NoResultException;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -37,6 +38,31 @@ public class AdherenteController {
     
     @Autowired
     private EstadoRepository estadoRepository;
+    
+    @Autowired
+    private CoberturaController coberturaController;
+    
+    public Adherente insertSocio (@NotNull AdherenteDTO adherenteDTO){
+
+        final Adherente adherente = new Adherente(adherenteDTO);
+        
+        //CALCULO LA COBERTURA
+        adherente.setFechaCobertura(coberturaController.calculoCobertura(adherente));
+
+        adherente.setUsuarioModifica(CurrentUser.getInstance());
+        adherente.setEstado(estadoRepository.findByNroEstado(EstadoEnum.ALTA.getCodigo()));
+
+        return adherenteRepository.save(adherente);
+    }
+    
+    public Adherente updateAdherente (@NotNull Adherente adherente) throws BusinessException {
+        if(!(adherenteRepository.findById(adherente.getId()).isPresent())){
+            throw new BusinessException("El adherente informado no existe");
+        }
+        adherente.setUsuarioModifica(CurrentUser.getInstance());
+        return adherenteRepository.save(adherente);
+    }
+    
     public List<Adherente> removeAllBySocio(final RemoveAllBySocioDTO removeAllBySocioDTO) throws Exception {
         final Socio socioDB;
         try{

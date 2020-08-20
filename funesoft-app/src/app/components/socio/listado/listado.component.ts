@@ -5,15 +5,15 @@ import { NgbDropdownConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Socio } from '@app/model/socio';
 import { SocioService } from '@app/services/socio.service';
 import { PageEnum } from '@app/utils/page.enum';
-import { DetalleComponent } from '@app/components/socio/detalle/detalle.component';
-import { BajaComponent } from '@app/components/socio/baja/baja.component';
+import { DetalleSocioComponent } from '@app/components/socio/detalle/detalle.component';
+import { BajaSocioComponent } from '@app/components/socio/baja/baja.component';
 
 @Component({
   selector: 'app-listado',
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.scss']
 })
-export class ListadoComponent implements OnInit {
+export class ListadoSocioComponent implements OnInit {
 
   loading: boolean = false;
   sociosArray: Socio[];
@@ -64,12 +64,12 @@ export class ListadoComponent implements OnInit {
   }
 
   detalleSocio(socio: Socio){
-    const modalRef = this.modalService.open(DetalleComponent, { size: 'xl' });
+    const modalRef = this.modalService.open(DetalleSocioComponent, { size: 'xl' });
     modalRef.componentInstance.socio = socio;
   }
 
   deleteSocio(socio: Socio){
-    const modalRef = this.modalService.open(BajaComponent, { size: 'xl' });
+    const modalRef = this.modalService.open(BajaSocioComponent, { size: 'xl' });
     modalRef.componentInstance.socio = socio;
     modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
         if (receivedEntry){

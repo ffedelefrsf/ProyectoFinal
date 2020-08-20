@@ -5,6 +5,7 @@
  */
 package com.funesoft.model;
 
+import com.funesoft.dto.AdherenteDTO;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -138,6 +139,42 @@ public class Adherente implements Serializable {
     @Transient
     private Short edad;
     
+    public Adherente (AdherenteDTO adherenteDTO) {
+        this.dni = adherenteDTO.getDni();
+        this.apellido = adherenteDTO.getApellido();
+        this.nombre = adherenteDTO.getNombre();
+        this.direccion = adherenteDTO.getDireccion();
+        this.telefono = adherenteDTO.getTelefono();
+        this.email = adherenteDTO.getEmail();
+        this.sexo = adherenteDTO.getSexo();
+        this.fechaNacimiento = adherenteDTO.getFechaNacimiento();
+        this.saldo = adherenteDTO.getSaldo();
+        if(adherenteDTO.getIdZona() != null){
+            final Zona zona = new Zona();
+            zona.setId(adherenteDTO.getIdZona());
+            this.zona = zona;
+        }
+        if(adherenteDTO.getIdLocalidad() != null){
+            final Localidad localidad = new Localidad();
+            localidad.setId(adherenteDTO.getIdLocalidad());
+            this.localidad = localidad;
+        }
+        if(adherenteDTO.getIdObraSocial() != null){
+            final ObraSocial obraSocial = new ObraSocial();
+            obraSocial.setId(adherenteDTO.getIdObraSocial());
+            this.obraSocial = obraSocial;
+        }
+        if(adherenteDTO.getIdEnfermedad() != null){
+            final Enfermedad enfermedad = new Enfermedad();
+            enfermedad.setId(adherenteDTO.getIdEnfermedad());
+            this.enfermedad = enfermedad;
+        }
+        if (adherenteDTO.getIdSocio() != null){
+            final Socio socio = new Socio();
+            socio.setId(adherenteDTO.getIdSocio());
+            this.socio = socio;
+        }
+    }
     
     public short getEdad(){
         final Calendar calendar = Calendar.getInstance();
