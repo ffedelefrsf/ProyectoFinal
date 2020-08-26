@@ -8,7 +8,7 @@ import { ListadoComponent } from '@app/components/socio/listado/listado.componen
 import { AltaComponent } from '@app/components/socio/alta/alta.component';
 import { DetalleComponent } from '@app/components/socio/detalle/detalle.component';
 import { ModificacionComponent } from '@app/components/socio/modificacion/modificacion.component';
-import { ZonasComponent } from '@app/components/zonas/listado/zonas.component';
+import { ZonasComponent } from '@app/components/zona/listado/zonas.component';
 import { BajaComponent } from '@app/components/socio/baja/baja.component';
 import { ComprobanteComponent } from '@app/components/comprobante/comprobante.component';
 import { TarifaListadoComponent } from '@app/components/tarifa/tarifa-listado/tarifa-listado.component';

@@ -9,7 +9,6 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
-import { Tarifa } from '@app/model/tarifa';
 import { TarifaAltaDTO } from '@app/dtos/tarifaAlta.dto';
 import { TarifaAltaRangosDTO } from '@app/dtos/tarifaAltaRangos.dto';
 
@@ -99,8 +98,6 @@ export class TarifaAltaComponent implements OnInit {
   }
 
   createTarifa(){
-
-    console.log(this.altaTarifaForm.invalid);
 
     if (!this.altaTarifaForm.invalid){
 
