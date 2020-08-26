@@ -16,8 +16,4 @@ export class ZonaService extends ApiService{
     return this.request(MethodEnum.POST, EndpointEnum.GET_ZONAS, null, zona);
   }
 
-  createZona(zona: Zona): Observable<FunesoftResponseDTO<Zona>>{
-    return this.request(MethodEnum.POST, EndpointEnum.CREATE_ZONA, null, zona);
-  }
-
 }

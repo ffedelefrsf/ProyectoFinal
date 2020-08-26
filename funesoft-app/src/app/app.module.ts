@@ -35,7 +35,7 @@ import { SocioService } from '@app/services/socio.service';
 import { SideMenuComponent } from '@app/components/side-menu/side-menu.component';
 import { ToolbarComponent } from '@app/components/toolbar/toolbar.component';
 import { DetalleSocioComponent } from '@app/components/socio/detalle/detalle.component';
-import { ZonasComponent } from '@app/components/zona/listado/zonas.component';
+import { ZonasComponent } from '@app/components/zonas/listado/zonas.component';
 import { BajaSocioComponent } from '@app/components/socio/baja/baja.component';
 import { ComprobanteComponent } from '@app/components/comprobante/comprobante.component';
 import { TarifaListadoComponent } from '@app/components/tarifa/tarifa-listado/tarifa-listado.component';
