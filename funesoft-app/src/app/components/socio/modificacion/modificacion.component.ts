@@ -21,6 +21,10 @@ import { PageEnum } from '@app/utils/page.enum';
 import { SocioService } from '@app/services/socio.service';
 import { Tarifa } from '@app/model/tarifa';
 import { TarifaService } from '@app/services/tarifa.service';
+import { PlanService } from '@app/services/plan.service';
+import { EnfermedadService } from '@app/services/enfermedad.service';
+import { Plan } from '@app/model/plan';
+import { Enfermedad } from '@app/model/enfermedad';
 
 
 @Component({
@@ -28,7 +32,7 @@ import { TarifaService } from '@app/services/tarifa.service';
   templateUrl: './modificacion.component.html',
   styleUrls: ['./modificacion.component.scss']
 })
-export class ModificacionComponent implements OnInit {
+export class ModificacionSocioComponent implements OnInit {
 
   socio: Socio;
   loading: boolean = false;
@@ -40,6 +44,8 @@ export class ModificacionComponent implements OnInit {
   localidades: Localidad[];
   obrasSociales: ObraSocial[];
   tarifas: Tarifa[];
+  planes: Plan[];
+  enfermedades: Enfermedad[];
   editSocioForm: FormGroup;
   currentYear: number;
   currentMonth: number;
@@ -52,6 +58,8 @@ export class ModificacionComponent implements OnInit {
               private obraSocialService: ObraSocialService,
               private socioService: SocioService,
               private tarifaService: TarifaService,
+              private planService: PlanService,
+              private enfermedadService: EnfermedadService,
               private formBuilder: FormBuilder,
               private location: Location) {
 
@@ -80,7 +88,9 @@ export class ModificacionComponent implements OnInit {
       localidad: this.formBuilder.control(this.socio.localidad.nombre, [Validators.required]),
       obraSocial: this.formBuilder.control(this.socio.obraSocial.descripcion, [Validators.required]),
       fechaCobertura: this.formBuilder.control(this.socio.fechaCobertura, [Validators.required]),
-      tarifa: this.formBuilder.control(this.socio.tarifa.descripcion, [Validators.required])
+      tarifa: this.formBuilder.control(this.socio.tarifa.descripcion, [Validators.required]),
+      plan: this.formBuilder.control(this.socio.tarifa.plan.descripcion, [Validators.required]),
+      enfermedad: this.formBuilder.control(this.socio.enfermedad.descripcion, [Validators.required])
     });
 
     var fechaNacimiento: Date = new Date(this.socio.fechaNacimiento);
@@ -113,7 +123,35 @@ export class ModificacionComponent implements OnInit {
                         this.tarifaService.getTarifas(tarifa).subscribe(
                           tarifaResponse => {
                             this.tarifas = tarifaResponse.data;
-                            this.loading = false;
+                            var plan: Plan = {};
+                            this.planService.getPlanes(plan).subscribe(
+                              planResponse => {
+                                this.planes = planResponse.data;
+                                var enfermedad: Enfermedad = {};
+                                this.enfermedadService.getEnfermedades(enfermedad).subscribe(
+                                  enfermedadResponse => {
+                                    this.enfermedades = enfermedadResponse.data;
+                                    this.loading = false;
+                                  },
+                                  errorEnfermedad => {
+                                    if (errorEnfermedad.status === 401){
+                                      this.router.navigate(['/'+PageEnum.AUTH]);
+                                      this.loading = false;
+                                    }else{
+                                      console.log('ERROR', errorEnfermedad);
+                                    }
+                                  }
+                                );
+                              },
+                              errorPlanes => {
+                                if (errorPlanes.status === 401){
+                                  this.router.navigate(['/'+PageEnum.AUTH]);
+                                  this.loading = false;
+                                }else{
+                                  console.log('ERROR', errorPlanes);
+                                }
+                              }
+                            );
                           },
                           errorTarifas => {
                             if (errorTarifas.status === 401){
@@ -220,8 +258,34 @@ export class ModificacionComponent implements OnInit {
     this.socio.localidad = this.localidades[event.target.selectedIndex];
   }
 
+  updatePlan(event: any){
+    var tarifa: Tarifa = {
+      plan: {
+        id: this.planes[event.target.selectedIndex].id
+      }
+    };
+    this.tarifaService.getTarifas(tarifa).subscribe(
+      tarifasResponse => {
+        this.tarifas = tarifasResponse.data;
+      },
+      errorTarifas => {
+        if (errorTarifas.status === 401){
+          this.router.navigate(['/'+PageEnum.AUTH]);
+          this.loading = false;
+        }else{
+          console.log('ERROR', errorTarifas);
+        }
+      }
+    );
+    this.editSocioForm.controls['tarifa'].reset();
+  }
+  
   updateTarifa(event: any){
-    this.socio.tarifa = this.tarifas[event.target.selectedIndex];
+    this.socio.tarifa.id = this.tarifas[event.target.selectedIndex].id;
+  }
+
+  updateEnfermedad(event: any){
+    this.socio.enfermedad.id = this.enfermedades[event.target.selectedIndex].id;
   }
 
   updateZonas(event: any){

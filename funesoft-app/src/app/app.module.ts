@@ -28,21 +28,26 @@ import { CarouselComponent } from '@app/views/carousel/carousel.component';
 import { TabsComponent } from '@app/views/tabs/tabs.component';
 import { ProvinciaService } from '@app/services/provincia.service';
 import { AuthInterceptor } from '@app/services/auth-interceptor.service';
-import { AltaComponent } from '@app/components/socio/alta/alta.component';
-import { ModificacionComponent } from '@app/components/socio/modificacion/modificacion.component';
-import { ListadoComponent } from '@app/components/socio/listado/listado.component';
+import { AltaSocioComponent } from '@app/components/socio/alta/alta.component';
+import { ModificacionSocioComponent } from '@app/components/socio/modificacion/modificacion.component';
+import { ListadoSocioComponent } from '@app/components/socio/listado/listado.component';
 import { SocioService } from '@app/services/socio.service';
 import { SideMenuComponent } from '@app/components/side-menu/side-menu.component';
 import { ToolbarComponent } from '@app/components/toolbar/toolbar.component';
-import { DetalleComponent } from '@app/components/socio/detalle/detalle.component';
+import { DetalleSocioComponent } from '@app/components/socio/detalle/detalle.component';
 import { ZonasComponent } from '@app/components/zona/listado/zonas.component';
-import { BajaComponent } from '@app/components/socio/baja/baja.component';
+import { BajaSocioComponent } from '@app/components/socio/baja/baja.component';
 import { ComprobanteComponent } from '@app/components/comprobante/comprobante.component';
 import { TarifaListadoComponent } from '@app/components/tarifa/tarifa-listado/tarifa-listado.component';
 import { TarifaAltaComponent } from '@app/components/tarifa/tarifa-alta/tarifa-alta.component';
 import { RangosTarifaListadoComponent } from '@app/components/rangos-tarifa/rangos-tarifa-listado/rangos-tarifa-listado.component';
 import { RangosTarifasAltaComponent } from '@app/components/rangos-tarifa/rangos-tarifas-alta/rangos-tarifas-alta.component';
 import { FechaCoberturaComponent } from '@app/components/socio/alta/fecha-cobertura/fecha-cobertura.component';
+import { AltaAdherenteComponent } from './components/adherente/alta/alta.component';
+import { BajaAdherenteComponent } from './components/adherente/baja/baja.component';
+import { DetalleAdherenteComponent } from './components/adherente/detalle/detalle.component';
+import { ListadoAdherenteComponent } from './components/adherente/listado/listado.component';
+import { ModificacionAdherenteComponent } from './components/adherente/modificacion/modificacion.component';
 
 
 @NgModule({
@@ -67,20 +72,25 @@ import { FechaCoberturaComponent } from '@app/components/socio/alta/fecha-cobert
     TooltipsComponent,
     CarouselComponent,
     TabsComponent,
-    AltaComponent,
-    ModificacionComponent,
-    ListadoComponent,
+    AltaSocioComponent,
+    ModificacionSocioComponent,
+    ListadoSocioComponent,
     SideMenuComponent,
     ToolbarComponent,
-    DetalleComponent,
+    DetalleSocioComponent,
     ZonasComponent,
-    BajaComponent,
+    BajaSocioComponent,
     ComprobanteComponent,
     TarifaListadoComponent,
     TarifaAltaComponent,
     RangosTarifaListadoComponent,
     RangosTarifasAltaComponent,
-    FechaCoberturaComponent
+    FechaCoberturaComponent,
+    AltaAdherenteComponent,
+    BajaAdherenteComponent,
+    DetalleAdherenteComponent,
+    ListadoAdherenteComponent,
+    ModificacionAdherenteComponent
   ],
   imports: [
     BrowserModule,

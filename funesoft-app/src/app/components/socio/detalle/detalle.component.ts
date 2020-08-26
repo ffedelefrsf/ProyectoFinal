@@ -9,7 +9,7 @@ import { Socio } from '@app/model/socio';
   templateUrl: './detalle.component.html',
   styleUrls: ['./detalle.component.scss']
 })
-export class DetalleComponent implements OnInit {
+export class DetalleSocioComponent implements OnInit {
 
   @Input() socio: Socio;
 
@@ -36,7 +36,9 @@ export class DetalleComponent implements OnInit {
       localidad: this.formBuilder.control(this.socio.localidad.nombre, [Validators.required]),
       obraSocial: this.formBuilder.control(this.socio.obraSocial.descripcion, [Validators.required]),
       fechaCobertura: this.formBuilder.control(this.socio.fechaCobertura, [Validators.required]),
-      tarifa: this.formBuilder.control(this.socio.tarifa.descripcion, [Validators.required])
+      tarifa: this.formBuilder.control(this.socio.tarifa.descripcion, [Validators.required]),
+      plan: this.formBuilder.control(this.socio.tarifa.plan.descripcion, [Validators.required]),
+      enfermedad: this.formBuilder.control(this.socio.enfermedad.descripcion, [Validators.required])
     });
 
     var fechaNacimiento: Date = new Date(this.socio.fechaNacimiento);

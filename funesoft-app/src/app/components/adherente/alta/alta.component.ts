@@ -21,18 +21,21 @@ import { Tarifa } from '@app/model/tarifa';
 import { SocioAltaDTO } from '@app/dtos/socioAlta.dto';
 import { Enfermedad } from '@app/model/enfermedad';
 import { EnfermedadService } from '@app/services/enfermedad.service';
-import { FechaCoberturaComponent } from './fecha-cobertura/fecha-cobertura.component';
+import { FechaCoberturaComponent } from '@app/components/socio/alta/fecha-cobertura/fecha-cobertura.component';
 import { PlanService } from '@app/services/plan.service';
 import { Plan } from '@app/model/plan';
+import { Adherente } from '@app/model/adherente';
+import { AdherenteService } from '@app/services/adherente.service';
+import { AdherenteAltaDTO } from '@app/dtos/adherenteAlta.dto';
 
 @Component({
   selector: 'app-alta',
   templateUrl: './alta.component.html',
   styleUrls: ['./alta.component.scss']
 })
-export class AltaSocioComponent implements OnInit {
+export class AltaAdherenteComponent implements OnInit {
 
-  socioToInsert: SocioAltaDTO;
+  adherenteToInsert: AdherenteAltaDTO;
   loading: boolean = false;
   success: boolean = false;
   error: boolean = false;
@@ -41,10 +44,9 @@ export class AltaSocioComponent implements OnInit {
   localidadesNombres: String[];
   localidades: Localidad[];
   obrasSociales: ObraSocial[];
-  tarifas: Tarifa[];
-  planes: Plan[];
+  socios: Socio[];
   enfermedades: Enfermedad[];
-  altaSocioForm: FormGroup;
+  altaAdherenteForm: FormGroup;
   currentYear: number;
   currentMonth: number;
   currentDay: number;
@@ -55,16 +57,15 @@ export class AltaSocioComponent implements OnInit {
     private zonaService: ZonaService,
     private obraSocialService: ObraSocialService,
     private socioService: SocioService,
-    private tarifaService: TarifaService,
-    private planService: PlanService,
     private enfermedadService: EnfermedadService,
+    private adherenteService: AdherenteService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     config: NgbDropdownConfig,
     private location: Location) {
 
       config.placement = 'bottom-right';
-      this.socioToInsert = {};
+      this.adherenteToInsert = {};
       var currentDate: Date = new Date();
       this.currentYear = currentDate.getFullYear();
       this.currentMonth = currentDate.getMonth() + 1;
@@ -74,7 +75,7 @@ export class AltaSocioComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
 
-    this.altaSocioForm = this.formBuilder.group({
+    this.altaAdherenteForm = this.formBuilder.group({
       nombre: this.formBuilder.control('', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-z-ñ A-Z-Ñ]*')]),
       apellido: this.formBuilder.control('', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-z-ñ A-Z-Ñ]*')]),
       dni: this.formBuilder.control('', [Validators.required, Validators.minLength(7), Validators.maxLength(8), Validators.pattern('^[0-9]*')]),
@@ -86,9 +87,8 @@ export class AltaSocioComponent implements OnInit {
       zona: this.formBuilder.control('', [Validators.required]),
       localidad: this.formBuilder.control('', [Validators.required]),
       obraSocial: this.formBuilder.control('', [Validators.required]),
-      tarifa: this.formBuilder.control('', [Validators.required]),
-      plan: this.formBuilder.control('', [Validators.required]),
-      enfermedad: this.formBuilder.control('SIN ENFERMEDAD', [Validators.required])
+      enfermedad: this.formBuilder.control('SIN ENFERMEDAD', [Validators.required]),
+      socio: this.formBuilder.control('', [Validators.required])
     });
 
     var provincia: Provincia = {};
@@ -110,32 +110,36 @@ export class AltaSocioComponent implements OnInit {
                     this.obraSocialService.getObrasSociales(obraSocial).subscribe(
                       obraSocialResponse => {
                         this.obrasSociales = obraSocialResponse.data;
-                        var plan: Plan = {};
-                        this.planService.getPlanes(plan).subscribe(
-                          planResponse => {
-                            this.planes = planResponse.data;
-                            var enfermedad: Enfermedad = {};
-                            this.enfermedadService.getEnfermedades(enfermedad).subscribe(
-                              enfermedadResponse => {
-                                this.enfermedades = enfermedadResponse.data;
+                        var enfermedad: Enfermedad = {};
+                        this.enfermedadService.getEnfermedades(enfermedad).subscribe(
+                          enfermedadResponse => {
+                            this.enfermedades = enfermedadResponse.data;
+                            let socio: Socio = {};
+                            this.socioService.getSocios(socio).subscribe(
+                              sociosResponse => {
+                                this.socios = sociosResponse.data;
+                                this.error = false;
                                 this.loading = false;
                               },
-                              errorEnfermedad => {
-                                if (errorEnfermedad.status === 401){
+                              error => {
+                                if (error.status === 401){
                                   this.router.navigate(['/'+PageEnum.AUTH]);
+                                  this.error = true;
                                   this.loading = false;
                                 }else{
-                                  console.log('ERROR', errorEnfermedad);
+                                  console.log('ERROR', error);
+                                  this.error = true;
+                                  this.loading = false;
                                 }
                               }
                             );
                           },
-                          errorPlanes => {
-                            if (errorPlanes.status === 401){
+                          errorEnfermedad => {
+                            if (errorEnfermedad.status === 401){
                               this.router.navigate(['/'+PageEnum.AUTH]);
                               this.loading = false;
                             }else{
-                              console.log('ERROR', errorPlanes);
+                              console.log('ERROR', errorEnfermedad);
                             }
                           }
                         );
@@ -191,34 +195,33 @@ export class AltaSocioComponent implements OnInit {
     );
   }
 
-  createSocio(){
-    if (!this.altaSocioForm.invalid){
-      var socioForm : Socio = this.altaSocioForm.getRawValue();
-      this.socioToInsert.nombre = socioForm.nombre;
-      this.socioToInsert.apellido = socioForm.apellido;
-      this.socioToInsert.dni = socioForm.dni;
-      this.socioToInsert.direccion = socioForm.direccion;
-      this.socioToInsert.email = socioForm.email;
-      this.socioToInsert.fechaNacimiento = socioForm.fechaNacimiento;
-      this.socioToInsert.telefono = socioForm.telefono;
-      this.socioToInsert.sexo = socioForm.sexo;
+  createAdherente(){
+    if (!this.altaAdherenteForm.invalid){
+      var adherenteForm : Adherente = this.altaAdherenteForm.getRawValue();
+      this.adherenteToInsert.nombre = adherenteForm.nombre;
+      this.adherenteToInsert.apellido = adherenteForm.apellido;
+      this.adherenteToInsert.dni = adherenteForm.dni;
+      this.adherenteToInsert.direccion = adherenteForm.direccion;
+      this.adherenteToInsert.email = adherenteForm.email;
+      this.adherenteToInsert.fechaNacimiento = adherenteForm.fechaNacimiento;
+      this.adherenteToInsert.telefono = adherenteForm.telefono;
+      this.adherenteToInsert.sexo = adherenteForm.sexo;
       var estado: Estado = {
         id: 1,
         nroEstado: 1,
         descripcion: 'ALTA'
       };
-      this.socioToInsert.fechaNacimiento = new Date(socioForm.fechaNacimiento['year'] + '-' + socioForm.fechaNacimiento['month'] + '-' + socioForm.fechaNacimiento['day']);
-      this.socioToInsert.saldo = 0;
-      this.socioToInsert.idEnfermedad = this.socioToInsert.idEnfermedad == null ? this.enfermedades[0].id : this.socioToInsert.idEnfermedad;
-      console.log(this.socioToInsert);
-      this.socioService.createSocio(this.socioToInsert).subscribe(
+      this.adherenteToInsert.fechaNacimiento = new Date(adherenteForm.fechaNacimiento['year'] + '-' + adherenteForm.fechaNacimiento['month'] + '-' + adherenteForm.fechaNacimiento['day']);
+      this.adherenteToInsert.idEnfermedad = this.adherenteToInsert.idEnfermedad == null ? this.enfermedades[0].id : this.adherenteToInsert.idEnfermedad;
+      console.log(this.adherenteToInsert);
+      this.adherenteService.createAdherente(this.adherenteToInsert).subscribe(
         response => {
           if (response.success){
             
             this.error = false;
             this.loading = false;
             const modalRef = this.modalService.open(FechaCoberturaComponent, { size: 'xl' });
-            modalRef.componentInstance.socio = response.data;
+            modalRef.componentInstance.adherente = response.data;
             modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
               if (receivedEntry)
                 this.success = true;
@@ -240,49 +243,27 @@ export class AltaSocioComponent implements OnInit {
   }
 
   updateObraSocial(event: any){
-    this.socioToInsert.idObraSocial = this.obrasSociales[event.target.selectedIndex].id;
+    this.adherenteToInsert.idObraSocial = this.obrasSociales[event.target.selectedIndex].id;
   }
 
   updateLocalidades(event: any){
-    this.socioToInsert.idLocalidad = this.localidades[event.target.selectedIndex].id;
-  }
-
-  updatePlan(event: any){
-    var tarifa: Tarifa = {
-      plan: {
-        id: this.planes[event.target.selectedIndex].id
-      }
-    };
-    this.tarifaService.getTarifas(tarifa).subscribe(
-      tarifasResponse => {
-        this.tarifas = tarifasResponse.data;
-      },
-      errorTarifas => {
-        if (errorTarifas.status === 401){
-          this.router.navigate(['/'+PageEnum.AUTH]);
-          this.loading = false;
-        }else{
-          console.log('ERROR', errorTarifas);
-        }
-      }
-    );
-    this.altaSocioForm.controls['tarifa'].reset();
-  }
-  
-  updateTarifa(event: any){
-    this.socioToInsert.idTarifa = this.tarifas[event.target.selectedIndex].id;
+    this.adherenteToInsert.idLocalidad = this.localidades[event.target.selectedIndex].id;
   }
 
   updateZonas(event: any){
-    this.socioToInsert.idZona = this.zonas[event.target.selectedIndex].id;
+    this.adherenteToInsert.idZona = this.zonas[event.target.selectedIndex].id;
   }
 
   updateEnfermedad(event: any){
-    this.socioToInsert.idEnfermedad = this.enfermedades[event.target.selectedIndex].id;
+    this.adherenteToInsert.idEnfermedad = this.enfermedades[event.target.selectedIndex].id;
+  }
+
+  updateSocio(event: any){
+    this.adherenteToInsert.idSocio = this.socios[event.target.selectedIndex].id;
   }
 
   onCancel(){
-    console.log(this.altaSocioForm.controls);
+    console.log(this.altaAdherenteForm.controls);
     // this.location.back();
   }
 

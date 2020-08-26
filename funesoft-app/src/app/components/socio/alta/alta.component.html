@@ -239,11 +239,11 @@
                                 </div>
                             </form>
                             <br>
-                            <div class="alert alert-fill-success" role="alert" *ngIf="success && !loading">
+                            <div class="alert alert-fill-success" role="alert" *ngIf="success && !loading && !error">
                                 <i class="mdi mdi-alert-circle"></i>
                                 El socio ha sido creado con éxito.
                             </div>
-                            <div class="alert alert-danger" role="alert" *ngIf="error && !loading">
+                            <div class="alert alert-danger" role="alert" *ngIf="error && !loading && !success">
                                 Ha ocurrido un error.
                             </div>
                         </div>

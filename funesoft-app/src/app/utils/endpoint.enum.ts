@@ -19,5 +19,7 @@ export enum EndpointEnum{
     GET_RANGOS_TARIFA = '/rangoTarifa/getRango',
     GET_ENFERMEDADES = '/enfermedad/getAll',
     CREATE_TARIFA = '/tarifa/insert',
-    CREATE_ZONA = '/zona/insert'
+    CREATE_ZONA = '/zona/insert',
+    CREATE_ADHERENTE = '/adherente/insert',
+    EDIT_ADHERENTE = '/adherente/update'
 }
