@@ -19,6 +19,8 @@ import { FechaCoberturaComponent } from '@app/components/socio/alta/fecha-cobert
 import { AltaAdherenteComponent } from '@app/components/adherente/alta/alta.component';
 import { AuthGuard } from '@app/utils/auth.guard';
 import { PageEnum } from '@app/utils/page.enum';
+import { ListadoAdherenteComponent } from './components/adherente/listado/listado.component';
+import { ModificacionAdherenteComponent } from './components/adherente/modificacion/modificacion.component';
 
 
 const routes: Routes = [
@@ -38,7 +40,9 @@ const routes: Routes = [
   {path: PageEnum.TARIFA_ALTA, component: TarifaAltaComponent, canActivate: [AuthGuard]},
   {path: PageEnum.RANGOS_TARIFA, component: RangosTarifaListadoComponent, canActivate: [AuthGuard]},
   {path: PageEnum.TARIFA_ALTA, component: RangosTarifasAltaComponent, canActivate: [AuthGuard]},
-  {path: PageEnum.ADHERENTE_ALTA, component: AltaAdherenteComponent, canActivate: [AuthGuard]}
+  {path: PageEnum.ADHERENTE_ALTA, component: AltaAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.ADHERENTE_LISTADO, component: ListadoAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.ADHERENTE_MODIFICACION, component: ModificacionAdherenteComponent, canActivate: [AuthGuard]}
 
 ];
 

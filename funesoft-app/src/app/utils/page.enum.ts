@@ -7,6 +7,8 @@ export enum PageEnum{
     SOCIO_MODIFICACION = 'socio/modificar',
     SOCIO_FECHA_COBERTURA = 'socio/fecha-cobertura',
     ADHERENTE_ALTA = 'adherente/alta',
+    ADHERENTE_LISTADO = 'adherente',
+    ADHERENTE_MODIFICACION = 'adherente/modificar',
     ZONA_LISTADO = 'zona',
     SOCIO_BAJA = 'socio/baja',
     DASHBOARD = 'dashboard',

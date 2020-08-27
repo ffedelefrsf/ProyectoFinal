@@ -23,4 +23,7 @@ public interface AdherenteRepository extends JpaRepository<Adherente, Integer>{
     List<Adherente> findBySocioOrderByFechaNacimientoAsc(Socio socio);
 
     Optional<Adherente> findByDni(Integer dni);
+    
+    public List<Adherente> findAllByOrderBySocioDniDesc();
+
 }

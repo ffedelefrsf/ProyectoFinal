@@ -21,6 +21,7 @@ import java.util.NoSuchElementException;
 import javax.persistence.NoResultException;
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -53,6 +54,14 @@ public class AdherenteController {
         adherente.setEstado(estadoRepository.findByNroEstado(EstadoEnum.ALTA.getCodigo()));
 
         return adherenteRepository.save(adherente);
+    }
+    
+    public List<Adherente> getAll(Adherente adherente){
+        return adherenteRepository.findAll(Example.of(adherente));
+    }
+    
+    public List<Adherente> getAllOrderedBySocio(){
+        return adherenteRepository.findAllByOrderBySocioDniDesc();
     }
     
     public Adherente updateAdherente (@NotNull Adherente adherente) throws BusinessException {

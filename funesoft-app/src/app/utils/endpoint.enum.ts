@@ -20,6 +20,8 @@ export enum EndpointEnum{
     GET_ENFERMEDADES = '/enfermedad/getAll',
     CREATE_ZONA = '/zona/insert',
     CREATE_ADHERENTE = '/adherente/insert',
+    GET_ADHERENTES = '/adherente/getAll',
+    GET_ADHERENTES_ORDERED = '/adherente/getAllOrderedBySocio',
     EDIT_ADHERENTE = '/adherente/update',
     CREATE_TARIFA = '/tarifa/insert'
 }

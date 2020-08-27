@@ -1,0 +1,52 @@
+#modificacion-adherentes{
+    display: flex;
+}
+
+.card{
+    width: 100%;
+}
+
+.spinner-border{
+    position:absolute;
+    left:0; 
+    right:0;
+    top:0; 
+    bottom:0;
+    margin:auto;
+
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+
+.buttons-section{
+    display: flex;
+    margin-top: 30px;
+}
+
+#modificar{
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#cancel{
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.fa-exclamation-circle{
+    margin-left: 5px;
+    color: crimson;
+    position: relative;
+    top: 24%;
+}
+
+.col-sm-9{
+    display: flex;
+}
+
+.form-control[readonly]{
+    background-color: #fff;
+}

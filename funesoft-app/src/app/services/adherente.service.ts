@@ -21,4 +21,8 @@ export class AdherenteService extends ApiService{
     return this.request(MethodEnum.POST, EndpointEnum.EDIT_ADHERENTE, null, adherente);
   }
 
+  getAdherentesOrdered(): Observable<FunesoftResponseDTO<Adherente>>{
+    return this.request(MethodEnum.GET, EndpointEnum.GET_ADHERENTES_ORDERED, null, null);
+  }
+
 }
