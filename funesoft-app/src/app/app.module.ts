@@ -35,7 +35,7 @@ import { SocioService } from '@app/services/socio.service';
 import { SideMenuComponent } from '@app/components/side-menu/side-menu.component';
 import { ToolbarComponent } from '@app/components/toolbar/toolbar.component';
 import { DetalleSocioComponent } from '@app/components/socio/detalle/detalle.component';
-import { ZonasComponent } from '@app/components/zonas/listado/zonas.component';
+import { ZonasComponent } from '@app/components/zona/listado/zonas.component';
 import { BajaSocioComponent } from '@app/components/socio/baja/baja.component';
 import { ComprobanteComponent } from '@app/components/comprobante/comprobante.component';
 import { TarifaListadoComponent } from '@app/components/tarifa/tarifa-listado/tarifa-listado.component';
@@ -48,7 +48,7 @@ import { BajaAdherenteComponent } from './components/adherente/baja/baja.compone
 import { DetalleAdherenteComponent } from './components/adherente/detalle/detalle.component';
 import { ListadoAdherenteComponent } from './components/adherente/listado/listado.component';
 import { ModificacionAdherenteComponent } from './components/adherente/modificacion/modificacion.component';
-
+import { AltaZonaComponent } from './components/zona/alta/alta-zona.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +90,8 @@ import { ModificacionAdherenteComponent } from './components/adherente/modificac
     BajaAdherenteComponent,
     DetalleAdherenteComponent,
     ListadoAdherenteComponent,
-    ModificacionAdherenteComponent
+    ModificacionAdherenteComponent,
+    AltaZonaComponent
   ],
   imports: [
     BrowserModule,

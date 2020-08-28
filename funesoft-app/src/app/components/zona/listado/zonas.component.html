@@ -14,7 +14,6 @@
                                         <tr>
                                             <th>Número de zona</th>
                                             <th>Nombre</th>
-                                            <th>Estado</th>
                                             <th>Acciones</th>
                                             <th></th>
                                         </tr>
@@ -23,7 +22,6 @@
                                         <tr *ngFor="let zona of zonasArray">
                                             <td>{{zona.nroZona}}</td>
                                             <td>{{zona.nombre}}</td>
-                                            <td>{{zona.nombre}}</td>
                                             <td>
                                                 <div ngbDropdown class="d-inline-block">
                                                     <button class="btn btn-outline-primary" type="button"
@@ -31,11 +29,9 @@
                                                         Acciones
                                                     </button>
                                                     <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1">
-                                                        <a class="dropdown-header" href="#">Información</a>
+                                                        <a class="dropdown-header" href="#">Cobradores</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-header" href="#">Dar de baja</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-header" href="#">Modificar</a>
                                                     </div>
                                                 </div>
                                             </td>
