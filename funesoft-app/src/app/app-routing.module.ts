@@ -21,6 +21,8 @@ import { AuthGuard } from '@app/utils/auth.guard';
 import { PageEnum } from '@app/utils/page.enum';
 import { ListadoAdherenteComponent } from './components/adherente/listado/listado.component';
 import { ModificacionAdherenteComponent } from './components/adherente/modificacion/modificacion.component';
+import { BajaAdherenteComponent } from './components/adherente/baja/baja.component';
+import { DetalleAdherenteComponent } from './components/adherente/detalle/detalle.component';
 
 
 const routes: Routes = [
@@ -42,7 +44,9 @@ const routes: Routes = [
   {path: PageEnum.TARIFA_ALTA, component: RangosTarifasAltaComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_ALTA, component: AltaAdherenteComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_LISTADO, component: ListadoAdherenteComponent, canActivate: [AuthGuard]},
-  {path: PageEnum.ADHERENTE_MODIFICACION, component: ModificacionAdherenteComponent, canActivate: [AuthGuard]}
+  {path: PageEnum.ADHERENTE_MODIFICACION, component: ModificacionAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.ADHERENTE_DETALLE, component: DetalleAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.ADHERENTE_BAJA, component: BajaAdherenteComponent, canActivate: [AuthGuard]}
 
 ];
 

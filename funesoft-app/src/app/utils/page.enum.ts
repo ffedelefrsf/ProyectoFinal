@@ -9,6 +9,8 @@ export enum PageEnum{
     ADHERENTE_ALTA = 'adherente/alta',
     ADHERENTE_LISTADO = 'adherente',
     ADHERENTE_MODIFICACION = 'adherente/modificar',
+    ADHERENTE_DETALLE = 'adherente/detalle',
+    ADHERENTE_BAJA = 'adherente/baja',
     ZONA_LISTADO = 'zona',
     SOCIO_BAJA = 'socio/baja',
     DASHBOARD = 'dashboard',

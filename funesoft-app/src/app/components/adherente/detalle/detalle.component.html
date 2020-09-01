@@ -1,1 +1,171 @@
-<p>detalle works!</p>
+<div class="modal-header">
+    <h4 class="modal-title">Detalle</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div id="detalle-adherentes">
+        <div class="card" *ngIf="!loading">
+            <div class="card-body">
+                <form class="form-sample" [formGroup]="detailAdherenteForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Nombre</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="nombre"
+                                        value="{{adherente.nombre}}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Apellido</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="apellido"
+                                        value="{{adherente.apellido}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Número de documento</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="dni" value="{{adherente.dni}}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="email"
+                                        value="{{adherente.email}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Sexo</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="sexo">
+                                        <option [selected]="true">{{adherente.sexo}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" formControlName="fechaNacimiento"
+                                        value="{{adherente.fechaNacimiento}}" ngbDatepicker
+                                        #fechaNacimientoDatePicker="ngbDatepicker" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Domicilio</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="direccion"
+                                        value="{{adherente.direccion}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Teléfono</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="telefono"
+                                        value="{{adherente.telefono}}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Zona</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="zona">
+                                        <option [value]="adherente.zona.nombre">{{adherente.zona.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Localidad</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="localidad">
+                                        <option [value]="adherente.localidad.nombre">{{adherente.localidad.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Obra social</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="obraSocial">
+                                        <option [value]="adherente.obraSocial.descripcion">{{adherente.obraSocial.descripcion}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Fecha de cobertura</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="Fecha de cobertura"
+                                        formControlName="fechaCobertura" ngbDatepicker
+                                        #fechaCoberturaDatePicker="ngbDatepicker" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Enfermedad</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="enfermedad">
+                                        <option [value]="adherente.enfermedad.descripcion">{{adherente.enfermedad.descripcion}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Socio</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="socio">
+                                        <option [value]="adherente.socio.apellido + ', ' + adherente.socio.nombre">{{adherente.socio.apellido}}, {{adherente.socio.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group buttons-section">
+                        <button type="button" id="accept" class="btn btn-light"
+                            (click)="activeModal.close('Close click')">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="spinner-border text-primary" role="status" *ngIf="loading">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>

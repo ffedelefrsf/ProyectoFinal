@@ -1,1 +1,33 @@
-<p>baja works!</p>
+<div class="modal-header">
+    <h4 class="modal-title">Baja del adherente {{adherente.nombre}} {{adherente.apellido}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="grid-margin">
+        <div class="card" *ngIf="!loading">
+            <div class="card-body">
+                <form class="form-group" [formGroup]="deleteAdherenteForm">
+                    <div class="row">
+                        <label for="exampleSelectPrimary">Motivo de la baja</label>
+                        <div id="motivo-baja">
+                            <select class="form-control border-primary" formControlName="motivoBaja" id="exampleSelectPrimary">
+                                <option *ngFor="let motivo of motivosBaja" [value]="motivo.id">{{motivo.descripcion}}</option>
+                            </select>
+                            <i class="fa fa-exclamation-circle"
+                                                        title="Debe seleccionar un motivo"
+                                                        *ngIf="deleteAdherenteForm.controls['motivoBaja'].errors"></i>
+                        </div>
+                    </div>
+                    <div class="row buttons-section">
+                        <button type="button" id="accept" class="btn btn-light" (click)="baja()" [disabled]="!deleteAdherenteForm.valid || deleteAdherenteForm.pending">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="spinner-border text-primary" role="status" *ngIf="loading">
+    <span class="sr-only">Loading...</span>
+</div>

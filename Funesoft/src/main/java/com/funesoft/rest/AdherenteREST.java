@@ -6,6 +6,7 @@
 package com.funesoft.rest;
 
 import com.funesoft.controller.AdherenteController;
+import com.funesoft.dto.AdherenteBajaDTO;
 import com.funesoft.dto.AdherenteDTO;
 import com.funesoft.dto.FunesoftResponseDTO;
 import com.funesoft.dto.RemoveAllBySocioDTO;
@@ -72,6 +73,16 @@ public class AdherenteREST {
             return new FunesoftResponseDTO(true, adherenteController.updateAdherente(adherente), null, null);
         } catch (Exception e) {
             return new FunesoftResponseDTO(false, null, "Error al insertar el adherente - DNI: " + adherente.getDni(), e);
+        }
+    }
+    
+    @PostMapping("delete")
+    @ApiOperation(value = "Elimina un adherente", response = Adherente.class)
+    public FunesoftResponseDTO deleteAdherente(@Valid @RequestBody AdherenteBajaDTO adherenteBajaDTO) {
+        try {
+            return new FunesoftResponseDTO(true, adherenteController.deleteAdherente(adherenteBajaDTO), null, null);
+        } catch (Exception e) {
+            return new FunesoftResponseDTO(false, null, "Error al eliminar el adherente - ID: " + adherenteBajaDTO.getIdAdherente(), e);
         }
     }
     

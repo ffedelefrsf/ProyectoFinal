@@ -1,0 +1,40 @@
+.fa-exclamation-circle{
+    margin-left: 5px;
+    color: crimson;
+    position: relative;
+    margin-top: 7px;
+}
+
+#motivo-baja{
+    display: flex;
+}
+
+.row{
+    display: contents;
+}
+
+.buttons-section{
+    display: flex;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.spinner-border{
+    position:absolute;
+    left:0; 
+    right:0;
+    top:0; 
+    bottom:0;
+    margin:auto;
+
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}

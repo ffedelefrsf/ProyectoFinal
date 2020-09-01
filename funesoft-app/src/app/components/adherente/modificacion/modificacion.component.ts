@@ -207,7 +207,6 @@ export class ModificacionAdherenteComponent implements OnInit {
       this.adherente.dni = adherenteForm.dni;
       this.adherente.direccion = adherenteForm.direccion;
       this.adherente.email = adherenteForm.email;
-      var fechaAux = this.adherente.fechaNacimiento;
       this.adherente.fechaNacimiento = new Date(adherenteForm.fechaNacimiento['year'] + '-' + adherenteForm.fechaNacimiento['month'] + '-' + adherenteForm.fechaNacimiento['day']);
       this.adherente.fechaCobertura = new Date(adherenteForm.fechaCobertura['year'] + '-' + adherenteForm.fechaCobertura['month'] + '-' + adherenteForm.fechaCobertura['day']);
       this.adherente.telefono = adherenteForm.telefono;
@@ -228,9 +227,6 @@ export class ModificacionAdherenteComponent implements OnInit {
         err => {
           this.loading = false;
           this.error = true;
-        },
-        () => {
-          this.adherente.fechaNacimiento = fechaAux;
         }
       );
     }
@@ -253,7 +249,6 @@ export class ModificacionAdherenteComponent implements OnInit {
   }
 
   updateZonas(event: any){
-    console.log('zona', this.editAdherenteForm.controls['zona']);
     this.adherente.zona = this.zonas[event.target.selectedIndex];
   }
 

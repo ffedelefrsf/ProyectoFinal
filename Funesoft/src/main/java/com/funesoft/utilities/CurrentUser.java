@@ -8,6 +8,7 @@ package com.funesoft.utilities;
 import com.funesoft.model.Usuario;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.context.annotation.RequestScope;
 
 /**
  *
@@ -15,6 +16,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@RequestScope
 public class CurrentUser {
     
     private static CurrentUser instance;
