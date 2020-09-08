@@ -48,7 +48,7 @@ public class Cobrador implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "DNI")
-    private int dni;
+    private Integer dni;
     
     @Basic(optional = false)
     @NotNull
@@ -102,7 +102,6 @@ public class Cobrador implements Serializable {
     private Usuario usuarioModifica;
 
     public Cobrador(CobradorDTO dto) {
-
         this.id = dto.getId();
         this.dni = dto.getDni();
         this.apellido = dto.getApellido();

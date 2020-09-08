@@ -20,6 +20,8 @@ import { AltaAdherenteComponent } from '@app/components/adherente/alta/alta.comp
 import { AuthGuard } from '@app/utils/auth.guard';
 import { PageEnum } from '@app/utils/page.enum';
 import { AltaZonaComponent } from './components/zona/alta/alta-zona.component';
+import { CobradorListadoComponent } from './components/cobrador/cobrador-listado/cobrador-listado.component';
+import { CobradorAltaComponent } from './components/cobrador/cobrador-alta/cobrador-alta.component';
 
 
 const routes: Routes = [
@@ -40,7 +42,9 @@ const routes: Routes = [
   {path: PageEnum.RANGOS_TARIFA, component: RangosTarifaListadoComponent, canActivate: [AuthGuard]},
   {path: PageEnum.TARIFA_ALTA, component: RangosTarifasAltaComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_ALTA, component: AltaAdherenteComponent, canActivate: [AuthGuard]},
-  {path: PageEnum.ZONA_ALTA, component: AltaZonaComponent, canActivate: [AuthGuard]}
+  {path: PageEnum.ZONA_ALTA, component: AltaZonaComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.COBRADOR_LISTADO, component: CobradorListadoComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.COBRADOR_ALTA, component: CobradorAltaComponent, canActivate: [AuthGuard]}
 
 ];
 

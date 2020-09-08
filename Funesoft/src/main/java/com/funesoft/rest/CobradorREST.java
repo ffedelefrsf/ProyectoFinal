@@ -27,7 +27,7 @@ public class CobradorREST {
     @Autowired
     private CobradorController cobradorController;
 
-    @PostMapping("get")
+    @PostMapping("getAll")
     public FunesoftResponseDTO getAll(@RequestBody Cobrador cobrador){
         try {
             return new FunesoftResponseDTO(

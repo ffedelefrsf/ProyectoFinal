@@ -14,5 +14,7 @@ export enum PageEnum{
     TARIFA_LISTADO = 'tarifa',
     TARIFA_ALTA = 'tarifa/alta',
     RANGOS_TARIFA = 'rangos',
-    ZONA_ALTA = 'zona/alta'
+    ZONA_ALTA = 'zona/alta',
+    COBRADOR_LISTADO = 'cobrador',
+    COBRADOR_ALTA = 'cobrador/alta'
 }

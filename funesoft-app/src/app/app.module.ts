@@ -49,6 +49,8 @@ import { DetalleAdherenteComponent } from './components/adherente/detalle/detall
 import { ListadoAdherenteComponent } from './components/adherente/listado/listado.component';
 import { ModificacionAdherenteComponent } from './components/adherente/modificacion/modificacion.component';
 import { AltaZonaComponent } from './components/zona/alta/alta-zona.component';
+import { CobradorListadoComponent } from '@app/components/cobrador/cobrador-listado/cobrador-listado.component';
+import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/cobrador-alta.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { AltaZonaComponent } from './components/zona/alta/alta-zona.component';
     DetalleAdherenteComponent,
     ListadoAdherenteComponent,
     ModificacionAdherenteComponent,
-    AltaZonaComponent
+    AltaZonaComponent,
+    CobradorListadoComponent,
+    CobradorAltaComponent
   ],
   imports: [
     BrowserModule,
