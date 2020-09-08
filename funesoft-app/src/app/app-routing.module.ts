@@ -8,7 +8,7 @@ import { ListadoSocioComponent } from '@app/components/socio/listado/listado.com
 import { AltaSocioComponent } from '@app/components/socio/alta/alta.component';
 import { DetalleSocioComponent } from '@app/components/socio/detalle/detalle.component';
 import { ModificacionSocioComponent } from '@app/components/socio/modificacion/modificacion.component';
-import { ZonasComponent } from '@app/components/zonas/listado/zonas.component';
+import { ZonasComponent } from '@app/components/zona/listado/zonas.component';
 import { BajaSocioComponent } from '@app/components/socio/baja/baja.component';
 import { ComprobanteComponent } from '@app/components/comprobante/comprobante.component';
 import { TarifaListadoComponent } from '@app/components/tarifa/tarifa-listado/tarifa-listado.component';
@@ -19,11 +19,13 @@ import { FechaCoberturaComponent } from '@app/components/socio/alta/fecha-cobert
 import { AltaAdherenteComponent } from '@app/components/adherente/alta/alta.component';
 import { AuthGuard } from '@app/utils/auth.guard';
 import { PageEnum } from '@app/utils/page.enum';
+import { AltaZonaComponent } from './components/zona/alta/alta-zona.component';
+import { CobradorListadoComponent } from './components/cobrador/cobrador-listado/cobrador-listado.component';
+import { CobradorAltaComponent } from './components/cobrador/cobrador-alta/cobrador-alta.component';
 import { ListadoAdherenteComponent } from './components/adherente/listado/listado.component';
 import { ModificacionAdherenteComponent } from './components/adherente/modificacion/modificacion.component';
 import { BajaAdherenteComponent } from './components/adherente/baja/baja.component';
 import { DetalleAdherenteComponent } from './components/adherente/detalle/detalle.component';
-
 
 const routes: Routes = [
 
@@ -43,11 +45,13 @@ const routes: Routes = [
   {path: PageEnum.RANGOS_TARIFA, component: RangosTarifaListadoComponent, canActivate: [AuthGuard]},
   {path: PageEnum.TARIFA_ALTA, component: RangosTarifasAltaComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_ALTA, component: AltaAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.ZONA_ALTA, component: AltaZonaComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.COBRADOR_LISTADO, component: CobradorListadoComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.COBRADOR_ALTA, component: CobradorAltaComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_LISTADO, component: ListadoAdherenteComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_MODIFICACION, component: ModificacionAdherenteComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_DETALLE, component: DetalleAdherenteComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_BAJA, component: BajaAdherenteComponent, canActivate: [AuthGuard]}
-
 ];
 
 @NgModule({

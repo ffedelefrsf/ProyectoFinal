@@ -1,11 +1,7 @@
 package com.funesoft.controller;
 
-import com.funesoft.dto.CobradorDTO;
-import com.funesoft.dto.ZonaCobradorDTO;
-import com.funesoft.model.Cobrador;
 import com.funesoft.model.ZonaCobrador;
 import com.funesoft.repository.ZonaCobradorRepository;
-import com.funesoft.repository.ZonaRepository;
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;

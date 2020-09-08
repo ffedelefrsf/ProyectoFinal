@@ -2,6 +2,7 @@ package com.funesoft.rest;
 
 import com.funesoft.controller.ZonaController;
 import com.funesoft.dto.FunesoftResponseDTO;
+import com.funesoft.dto.ZonaCobradoresDTO;
 import com.funesoft.dto.ZonaDTO;
 import com.funesoft.model.Zona;
 import com.funesoft.utilities.BusinessException;
@@ -20,7 +21,7 @@ public class ZonaREST {
     @Autowired
     private ZonaController zonaController;
 
-    @PostMapping("get")
+    @PostMapping("getAll")
     @ApiOperation(value = "Obtiene un listado de zonas")
     public FunesoftResponseDTO get(@RequestBody Zona zona) {
         try {
@@ -42,11 +43,11 @@ public class ZonaREST {
 
     @PostMapping("insert")
     @ApiOperation(value = "Inserta una nueva zona", response = Zona.class)
-    private FunesoftResponseDTO insertZona(@Valid @RequestBody Zona zona) {
+    private FunesoftResponseDTO insertZona(@Valid @RequestBody ZonaCobradoresDTO zonaCobradoresDTO) {
         try {
             return new FunesoftResponseDTO(
                     true,
-                    zonaController.insertZona(zona),
+                    zonaController.insertZona(zonaCobradoresDTO),
                     null,
                     null
             );
@@ -54,7 +55,7 @@ public class ZonaREST {
             return new FunesoftResponseDTO(
                     false,
                     null,
-                    "Error al insertar la zona - Número: " + zona.getNroZona(),
+                    "Error al insertar la zona",
                     e
             );
         }

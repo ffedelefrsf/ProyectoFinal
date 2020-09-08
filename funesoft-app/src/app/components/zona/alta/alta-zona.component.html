@@ -1,0 +1,79 @@
+<div class="container-scroller">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+        <app-side-menu></app-side-menu>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div id="alta-tarifas">
+                    <div class="col-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Nueva Zona</h4>
+
+                                <form class="forms-sample" [formGroup]="altaZonaForm" (ngSubmit)="createZona()">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nroZonaLabel">N° Zona</label>
+                                                <input type="number" class="form-control" placeholder="Número de zona"
+                                                    formControlName="nroZona" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nombreLabel">Nombre</label>
+                                                <input type="text" class="form-control" placeholder="Nombre"
+                                                    formControlName="nombre" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="row margin-bottom: 10px">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nombreLabel">Cobradores</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4" *ngFor="let cobrador of cobradoresArray">
+                                            <div class="form-group">
+                                                <label class="checkbox-inline mr-2 ml-2" for="nombreLabel">
+                                                    <input type="checkbox" name="cobradoresArray" value="cobrador.apellido"
+                                                    (change)="updateChecked(cobrador, $event)" />
+                                                {{ cobrador.nombre }} {{ cobrador.apellido }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <button type="submit" class="btn btn-success mr-2">Agregar</button>
+                                    <button class="btn btn-light" (click)="onCancel()">Cancelar</button>
+                                    <br><br>
+                                    <div class="alert alert-success" role="alert" *ngIf="success && !error">
+                                        La zona ha sido agregada con exito!
+                                    </div>
+
+                                    <div class="alert alert-danger" role="alert" *ngIf="error && !success">
+                                        Hubo un problema al agregar la zona. Intente nuevamente.
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

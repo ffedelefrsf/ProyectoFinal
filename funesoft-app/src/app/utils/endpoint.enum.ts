@@ -10,7 +10,7 @@ export enum EndpointEnum{
     GET_PROVINCIAS = '/provincia/getAll',
     GET_LOCALIDADES = '/localidad/getAll',
     GET_NOMBRES_LOCALIDADES = '/localidad/getAllNombres',
-    GET_ZONAS = '/zona/get',
+    GET_ZONAS = '/zona/getAll',
     GET_OBRAS_SOCIALES = '/obraSocial/getAll',
     GET_PLANES = '/plan/getAll',
     GET_TARIFAS = '/tarifa/getAll',
@@ -25,5 +25,6 @@ export enum EndpointEnum{
     GET_ADHERENTES = '/adherente/getAll',
     GET_ADHERENTES_ORDERED = '/adherente/getAllOrderedBySocio',
     EDIT_ADHERENTE = '/adherente/update',
-    CREATE_TARIFA = '/tarifa/insert'
+    CREATE_TARIFA = '/tarifa/insert',
+    GET_COBRADORES = '/cobrador/getAll'
 }
