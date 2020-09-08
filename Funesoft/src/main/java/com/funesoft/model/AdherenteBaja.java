@@ -33,6 +33,12 @@ public class AdherenteBaja implements Serializable{
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
 
+    public AdherenteBaja(Adherente adherente, MotivoBaja motivoBaja, Usuario usuarioModifica) {
+        this.adherente = adherente;
+        this.motivoBaja = motivoBaja;
+        this.usuarioModifica = usuarioModifica;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;

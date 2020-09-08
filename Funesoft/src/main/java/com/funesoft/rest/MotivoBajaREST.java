@@ -7,9 +7,7 @@ package com.funesoft.rest;
 
 import com.funesoft.controller.MotivoBajaController;
 import com.funesoft.dto.FunesoftResponseDTO;
-import com.funesoft.model.MotivoBaja;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

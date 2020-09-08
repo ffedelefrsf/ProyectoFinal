@@ -5,13 +5,18 @@
  */
 package com.funesoft.controller;
 
+import com.funesoft.dto.AdherenteBajaDTO;
 import com.funesoft.dto.AdherenteDTO;
 import com.funesoft.dto.RemoveAllBySocioDTO;
 import com.funesoft.model.Adherente;
+import com.funesoft.model.AdherenteBaja;
 import com.funesoft.model.Estado;
+import com.funesoft.model.MotivoBaja;
 import com.funesoft.model.Socio;
+import com.funesoft.repository.AdherenteBajaRepository;
 import com.funesoft.repository.AdherenteRepository;
 import com.funesoft.repository.EstadoRepository;
+import com.funesoft.repository.MotivoBajaRepository;
 import com.funesoft.repository.SocioRepository;
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
@@ -21,6 +26,7 @@ import java.util.NoSuchElementException;
 import javax.persistence.NoResultException;
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -42,6 +48,12 @@ public class AdherenteController {
     @Autowired
     private CoberturaController coberturaController;
     
+    @Autowired
+    private MotivoBajaRepository motivoBajaRepository;
+    
+    @Autowired
+    private AdherenteBajaRepository adherenteBajaRepository;
+    
     public Adherente insertSocio (@NotNull AdherenteDTO adherenteDTO){
 
         final Adherente adherente = new Adherente(adherenteDTO);
@@ -55,10 +67,37 @@ public class AdherenteController {
         return adherenteRepository.save(adherente);
     }
     
+    public List<Adherente> getAll(Adherente adherente){
+        return adherenteRepository.findAll(Example.of(adherente));
+    }
+    
+    public List<Adherente> getAllOrderedBySocio(){
+        return adherenteRepository.findAllByOrderBySocioDniDesc();
+    }
+    
     public Adherente updateAdherente (@NotNull Adherente adherente) throws BusinessException {
         if(!(adherenteRepository.findById(adherente.getId()).isPresent())){
             throw new BusinessException("El adherente informado no existe");
         }
+        adherente.setUsuarioModifica(CurrentUser.getInstance());
+        return adherenteRepository.save(adherente);
+    }
+    
+    public Adherente deleteAdherente(@NotNull AdherenteBajaDTO adherenteBajaDTO) throws BusinessException {
+        final Adherente adherente;
+        try {
+            adherente = adherenteRepository.findById(adherenteBajaDTO.getIdAdherente()).get();
+        } catch (NoSuchElementException nex) {
+            throw new BusinessException("El adherente informado no existe");
+        }
+        final MotivoBaja motivoBaja;
+        try {
+            motivoBaja = motivoBajaRepository.findById(adherenteBajaDTO.getIdMotivoBaja()).get();
+        } catch (NoSuchElementException nex) {
+            throw new BusinessException("El motivo informado no existe");
+        }
+        adherenteBajaRepository.save(new AdherenteBaja(adherente, motivoBaja, CurrentUser.getInstance()));
+        adherente.setEstado(estadoRepository.findByNroEstado(EstadoEnum.BAJA.getCodigo()));
         adherente.setUsuarioModifica(CurrentUser.getInstance());
         return adherenteRepository.save(adherente);
     }

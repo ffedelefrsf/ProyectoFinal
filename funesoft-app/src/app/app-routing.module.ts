@@ -22,7 +22,10 @@ import { PageEnum } from '@app/utils/page.enum';
 import { AltaZonaComponent } from './components/zona/alta/alta-zona.component';
 import { CobradorListadoComponent } from './components/cobrador/cobrador-listado/cobrador-listado.component';
 import { CobradorAltaComponent } from './components/cobrador/cobrador-alta/cobrador-alta.component';
-
+import { ListadoAdherenteComponent } from './components/adherente/listado/listado.component';
+import { ModificacionAdherenteComponent } from './components/adherente/modificacion/modificacion.component';
+import { BajaAdherenteComponent } from './components/adherente/baja/baja.component';
+import { DetalleAdherenteComponent } from './components/adherente/detalle/detalle.component';
 
 const routes: Routes = [
 
@@ -44,8 +47,11 @@ const routes: Routes = [
   {path: PageEnum.ADHERENTE_ALTA, component: AltaAdherenteComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ZONA_ALTA, component: AltaZonaComponent, canActivate: [AuthGuard]},
   {path: PageEnum.COBRADOR_LISTADO, component: CobradorListadoComponent, canActivate: [AuthGuard]},
-  {path: PageEnum.COBRADOR_ALTA, component: CobradorAltaComponent, canActivate: [AuthGuard]}
-
+  {path: PageEnum.COBRADOR_ALTA, component: CobradorAltaComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.ADHERENTE_LISTADO, component: ListadoAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.ADHERENTE_MODIFICACION, component: ModificacionAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.ADHERENTE_DETALLE, component: DetalleAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.ADHERENTE_BAJA, component: BajaAdherenteComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

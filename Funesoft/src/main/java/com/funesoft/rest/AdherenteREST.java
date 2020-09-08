@@ -6,6 +6,7 @@
 package com.funesoft.rest;
 
 import com.funesoft.controller.AdherenteController;
+import com.funesoft.dto.AdherenteBajaDTO;
 import com.funesoft.dto.AdherenteDTO;
 import com.funesoft.dto.FunesoftResponseDTO;
 import com.funesoft.dto.RemoveAllBySocioDTO;
@@ -35,43 +36,53 @@ public class AdherenteREST {
     @Autowired
     private EntityManager entityManager;
     
+    @PostMapping("getAll")
+    @ApiOperation(value = "Obtiene un listado de todos los adherentes registrados en el sistema.")
+    public FunesoftResponseDTO get(@RequestBody Adherente adherente) {
+        try{
+            return new FunesoftResponseDTO(true, adherenteController.getAll(adherente), null, null);
+        }catch (Exception exception){
+            return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
+        }
+    }
+    
+    @GetMapping("getAllOrderedBySocio")
+    @ApiOperation(value = "Obtiene un listado de todos los adherentes registrados en el sistema ordenados por DNI de su respectivo socio.")
+    public FunesoftResponseDTO getAllOrderedBySocio() {
+        try{
+            return new FunesoftResponseDTO(true, adherenteController.getAllOrderedBySocio(), null, null);
+        }catch (Exception exception){
+            return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
+        }
+    }
+    
     @PostMapping("insert")
     @ApiOperation(value = "Inserta un adherente", response = AdherenteDTO.class)
-    private FunesoftResponseDTO insertSocio(@Valid @RequestBody AdherenteDTO adherenteDTO) {
+    public FunesoftResponseDTO insertAdherente(@Valid @RequestBody AdherenteDTO adherenteDTO) {
         try {
-            return new FunesoftResponseDTO(
-                    true,
-                    adherenteController.insertSocio(adherenteDTO),
-                    null,
-                    null
-            );
+            return new FunesoftResponseDTO(true, adherenteController.insertSocio(adherenteDTO), null, null);
         } catch (Exception e) {
-            return new FunesoftResponseDTO(
-                    false,
-                    null,
-                    "Error al insertar el adherente - DNI: " + adherenteDTO.getDni(),
-                    e
-            );
+            return new FunesoftResponseDTO(false, null, "Error al insertar el adherente - DNI: " + adherenteDTO.getDni(),e);
         }
     }
     
     @PostMapping("update")
     @ApiOperation(value = "Actualiza un adherente", response = Adherente.class)
-    private FunesoftResponseDTO updateSocio(@Valid @RequestBody Adherente adherente) {
+    public FunesoftResponseDTO updateAdherente(@Valid @RequestBody Adherente adherente) {
         try {
-            return new FunesoftResponseDTO(
-                    true,
-                    adherenteController.updateAdherente(adherente),
-                    null,
-                    null
-            );
+            return new FunesoftResponseDTO(true, adherenteController.updateAdherente(adherente), null, null);
         } catch (Exception e) {
-            return new FunesoftResponseDTO(
-                    false,
-                    null,
-                    "Error al insertar el adherente - DNI: " + adherente.getDni(),
-                    e
-            );
+            return new FunesoftResponseDTO(false, null, "Error al insertar el adherente - DNI: " + adherente.getDni(), e);
+        }
+    }
+    
+    @PostMapping("delete")
+    @ApiOperation(value = "Elimina un adherente", response = Adherente.class)
+    public FunesoftResponseDTO deleteAdherente(@Valid @RequestBody AdherenteBajaDTO adherenteBajaDTO) {
+        try {
+            return new FunesoftResponseDTO(true, adherenteController.deleteAdherente(adherenteBajaDTO), null, null);
+        } catch (Exception e) {
+            return new FunesoftResponseDTO(false, null, "Error al eliminar el adherente - ID: " + adherenteBajaDTO.getIdAdherente(), e);
         }
     }
     
