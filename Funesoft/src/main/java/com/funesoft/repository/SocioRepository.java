@@ -29,4 +29,7 @@ public interface SocioRepository extends JpaRepository<Socio, Integer>{
 
     @Query("SELECT s FROM Socio s WHERE s.estado.id = 1")
     List<Socio> findAllActivo();
+    
+    @Query("SELECT dni FROM Socio ORDER BY dni DESC")
+    public List<String> findDniByOrderByDniDesc();
 }

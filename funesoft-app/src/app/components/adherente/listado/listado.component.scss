@@ -1,0 +1,27 @@
+#custom-typehead{
+    right: 50px;
+    position: fixed;
+    width: 120px;
+}
+
+#custom-title{
+    top: 7px;
+}
+
+.spinner-border{
+    position:absolute;
+    left:0; 
+    right:0;
+    top:0; 
+    bottom:0;
+    margin:auto;
+
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+
+.row{
+    margin-top: 30px;
+    margin-left: 25px;
+}

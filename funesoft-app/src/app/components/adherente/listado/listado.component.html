@@ -5,9 +5,16 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div id="listado-adherentes">
-                    <div class="card" *ngIf="!loading && !error">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 id="custom-title" class="card-title">Padrón de adherentes</h4>
+                            </div>
+                            <div id="custom-typehead" class="col-md-6">
+                              <input id="typeahead-basic" type="text" class="form-control" placeholder="DNI socio" [(ngModel)]="typeaheadBasicModel" [ngbTypeahead]="search" (input)="onSearchChange($event.target.value)" (selectItem)="onSearchChange($event.item)"/>
+                            </div>
+                        </div>
                         <div class="card-body">
-                            <h4 class="card-title">Padrón de adherentes</h4>
                             <div id="table-list" class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>

@@ -1,12 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDropdownConfig, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/observable';
 
 import { Adherente } from '@app/model/adherente';
 import { AdherenteService } from '@app/services/adherente.service';
 import { PageEnum } from '@app/utils/page.enum';
 import { DetalleAdherenteComponent } from '@app/components/adherente/detalle/detalle.component';
 import { BajaAdherenteComponent } from '@app/components/adherente/baja/baja.component';
+import { SocioService } from '@app/services/socio.service';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/filter';
+import { GetAdherenteBySocioDNIRequestDTO } from '@app/dtos/getAdherenteBySocioDNIRequest.dto';
 
 @Component({
   selector: 'app-listado',
@@ -15,22 +23,93 @@ import { BajaAdherenteComponent } from '@app/components/adherente/baja/baja.comp
 })
 export class ListadoAdherenteComponent implements OnInit {
 
+  @ViewChild('instance', {static: true}) instance: NgbTypeahead;
+
   loading: boolean = false;
   adherenteArray: Adherente[];
   error: boolean = false;
+  currentRate: any;
+  dniSocios: string[];
+  public typeaheadBasicModel: any;
   public sidebarOpened = false;
 
   constructor(private adherenteService: AdherenteService,
+              private socioService: SocioService,
               private router: Router,
               private modalService: NgbModal,
               config: NgbDropdownConfig) 
     {config.placement = 'bottom-right'; }
 
   ngOnInit() {
-    this.getSocios();
+    this.currentRate = 8;
+    this.getSociosDNI();
+    this.getAdherentes();
   }
 
-  getSocios(){
+  getSociosDNI(){
+    this.loading = true;
+    this.socioService.getDNIs().subscribe(
+      response => {
+        this.dniSocios = response.data;
+        this.error = false;
+      },
+      error => {
+        if (error.status === 401){
+          this.router.navigate(['/'+PageEnum.AUTH]);
+          this.adherenteArray = [];
+          this.error = true;
+        }else{
+          console.log('ERROR', error);
+          this.adherenteArray = [];
+          this.error = true;
+        }
+      },
+      () => {
+        this.loading = false;
+      }
+    );
+  }
+
+  search = (text$: Observable<string>) => 
+    text$
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .map(term => this.dniSocios.filter(v => v.indexOf(term) > -1).slice(0, 10));
+
+  onSearchChange(searchValue: string){
+    this.loading = true;
+    var getAdherenteBySocioDNIRequestDTO: GetAdherenteBySocioDNIRequestDTO;
+    if (searchValue != '') {
+      getAdherenteBySocioDNIRequestDTO = {
+        dniSocio: searchValue
+      };
+    } else {
+      getAdherenteBySocioDNIRequestDTO = null;
+    }
+    
+    this.adherenteService.getAdherentesOrdered(getAdherenteBySocioDNIRequestDTO).subscribe(
+      response => {
+        this.adherenteArray = response.data;
+        this.error = false;
+      },
+      error => {
+        if (error.status === 401){
+          this.router.navigate(['/'+PageEnum.AUTH]);
+          this.adherenteArray = [];
+          this.error = true;
+        }else{
+          console.log('ERROR', error);
+          this.adherenteArray = [];
+          this.error = true;
+        }
+      },
+      () => {
+        this.loading = false;
+      }
+    );
+  }
+
+  getAdherentes(){
     this.loading = true;
     this.adherenteService.getAdherentesOrdered().subscribe(
       response => {

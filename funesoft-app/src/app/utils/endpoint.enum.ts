@@ -4,6 +4,7 @@ export enum EndpointEnum{
     CHECK = '/check',
     CREATE_SOCIO = '/socio/insert',
     GET_SOCIOS = '/socio/get',
+    GET_DNI_SOCIOS = '/socio/getDNIs',
     EDIT_SOCIO = '/socio/update',
     DELETE_SOCIO = '/socio/delete',
     GET_PROVINCIAS = '/provincia/getAll',

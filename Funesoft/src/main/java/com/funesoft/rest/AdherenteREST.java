@@ -9,8 +9,8 @@ import com.funesoft.controller.AdherenteController;
 import com.funesoft.dto.AdherenteBajaDTO;
 import com.funesoft.dto.AdherenteDTO;
 import com.funesoft.dto.FunesoftResponseDTO;
+import com.funesoft.dto.GetAdherenteBySocioDNIRequestDTO;
 import com.funesoft.dto.RemoveAllBySocioDTO;
-import com.funesoft.dto.SocioDTO;
 import com.funesoft.model.Adherente;
 import io.swagger.annotations.ApiOperation;
 import javax.persistence.EntityManager;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -46,11 +47,11 @@ public class AdherenteREST {
         }
     }
     
-    @GetMapping("getAllOrderedBySocio")
+    @PostMapping("getAllOrderedBySocio")
     @ApiOperation(value = "Obtiene un listado de todos los adherentes registrados en el sistema ordenados por DNI de su respectivo socio.")
-    public FunesoftResponseDTO getAllOrderedBySocio() {
+    public FunesoftResponseDTO getAllOrderedBySocio(@RequestBody GetAdherenteBySocioDNIRequestDTO getAdherenteBySocioDNIRequestDTO) {
         try{
-            return new FunesoftResponseDTO(true, adherenteController.getAllOrderedBySocio(), null, null);
+            return new FunesoftResponseDTO(true, adherenteController.getAllOrderedBySocio(getAdherenteBySocioDNIRequestDTO.getDniSocio()), null, null);
         }catch (Exception exception){
             return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
         }

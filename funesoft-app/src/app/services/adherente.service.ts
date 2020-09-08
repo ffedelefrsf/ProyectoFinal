@@ -9,6 +9,7 @@ import { EndpointEnum } from '@app/utils/endpoint.enum';
 import { AdherenteAltaDTO } from '@app/dtos/adherenteAlta.dto';
 import { MotivoBaja } from '@app/model/motivoBaja';
 import { AdherenteBajaDTO } from '@app/dtos/adherenteBaja.dto';
+import { GetAdherenteBySocioDNIRequestDTO } from '@app/dtos/getAdherenteBySocioDNIRequest.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,8 @@ export class AdherenteService extends ApiService{
     return this.request(MethodEnum.POST, EndpointEnum.DELETE_ADHERENTE, null, adherenteBajaDTO);
   }
 
-  getAdherentesOrdered(): Observable<FunesoftResponseDTO<Adherente>>{
-    return this.request(MethodEnum.GET, EndpointEnum.GET_ADHERENTES_ORDERED, null, null);
+  getAdherentesOrdered(getAdherenteBySocioDNIRequestDTO: GetAdherenteBySocioDNIRequestDTO = null): Observable<FunesoftResponseDTO<Adherente>>{
+    return this.request(MethodEnum.POST, EndpointEnum.GET_ADHERENTES_ORDERED, null, getAdherenteBySocioDNIRequestDTO == null ? {} : getAdherenteBySocioDNIRequestDTO);
   }
 
   getMotivosBaja(): Observable<FunesoftResponseDTO<MotivoBaja>>{

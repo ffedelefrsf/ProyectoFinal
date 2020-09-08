@@ -18,6 +18,10 @@ export class SocioService extends ApiService{
     return this.request(MethodEnum.POST, EndpointEnum.GET_SOCIOS, null, socio);
   }
 
+  getDNIs(): Observable<FunesoftResponseDTO<string>>{
+    return this.request(MethodEnum.GET, EndpointEnum.GET_DNI_SOCIOS, null, null);
+  }
+
   editSocio(socio: Socio): Observable<FunesoftResponseDTO<Socio>>{
     return this.request(MethodEnum.POST, EndpointEnum.EDIT_SOCIO, null, socio);
   }

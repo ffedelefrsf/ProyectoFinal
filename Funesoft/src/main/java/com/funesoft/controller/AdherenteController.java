@@ -71,8 +71,12 @@ public class AdherenteController {
         return adherenteRepository.findAll(Example.of(adherente));
     }
     
-    public List<Adherente> getAllOrderedBySocio(){
-        return adherenteRepository.findAllByOrderBySocioDniDesc();
+    public List<Adherente> getAllOrderedBySocio(Integer dniSocio){
+        if (dniSocio == null) {
+            return adherenteRepository.findAllByOrderBySocioDniDesc();
+        } else {
+            return adherenteRepository.findByDniSocioLike(dniSocio);
+        }
     }
     
     public Adherente updateAdherente (@NotNull Adherente adherente) throws BusinessException {

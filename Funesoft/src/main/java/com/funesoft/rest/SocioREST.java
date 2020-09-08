@@ -51,6 +51,16 @@ public class SocioREST {
             );
         }
     }
+    
+    @GetMapping("getDNIs")
+    @ApiOperation(value = "Obtiene un listado de todos los DNI de socios registrados en el sistema.")
+    public FunesoftResponseDTO getDNIs() {
+        try {
+            return new FunesoftResponseDTO(true, socioController.getDNIs(), null, null);
+        } catch (Exception e) {
+            return new FunesoftResponseDTO(false, null, "Error en la recuperación", e);
+        }
+    }
 
     @PostMapping("insert")
     @ApiOperation(value = "Inserta un socio", response = SocioDTO.class)

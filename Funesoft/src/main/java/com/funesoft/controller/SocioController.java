@@ -54,6 +54,10 @@ public class SocioController {
     public List<Socio> getSocios (Socio socio){
         return socioRepository.findAll(Example.of(socio));
     }
+    
+    public List<String> getDNIs (){
+        return socioRepository.findDniByOrderByDniDesc();
+    }
 
     public Socio insertSocio (@NotNull SocioDTO socioDTO){
 

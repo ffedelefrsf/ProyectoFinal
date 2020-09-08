@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -23,6 +24,9 @@ public interface AdherenteRepository extends JpaRepository<Adherente, Integer>{
     List<Adherente> findBySocioOrderByFechaNacimientoAsc(Socio socio);
 
     Optional<Adherente> findByDni(Integer dni);
+    
+    @Query("SELECT A FROM Adherente A WHERE A.socio.dni LIKE CONCAT(:dniSocio, '%')")
+    public List<Adherente> findByDniSocioLike(Integer dniSocio);
     
     public List<Adherente> findAllByOrderBySocioDniDesc();
 
