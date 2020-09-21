@@ -96,11 +96,14 @@ export class AltaZonaComponent implements OnInit {
           }else{
             this.loading = false;
             this.error = true;
+            this.success = false;
+            console.error(response.errores);
           }
         },
         err => {
           this.loading = false;
           this.error = true;
+          this.success = false;
         }
       );
 

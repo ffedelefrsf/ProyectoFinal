@@ -23,6 +23,11 @@ export class ComprobanteComponent implements OnInit {
   constructor(private router: Router,
     private http: HttpClient,
     private comprobanteService: ComprobanteService) {
+      this.generados = false;
+      this.impresos = false;
+      this.loading = false;
+      this.success = false;
+      this.error = false;
   }
 
   ngOnInit() {
@@ -30,7 +35,7 @@ export class ComprobanteComponent implements OnInit {
     this.loading = false;
   }
 
-  generarComprobantes(event: any){
+  generarComprobantes(){
     this.loading = true;
     this.impresos = false;
     this.comprobanteService.generarComprobantesMasivos().subscribe(
@@ -43,6 +48,8 @@ export class ComprobanteComponent implements OnInit {
         }else{
           this.loading = false;
           this.error = true;
+          this.success = false;
+          this.generados = false;
         }
       },
       err => {

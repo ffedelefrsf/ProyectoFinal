@@ -47,11 +47,11 @@ public class CobradorREST {
     }
 
     @PostMapping("insert")
-    private FunesoftResponseDTO insertCobrador(@Valid @RequestBody Cobrador cobrador) {
+    private FunesoftResponseDTO insertCobrador(@Valid @RequestBody CobradorDTO cobradorDTO) {
         try {
             return new FunesoftResponseDTO(
                     true,
-                    cobradorController.insertCobrador(cobrador),
+                    cobradorController.insertCobrador(cobradorDTO),
                     null,
                     null
             );
@@ -59,7 +59,7 @@ public class CobradorREST {
             return new FunesoftResponseDTO(
                     false,
                     null,
-                    "Error al insertar el cobrador - DNI: " + cobrador.getDni(),
+                    "Error al insertar el cobrador",
                     e
             );
         }

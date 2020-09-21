@@ -29,6 +29,7 @@ import { DetalleAdherenteComponent } from './components/adherente/detalle/detall
 
 const routes: Routes = [
 
+  {path: '', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: PageEnum.AUTH, component: AuthComponent},
   {path: PageEnum.MENU, component: NavbarComponent, canActivate: [AuthGuard]},
   {path: PageEnum.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard]},

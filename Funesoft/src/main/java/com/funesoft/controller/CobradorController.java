@@ -29,7 +29,8 @@ public class CobradorController {
         return cobradorRepository.findAll(Example.of(cobrador));
     }
 
-    public Cobrador insertCobrador (@NotNull Cobrador cobrador){
+    public Cobrador insertCobrador (@NotNull CobradorDTO cobradorDTO){
+        Cobrador cobrador = new Cobrador(cobradorDTO);
         cobrador.setUsuarioModifica(CurrentUser.getInstance());
         return cobradorRepository.save(cobrador);
     }

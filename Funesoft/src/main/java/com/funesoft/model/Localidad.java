@@ -114,4 +114,8 @@ public class Localidad implements Serializable {
         this.provincia = localidadDTO.getProvincia();
         this.usuarioModifica = localidadDTO.getUsuarioModifica();
     }
+
+    public Localidad(Integer id){
+        this.id = id;
+    }
 }

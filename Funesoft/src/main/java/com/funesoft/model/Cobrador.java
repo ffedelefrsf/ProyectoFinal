@@ -102,7 +102,6 @@ public class Cobrador implements Serializable {
     private Usuario usuarioModifica;
 
     public Cobrador(CobradorDTO dto) {
-        this.id = dto.getId();
         this.dni = dto.getDni();
         this.apellido = dto.getApellido();
         this.nombre = dto.getNombre();
@@ -111,8 +110,7 @@ public class Cobrador implements Serializable {
         this.email = dto.getEmail();
         this.sexo = dto.getSexo();
         this.fechaNacimiento = dto.getFechaNacimiento();
-        this.localidad = dto.getLocalidad();
-        this.usuarioModifica = dto.getUsuarioModifica();
+        this.localidad = new Localidad(dto.getIdLocalidad());
     }
 
     @Override

@@ -188,11 +188,14 @@ export class TarifaAltaComponent implements OnInit {
           }else{
             this.loading = false;
             this.error = true;
+            this.success = false;
+            console.error(response.errores[0]);
           }
         },
         err => {
           this.loading = false;
           this.error = true;
+          this.success = false;
         }
       );
 

@@ -24,7 +24,6 @@ public class CobradorDTO {
     private Date fechaNacimiento;
     private Date fechaAlta;
     private Date fechaBaja;
-    private Localidad localidad;
-    private Usuario usuarioModifica;
+    private Integer idLocalidad;
 
 }
