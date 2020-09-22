@@ -11,7 +11,7 @@
                 <form class="form-sample" [formGroup]="detailSocioForm">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Nombre</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="nombre"
@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Apellido</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="apellido"
@@ -31,8 +31,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Número de documento</label>
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Número de documento</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="dni" value="{{socio.dni}}"
                                         disabled="true" />
@@ -40,8 +40,8 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Email</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="email"
                                         value="{{socio.email}}" disabled="true" />
@@ -51,8 +51,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Sexo</label>
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Sexo</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="sexo" disabled="true">
                                         <option [selected]="true">{{socio.sexo}}</option>
@@ -61,8 +61,8 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Fecha de nacimiento</label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text" formControlName="fechaNacimiento"
                                         value="{{socio.fechaNacimiento}}" ngbDatepicker
@@ -73,7 +73,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Domicilio</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="direccion"
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Teléfono</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="telefono"
@@ -93,17 +93,17 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Zona</label>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-form-label">Provincia</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" formControlName="zona" disabled="true">
-                                        <option [value]="socio.zona.nombre">{{socio.zona.nombre}}</option>
+                                    <select class="form-control" formControlName="provincia" disabled="true">
+                                        <option [value]="socio.localidad.provincia.nombre">{{socio.localidad.provincia.nombre}}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Localidad</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="localidad" disabled="true">
@@ -115,7 +115,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Obra social</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="obraSocial" disabled="true">
@@ -126,20 +126,20 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Fecha de cobertura</label>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-form-label">Zona</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" placeholder="Fecha de cobertura"
-                                        formControlName="fechaCobertura" ngbDatepicker
-                                        #fechaCoberturaDatePicker="ngbDatepicker" readonly />
+                                    <select class="form-control" formControlName="zona" disabled="true">
+                                        <option [value]="socio.zona.nombre">{{socio.zona.nombre}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Plan</label>
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Plan</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="plan" disabled="true">
                                         <option [value]="socio.tarifa.plan.descripcion">{{socio.tarifa.plan.descripcion}}</option>
@@ -148,7 +148,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Tarifa</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="tarifa" disabled="true">
@@ -160,12 +160,22 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Enfermedad</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="enfermedad" disabled="true">
                                         <option [value]="socio.enfermedad.descripcion">{{socio.enfermedad.descripcion}}</option>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Fecha de cobertura</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="Fecha de cobertura"
+                                        formControlName="fechaCobertura" ngbDatepicker
+                                        #fechaCoberturaDatePicker="ngbDatepicker" readonly />
                                 </div>
                             </div>
                         </div>

@@ -87,8 +87,21 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="descripcionLabel">Provincia</label>
+                                                <select class="form-control" formControlName="provincia"
+                                                    (change)="updateProvincias($event)">
+                                                    <option *ngFor="let provincia of provincias"
+                                                        [value]="provincia.nombre"
+                                                        [selected]="provincia.nombre=='ENTRE RÍOS'">{{provincia.nombre}}</option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="Debe seleccionar una provincia"
+                                                    *ngIf="altaCobradorForm.controls['provincia'].errors && altaCobradorForm.controls['provincia'].touched"></i>
+                                            </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="descripcionLabel">Localidad</label>

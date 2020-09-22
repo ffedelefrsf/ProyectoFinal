@@ -84,6 +84,7 @@ export class AltaSocioComponent implements OnInit {
       direccion: this.formBuilder.control('', [Validators.required, Validators.maxLength(100), Validators.pattern('^[A-Z-Ñ a-z-ñ 0-9]*')]),
       telefono: this.formBuilder.control('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]*')]),
       zona: this.formBuilder.control('', [Validators.required]),
+      provincia: this.formBuilder.control('ENTRE RÍOS', [Validators.required]),
       localidad: this.formBuilder.control('', [Validators.required]),
       obraSocial: this.formBuilder.control('', [Validators.required]),
       tarifa: this.formBuilder.control('', [Validators.required]),
@@ -96,90 +97,77 @@ export class AltaSocioComponent implements OnInit {
       provinciasResponse => {
         this.provincias = provinciasResponse.data;
         var localidad: Localidad = {provincia: {id: 8}};
-        this.localidadService.getNombresLocalidades(localidad).subscribe(
-          localidadesNombresResponse => {
-            this.localidadesNombres = localidadesNombresResponse.data;
-            this.localidadService.getLocalidades(localidad).subscribe(
-              localidadesResponse => {
-                this.localidades = localidadesResponse.data;
-                var zona: Zona = {};
-                this.zonaService.getZonas(zona).subscribe(
-                  zonaResponse => {
-                    this.zonas = zonaResponse.data;
-                    var obraSocial: ObraSocial = {};
-                    this.obraSocialService.getObrasSociales(obraSocial).subscribe(
-                      obraSocialResponse => {
-                        this.obrasSociales = obraSocialResponse.data;
-                        var plan: Plan = {};
-                        this.planService.getPlanes(plan).subscribe(
-                          planResponse => {
-                            this.planes = planResponse.data;
-                            var enfermedad: Enfermedad = {};
-                            this.enfermedadService.getEnfermedades(enfermedad).subscribe(
-                              enfermedadResponse => {
-                                this.enfermedades = enfermedadResponse.data;
-                                this.loading = false;
-                              },
-                              errorEnfermedad => {
-                                if (errorEnfermedad.status === 401){
-                                  this.router.navigate(['/'+PageEnum.AUTH]);
-                                  this.loading = false;
-                                }else{
-                                  console.log('ERROR', errorEnfermedad);
-                                }
-                              }
-                            );
-                          },
-                          errorPlanes => {
-                            if (errorPlanes.status === 401){
-                              this.router.navigate(['/'+PageEnum.AUTH]);
+          this.localidadService.getLocalidades(localidad).subscribe(
+            localidadesResponse => {
+              this.localidades = localidadesResponse.data;
+              var zona: Zona = {};
+              this.zonaService.getZonas(zona).subscribe(
+                zonaResponse => {
+                  this.zonas = zonaResponse.data;
+                  var obraSocial: ObraSocial = {};
+                  this.obraSocialService.getObrasSociales(obraSocial).subscribe(
+                    obraSocialResponse => {
+                      this.obrasSociales = obraSocialResponse.data;
+                      var plan: Plan = {};
+                      this.planService.getPlanes(plan).subscribe(
+                        planResponse => {
+                          this.planes = planResponse.data;
+                          var enfermedad: Enfermedad = {};
+                          this.enfermedadService.getEnfermedades(enfermedad).subscribe(
+                            enfermedadResponse => {
+                              this.enfermedades = enfermedadResponse.data;
                               this.loading = false;
-                            }else{
-                              console.log('ERROR', errorPlanes);
+                            },
+                            errorEnfermedad => {
+                              if (errorEnfermedad.status === 401){
+                                this.router.navigate(['/'+PageEnum.AUTH]);
+                                this.loading = false;
+                              }else{
+                                console.log('ERROR', errorEnfermedad);
+                              }
                             }
+                          );
+                        },
+                        errorPlanes => {
+                          if (errorPlanes.status === 401){
+                            this.router.navigate(['/'+PageEnum.AUTH]);
+                            this.loading = false;
+                          }else{
+                            console.log('ERROR', errorPlanes);
                           }
-                        );
-                      },
-                      errorObrasSociales => {
-                        if (errorObrasSociales.status === 401){
-                          this.router.navigate(['/'+PageEnum.AUTH]);
-                          this.loading = false;
-                        }else{
-                          console.log('ERROR', errorObrasSociales);
                         }
+                      );
+                    },
+                    errorObrasSociales => {
+                      if (errorObrasSociales.status === 401){
+                        this.router.navigate(['/'+PageEnum.AUTH]);
+                        this.loading = false;
+                      }else{
+                        console.log('ERROR', errorObrasSociales);
                       }
-                    );
-                  },
-                  errorZonas => {
-                    if (errorZonas.status === 401){
-                      this.router.navigate(['/'+PageEnum.AUTH]);
-                      this.loading = false;
-                    }else{
-                      console.log('ERROR', errorZonas);
                     }
+                  );
+                },
+                errorZonas => {
+                  if (errorZonas.status === 401){
+                    this.router.navigate(['/'+PageEnum.AUTH]);
+                    this.loading = false;
+                  }else{
+                    console.log('ERROR', errorZonas);
                   }
-                );
-              },
-              errorLocalidades => {
-                if (errorLocalidades.status === 401){
-                  this.router.navigate(['/'+PageEnum.AUTH]);
-                  this.loading = false;
-                }else{
-                  console.log('ERROR', errorLocalidades);
                 }
+              );
+            },
+            errorLocalidades => {
+              if (errorLocalidades.status === 401){
+                this.router.navigate(['/'+PageEnum.AUTH]);
+                this.loading = false;
+              }else{
+                console.log('ERROR', errorLocalidades);
               }
-            )
-          },
-          errorNombresLocalidades => {
-            if (errorNombresLocalidades.status === 401){
-              this.router.navigate(['/'+PageEnum.AUTH]);
-              this.loading = false;
-            }else{
-              console.log('ERROR', errorNombresLocalidades);
             }
-          }
-        );
-      },
+          )
+        },
       errorProvincias => {
         if (errorProvincias.status === 401){
           this.router.navigate(['/'+PageEnum.AUTH]);
@@ -237,6 +225,23 @@ export class AltaSocioComponent implements OnInit {
         }
       );
     }
+  }
+
+  updateProvincias(event: any){
+    var idProvincia = this.provincias[event.target.selectedIndex].id;
+    var localidad: Localidad = {provincia: {id: idProvincia}};
+    this.localidadService.getLocalidades(localidad).subscribe(
+      response => {
+        if (response.success){
+          this.localidades = response.data;
+        } else {
+          this.localidades = null;
+        }
+      },
+      err => {
+        this.localidades = null;
+      }
+    );
   }
 
   updateObraSocial(event: any){

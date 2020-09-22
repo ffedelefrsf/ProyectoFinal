@@ -11,7 +11,7 @@
                             <form class="form-sample" [formGroup]="altaAdherenteForm" (ngSubmit)="createAdherente()">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Nombre</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" placeholder="Nombre"
@@ -25,7 +25,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Apellido</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" placeholder="Apellido"
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Número de documento</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control"
@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Email</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" placeholder="Email"
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Sexo</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control" formControlName="sexo">
@@ -84,7 +84,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
                                             <div class="col-sm-9">
                                                 <input class="form-control" type="text" placeholder="dd/mm/yyyy"
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Domicilio</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" placeholder="Domicilio"
@@ -117,7 +117,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Teléfono</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" placeholder="Teléfono"
@@ -133,7 +133,41 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 col-form-label">Provincia</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="provincia"
+                                                    (change)="updateProvincias($event)">
+                                                    <option *ngFor="let provincia of provincias"
+                                                        [value]="provincia.nombre"
+                                                        [selected]="provincia.nombre=='ENTRE RÍOS'">{{provincia.nombre}}</option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="Debe seleccionar una provincia"
+                                                    *ngIf="altaAdherenteForm.controls['provincia'].errors && altaAdherenteForm.controls['provincia'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 col-form-label">Localidad</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="localidad"
+                                                    (change)="updateLocalidades($event)"
+                                                    [disabled]="altaAdherenteForm.controls['provincia'].errors">
+                                                    <option *ngFor="let localidad of localidades"
+                                                        [value]="localidad.nombre">{{localidad.nombre}}</option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="Debe seleccionar una localidad"
+                                                    *ngIf="altaAdherenteForm.controls['localidad'].errors && altaAdherenteForm.controls['localidad'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Zona</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control" formControlName="zona"
@@ -147,24 +181,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Localidad</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" formControlName="localidad"
-                                                    (change)="updateLocalidades($event)">
-                                                    <option *ngFor="let localidad of localidades"
-                                                        [value]="localidad.nombre">{{localidad.nombre}}</option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar una localidad"
-                                                    *ngIf="altaAdherenteForm.controls['localidad'].errors && altaAdherenteForm.controls['localidad'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Obra social</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control" formControlName="obraSocial"
@@ -179,8 +196,26 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group row">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 col-form-label">Socio</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" formControlName="socio"
+                                                    (change)="updateSocio($event)">
+                                                    <option *ngFor="let socio of socios"
+                                                        [value]="socio.nombre + socio.apellido">{{socio.apellido}}, {{socio.nombre}}
+                                                    </option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle"
+                                                    title="Debe seleccionar un socio"
+                                                    *ngIf="altaAdherenteForm.controls['socio'].errors && altaAdherenteForm.controls['socio'].touched"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label class="col-sm-3 col-form-label">Patología preexistente</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control" formControlName="enfermedad"
@@ -193,24 +228,6 @@
                                                 <i class="fa fa-exclamation-circle"
                                                     title="Debe seleccionar una enfermedad"
                                                     *ngIf="altaAdherenteForm.controls['enfermedad'].errors && altaAdherenteForm.controls['enfermedad'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Socio</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" formControlName="socio"
-                                                    (change)="updateSocio($event)">
-                                                    <option *ngFor="let socio of socios"
-                                                        [value]="socio.nombre + socio.apellido">{{socio.apellido}}, {{socio.nombre}}
-                                                    </option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar un socio"
-                                                    *ngIf="altaAdherenteForm.controls['socio'].errors && altaAdherenteForm.controls['socio'].touched"></i>
                                             </div>
                                         </div>
                                     </div>

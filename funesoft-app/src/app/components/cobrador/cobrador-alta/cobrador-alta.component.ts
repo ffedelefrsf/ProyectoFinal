@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { CobradorDTO } from '@app/dtos/cobrador.dto';
 import { Cobrador } from '@app/model/cobrador';
 import { Localidad } from '@app/model/localidad';
+import { Provincia } from '@app/model/provincia';
 import { CobradorService } from '@app/services/cobrador.service';
 import { LocalidadService } from '@app/services/localidad.service';
+import { ProvinciaService } from '@app/services/provincia.service';
 import { PageEnum } from '@app/utils/page.enum';
 
 @Component({
@@ -22,6 +24,7 @@ export class CobradorAltaComponent implements OnInit {
 
 
   localidades: Localidad[] = [];
+  provincias: Provincia[];
   cobradorInsert: CobradorDTO;
   altaCobradorForm: FormGroup;
 
@@ -30,21 +33,14 @@ export class CobradorAltaComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private cobradorService: CobradorService,
+    private provinciaService: ProvinciaService,
     private localidadService: LocalidadService,
   ) {
     this.cobradorInsert = {};
   }
 
   ngOnInit() {
-
-    // this.getLocalidades();
-    let localidad: Localidad = {
-      id: 1,
-      nombre: "BOVRIL"
-    };
-    this.localidades.push(localidad);
-    console.warn(this.localidades);
-
+    this.loading = true;
     this.altaCobradorForm = this.formBuilder.group({
       nombre: this.formBuilder.control('', [Validators.required, Validators.maxLength(100)]),
       apellido: this.formBuilder.control('', [Validators.required, Validators.maxLength(100)]),
@@ -55,32 +51,36 @@ export class CobradorAltaComponent implements OnInit {
       sexo: this.formBuilder.control('', [Validators.required]),
       fechaNacimiento: this.formBuilder.control('', [Validators.required]),
       localidad: this.formBuilder.control('', [Validators.required]),
+      provincia: this.formBuilder.control('ENTRE RÍOS', [Validators.required])
     });
 
-  }
-
-  getLocalidades() {
-    this.loading = true;
-    let localidad: Localidad = {
-      id: null,
-    };
-    this.localidadService.getLocalidades(localidad).subscribe(
-      res => {
-        this.localidades = res.data;
-        this.error = false;
+    var provincia: Provincia = {};
+    this.provinciaService.getProvincias(provincia).subscribe(
+      provinciasResponse => {
+        this.provincias = provinciasResponse.data;
+        var localidad: Localidad = {provincia: {id: 8}};
+        this.localidadService.getLocalidades(localidad).subscribe(
+          localidadesResponse => {
+            this.localidades = localidadesResponse.data;
+            this.loading = false;
+          },
+          errorLocalidades => {
+            if (errorLocalidades.status === 401){
+              this.router.navigate(['/'+PageEnum.AUTH]);
+              this.loading = false;
+            }else{
+              console.log('ERROR', errorLocalidades);
+            }
+          }
+        );
       },
-      err => {
-        if (err.status === 401) {
-          this.router.navigate(['/' + PageEnum.AUTH]);
-          this.localidades = [];
-          this.error = true;
-        } else {
-          this.localidades = [];
-          this.error = true;
+      errorProvincias => {
+        if (errorProvincias.status === 401){
+          this.router.navigate(['/'+PageEnum.AUTH]);
+          this.loading = false;
+        }else{
+          console.log('ERROR', errorProvincias);
         }
-      },
-      () => {
-        this.loading = false;
       }
     );
   }
@@ -125,6 +125,23 @@ export class CobradorAltaComponent implements OnInit {
       this.error = true;
     }
 
+  }
+
+  updateProvincias(event: any){
+    var idProvincia = this.provincias[event.target.selectedIndex].id;
+    var localidad: Localidad = {provincia: {id: idProvincia}};
+    this.localidadService.getLocalidades(localidad).subscribe(
+      response => {
+        if (response.success){
+          this.localidades = response.data;
+        } else {
+          this.localidades = null;
+        }
+      },
+      err => {
+        this.localidades = null;
+      }
+    );
   }
 
   updateLocalidades(event: any) {

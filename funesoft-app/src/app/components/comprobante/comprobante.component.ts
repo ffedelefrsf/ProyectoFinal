@@ -62,7 +62,7 @@ export class ComprobanteComponent implements OnInit {
     
   }
 
-  imprimirComprobantes(event: any){
+  imprimirComprobantes(){
     this.getPDF();
     this.generados = false;
     this.impresos = true;
