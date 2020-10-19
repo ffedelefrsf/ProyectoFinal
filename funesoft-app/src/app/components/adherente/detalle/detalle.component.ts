@@ -34,6 +34,7 @@ export class DetalleAdherenteComponent implements OnInit {
       telefono: this.formBuilder.control({value: this.adherente.telefono, disabled: true}, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]*')]),
       zona: this.formBuilder.control({value: this.adherente.zona.nombre, disabled: true}, [Validators.required]),
       localidad: this.formBuilder.control({value: this.adherente.localidad.nombre, disabled: true}, [Validators.required]),
+      provincia: this.formBuilder.control({value: this.adherente.localidad.provincia.nombre, disabled: true}, [Validators.required]),
       obraSocial: this.formBuilder.control({value: this.adherente.obraSocial.descripcion, disabled: true}, [Validators.required]),
       fechaCobertura: this.formBuilder.control({value: this.adherente.fechaCobertura, disabled: true}, [Validators.required]),
       enfermedad: this.formBuilder.control({value: this.adherente.enfermedad.descripcion, disabled: true}, [Validators.required]),

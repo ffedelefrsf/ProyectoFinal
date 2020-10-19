@@ -86,6 +86,7 @@ export class ModificacionSocioComponent implements OnInit {
       telefono: this.formBuilder.control(this.socio.telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]*')]),
       zona: this.formBuilder.control(this.socio.zona.nombre, [Validators.required]),
       localidad: this.formBuilder.control(this.socio.localidad.nombre, [Validators.required]),
+      provincia: this.formBuilder.control(this.socio.localidad.provincia.nombre, [Validators.required]),
       obraSocial: this.formBuilder.control(this.socio.obraSocial.descripcion, [Validators.required]),
       fechaCobertura: this.formBuilder.control(this.socio.fechaCobertura, [Validators.required]),
       tarifa: this.formBuilder.control(this.socio.tarifa.descripcion, [Validators.required]),
@@ -248,6 +249,23 @@ export class ModificacionSocioComponent implements OnInit {
         }
       );
     }
+  }
+
+  updateProvincias(event: any){
+    var idProvincia = this.provincias[event.target.selectedIndex].id;
+    var localidad: Localidad = {provincia: {id: idProvincia}};
+    this.localidadService.getLocalidades(localidad).subscribe(
+      response => {
+        if (response.success){
+          this.localidades = response.data;
+        } else {
+          this.localidades = null;
+        }
+      },
+      err => {
+        this.localidades = null;
+      }
+    );
   }
 
   updateObraSocial(event: any){

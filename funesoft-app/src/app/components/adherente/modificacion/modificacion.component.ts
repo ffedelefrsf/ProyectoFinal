@@ -77,6 +77,7 @@ export class ModificacionAdherenteComponent implements OnInit {
       telefono: this.formBuilder.control(this.adherente.telefono, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]*')]),
       zona: this.formBuilder.control(this.adherente.zona.nombre, [Validators.required]),
       localidad: this.formBuilder.control(this.adherente.localidad.nombre, [Validators.required]),
+      provincia: this.formBuilder.control(this.adherente.localidad.provincia.nombre, [Validators.required]),
       obraSocial: this.formBuilder.control(this.adherente.obraSocial.descripcion, [Validators.required]),
       fechaCobertura: this.formBuilder.control(this.adherente.fechaCobertura, [Validators.required]),
       enfermedad: this.formBuilder.control(this.adherente.enfermedad.descripcion, [Validators.required]),
@@ -230,6 +231,23 @@ export class ModificacionAdherenteComponent implements OnInit {
         }
       );
     }
+  }
+
+  updateProvincias(event: any){
+    var idProvincia = this.provincias[event.target.selectedIndex].id;
+    var localidad: Localidad = {provincia: {id: idProvincia}};
+    this.localidadService.getLocalidades(localidad).subscribe(
+      response => {
+        if (response.success){
+          this.localidades = response.data;
+        } else {
+          this.localidades = null;
+        }
+      },
+      err => {
+        this.localidades = null;
+      }
+    );
   }
 
   updateObraSocial(event: any){

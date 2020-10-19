@@ -11,7 +11,7 @@
                 <form class="form-sample" [formGroup]="detailAdherenteForm">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Nombre</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="nombre"
@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Apellido</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="apellido"
@@ -31,16 +31,16 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Número de documento</label>
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Número de documento</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="dni" value="{{adherente.dni}}"/>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Email</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="email"
                                         value="{{adherente.email}}"/>
@@ -50,8 +50,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Sexo</label>
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Sexo</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="sexo">
                                         <option [selected]="true">{{adherente.sexo}}</option>
@@ -60,8 +60,8 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Fecha de nacimiento</label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text" formControlName="fechaNacimiento"
                                         value="{{adherente.fechaNacimiento}}" ngbDatepicker
@@ -72,7 +72,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Domicilio</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="direccion"
@@ -81,7 +81,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Teléfono</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" formControlName="telefono"
@@ -92,17 +92,17 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Zona</label>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-form-label">Provincia</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" formControlName="zona">
-                                        <option [value]="adherente.zona.nombre">{{adherente.zona.nombre}}</option>
+                                    <select class="form-control" formControlName="provincia">
+                                        <option [value]="adherente.localidad.provincia.nombre">{{adherente.localidad.provincia.nombre}}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Localidad</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="localidad">
@@ -114,8 +114,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Obra social</label>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-form-label">Zona</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" formControlName="zona">
+                                        <option [value]="adherente.zona.nombre">{{adherente.zona.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Obra social</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="obraSocial">
                                         <option [value]="adherente.obraSocial.descripcion">{{adherente.obraSocial.descripcion}}
@@ -124,20 +134,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Fecha de cobertura</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" placeholder="Fecha de cobertura"
-                                        formControlName="fechaCobertura" ngbDatepicker
-                                        #fechaCoberturaDatePicker="ngbDatepicker" readonly />
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Enfermedad</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="enfermedad">
@@ -147,12 +147,24 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label class="col-sm-3 col-form-label">Socio</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" formControlName="socio">
                                         <option [value]="adherente.socio.apellido + ', ' + adherente.socio.nombre">{{adherente.socio.apellido}}, {{adherente.socio.nombre}}</option>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-6 col-form-label">Fecha de cobertura</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" placeholder="Fecha de cobertura"
+                                        formControlName="fechaCobertura" ngbDatepicker
+                                        #fechaCoberturaDatePicker="ngbDatepicker" readonly />
                                 </div>
                             </div>
                         </div>
