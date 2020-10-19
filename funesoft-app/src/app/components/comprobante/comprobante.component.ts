@@ -15,7 +15,8 @@ export class ComprobanteComponent implements OnInit {
 
   generados: boolean = false;
   impresos: boolean = false;
-  loading: boolean = false;
+  loadingGeneracion: boolean = false;
+  descargando: boolean = false;
   success: boolean = false;
   error: boolean = false;
   currentDate: Date;
@@ -25,35 +26,35 @@ export class ComprobanteComponent implements OnInit {
     private comprobanteService: ComprobanteService) {
       this.generados = false;
       this.impresos = false;
-      this.loading = false;
+      this.loadingGeneracion = false;
+      this.descargando = false;
       this.success = false;
       this.error = false;
   }
 
   ngOnInit() {
     this.currentDate = new Date();
-    this.loading = false;
   }
 
   generarComprobantes(){
-    this.loading = true;
+    this.loadingGeneracion = true;
     this.impresos = false;
     this.comprobanteService.generarComprobantesMasivos().subscribe(
       response => {
         if (response.success){
           this.success = true;
           this.error = false;
-          this.loading = false;
+          this.loadingGeneracion = false;
           this.generados = true;
         }else{
-          this.loading = false;
+          this.loadingGeneracion = false;
           this.error = true;
           this.success = false;
           this.generados = false;
         }
       },
       err => {
-        this.loading = false;
+        this.loadingGeneracion = false;
         this.error = true;
         this.generados = false;
         this.impresos = false;
@@ -62,7 +63,8 @@ export class ComprobanteComponent implements OnInit {
     
   }
 
-  imprimirComprobantes(event: any){
+  imprimirComprobantes(){
+    this.descargando = true;
     this.getPDF();
     this.generados = false;
     this.impresos = true;

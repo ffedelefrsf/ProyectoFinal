@@ -51,6 +51,8 @@ import { ModificacionAdherenteComponent } from './components/adherente/modificac
 import { AltaZonaComponent } from './components/zona/alta/alta-zona.component';
 import { CobradorListadoComponent } from '@app/components/cobrador/cobrador-listado/cobrador-listado.component';
 import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/cobrador-alta.component';
+import { InformarPagoComponent } from './components/pago/informar-pago/informar-pago.component';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -95,7 +97,8 @@ import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/co
     ModificacionAdherenteComponent,
     AltaZonaComponent,
     CobradorListadoComponent,
-    CobradorAltaComponent
+    CobradorAltaComponent,
+    InformarPagoComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,8 @@ import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/co
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgxSpinnerModule
   ],
   providers:  [AuthService, 
               ProvinciaService,
@@ -112,7 +116,8 @@ import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/co
                 provide: HTTP_INTERCEPTORS,
                 useClass: AuthInterceptor,
                 multi: true
-              }],
+              },
+              NgxSpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

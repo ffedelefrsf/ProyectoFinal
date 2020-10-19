@@ -1,0 +1,199 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+*ngIf="socios.length === 0"
+>
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<div class="container-scroller" *ngIf="socios.length > 0">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+        <app-side-menu></app-side-menu>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div id="alta-tarifas">
+                    <div class="col-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title"></h4>
+                                <form class="forms-sample" [formGroup]="informarPagoForm" (ngSubmit)="createPago()">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="planLabel">Socio</label>
+                                                <select class="form-control" formControlName="socio"
+                                                    [(ngModel)]="selectedValue" (change)="changeSocio()">
+                                                    <option *ngFor="let socio of socios" [ngValue]="socio">
+                                                        {{socio.apellido}} {{socio.nombre}}
+                                                    </option>
+                                                </select>
+                                                <i class="fa fa-exclamation-circle" title="Debe seleccionar un socio"
+                                                    *ngIf="informarPagoForm.controls['socio'].errors && informarPagoForm.controls['socio'].touched"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="dniLabel">Documento</label>
+                                                <input type="text" class="form-control" placeholder="Descripción"
+                                                    formControlName="dni" value={{selectedValue.dni}} readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="dniLabel">Plan</label>
+                                                <input type="text" class="form-control" placeholder="Descripción"
+                                                    formControlName="dni" value={{selectedValue.tarifa.plan.descripcion}} readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="dniLabel">Tarifa</label>
+                                                <input type="text" class="form-control" placeholder="Descripción"
+                                                    formControlName="dni" value={{selectedValue.tarifa.descripcion}} readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <label for="dniLabel">Estado</label>
+                                                <td class="pr-0 text-right">
+                                                    <div class="badge badge-outline-danger" *ngIf="!activo">BAJA</div>
+                                                    <div class="badge badge-outline-success" *ngIf="activo">ALTA</div>
+                                                </td>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="card-description" style="margin-top: 10px;">
+                                        Estado de cuenta
+                                    </p>
+
+                                    <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="side-left">
+                                                    <p class="titleSaldo" style="align-self: self-start;">El saldo del titular seleccionado al {{currentDate | date:'dd/MM/yyyy'}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="saldo">
+                                                    <p class="display-3 mb-4 font-weight-light" *ngIf="saldo">{{saldo}}</p>
+                                                    <p class="display-3 mb-4 font-weight-light" *ngIf="!saldo">$ 0</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 buttonInformar">
+                                                    <button type="button" class="btn btn-outline-primary" style="align-self: self-start;">Informar pago</button>
+                                            </div>
+                                    </div>
+
+                                    <h4 class="card-title">Historial de comprobantes</h4>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        #
+                                                    </th>
+                                                    <th>
+                                                        Nro. Comprobante
+                                                    </th>
+                                                    <th>
+                                                        Estado
+                                                    </th>
+                                                    <th>
+                                                        Monto
+                                                    </th>
+                                                    <th>
+                                                        Vencimiento
+                                                    </th>
+                                                    <th>
+                                                        Descargar
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="font-weight-medium">
+                                                        3
+                                                    </td>
+                                                    <td>
+                                                        00000022
+                                                    </td>
+                                                    <td>
+                                                        <label class="badge badge-danger">Pendiente</label>
+                                                    </td>
+                                                    <td>
+                                                        $ 77.99
+                                                    </td>
+                                                    <td class="text-danger"> 04/10/2020
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-cloud-download"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-medium">
+                                                        2
+                                                    </td>
+                                                    <td>
+                                                        00000010
+                                                    </td>
+                                                    <td>
+                                                        <label class="badge badge-success">Pagado</label>
+                                                    </td>
+                                                    <td>
+                                                        $245.30
+                                                    </td>
+                                                    <td class="text-success"> 04/09/2020</td>
+                                                    <td>
+                                                        <i class="fa fa-cloud-download"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-medium">
+                                                        1
+                                                    </td>
+                                                    <td>
+                                                        00000003
+                                                    </td>
+                                                    <td>
+                                                        <label class="badge badge-success">Pagado</label>
+                                                    </td>
+                                                    <td>
+                                                        $138.00
+                                                    </td>
+                                                    <td class="text-success"> 04/09/2020
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-cloud-download"></i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- <button type="submit" class="btn btn-success mr-2">Agregar</button>
+                                    <button class="btn btn-light">Cancelar</button>
+                                    <br><br>
+                                    <div class="alert alert-success" role="alert" *ngIf="success && !error">
+                                        La tarifa ha sido agregada con exito!
+                                    </div>
+
+                                    <div class="alert alert-danger" role="alert" *ngIf="error && !success">
+                                        Hubo un problema al agregar la tarifa. Intente nuevamente.
+                                    </div> -->
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

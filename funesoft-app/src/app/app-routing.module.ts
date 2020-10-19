@@ -26,6 +26,7 @@ import { ListadoAdherenteComponent } from './components/adherente/listado/listad
 import { ModificacionAdherenteComponent } from './components/adherente/modificacion/modificacion.component';
 import { BajaAdherenteComponent } from './components/adherente/baja/baja.component';
 import { DetalleAdherenteComponent } from './components/adherente/detalle/detalle.component';
+import { InformarPagoComponent } from './components/pago/informar-pago/informar-pago.component';
 
 const routes: Routes = [
 
@@ -52,7 +53,8 @@ const routes: Routes = [
   {path: PageEnum.ADHERENTE_LISTADO, component: ListadoAdherenteComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_MODIFICACION, component: ModificacionAdherenteComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_DETALLE, component: DetalleAdherenteComponent, canActivate: [AuthGuard]},
-  {path: PageEnum.ADHERENTE_BAJA, component: BajaAdherenteComponent, canActivate: [AuthGuard]}
+  {path: PageEnum.ADHERENTE_BAJA, component: BajaAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.INFORMAR_PAGO, component: InformarPagoComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

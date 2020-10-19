@@ -18,13 +18,12 @@
                       </h6>
                     </ng-template>
                     <ng-template ngbPanelContent>
-                      <button *ngIf="!generados" type="button" class="btn btn-outline-primary"
+                      <button *ngIf="!generados && !loadingGeneracion" type="button" class="btn btn-outline-primary"
                         (click)="generarComprobantes()">Generar comprobantes</button>
-                      <br><br>
-                      <div class="alert alert-warning" role="alert" *ngIf="loading && !generados">
+                      <div class="alert alert-warning" role="alert" *ngIf="loadingGeneracion && !generados">
                         Generando comprobantes...
                       </div>
-                      <div class="alert alert-info" role="alert" *ngIf="generados && !loading">
+                      <div class="alert alert-info" role="alert" *ngIf="generados && !loadingGeneracion">
                         Los comprobantes han sido generados con exito!
                       </div>
                     </ng-template>
@@ -36,13 +35,12 @@
                       </h6>
                     </ng-template>
                     <ng-template ngbPanelContent>
-                      <div class="alert alert-warning" role="alert" *ngIf="!generados">
+                      <div class="alert alert-warning" role="alert" *ngIf="!(generados && !impresos) && !descargando">
                         Los comprobantes no han sido generados
                       </div>
                       <button type="button" class="btn btn-success" (click)="imprimirComprobantes()" *ngIf="generados && !impresos"><i
                           class="mdi mdi-cloud-download"></i>Descargar PDF</button>
-                      <br><br>
-                      <div class="alert alert-success" role="alert" *ngIf="impresos && generados">
+                      <div class="alert alert-success" role="alert" *ngIf="descargando">
                         La descarga comenzará en breve...
                       </div>
                     </ng-template>
