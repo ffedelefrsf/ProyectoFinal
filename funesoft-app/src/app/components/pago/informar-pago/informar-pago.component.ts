@@ -6,7 +6,8 @@ import { SocioService } from '@app/services/socio.service';
 import { PageEnum } from '@app/utils/page.enum';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-informar-pago',
@@ -121,6 +122,10 @@ export class InformarPagoComponent implements OnInit {
 
   createPago(){
 
+  }
+
+  simpleAlert(){
+    Swal.fire('Pago informado', 'Se informó el pago correctamente!', 'success')
   }
 
 }
