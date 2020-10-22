@@ -30,7 +30,15 @@ export class InformarPagoComponent implements OnInit {
 
   informarPagoForm: FormGroup;
 
-  selectedValue: any;
+  selectedValue: any = {
+    dni: 12345678,
+    tarifa: {
+      descripcion: "tarifa 1",
+      plan: {
+        descripcion: "plan 1"
+      }
+    }
+  };
   activo: boolean = true;
 
   currentDate: Date;
@@ -48,18 +56,20 @@ export class InformarPagoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.spinner.show();
 
     this.informarPagoForm = this.formBuilder.group({
       socio: this.formBuilder.control('', [Validators.required, Validators.maxLength(100)])      
     });
 
-
     this.getSocios();
+
+    // this.selectedValue = this.socios[0];
     
     this.currentDate = new Date();
     console.log(this.currentDate);
 
-    console.log("lenght: " + this.socios.length);
+    // console.log("length: " + this.socios.length);
 
 
   }
@@ -69,11 +79,11 @@ export class InformarPagoComponent implements OnInit {
     let socio: Socio = {
       id: null,
     };
-    this.spinner.show();
     this.socioService.getSocios(socio).subscribe(
       response => {
         this.socios = response.data;
         this.error = false;
+        this.spinner.hide();
       },
       error => {
         if (error.status === 401){

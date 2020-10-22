@@ -1,14 +1,7 @@
-<ngx-spinner
-bdColor="rgba(51,51,51,0.8)"
-size="medium"
-color="#fff"
-type="ball-scale-multiple"
-*ngIf="socios.length === 0"
->
-<p style="font-size: 20px; color: white">Loading...</p>
-</ngx-spinner>
-
-<div class="container-scroller" *ngIf="socios.length > 0">
+<div class="container-scroller">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+        <p style="color: white"> Cargando... </p>
+    </ngx-spinner>
     <app-navbar></app-navbar>
     <div class="container-fluid page-body-wrapper">
         <app-side-menu></app-side-menu>
@@ -39,21 +32,21 @@ type="ball-scale-multiple"
                                             <div class="form-group">
                                                 <label for="dniLabel">Documento</label>
                                                 <input type="text" class="form-control" placeholder="Descripción"
-                                                    formControlName="dni" value={{selectedValue.dni}} readonly>
+                                                    value={{selectedValue.dni}} readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="dniLabel">Plan</label>
                                                 <input type="text" class="form-control" placeholder="Descripción"
-                                                    formControlName="dni" value={{selectedValue.tarifa.plan.descripcion}} readonly>
+                                                    value={{selectedValue.tarifa.plan.descripcion}} readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="dniLabel">Tarifa</label>
                                                 <input type="text" class="form-control" placeholder="Descripción"
-                                                    formControlName="dni" value={{selectedValue.tarifa.descripcion}} readonly>
+                                                    value={{selectedValue.tarifa.descripcion}} readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
@@ -72,20 +65,15 @@ type="ball-scale-multiple"
                                     </p>
 
                                     <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="side-left">
-                                                    <p class="titleSaldo" style="align-self: self-start;">El saldo del titular seleccionado al {{currentDate | date:'dd/MM/yyyy'}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="saldo">
-                                                    <p class="display-3 mb-4 font-weight-light" *ngIf="saldo">{{saldo}}</p>
-                                                    <p class="display-3 mb-4 font-weight-light" *ngIf="!saldo">$ 0</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 buttonInformar">
-                                                    <button type="button" class="btn btn-outline-primary" style="align-self: self-start;">Informar pago</button>
-                                            </div>
+                                        <div class="side-left">
+                                            <p class="titleSaldo" style="align-self: self-start; margin-left: 12px">El saldo del
+                                                titular seleccionado al {{currentDate | date:'dd/MM/yyyy'}}</p>
+                                        </div>
+                                        <div class="saldo">
+                                            <p class="display-3 mb-4 font-weight-light" *ngIf="saldo">{{ saldo }}
+                                            </p>
+                                            <p class="display-3 mb-4 font-weight-light" *ngIf="!saldo">$ 0</p>
+                                        </div>
                                     </div>
 
                                     <h4 class="card-title">Historial de comprobantes</h4>
@@ -112,6 +100,9 @@ type="ball-scale-multiple"
                                                     <th>
                                                         Descargar
                                                     </th>
+                                                    <th>
+                                                        Pago
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -133,6 +124,11 @@ type="ball-scale-multiple"
                                                     <td>
                                                         <i class="fa fa-cloud-download"></i>
                                                     </td>
+                                                    <td>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-xs">Informar
+                                                            pago</button>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="font-weight-medium">
@@ -150,6 +146,11 @@ type="ball-scale-multiple"
                                                     <td class="text-success"> 04/09/2020</td>
                                                     <td>
                                                         <i class="fa fa-cloud-download"></i>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-xs">Informar
+                                                            pago</button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -169,6 +170,11 @@ type="ball-scale-multiple"
                                                     </td>
                                                     <td>
                                                         <i class="fa fa-cloud-download"></i>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-xs">Informar
+                                                            pago</button>
                                                     </td>
                                                 </tr>
                                             </tbody>

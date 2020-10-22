@@ -53,6 +53,7 @@ import { CobradorListadoComponent } from '@app/components/cobrador/cobrador-list
 import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/cobrador-alta.component';
 import { InformarPagoComponent } from './components/pago/informar-pago/informar-pago.component';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers:  [AuthService, 
               ProvinciaService,
