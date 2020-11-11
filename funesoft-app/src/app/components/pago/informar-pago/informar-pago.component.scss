@@ -1,9 +1,23 @@
 .titleSaldo {
     margin-bottom: 0%;
     width: 250px;
+    align-self: self-start; 
+    margin-left: 12px
 }
 
 .saldo {
     margin-bottom: 0rem !important;
     margin: 0 32px 0 32px;
+}
+
+.titleHistorial {
+    display: contents;
+    margin-bottom: 0%;
+    align-self: self-start; 
+    margin-left: 12px;
+    margin-right: 8px;
+}
+
+.buttonHistorial {
+    margin-left: 12px;
 }

@@ -12,7 +12,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title"></h4>
-                                <form class="forms-sample" [formGroup]="informarPagoForm" (ngSubmit)="createPago()">
+                                <form class="forms-sample" [formGroup]="informarPagoForm">
 
                                     <div class="row">
                                         <div class="col-md-5">
@@ -31,21 +31,21 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="dniLabel">Documento</label>
-                                                <input type="text" class="form-control" placeholder="Descripción"
+                                                <input type="text" class="form-control" placeholder="DNI"
                                                     value={{selectedValue.dni}} readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="dniLabel">Plan</label>
-                                                <input type="text" class="form-control" placeholder="Descripción"
+                                                <input type="text" class="form-control" placeholder="Plan"
                                                     value={{selectedValue.tarifa.plan.descripcion}} readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="dniLabel">Tarifa</label>
-                                                <input type="text" class="form-control" placeholder="Descripción"
+                                                <input type="text" class="form-control" placeholder="Tarifa"
                                                     value={{selectedValue.tarifa.descripcion}} readonly>
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@
 
                                     <div class="row">
                                         <div class="side-left">
-                                            <p class="titleSaldo" style="align-self: self-start; margin-left: 12px">El saldo del
+                                            <p class="titleSaldo">El saldo del
                                                 titular seleccionado al {{currentDate | date:'dd/MM/yyyy'}}</p>
                                         </div>
                                         <div class="saldo">
@@ -76,9 +76,21 @@
                                         </div>
                                     </div>
 
-                                    <h4 class="card-title">Historial de comprobantes</h4>
+                                    <div class="row" style="margin-bottom: 16px; display: flex; align-items: baseline;">
+                                        <div class="titleHistorial">
+                                            <p style="margin-left: 12px;">Historial de comprobantes</p>
+                                        </div>
+                                        <div class="buttonHistorial">
+                                            <button type="button" class="btn btn-outline-info btn-xs"
+                                                (click)="readComprobantes()">Consultar</button>
+                                        </div>
+                                    </div>
 
-                                    <div class="table-responsive">
+                                    <div class="alert alert-warning" role="alert" *ngIf="!(comprobantesDTO.length > 0) && showTable">
+                                        Ups! No existen comprobantes para el socio seleccionado...
+                                    </div>
+
+                                    <div class="table-responsive" *ngIf="(comprobantesDTO.length > 0) && showTable">
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
@@ -98,82 +110,32 @@
                                                         Vencimiento
                                                     </th>
                                                     <th>
-                                                        Descargar
-                                                    </th>
-                                                    <th>
                                                         Pago
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr *ngFor="let cbte of comprobantesDTO; let i = index">
                                                     <td class="font-weight-medium">
-                                                        3
+                                                        {{ i + 1 }}
                                                     </td>
                                                     <td>
-                                                        00000022
+                                                        {{ cbte.nroComprobante }}
                                                     </td>
                                                     <td>
-                                                        <label class="badge badge-danger">Pendiente</label>
+                                                        <label class="badge badge-danger"
+                                                            *ngIf="!cbte.pagado">Pendiente</label>
+                                                        <label class="badge badge-success"
+                                                            *ngIf="cbte.pagado">Pagado</label>
                                                     </td>
                                                     <td>
-                                                        $ 77.99
+                                                        {{ cbte.importeTotal }}
                                                     </td>
-                                                    <td class="text-danger"> 04/10/2020
-                                                    </td>
+                                                    <td class="text-danger"> 04/10/2020 </td>
+                                                    <!-- <td class="text-success"> 04/09/2020</td> -->
                                                     <td>
-                                                        <i class="fa fa-cloud-download"></i>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary btn-xs" (click)="simpleAlert()">Informar
-                                                            pago</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-medium">
-                                                        2
-                                                    </td>
-                                                    <td>
-                                                        00000010
-                                                    </td>
-                                                    <td>
-                                                        <label class="badge badge-success">Pagado</label>
-                                                    </td>
-                                                    <td>
-                                                        $245.30
-                                                    </td>
-                                                    <td class="text-success"> 04/09/2020</td>
-                                                    <td>
-                                                        <i class="fa fa-cloud-download"></i>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary btn-xs">Informar
-                                                            pago</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-medium">
-                                                        1
-                                                    </td>
-                                                    <td>
-                                                        00000003
-                                                    </td>
-                                                    <td>
-                                                        <label class="badge badge-success">Pagado</label>
-                                                    </td>
-                                                    <td>
-                                                        $138.00
-                                                    </td>
-                                                    <td class="text-success"> 04/09/2020
-                                                    </td>
-                                                    <td>
-                                                        <i class="fa fa-cloud-download"></i>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary btn-xs">Informar
+                                                        <button type="button" class="btn btn-outline-primary btn-xs"
+                                                            (click)="createPago(cbte)" *ngIf="!cbte.pagado">Informar
                                                             pago</button>
                                                     </td>
                                                 </tr>

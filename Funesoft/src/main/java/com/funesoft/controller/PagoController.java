@@ -57,7 +57,11 @@ public class PagoController {
 
         socioRepository.save(socio.get());
         return pagoRepository.save(pago);
+    }
 
+    public Boolean isPagado(Comprobante comprobante){
+        if(pagoRepository.findComprobante(comprobante.getId()).isPresent()) return true;
+        return false;
     }
 
 }

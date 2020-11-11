@@ -77,8 +77,25 @@ public class ComprobanteREST {
         }
     }
 
-    //GET ALL COMPROBANTES PARA UN MES ACTUAL
-    //SE PASA EL MES POR PARAMETRO Y RECUEPRA TODOS LOS QUE COINCIDA ESE MES CON LA MES(FECHA_ALTA)
+    //GET ALL COMPROBANTES DADO UN SOCIO
+    @PostMapping("getAll")
+    private FunesoftResponseDTO getAll(@RequestBody Comprobante comprobante) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    comprobanteController.getAll(comprobante),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+    }
 
     //GET ONE COMPROBANTE
     //PARA UNA POSIBLE REIMPRESIÓN. INPUT MES(PERIODO) IDSOCIO

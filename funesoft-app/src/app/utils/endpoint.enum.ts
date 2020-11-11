@@ -27,5 +27,6 @@ export enum EndpointEnum{
     EDIT_ADHERENTE = '/adherente/update',
     CREATE_TARIFA = '/tarifa/insert',
     GET_COBRADORES = '/cobrador/getAll',
-    CREATE_COBRADOR = '/cobrador/insert'
+    CREATE_COBRADOR = '/cobrador/insert',
+    GET_COMPROBANTES = '/comprobante/getAll'
 }
