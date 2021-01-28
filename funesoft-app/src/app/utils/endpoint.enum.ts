@@ -28,5 +28,7 @@ export enum EndpointEnum{
     CREATE_TARIFA = '/tarifa/insert',
     GET_COBRADORES = '/cobrador/getAll',
     CREATE_COBRADOR = '/cobrador/insert',
-    GET_COMPROBANTES = '/comprobante/getAll'
+    GET_COMPROBANTES = '/comprobante/getAll',
+    CREATE_OBRA_SOCIAL = '/obraSocial/insert',
+    DELETE_OBRA_SOCIAL = '/obraSocial/delete',
 }

@@ -54,6 +54,8 @@ import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/co
 import { InformarPagoComponent } from './components/pago/informar-pago/informar-pago.component';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ObraSocialAltaComponent } from './components/obra-social/obra-social-alta/obra-social-alta.component';
+import { ObraSocialListadoComponent } from './components/obra-social/obra-social-listado/obra-social-listado.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AltaZonaComponent,
     CobradorListadoComponent,
     CobradorAltaComponent,
-    InformarPagoComponent
+    InformarPagoComponent,
+    ObraSocialAltaComponent,
+    ObraSocialListadoComponent
   ],
   imports: [
     BrowserModule,

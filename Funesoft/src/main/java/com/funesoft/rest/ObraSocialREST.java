@@ -45,8 +45,8 @@ public class ObraSocialREST {
     public FunesoftResponseDTO insert(@Valid @RequestBody ObraSocial obraSocial){
         try{
             return new FunesoftResponseDTO(true, obraSocialController.insertObraSocial(obraSocial), null, null);
-        }catch (BusinessException businessException){
-            return new FunesoftResponseDTO(false, null, businessException.getMessage(), businessException);
+        }catch (Exception ex){
+            return new FunesoftResponseDTO(false, null, ex.getMessage(), ex);
         }
     }
     

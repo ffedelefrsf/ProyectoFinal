@@ -22,4 +22,6 @@ export enum PageEnum{
     COBRADOR_LISTADO = 'cobrador',
     COBRADOR_ALTA = 'cobrador/alta',
     INFORMAR_PAGO = 'pago/informar',
+    OBRA_SOCIAL_LISTADO = 'obra-social',
+    OBRA_SOCIAL_ALTA = 'obra-social/alta',
 }

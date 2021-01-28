@@ -1,0 +1,58 @@
+<div class="container-scroller">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+        <app-side-menu></app-side-menu>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div id="listado-zonas">
+                    <div class="card" *ngIf="!loading && !error">
+                        <div class="card-body">
+                            <h4 class="card-title">Padrón de obras sociales</h4>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Descripción</th>
+                                            <th>Sepelio</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let os of osArray">
+                                            <td>{{os.id}}</td>
+                                            <td>{{os.descripcion}}</td>
+                                            <td>
+                                                <label class="badge badge-success"
+                                                *ngIf="os.tiene_sepelio">SI</label>
+                                                <label class="badge badge-danger"
+                                                *ngIf="!os.tiene_sepelio">NO</label>
+                                            </td>
+                                            <td>
+                                                <div ngbDropdown class="d-inline-block">
+                                                    <button class="btn btn-outline-primary " type="button"
+                                                        id="dropdownMenuOutlineButton1" ngbDropdownToggle>
+                                                        Acciones
+                                                    </button>
+                                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1" style="margin-bottom: auto;">
+                                                        <!-- <a class="dropdown-header" href="#">Modificar</a>
+                                                        <div class="dropdown-divider"></div> -->
+                                                        <a class="dropdown-header dropup" (click)="deleteOs(os)">Dar de baja</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="spinner-border text-primary" role="status" *ngIf="loading">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

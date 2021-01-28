@@ -18,10 +18,13 @@
                       </h6>
                     </ng-template>
                     <ng-template ngbPanelContent>
-                      <button *ngIf="!generados && !loadingGeneracion" type="button" class="btn btn-outline-primary"
+                      <button *ngIf="!generados && !loadingGeneracion && !error" type="button" class="btn btn-outline-primary"
                         (click)="generarComprobantes()">Generar comprobantes</button>
                       <div class="alert alert-warning" role="alert" *ngIf="loadingGeneracion && !generados">
                         Generando comprobantes...
+                      </div>
+                      <div class="alert alert-danger" role="alert" *ngIf="error">
+                        Error al generar los comprobantes.  
                       </div>
                       <div class="alert alert-info" role="alert" *ngIf="generados && !loadingGeneracion">
                         Los comprobantes han sido generados con exito!

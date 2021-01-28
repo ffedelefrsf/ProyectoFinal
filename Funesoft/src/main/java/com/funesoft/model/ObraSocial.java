@@ -47,45 +47,29 @@ public class ObraSocial implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "TIENE_SEPELIO")
+    private Boolean tiene_sepelio;
+
     @JoinColumn(name = "ID_USUARIO_MODIFICA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Usuario usuarioModifica;
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ObraSocial that = (ObraSocial) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(descripcion, that.descripcion) &&
+                Objects.equals(tiene_sepelio, that.tiene_sepelio) &&
+                Objects.equals(usuarioModifica, that.usuarioModifica);
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return Objects.hash(id, descripcion, tiene_sepelio, usuarioModifica);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ObraSocial other = (ObraSocial) obj;
-        if (!Objects.equals(this.descripcion, other.descripcion)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.usuarioModifica, other.usuarioModifica)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ObrasSociales{" + "id=" + id + ", descripcion=" + descripcion + ", usuario=" + usuarioModifica.toString() + '}';
-    }
-    
 }
