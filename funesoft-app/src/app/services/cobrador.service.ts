@@ -20,5 +20,9 @@ export class CobradorService extends ApiService{
   createCobrador(cobradorDTO: CobradorDTO): Observable<FunesoftResponseDTO<Cobrador>>{
     return this.request(MethodEnum.POST, EndpointEnum.CREATE_COBRADOR, null, cobradorDTO);
   }
+
+  deleteCobrador(cobrador: Cobrador): Observable<FunesoftResponseDTO<Cobrador>>{
+    return this.request(MethodEnum.POST, EndpointEnum.DELETE_COBRADOR, null, cobrador);
+  }
   
 }

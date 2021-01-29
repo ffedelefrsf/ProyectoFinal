@@ -89,25 +89,6 @@ export class ObraSocialListadoComponent implements OnInit {
       }
     })
 
-
-
-    // Swal.fire({
-    //   title: 'Estás seguro?',
-    //   text: "Esta acción no se puede revertir",
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'Si, estoy seguro!'
-    // }).then((result) => {
-    //   debugger
-    //   if (result.isConfirmed) {
-
-
-
-    //   }
-    // })
-
   }
 
 }

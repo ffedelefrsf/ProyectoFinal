@@ -3,6 +3,7 @@ import { CobradorService } from '@app/services/cobrador.service';
 import { Cobrador } from '@app/model/cobrador';
 import { Router } from '@angular/router';
 import { PageEnum } from '@app/utils/page.enum';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-cobrador-listado',
@@ -51,6 +52,41 @@ export class CobradorListadoComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  deleteCobrador(cobrador: Cobrador) {
+    Swal.fire({
+      title: 'Estás seguro?',
+      text: "Esta acción no se puede revertir",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, estoy seguro!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cobradorService.deleteCobrador(cobrador).subscribe(
+          response => {
+            debugger
+            if (response.success) {
+              this.cobradoresArray.splice(this.cobradoresArray.lastIndexOf(cobrador), 1);
+              Swal.fire(
+                'Eliminado!',
+                'El cobrador se ha eliminado.',
+                'success'
+              )
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El cobrador no pudo ser eliminado',
+                footer: 'Puede que alguna zona lo tenga asociado'
+              })
+            }
+          }
+        );
+      }
+    })
   }
 
 }

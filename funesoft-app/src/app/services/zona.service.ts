@@ -21,4 +21,8 @@ export class ZonaService extends ApiService{
     return this.request(MethodEnum.POST, EndpointEnum.CREATE_ZONA, null, zonaCobradoresDTO);
   }
 
+  deleteZona(zona: Zona): Observable<FunesoftResponseDTO<Zona>>{
+    return this.request(MethodEnum.POST, EndpointEnum.DELETE_ZONA, null, zona);
+  }
+
 }

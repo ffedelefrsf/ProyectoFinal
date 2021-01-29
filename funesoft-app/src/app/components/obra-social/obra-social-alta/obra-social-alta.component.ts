@@ -27,16 +27,16 @@ export class ObraSocialAltaComponent implements OnInit {
   ngOnInit() {
     this.altaOsForm = this.formBuilder.group({
       descripcion: this.formBuilder.control('', [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
-      tiene_sepelio: this.formBuilder.control('', [Validators.required])
+      tiene_sepelio: this.formBuilder.control(false)
     });
   }
 
   createOs() {
+    debugger
     if (!this.altaOsForm.invalid) {
       var altaOsForm: ObraSocial = this.altaOsForm.getRawValue();
       this.obraSocialInsert.descripcion = altaOsForm.descripcion;
       this.obraSocialInsert.tiene_sepelio = altaOsForm.tiene_sepelio;
-
       this.obraSocialService.createObraSocial(this.obraSocialInsert).subscribe(
         response => {
           if (response.success){
@@ -72,6 +72,12 @@ export class ObraSocialAltaComponent implements OnInit {
         }
       );
 
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Revisa la información e intente nuevamente.'
+      });
     }
   }
 
