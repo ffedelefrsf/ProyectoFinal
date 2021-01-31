@@ -82,7 +82,7 @@ export class AltaSocioComponent implements OnInit {
       sexo: this.formBuilder.control('', [Validators.required]),
       fechaNacimiento: this.formBuilder.control('', [Validators.required]),
       direccion: this.formBuilder.control('', [Validators.required, Validators.maxLength(100), Validators.pattern('^[A-Z-Ñ a-z-ñ 0-9]*')]),
-      telefono: this.formBuilder.control('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]*')]),
+      telefono: this.formBuilder.control('', [Validators.required, Validators.minLength(6), Validators.maxLength(11), Validators.pattern('^[0-9]*')]),
       zona: this.formBuilder.control('', [Validators.required]),
       provincia: this.formBuilder.control('ENTRE RÍOS', [Validators.required]),
       localidad: this.formBuilder.control('', [Validators.required]),

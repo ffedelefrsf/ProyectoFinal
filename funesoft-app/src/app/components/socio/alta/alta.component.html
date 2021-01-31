@@ -123,7 +123,7 @@
                                                 <input type="text" class="form-control" placeholder="Teléfono"
                                                     formControlName="telefono" value=""
                                                     [style.border]="altaSocioForm.controls['telefono'].errors && altaSocioForm.controls['telefono'].touched ? '1px solid red' : null"
-                                                    maxlength="10" />
+                                                    maxlength="11" />
                                                 <i class="fa fa-exclamation-circle"
                                                     title="El número de teléfono ingresado es incorrecto"
                                                     *ngIf="altaSocioForm.controls['telefono'].errors && altaSocioForm.controls['telefono'].touched"></i>
