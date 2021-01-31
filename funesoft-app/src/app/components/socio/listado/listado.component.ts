@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDropdownConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { DatePipe } from '@angular/common';
 import { Socio } from '@app/model/socio';
 import { SocioService } from '@app/services/socio.service';
 import { PageEnum } from '@app/utils/page.enum';
 import { DetalleSocioComponent } from '@app/components/socio/detalle/detalle.component';
 import { BajaSocioComponent } from '@app/components/socio/baja/baja.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-listado',
@@ -19,14 +20,17 @@ export class ListadoSocioComponent implements OnInit {
   sociosArray: Socio[];
   error: boolean = false;
   public sidebarOpened = false;
+  currentDate: String;
 
   constructor(private socioService: SocioService,
               private router: Router,
               private modalService: NgbModal,
-              config: NgbDropdownConfig) 
+              config: NgbDropdownConfig,
+              private spinner: NgxSpinnerService) 
     {config.placement = 'bottom-right'; }
 
   ngOnInit() {
+    this.currentDate = new DatePipe("en-US").transform(new Date(), 'yyyy-MM-dd');
     this.getSocios();
   }
 

@@ -16,6 +16,7 @@
                                             <th>Número de documento</th>
                                             <th>Apellido</th>
                                             <th>Nombre</th>
+                                            <th>Cobertura</th>
                                             <th>Estado</th>
                                             <th></th>
                                         </tr>
@@ -25,6 +26,12 @@
                                             <td>{{socio.dni}}</td>
                                             <td>{{socio.apellido}}</td>
                                             <td>{{socio.nombre}}</td>
+                                            <td>
+                                                <label class="badge badge-success"
+                                                    *ngIf="socio.fechaCobertura <= currentDate">CUBIERTO</label>
+                                                <label class="badge badge-danger"
+                                                    *ngIf="socio.fechaCobertura > currentDate">SIN COBERTURA</label>
+                                            </td>
                                             <td>
                                                 <label class="badge badge-danger"
                                                     *ngIf="socio.estado.nroEstado === 2">{{socio.estado.descripcion}}</label>
