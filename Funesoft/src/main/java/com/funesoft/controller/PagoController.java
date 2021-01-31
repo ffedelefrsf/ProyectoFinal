@@ -29,6 +29,7 @@ public class PagoController {
     public Pago informarPago(PagoDTO pagoDTO) throws BusinessException {
 
         Pago pago = new Pago(pagoDTO);
+        pago.setUsuarioModifica(CurrentUser.getInstance());
 
         //INCREMENTO EL SALDO DEL SOCIO
         Optional<Socio> socio = socioRepository.findById(pago.getSocio().getId());

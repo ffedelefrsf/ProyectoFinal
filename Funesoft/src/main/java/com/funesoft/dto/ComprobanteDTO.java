@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -17,4 +18,5 @@ public class ComprobanteDTO {
     private Boolean impreso;
     private Socio socio;
     private Boolean pagado;
+    private String vencimiento;
 }

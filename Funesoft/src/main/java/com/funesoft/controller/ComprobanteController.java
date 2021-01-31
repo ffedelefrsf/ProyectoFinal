@@ -20,6 +20,7 @@ import java.io.*;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -226,10 +227,16 @@ public class ComprobanteController {
             dto.setNroComprobante(item.getNroComprobante());
             dto.setPagado(pagoController.isPagado(item));
             dto.setSocio(item.getSocio());
+            dto.setVencimiento(getVencimiento(item));
             cbtesDTO.add(dto);
         }
 
         return cbtesDTO;
+    }
+
+    public String getVencimiento(Comprobante comprobante) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(new Date("01/09/1995"));
     }
 
 }

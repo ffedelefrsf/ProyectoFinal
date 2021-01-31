@@ -10,45 +10,69 @@
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">Comprobantes</h4>
-                <ngb-accordion [closeOthers]="true" activeIds="static-7" class="accordion accordion-danger">
-                  <ngb-panel id="static-7">
-                    <ng-template ngbPanelTitle>
-                      <h6 class="mb-0">
-                        Generación masiva de comprobantes
-                      </h6>
-                    </ng-template>
-                    <ng-template ngbPanelContent>
-                      <button *ngIf="!generados && !loadingGeneracion && !error" type="button" class="btn btn-outline-primary"
-                        (click)="generarComprobantes()">Generar comprobantes</button>
-                      <div class="alert alert-warning" role="alert" *ngIf="loadingGeneracion && !generados">
-                        Generando comprobantes...
-                      </div>
-                      <div class="alert alert-danger" role="alert" *ngIf="error">
-                        Error al generar los comprobantes.  
-                      </div>
-                      <div class="alert alert-info" role="alert" *ngIf="generados && !loadingGeneracion">
-                        Los comprobantes han sido generados con exito!
-                      </div>
-                    </ng-template>
-                  </ngb-panel>
-                  <ngb-panel id="static-8">
-                    <ng-template ngbPanelTitle>
-                      <h6 class="mb-0">
-                        Impresión de comprobantes
-                      </h6>
-                    </ng-template>
-                    <ng-template ngbPanelContent>
-                      <div class="alert alert-warning" role="alert" *ngIf="!(generados && !impresos) && !descargando">
-                        Los comprobantes no han sido generados
-                      </div>
-                      <button type="button" class="btn btn-success" (click)="imprimirComprobantes()" *ngIf="generados && !impresos"><i
-                          class="mdi mdi-cloud-download"></i>Descargar PDF</button>
-                      <div class="alert alert-success" role="alert" *ngIf="descargando">
-                        La descarga comenzará en breve...
-                      </div>
-                    </ng-template>
-                  </ngb-panel>
-                </ngb-accordion>
+
+                <div class="row" style="margin-top: 24px; margin-bottom: 16px; display: flex; align-items: baseline;">
+                  <div class="titleHistorial">
+                    <p style="margin-left: 12px; margin-right: 12px;">Generar comprobantes</p>
+                  </div>
+                  <div class="buttonHistorial">
+                    <button type="button" class="btn btn-outline-info btn-xs"
+                      (click)="generarComprobantes()">Generar</button>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-bottom: 16px; display: flex; align-items: baseline;">
+                  <div class="titleHistorial">
+                    <p style="margin-left: 12px; margin-right: 12px;">Historial de comprobantes</p>
+                  </div>
+                  <div class="buttonHistorial">
+                    <button type="button" class="btn btn-outline-info btn-xs"
+                      (click)="getAllComprobantes()">Consultar</button>
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>
+                          #
+                        </th>
+                        <th>
+                          Nro. Comprobante
+                        </th>
+                        <th>
+                          Estado
+                        </th>
+                        <th>
+                          Monto $
+                        </th>
+                        <th>
+                          Socio
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="(comprobantesDTO.length > 0) && showTable">
+                      <tr *ngFor="let cbte of comprobantesDTO; let i = index">
+                        <td class="font-weight-medium">
+                          {{ i + 1 }}
+                        </td>
+                        <td>
+                          {{ cbte.nroComprobante }}
+                        </td>
+                        <td>
+                          <label class="badge badge-danger" *ngIf="!cbte.pagado">Pendiente</label>
+                          <label class="badge badge-success" *ngIf="cbte.pagado">Pagado</label>
+                        </td>
+                        <td>
+                          {{ cbte.importeTotal }}
+                        </td>
+                        <td> {{ cbte.socio.id }} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
               </div>
             </div>
           </div>

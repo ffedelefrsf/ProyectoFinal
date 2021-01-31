@@ -2,11 +2,13 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ComprobanteDTO } from '@app/dtos/comprobante.dto';
+import { PagoDTO } from '@app/dtos/pago.dto';
 import { Cobrador } from '@app/model/cobrador';
 import { Comprobante } from '@app/model/comprobante';
 import { Socio } from '@app/model/socio';
 import { CobradorService } from '@app/services/cobrador.service';
 import { ComprobanteService } from '@app/services/comprobante.service';
+import { PagoService } from '@app/services/pago.service';
 import { SocioService } from '@app/services/socio.service';
 import { PageEnum } from '@app/utils/page.enum';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
@@ -42,12 +44,14 @@ export class InformarPagoComponent implements OnInit {
 
   currentDate: Date;
 
-  @ViewChild('instance', {static: true}) instance: NgbTypeahead;
+  @ViewChild('instance', { static: true }) instance: NgbTypeahead;
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
   saldo: string;
   showTable: boolean = false;
   cobradores: Cobrador[];
+
+  pagoDTO: PagoDTO = {};
 
   constructor(
     private socioService: SocioService,
@@ -56,25 +60,20 @@ export class InformarPagoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private cobradorService: CobradorService,
+    private pagoService: PagoService,
   ) { }
 
   ngOnInit() {
-    
+
     this.informarPagoForm = this.formBuilder.group({
-      socio: this.formBuilder.control('', [Validators.required, Validators.maxLength(100)])      
+      socio: this.formBuilder.control('', [Validators.required, Validators.maxLength(100)])
     });
 
     this.getSocios();
-    // this.getAllComprobantes();
     this.getAllCobrador();
-    
+
     this.currentDate = new Date();
     console.log(this.currentDate);
-
-    console.log("COBRADORES: " + JSON.stringify(this.cobradores));
-    
-    
-
 
   }
 
@@ -85,18 +84,18 @@ export class InformarPagoComponent implements OnInit {
     };
     this.socioService.getSocios(socio).subscribe(
       response => {
-        this.socios = response.data.sort((a,b) => a.apellido.localeCompare(b.apellido));
+        this.socios = response.data.sort((a, b) => a.apellido.localeCompare(b.apellido));
         // this.socios = response.data;
         this.error = false;
         this.spinner.hide();
       },
       error => {
-        if (error.status === 401){
+        if (error.status === 401) {
           console.log('ERROR', error);
-          this.router.navigate(['/'+PageEnum.AUTH]);
+          this.router.navigate(['/' + PageEnum.AUTH]);
           this.socios = [];
           this.error = true;
-        }else{
+        } else {
           console.log('ERROR', error);
           this.socios = [];
           this.error = true;
@@ -117,17 +116,17 @@ export class InformarPagoComponent implements OnInit {
     };
     this.comprobanteService.getAll(comprobante).subscribe(
       response => {
-        this.comprobantesDTO = response.data;
+        this.comprobantesDTO = response.data.sort((a,b) => b.nroComprobante - a.nroComprobante);
         this.error = false;
         this.spinner.hide();
       },
       error => {
-        if (error.status === 401){
+        if (error.status === 401) {
           console.log('ERROR', error);
-          this.router.navigate(['/'+PageEnum.AUTH]);
+          this.router.navigate(['/' + PageEnum.AUTH]);
           this.comprobantesDTO = [];
           this.error = true;
-        }else{
+        } else {
           console.log('ERROR', error);
           this.comprobantesDTO = [];
           this.error = true;
@@ -140,7 +139,7 @@ export class InformarPagoComponent implements OnInit {
     );
   }
 
-  changeSocio(){
+  changeSocio() {
     this.selectedSocio = true;
     this.showTable = false;
     console.log("SOCIO: " + this.selectedValue);
@@ -148,7 +147,7 @@ export class InformarPagoComponent implements OnInit {
     this.activo = this.selectedValue.estado.id === 2 ? false : true;
   }
 
-  createPago(cbte: ComprobanteDTO){
+  createPago(cbte: ComprobanteDTO) {
 
     const cobradoresSelect = [];
     this.cobradores.forEach((item) => {
@@ -157,7 +156,7 @@ export class InformarPagoComponent implements OnInit {
           nameV: item.nombre + ' ' + item.apellido
         },
       );
-      console.log(cobradoresSelect);      
+      console.log(cobradoresSelect);
     });
 
     Swal.fire({
@@ -168,28 +167,59 @@ export class InformarPagoComponent implements OnInit {
       confirmButtonText: 'Informar',
       showLoaderOnConfirm: true,
       preConfirm: (ob, asd) => {
-        debugger
       },
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
-      debugger
       if (result.isConfirmed) {
-        Swal.fire('Pago informado', 'El pago del comprobante Nº ' + cbte.nroComprobante + ' se registró correctamente!', 'success');
+
+        this.pagoDTO.valor = cbte.importeTotal;
+        this.pagoDTO.idCobrador = 1;
+        this.pagoDTO.idComprobante = cbte.id;
+        this.pagoDTO.idSocio = cbte.socio.id;
+
+        this.pagoService.informarPago(this.pagoDTO).subscribe(
+          response => {
+            if (response.success){
+              this.success = true;
+              this.error = false;
+              this.loading = false;
+              cbte.pagado = true;
+              this.selectedValue.saldo = (parseFloat(this.saldo.substring(2)) + cbte.importeTotal); 
+              this.saldo  = '$ ' + this.selectedValue.saldo.toString();
+              Swal.fire(
+                'Informado!',
+                'El pago del comprobante ' + cbte.nroComprobante + ' fue realizado con éxito.',
+                'success'
+              );
+            }else{
+              this.loading = false;
+              this.error = true;
+              this.success = false;
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Se produjo un error. Intenta de nuevo.'
+              });
+              console.error(response.errores);
+            }
+          },
+          err => {
+            this.loading = false;
+            this.error = true;
+            this.success = false;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Se produjo un error. Intenta de nuevo.'
+            });
+          }
+        );
       }
     })
-
-    // Swal.fire({
-    //   title: 'Seleccione el cobrador',
-    //   input: 'select',
-    //   inputOptions: this.cobradores
-    // });
-
-    // console.log("CBTE: " + JSON.stringify(cbte));
-    // Swal.fire('Pago informado', 'El pago del comprobante Nº ' + cbte.nroComprobante + ' se registró correctamente!', 'success')
   }
 
   readComprobantes() {
-    if(!this.selectedSocio) {
+    if (!this.selectedSocio) {
       Swal.fire('Elija un socio', 'Seleccione un socio para recuperar sus comprobantes', 'error')
     } else {
       this.showTable = true;
@@ -209,12 +239,12 @@ export class InformarPagoComponent implements OnInit {
         this.spinner.hide();
       },
       error => {
-        if (error.status === 401){
+        if (error.status === 401) {
           console.log('ERROR', error);
-          this.router.navigate(['/'+PageEnum.AUTH]);
+          this.router.navigate(['/' + PageEnum.AUTH]);
           this.comprobantesDTO = [];
           this.error = true;
-        }else{
+        } else {
           console.log('ERROR', error);
           this.comprobantesDTO = [];
           this.error = true;

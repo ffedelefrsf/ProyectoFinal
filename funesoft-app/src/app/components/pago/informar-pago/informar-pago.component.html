@@ -32,21 +32,21 @@
                                             <div class="form-group">
                                                 <label for="dniLabel">Documento</label>
                                                 <input type="text" class="form-control" placeholder="DNI"
-                                                    value={{selectedValue.dni}} readonly>
+                                                value="{{selectedValue!=undefined ? selectedValue.dni : 'DNI'}}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="dniLabel">Plan</label>
                                                 <input type="text" class="form-control" placeholder="Plan"
-                                                    value={{selectedValue.tarifa.plan.descripcion}} readonly>
+                                                value="{{selectedValue!=undefined ? selectedValue.tarifa.plan.descripcion : 'Plan'}}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="dniLabel">Tarifa</label>
                                                 <input type="text" class="form-control" placeholder="Tarifa"
-                                                    value={{selectedValue.tarifa.descripcion}} readonly>
+                                                value="{{selectedValue!=undefined ? selectedValue.tarifa.descripcion : 'Tarifa'}}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
@@ -86,7 +86,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="alert alert-warning" role="alert" *ngIf="!(comprobantesDTO.length > 0) && showTable">
+                                    <div class="alert alert-warning" role="alert"
+                                        *ngIf="!(comprobantesDTO.length > 0) && showTable">
                                         Ups! No existen comprobantes para el socio seleccionado...
                                     </div>
 
@@ -131,8 +132,8 @@
                                                     <td>
                                                         {{ cbte.importeTotal }}
                                                     </td>
-                                                    <td class="text-danger"> 04/10/2020 </td>
-                                                    <!-- <td class="text-success"> 04/09/2020</td> -->
+                                                    <td class="text-danger"> {{ cbte.vencimiento }} </td>
+                                                    <!-- <td class="text-success"> 04/09/2020 </td> -->
                                                     <td>
                                                         <button type="button" class="btn btn-outline-primary btn-xs"
                                                             (click)="createPago(cbte)" *ngIf="!cbte.pagado">Informar

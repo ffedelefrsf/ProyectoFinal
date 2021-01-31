@@ -33,4 +33,6 @@ export enum EndpointEnum{
     GET_COMPROBANTES = '/comprobante/getAll',
     CREATE_OBRA_SOCIAL = '/obraSocial/insert',
     DELETE_OBRA_SOCIAL = '/obraSocial/delete',
+    CREATE_PAGO = '/pago/informarPago',
+    DELETE_TARIFA = '/tarifa/delete',
 }

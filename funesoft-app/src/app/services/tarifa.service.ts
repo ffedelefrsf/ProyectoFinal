@@ -21,4 +21,8 @@ export class TarifaService extends ApiService{
     return this.request(MethodEnum.POST, EndpointEnum.CREATE_TARIFA, null, tarifaDTO);
   }
 
+  deleteTarifa(tarifa: Tarifa): Observable<FunesoftResponseDTO<Tarifa>>{
+    return this.request(MethodEnum.POST, EndpointEnum.DELETE_TARIFA, null, tarifa);
+  }
+
 }

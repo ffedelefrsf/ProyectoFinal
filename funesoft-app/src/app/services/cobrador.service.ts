@@ -11,7 +11,7 @@ import { CobradorDTO } from '@app/dtos/cobrador.dto';
 @Injectable({
   providedIn: 'root'
 })
-export class CobradorService extends ApiService{
+export class CobradorService extends ApiService {
 
   getCobradores(cobrador: Cobrador): Observable<FunesoftResponseDTO<Cobrador>>{
     return this.request(MethodEnum.POST, EndpointEnum.GET_COBRADORES, null, cobrador);

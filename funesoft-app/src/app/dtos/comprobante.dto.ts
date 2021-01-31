@@ -6,5 +6,6 @@ export interface ComprobanteDTO{
     importeTotal: number,
     impreso: boolean,
     socio: Socio,
-    pagado: boolean
+    pagado: boolean,
+    vencimiento: string,
 }
