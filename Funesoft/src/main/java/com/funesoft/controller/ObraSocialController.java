@@ -6,11 +6,14 @@
 package com.funesoft.controller;
 
 import com.funesoft.model.ObraSocial;
+import com.funesoft.model.Zona;
 import com.funesoft.repository.ObraSocialRepository;
 import com.funesoft.utilities.BusinessException;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.constraints.NotNull;
+
+import com.funesoft.utilities.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
@@ -34,28 +37,24 @@ public class ObraSocialController {
         return obrasSociales;
     }
     
-    public ObraSocial insertObraSocial(@NotNull final ObraSocial obraSocial) throws BusinessException{
-        if (!obraSocialRepository.findById(obraSocial.getId()).isPresent()){
-            try{
-                return obraSocialRepository.save(obraSocial);
-            }catch(Exception exception){
-                throw new BusinessException(exception.getMessage());
-            }
-        }else{
-            throw new BusinessException("La tarifa especificada ya existe.");
+    public ObraSocial insertObraSocial(@NotNull final ObraSocial obraSocial) throws Exception{
+        try{
+            obraSocial.setUsuarioModifica(CurrentUser.getInstance());
+            obraSocial.setDescripcion(obraSocial.getDescripcion().toUpperCase());
+            return obraSocialRepository.save(obraSocial);
+        }catch(Exception exception){
+            throw new Exception(exception.getMessage());
         }
     }
     
     public ObraSocial updateObraSocial(@NotNull final ObraSocial obraSocial) throws BusinessException{
-        if (obraSocialRepository.findById(obraSocial.getId()).isPresent()){
-            try{
-                return obraSocialRepository.save(obraSocial);
-            }catch(Exception exception){
-                throw new BusinessException(exception.getMessage());
-            }
-        }else{
-            throw new BusinessException("La tarifa especificada no existe.");
+        Optional<ObraSocial> osUpdate = obraSocialRepository.findById(obraSocial.getId());
+        if(!osUpdate.isPresent()){
+            throw new BusinessException("La obra social especificada no existe");
         }
+        obraSocial.setDescripcion(obraSocial.getDescripcion().toUpperCase());
+        obraSocial.setUsuarioModifica(CurrentUser.getInstance());
+        return obraSocialRepository.save(obraSocial);
     }
     
     public ObraSocial deleteObraSocial(@NotNull final Integer idObraSocial) throws BusinessException{
@@ -69,7 +68,7 @@ public class ObraSocialController {
                 throw new BusinessException(exception.getMessage());
             }
         }else{
-            throw new BusinessException("La tarifa especificada no existe.");
+            throw new BusinessException("La obra social especificada no existe");
         }
     }
     

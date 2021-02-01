@@ -1,0 +1,48 @@
+<div class="container-scroller">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+        <app-side-menu></app-side-menu>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div id="alta-tarifas">
+                    <div class="col-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Nueva Obra Social</h4>
+
+                                <form class="forms-sample" [formGroup]="altaOsForm" (ngSubmit)="createOs()">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nombreLabel">Descripción</label>
+                                                <input type="text" class="form-control" placeholder="Descripción"
+                                                    formControlName="descripcion" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nombreLabel">Sepelio</label>
+                                                <input type="checkbox" style="width: auto;"
+                                                    class="form-control checkbox-inline mr-2 ml-2"
+                                                    formControlName="tiene_sepelio">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success mr-2">Agregar</button>
+                                    <button class="btn btn-light" href="#" (click)="onCancel()">Cancelar</button>
+                                    <br><br>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

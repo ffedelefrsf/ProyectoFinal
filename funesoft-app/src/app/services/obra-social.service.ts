@@ -16,4 +16,12 @@ export class ObraSocialService extends ApiService{
     return this.request(MethodEnum.POST, EndpointEnum.GET_OBRAS_SOCIALES, null, obraSocial);
   }
 
+  createObraSocial(obraSocial: ObraSocial): Observable<FunesoftResponseDTO<ObraSocial>>{
+    return this.request(MethodEnum.POST, EndpointEnum.CREATE_OBRA_SOCIAL, null, obraSocial);
+  }
+
+  deleteObraSocial(obraSocial: ObraSocial): Observable<FunesoftResponseDTO<ObraSocial>>{
+    return this.request(MethodEnum.POST, EndpointEnum.DELETE_OBRA_SOCIAL, null, obraSocial);
+  }
+
 }

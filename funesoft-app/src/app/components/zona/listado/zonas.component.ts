@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDropdownConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { Zona } from '@app/model/zona';
 import { ZonaService } from '@app/services/zona.service';
 import { PageEnum } from '@app/utils/page.enum';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-zonas-listado',
@@ -63,6 +63,44 @@ export class ZonasComponent implements OnInit {
     else {
       document.querySelector('.sidebar-offcanvas').classList.remove('active');
     }
+  }
+
+  
+
+  deleteZona(zona: Zona) {
+    Swal.fire({
+      title: 'Estás seguro?',
+      text: "Esta acción no se puede revertir",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, estoy seguro!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.zonaService.deleteZona(zona).subscribe(
+          response => {
+            if (response.success) {
+              this.zonasArray.splice(this.zonasArray.lastIndexOf(zona), 1);
+              Swal.fire(
+                'Eliminada!',
+                'La zona se ha eliminado.',
+                'success'
+              )
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'La zona no pudo ser eliminada',
+                footer: 'Puede que algún cliente la tenga asociada'
+              })
+            }
+          }
+        );
+
+      }
+    })
   }
 
 }

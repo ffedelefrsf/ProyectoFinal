@@ -26,6 +26,9 @@ import { ListadoAdherenteComponent } from './components/adherente/listado/listad
 import { ModificacionAdherenteComponent } from './components/adherente/modificacion/modificacion.component';
 import { BajaAdherenteComponent } from './components/adherente/baja/baja.component';
 import { DetalleAdherenteComponent } from './components/adherente/detalle/detalle.component';
+import { InformarPagoComponent } from './components/pago/informar-pago/informar-pago.component';
+import { ObraSocialListadoComponent } from './components/obra-social/obra-social-listado/obra-social-listado.component';
+import { ObraSocialAltaComponent } from './components/obra-social/obra-social-alta/obra-social-alta.component';
 
 const routes: Routes = [
 
@@ -52,7 +55,10 @@ const routes: Routes = [
   {path: PageEnum.ADHERENTE_LISTADO, component: ListadoAdherenteComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_MODIFICACION, component: ModificacionAdherenteComponent, canActivate: [AuthGuard]},
   {path: PageEnum.ADHERENTE_DETALLE, component: DetalleAdherenteComponent, canActivate: [AuthGuard]},
-  {path: PageEnum.ADHERENTE_BAJA, component: BajaAdherenteComponent, canActivate: [AuthGuard]}
+  {path: PageEnum.ADHERENTE_BAJA, component: BajaAdherenteComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.INFORMAR_PAGO, component: InformarPagoComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.OBRA_SOCIAL_LISTADO, component: ObraSocialListadoComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.OBRA_SOCIAL_ALTA, component: ObraSocialAltaComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

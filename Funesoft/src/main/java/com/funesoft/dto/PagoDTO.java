@@ -27,15 +27,11 @@ public class PagoDTO {
     @NotNull
     private Integer idComprobante;
 
-    @NotNull
-    private Integer idUsuario;
-
-    public PagoDTO(Double valor, Integer idSocio, Integer idCobrador, Integer idComprobante, Integer idUsuario) {
+    public PagoDTO(Double valor, Integer idSocio, Integer idCobrador, Integer idComprobante) {
         this.valor = valor;
         this.idSocio = idSocio;
         this.idCobrador = idCobrador;
         this.idComprobante = idComprobante;
-        this.idUsuario = idUsuario;
     }
 
 }

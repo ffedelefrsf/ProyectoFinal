@@ -52,6 +52,11 @@ import { AltaZonaComponent } from './components/zona/alta/alta-zona.component';
 import { CobradorListadoComponent } from '@app/components/cobrador/cobrador-listado/cobrador-listado.component';
 import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/cobrador-alta.component';
 import { HeaderComponent } from './components/header/header.component';
+import { InformarPagoComponent } from './components/pago/informar-pago/informar-pago.component';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ObraSocialAltaComponent } from './components/obra-social/obra-social-alta/obra-social-alta.component';
+import { ObraSocialListadoComponent } from './components/obra-social/obra-social-listado/obra-social-listado.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +102,10 @@ import { HeaderComponent } from './components/header/header.component';
     AltaZonaComponent,
     CobradorListadoComponent,
     CobradorAltaComponent,
-    HeaderComponent
+    HeaderComponent,
+    InformarPagoComponent,
+    ObraSocialAltaComponent,
+    ObraSocialListadoComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +113,9 @@ import { HeaderComponent } from './components/header/header.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers:  [AuthService, 
               ProvinciaService,
@@ -114,7 +124,8 @@ import { HeaderComponent } from './components/header/header.component';
                 provide: HTTP_INTERCEPTORS,
                 useClass: AuthInterceptor,
                 multi: true
-              }],
+              },
+              NgxSpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

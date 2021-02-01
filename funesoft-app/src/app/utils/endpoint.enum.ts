@@ -20,6 +20,7 @@ export enum EndpointEnum{
     GET_RANGOS_TARIFA = '/rangoTarifa/getRango',
     GET_ENFERMEDADES = '/enfermedad/getAll',
     CREATE_ZONA = '/zona/insert',
+    DELETE_ZONA = '/zona/delete',
     CREATE_ADHERENTE = '/adherente/insert',
     DELETE_ADHERENTE = '/adherente/delete',
     GET_ADHERENTES = '/adherente/getAll',
@@ -27,6 +28,12 @@ export enum EndpointEnum{
     EDIT_ADHERENTE = '/adherente/update',
     CREATE_TARIFA = '/tarifa/insert',
     GET_COBRADORES = '/cobrador/getAll',
+    GET_FECHA_COBERTURA = '/fechaCobertura/get',
+    DELETE_COBRADOR = '/cobrador/delete',
     CREATE_COBRADOR = '/cobrador/insert',
-    GET_FECHA_COBERTURA = '/fechaCobertura/get'
+    GET_COMPROBANTES = '/comprobante/getAll',
+    CREATE_OBRA_SOCIAL = '/obraSocial/insert',
+    DELETE_OBRA_SOCIAL = '/obraSocial/delete',
+    CREATE_PAGO = '/pago/informarPago',
+    DELETE_TARIFA = '/tarifa/delete',
 }

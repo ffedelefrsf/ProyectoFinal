@@ -7,37 +7,37 @@
                 <div id="listado-zonas">
                     <div class="card" *ngIf="!loading && !error">
                         <div class="card-body">
-                            <h4 class="card-title">Padrón de tarifas</h4>
+                            <h4 class="card-title">Padrón de obras sociales</h4>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Número de tarifa</th>
                                             <th>Descripción</th>
-                                            <th>Valor</th>
-                                            <th>Plan</th>
+                                            <th>Sepelio</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let tarifa of tarifasArray; let i = index">
-                                            <td>{{i + 1 }}</td>
-                                            <td>{{tarifa.nroTarifa}}</td>
-                                            <td>{{tarifa.descripcion}}</td>
-                                            <td>{{tarifa.valor}}</td>
-                                            <td>{{tarifa.plan.descripcion}}</td>
+                                        <tr *ngFor="let os of osArray">
+                                            <td>{{os.id}}</td>
+                                            <td>{{os.descripcion}}</td>
+                                            <td>
+                                                <label class="badge badge-success"
+                                                *ngIf="os.tiene_sepelio">SI</label>
+                                                <label class="badge badge-danger"
+                                                *ngIf="!os.tiene_sepelio">NO</label>
+                                            </td>
                                             <td>
                                                 <div ngbDropdown class="d-inline-block">
-                                                    <button class="btn btn-outline-primary" type="button"
+                                                    <button class="btn btn-outline-primary " type="button"
                                                         id="dropdownMenuOutlineButton1" ngbDropdownToggle>
                                                         Acciones
                                                     </button>
-                                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1">
-                                                        <a type="button" class="dropdown-header" (click)="verRangos(tarifa)">Ver rangos</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a type="button" class="dropdown-header" (click)="deleteTarifa(tarifa)">Dar de baja</a>
-                                                        <div class="dropdown-divider"></div>
+                                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1" style="margin-bottom: auto;">
+                                                        <!-- <a class="dropdown-header" href="#">Modificar</a>
+                                                        <div class="dropdown-divider"></div> -->
+                                                        <a class="dropdown-header dropup" (click)="deleteOs(os)">Dar de baja</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -46,9 +46,6 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
-                        Ha ocurrido un error, inténtelo más tarde.
                     </div>
                 </div>
                 <div class="spinner-border text-primary" role="status" *ngIf="loading">

@@ -1,50 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { CobradorService } from '@app/services/cobrador.service';
-import { Cobrador } from '@app/model/cobrador';
 import { Router } from '@angular/router';
+import { ObraSocial } from '@app/model/obraSocial';
+import { ObraSocialService } from '@app/services/obra-social.service';
 import { PageEnum } from '@app/utils/page.enum';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-cobrador-listado',
-  templateUrl: './cobrador-listado.component.html',
-  styleUrls: ['./cobrador-listado.component.scss']
+  selector: 'app-obra-social-listado',
+  templateUrl: './obra-social-listado.component.html',
+  styleUrls: ['./obra-social-listado.component.scss']
 })
-export class CobradorListadoComponent implements OnInit {
+export class ObraSocialListadoComponent implements OnInit {
 
   loading: boolean = false;
+  osArray: ObraSocial[];
   error: boolean = false;
-  cobradoresArray: Cobrador[];
+  success: boolean = false;
 
   constructor(
-    private cobradorService: CobradorService,
-    private router: Router,
-  ) { 
-    
-  }
+    private obraSocialService: ObraSocialService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    this.getCobradores();
+    this.getObrasSociales();
   }
 
-  getCobradores(){
+  getObrasSociales() {
     this.loading = true;
-    let cobrador: Cobrador = {
+    let os: ObraSocial = {
       id: null,
     };
-    this.cobradorService.getCobradores(cobrador).subscribe(
+    this.obraSocialService.getObrasSociales(os).subscribe(
       response => {
-        this.cobradoresArray = response.data;
+        this.osArray = response.data;
         this.error = false;
       },
       error => {
-        if (error.status === 401){
-          this.router.navigate(['/'+PageEnum.AUTH]);
-          this.cobradoresArray = [];
+        if (error.status === 401) {
+          this.router.navigate(['/' + PageEnum.AUTH]);
+          this.osArray = [];
           this.error = true;
-        }else{
+        } else {
           console.log('ERROR', error);
-          this.cobradoresArray = [];
+          this.osArray = [];
           this.error = true;
         }
       },
@@ -54,7 +53,8 @@ export class CobradorListadoComponent implements OnInit {
     );
   }
 
-  deleteCobrador(cobrador: Cobrador) {
+  deleteOs(os: ObraSocial) {
+
     Swal.fire({
       title: 'Estás seguro?',
       text: "Esta acción no se puede revertir",
@@ -65,28 +65,30 @@ export class CobradorListadoComponent implements OnInit {
       confirmButtonText: 'Si, estoy seguro!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.cobradorService.deleteCobrador(cobrador).subscribe(
+
+        this.obraSocialService.deleteObraSocial(os).subscribe(
           response => {
-            debugger
             if (response.success) {
-              this.cobradoresArray.splice(this.cobradoresArray.lastIndexOf(cobrador), 1);
+              this.osArray.splice(this.osArray.lastIndexOf(os), 1);
               Swal.fire(
-                'Eliminado!',
-                'El cobrador se ha eliminado.',
+                'Eliminada!',
+                'La obra social se ha eliminado.',
                 'success'
               )
             } else {
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'El cobrador no pudo ser eliminado',
-                footer: 'Puede que alguna zona lo tenga asociado'
+                text: 'La obra social no pudo ser eliminada',
+                footer: 'Puede que algún cliente la tenga asociada'
               })
             }
           }
         );
+
       }
     })
+
   }
 
 }

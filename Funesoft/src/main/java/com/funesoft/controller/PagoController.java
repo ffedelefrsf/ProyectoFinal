@@ -29,6 +29,7 @@ public class PagoController {
     public Pago informarPago(PagoDTO pagoDTO) throws BusinessException {
 
         Pago pago = new Pago(pagoDTO);
+        pago.setUsuarioModifica(CurrentUser.getInstance());
 
         //INCREMENTO EL SALDO DEL SOCIO
         Optional<Socio> socio = socioRepository.findById(pago.getSocio().getId());
@@ -57,7 +58,11 @@ public class PagoController {
 
         socioRepository.save(socio.get());
         return pagoRepository.save(pago);
+    }
 
+    public Boolean isPagado(Comprobante comprobante){
+        if(pagoRepository.findComprobante(comprobante.getId()).isPresent()) return true;
+        return false;
     }
 
 }

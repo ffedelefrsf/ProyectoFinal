@@ -82,13 +82,6 @@ public class Pago implements Serializable {
             cbte.setId(dto.getIdComprobante());
             this.comprobante = cbte;
         }
-
-        if(dto.getIdUsuario() != null){
-            final Usuario user = new Usuario();
-            user.setId(dto.getIdUsuario());
-            this.usuarioModifica = user;
-        }
-
     }
 
     @Override

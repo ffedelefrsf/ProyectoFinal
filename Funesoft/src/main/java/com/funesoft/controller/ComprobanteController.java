@@ -1,5 +1,6 @@
 package com.funesoft.controller;
 
+import com.funesoft.dto.ComprobanteDTO;
 import com.funesoft.model.*;
 import com.funesoft.repository.*;
 import com.funesoft.utilities.BusinessException;
@@ -7,6 +8,7 @@ import com.funesoft.utilities.CurrentUser;
 import net.sf.jasperreports.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Example;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -18,6 +20,7 @@ import java.io.*;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -46,6 +49,13 @@ public class ComprobanteController {
 
     @Autowired
     private AdherenteRepository adherenteRepository;
+
+    @Autowired
+    private PagoRepository pagoRepository;
+
+    @Autowired
+    private PagoController pagoController;
+
 
     public List<Comprobante> generarComprobantesMasivos() throws BusinessException, ExecutionException, InterruptedException {
 
@@ -203,6 +213,30 @@ public class ComprobanteController {
 
         return comprobanteRepository.saveAll(listImpresos);
 
+    }
+
+    public List<ComprobanteDTO> getAll(Comprobante comprobante) {
+        List<Comprobante> cbtes = comprobanteRepository.findAll(Example.of(comprobante));
+        List<ComprobanteDTO> cbtesDTO = new ArrayList<>();
+
+        for (Comprobante item: cbtes) {
+            ComprobanteDTO dto = new ComprobanteDTO();
+            dto.setId(item.getId());
+            dto.setImporteTotal(item.getImporteTotal());
+            dto.setImpreso(item.getImpreso());
+            dto.setNroComprobante(item.getNroComprobante());
+            dto.setPagado(pagoController.isPagado(item));
+            dto.setSocio(item.getSocio());
+            dto.setVencimiento(getVencimiento(item));
+            cbtesDTO.add(dto);
+        }
+
+        return cbtesDTO;
+    }
+
+    public String getVencimiento(Comprobante comprobante) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(new Date("01/09/1995"));
     }
 
 }

@@ -137,6 +137,6 @@
   },
   "defaultProject": "star-admin-angular",
   "cli": {
-    "analytics": "3641a86a-d682-4f44-8c01-88ef3668cdd5"
+    "analytics": false
   }
 }

@@ -31,5 +31,5 @@ public interface SocioRepository extends JpaRepository<Socio, Integer>{
     List<Socio> findAllActivo();
     
     @Query("SELECT dni FROM Socio ORDER BY dni DESC")
-    public List<String> findDniByOrderByDniDesc();
+    List<String> findDniByOrderByDniDesc();
 }

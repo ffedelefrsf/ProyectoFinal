@@ -20,5 +20,8 @@ export enum PageEnum{
     RANGOS_TARIFA = 'rangos',
     ZONA_ALTA = 'zona/alta',
     COBRADOR_LISTADO = 'cobrador',
-    COBRADOR_ALTA = 'cobrador/alta'
+    COBRADOR_ALTA = 'cobrador/alta',
+    INFORMAR_PAGO = 'pago/informar',
+    OBRA_SOCIAL_LISTADO = 'obra-social',
+    OBRA_SOCIAL_ALTA = 'obra-social/alta',
 }

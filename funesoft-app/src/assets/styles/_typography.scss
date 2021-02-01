@@ -114,10 +114,9 @@ $value in $theme-colors {
 .card-title {
   font-family: $type-2;
   font-weight: 500;
-  color: #404852;
-  margin-bottom: 22px;
+  color: #404852; 
+  margin-bottom: 8px;
   font-size: 14px;
-  text-transform: capitalize;
   .rtl & {
     text-align: right;
   }
