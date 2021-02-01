@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<app-header *ngIf="router.url !== '/auth'"></app-header>
+<div class="container-scroller" [style.height]="router.url === '/auth' ? '100%' : null">
+    <app-navbar *ngIf="router.url !== '/auth'"></app-navbar>
+    <div class="container-fluid page-body-wrapper" [style.paddingTop]="router.url === '/auth' ? '0px' : null" [style.height]="router.url === '/auth' ? '100%' : null">
+        <app-side-menu *ngIf="router.url !== '/auth'"></app-side-menu>
+        <div class="main-panel" style="width: 100%;">
+            <div class="content-wrapper">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer *ngIf="router.url !== '/auth'"></app-footer>

@@ -5,6 +5,7 @@
  */
 package com.funesoft.dto;
 
+import com.sun.istack.Nullable;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -73,5 +74,8 @@ public class AdherenteDTO {
     
     @NotNull
     private Integer idEnfermedad;
+    
+    @Nullable
+    private Date fechaCobertura;
     
 }

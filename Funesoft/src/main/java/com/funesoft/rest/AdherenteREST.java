@@ -61,7 +61,7 @@ public class AdherenteREST {
     @ApiOperation(value = "Inserta un adherente", response = AdherenteDTO.class)
     public FunesoftResponseDTO insertAdherente(@Valid @RequestBody AdherenteDTO adherenteDTO) {
         try {
-            return new FunesoftResponseDTO(true, adherenteController.insertSocio(adherenteDTO), null, null);
+            return new FunesoftResponseDTO(true, adherenteController.insertAdherente(adherenteDTO), null, null);
         } catch (Exception e) {
             return new FunesoftResponseDTO(false, null, "Error al insertar el adherente - DNI: " + adherenteDTO.getDni(),e);
         }

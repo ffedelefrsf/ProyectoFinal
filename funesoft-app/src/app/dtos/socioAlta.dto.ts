@@ -1,3 +1,5 @@
+import { AdherenteAltaDTO } from './adherenteAlta.dto';
+
 export interface SocioAltaDTO{
     dni?: number,
     apellido?: string,
@@ -13,5 +15,6 @@ export interface SocioAltaDTO{
     idZona?: number,
     idLocalidad?: number,
     idObraSocial?: number,
-    idEnfermedad?: number
+    idEnfermedad?: number,
+    adherentesAltaDTO?: AdherenteAltaDTO[]
 }

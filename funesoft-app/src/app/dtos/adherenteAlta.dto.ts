@@ -11,5 +11,6 @@ export interface AdherenteAltaDTO{
     idLocalidad?: number,
     idObraSocial?: number,
     idEnfermedad?: number,
-    idSocio?: number
+    idSocio?: number,
+    fechaCobertura?: Date
 }

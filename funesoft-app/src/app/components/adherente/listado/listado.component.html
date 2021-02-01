@@ -1,81 +1,74 @@
-<div class="container-scroller">
-    <app-navbar></app-navbar>
-    <div class="container-fluid page-body-wrapper">
-        <app-side-menu></app-side-menu>
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div id="listado-adherentes">
-                    <div class="card">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 id="custom-title" class="card-title">Padrón de adherentes</h4>
-                            </div>
-                            <div id="custom-typehead" class="col-md-6">
-                              <input id="typeahead-basic" type="text" class="form-control" placeholder="DNI socio" [(ngModel)]="typeaheadBasicModel" [ngbTypeahead]="search" (input)="onSearchChange($event.target.value)" (selectItem)="onSearchChange($event.item)"/>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div id="table-list" class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Número de documento</th>
-                                            <th>Apellido</th>
-                                            <th>Nombre</th>
-                                            <th>Socio DNI</th>
-                                            <th>Estado</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let adherente of adherenteArray">
-                                            <td>{{adherente.dni}}</td>
-                                            <td>{{adherente.apellido}}</td>
-                                            <td>{{adherente.nombre}}</td>
-                                            <td>{{adherente.socio.dni}}</td>
-                                            <td>
-                                                <label class="badge badge-danger"
-                                                    *ngIf="adherente.estado.nroEstado === 2">{{adherente.estado.descripcion}}</label>
-                                                <label class="badge badge-success"
-                                                    *ngIf="adherente.estado.nroEstado === 1">{{adherente.estado.descripcion}}</label>
-                                            </td>
-                                            <td>
-                                                <!-- <i class="fa fa-search fa-lg" routerLink="/socio/alta" [state]="{ example: 'data' }" routerLinkActive="active"></i>
+<div id="listado-adherentes">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 id="custom-title" class="card-title">Padrón de adherentes</h4>
+            </div>
+            <div id="custom-typehead" class="col-md-6">
+                <input id="typeahead-basic" type="text" class="form-control" placeholder="DNI socio"
+                    [(ngModel)]="typeaheadBasicModel" [ngbTypeahead]="search"
+                    (input)="onSearchChange($event.target.value)" (selectItem)="onSearchChange($event.item)" />
+            </div>
+        </div>
+        <div class="card-body">
+            <div id="table-list" class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Número de documento</th>
+                            <th>Apellido</th>
+                            <th>Nombre</th>
+                            <th>Socio DNI</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let adherente of adherenteArray">
+                            <td>{{adherente.dni}}</td>
+                            <td>{{adherente.apellido}}</td>
+                            <td>{{adherente.nombre}}</td>
+                            <td>{{adherente.socio.dni}}</td>
+                            <td>
+                                <label class="badge badge-danger"
+                                    *ngIf="adherente.estado.nroEstado === 2">{{adherente.estado.descripcion}}</label>
+                                <label class="badge badge-success"
+                                    *ngIf="adherente.estado.nroEstado === 1">{{adherente.estado.descripcion}}</label>
+                            </td>
+                            <td>
+                                <!-- <i class="fa fa-search fa-lg" routerLink="/socio/alta" [state]="{ example: 'data' }" routerLinkActive="active"></i>
                             <i class="fa fa-edit fa-lg" (click)="editSocio(socio)"></i>
                             <i class="fa fa-plus-square fa-lg" *ngIf="socio.estado.nroEstado === 0" routerLink="/icons" routerLinkActive="active"></i>
                             <i class="fa fa-minus-square fa-lg" *ngIf="socio.estado.nroEstado === 1" routerLink="/icons" routerLinkActive="active"></i>
  -->
-                                                <div ngbDropdown class="d-inline-block">
-                                                    <button class="btn btn-outline-primary" type="button"
-                                                        id="dropdownMenuOutlineButton1" ngbDropdownToggle>
-                                                        Acciones
-                                                    </button>
-                                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1">
-                                                        <a type="button" class="dropdown-header" (click)="detalleAdherente(adherente)">Información</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a type="button" class="dropdown-header" (click)="deleteAdherente(adherente)">Dar de baja</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a type="button" class="dropdown-header" (click)="editAdherente(adherente)">Modificar</a>
-                                                    </div>
-                                                </div>
+                                <div ngbDropdown class="d-inline-block">
+                                    <button class="btn btn-outline-primary" type="button"
+                                        id="dropdownMenuOutlineButton1" ngbDropdownToggle>
+                                        Acciones
+                                    </button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1">
+                                        <a type="button" class="dropdown-header"
+                                            (click)="detalleAdherente(adherente)">Información</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a type="button" class="dropdown-header"
+                                            (click)="deleteAdherente(adherente)">Dar de baja</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a type="button" class="dropdown-header"
+                                            (click)="editAdherente(adherente)">Modificar</a>
+                                    </div>
+                                </div>
 
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
-                        Ha ocurrido un error, inténtelo más tarde.
-                    </div>
-                </div>
-                <div class="spinner-border text-primary" role="status" *ngIf="loading">
-                    <span class="sr-only">Loading...</span>
-                </div>
-
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <app-footer></app-footer>
         </div>
     </div>
+    <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
+        Ha ocurrido un error, inténtelo más tarde.
+    </div>
+</div>
+<div class="spinner-border text-primary" role="status" *ngIf="loading">
+    <span class="sr-only">Loading...</span>
 </div>

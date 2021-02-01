@@ -24,6 +24,8 @@ import { EnfermedadService } from '@app/services/enfermedad.service';
 import { FechaCoberturaComponent } from './fecha-cobertura/fecha-cobertura.component';
 import { PlanService } from '@app/services/plan.service';
 import { Plan } from '@app/model/plan';
+import { PlanesEnum } from '@app/utils/planes.enum';
+import { AdherenteAltaDTO } from '@app/dtos/adherenteAlta.dto';
 
 @Component({
   selector: 'app-alta',
@@ -42,9 +44,11 @@ export class AltaSocioComponent implements OnInit {
   localidades: Localidad[];
   obrasSociales: ObraSocial[];
   tarifas: Tarifa[];
+  planConAdherentes: boolean;
   planes: Plan[];
   enfermedades: Enfermedad[];
   altaSocioForm: FormGroup;
+  adherentesToInsert: AdherenteAltaDTO[] = [];
   currentYear: number;
   currentMonth: number;
   currentDay: number;
@@ -91,6 +95,10 @@ export class AltaSocioComponent implements OnInit {
       plan: this.formBuilder.control('', [Validators.required]),
       enfermedad: this.formBuilder.control('SIN ENFERMEDAD', [Validators.required])
     });
+
+    this.altaSocioForm.statusChanges
+    .filter(s => s == 'VALID')
+    .subscribe(val => this.onValid());
 
     var provincia: Provincia = {};
     this.provinciaService.getProvincias(provincia).subscribe(
@@ -179,26 +187,30 @@ export class AltaSocioComponent implements OnInit {
     );
   }
 
+  onValid() {
+    var socioForm : Socio = this.altaSocioForm.getRawValue();
+    this.socioToInsert.nombre = socioForm.nombre;
+    this.socioToInsert.apellido = socioForm.apellido;
+    this.socioToInsert.dni = socioForm.dni;
+    this.socioToInsert.direccion = socioForm.direccion;
+    this.socioToInsert.email = socioForm.email;
+    this.socioToInsert.fechaNacimiento = socioForm.fechaNacimiento;
+    this.socioToInsert.telefono = socioForm.telefono;
+    this.socioToInsert.sexo = socioForm.sexo;
+    var estado: Estado = {
+      id: 1,
+      nroEstado: 1,
+      descripcion: 'ALTA'
+    };
+    this.socioToInsert.fechaNacimiento = new Date(socioForm.fechaNacimiento['year'] + '-' + socioForm.fechaNacimiento['month'] + '-' + socioForm.fechaNacimiento['day']);
+    this.socioToInsert.saldo = 0;
+    this.socioToInsert.idEnfermedad = this.socioToInsert.idEnfermedad == null ? this.enfermedades[0].id : this.socioToInsert.idEnfermedad;
+    this.socioToInsert.adherentesAltaDTO = this.adherentesToInsert;
+    console.log(this.socioToInsert);
+  }
+
   createSocio(){
     if (!this.altaSocioForm.invalid){
-      var socioForm : Socio = this.altaSocioForm.getRawValue();
-      this.socioToInsert.nombre = socioForm.nombre;
-      this.socioToInsert.apellido = socioForm.apellido;
-      this.socioToInsert.dni = socioForm.dni;
-      this.socioToInsert.direccion = socioForm.direccion;
-      this.socioToInsert.email = socioForm.email;
-      this.socioToInsert.fechaNacimiento = socioForm.fechaNacimiento;
-      this.socioToInsert.telefono = socioForm.telefono;
-      this.socioToInsert.sexo = socioForm.sexo;
-      var estado: Estado = {
-        id: 1,
-        nroEstado: 1,
-        descripcion: 'ALTA'
-      };
-      this.socioToInsert.fechaNacimiento = new Date(socioForm.fechaNacimiento['year'] + '-' + socioForm.fechaNacimiento['month'] + '-' + socioForm.fechaNacimiento['day']);
-      this.socioToInsert.saldo = 0;
-      this.socioToInsert.idEnfermedad = this.socioToInsert.idEnfermedad == null ? this.enfermedades[0].id : this.socioToInsert.idEnfermedad;
-      console.log(this.socioToInsert);
       this.socioService.createSocio(this.socioToInsert).subscribe(
         response => {
           if (response.success){
@@ -227,6 +239,11 @@ export class AltaSocioComponent implements OnInit {
     }
   }
 
+  adherenteAgregado(event: AdherenteAltaDTO){
+    this.adherentesToInsert.push(event);
+    console.log('this.adherentesToInsert', this.adherentesToInsert);
+  }
+
   updateProvincias(event: any){
     var idProvincia = this.provincias[event.target.selectedIndex].id;
     var localidad: Localidad = {provincia: {id: idProvincia}};
@@ -253,9 +270,15 @@ export class AltaSocioComponent implements OnInit {
   }
 
   updatePlan(event: any){
+    var selectedIdPlan: number = this.planes[event.target.selectedIndex].id;
+    if (selectedIdPlan === PlanesEnum.FAMILIAR || selectedIdPlan === PlanesEnum.TITULAR_Y_ADHERENTE) {
+      this.planConAdherentes = true;
+    } else {
+      this.planConAdherentes = false;
+    }
     var tarifa: Tarifa = {
       plan: {
-        id: this.planes[event.target.selectedIndex].id
+        id: selectedIdPlan
       }
     };
     this.tarifaService.getTarifas(tarifa).subscribe(

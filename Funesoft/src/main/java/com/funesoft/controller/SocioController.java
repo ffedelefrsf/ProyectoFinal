@@ -5,6 +5,7 @@
  */
 package com.funesoft.controller;
 
+import com.funesoft.dto.AdherenteDTO;
 import com.funesoft.dto.SocioBajaDTO;
 import com.funesoft.dto.SocioDTO;
 import com.funesoft.model.*;
@@ -28,6 +29,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.NotNull;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  *
@@ -35,6 +37,9 @@ import javax.validation.constraints.NotNull;
  */
 @Controller
 public class SocioController {
+    
+    @Autowired
+    private AdherenteController adherenteController;
     
     @Autowired
     private SocioRepository socioRepository;
@@ -62,14 +67,26 @@ public class SocioController {
     public Socio insertSocio (@NotNull SocioDTO socioDTO){
 
         Socio socio = new Socio(socioDTO);
-        
+                
         //CALCULO LA COBERTURA
         socio.setFechaCobertura(coberturaController.calculoCobertura(socio));
 
         socio.setUsuarioModifica(CurrentUser.getInstance());
         socio.setEstado(estadoRepository.findByNroEstado(EstadoEnum.ALTA.getCodigo()));
 
-        return socioRepository.save(socio);
+        socio = socioRepository.save(socio);
+        
+        final Integer idSocio = socio.getId();
+        final List<AdherenteDTO> adherentesDTO = socioDTO.getAdherentesAltaDTO();
+        if (CollectionUtils.isNotEmpty(adherentesDTO)) {
+            adherentesDTO.forEach(adherenteDTO -> {
+                    adherenteDTO.setIdSocio(idSocio);
+                    adherenteController.insertAdherente(adherenteDTO);
+                }
+            );
+        }
+        
+        return socio;
     }
 
     public Socio updateSocio (@NotNull Socio socio) throws BusinessException {

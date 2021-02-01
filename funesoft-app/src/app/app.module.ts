@@ -51,6 +51,7 @@ import { ModificacionAdherenteComponent } from './components/adherente/modificac
 import { AltaZonaComponent } from './components/zona/alta/alta-zona.component';
 import { CobradorListadoComponent } from '@app/components/cobrador/cobrador-listado/cobrador-listado.component';
 import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/cobrador-alta.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { CobradorAltaComponent } from '@app/components/cobrador/cobrador-alta/co
     ModificacionAdherenteComponent,
     AltaZonaComponent,
     CobradorListadoComponent,
-    CobradorAltaComponent
+    CobradorAltaComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

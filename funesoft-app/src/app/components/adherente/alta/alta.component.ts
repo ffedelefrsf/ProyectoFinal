@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
@@ -27,9 +27,11 @@ import { Plan } from '@app/model/plan';
 import { Adherente } from '@app/model/adherente';
 import { AdherenteService } from '@app/services/adherente.service';
 import { AdherenteAltaDTO } from '@app/dtos/adherenteAlta.dto';
+import { FechaCoberturaService } from '@app/services/fecha-cobertura.service';
+import { FechaCoberturaGetRequestDTO } from '@app/dtos/fechaCoberturaGetRequest.dto';
 
 @Component({
-  selector: 'app-alta',
+  selector: 'app-alta-adherente',
   templateUrl: './alta.component.html',
   styleUrls: ['./alta.component.scss']
 })
@@ -51,6 +53,10 @@ export class AltaAdherenteComponent implements OnInit {
   currentMonth: number;
   currentDay: number;
 
+  @Input() socioInput: Socio;
+
+  @Output() datosAdherenteAgregado = new EventEmitter<AdherenteAltaDTO>();
+
   constructor(private router: Router,
     private provinciaService: ProvinciaService,
     private localidadService: LocalidadService,
@@ -59,6 +65,7 @@ export class AltaAdherenteComponent implements OnInit {
     private socioService: SocioService,
     private enfermedadService: EnfermedadService,
     private adherenteService: AdherenteService,
+    private fechaCoberturaService: FechaCoberturaService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     config: NgbDropdownConfig,
@@ -74,7 +81,7 @@ export class AltaAdherenteComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-
+    console.log('socioInput', this.socioInput);
     this.altaAdherenteForm = this.formBuilder.group({
       nombre: this.formBuilder.control('', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-z-ñ A-Z-Ñ]*')]),
       apellido: this.formBuilder.control('', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-z-ñ A-Z-Ñ]*')]),
@@ -89,8 +96,12 @@ export class AltaAdherenteComponent implements OnInit {
       provincia: this.formBuilder.control('ENTRE RÍOS', [Validators.required]),
       obraSocial: this.formBuilder.control('', [Validators.required]),
       enfermedad: this.formBuilder.control('SIN ENFERMEDAD', [Validators.required]),
-      socio: this.formBuilder.control('', [Validators.required])
+      socio: this.formBuilder.control(this.socioInput ? this.socioInput : '', [Validators.required]),
+      fechaCobertura: this.formBuilder.control('', [Validators.required])
     });
+    var fechaCobertura: Date = new Date();
+    var fechaCoberturaForDatePicker = {year: fechaCobertura.getFullYear(), month: fechaCobertura.getMonth()+1, day: fechaCobertura.getDate()+1};
+    this.altaAdherenteForm.get('fechaCobertura').setValue(fechaCoberturaForDatePicker);
 
     var provincia: Provincia = {};
     this.provinciaService.getProvincias(provincia).subscribe(
@@ -112,25 +123,31 @@ export class AltaAdherenteComponent implements OnInit {
                       this.enfermedadService.getEnfermedades(enfermedad).subscribe(
                         enfermedadResponse => {
                           this.enfermedades = enfermedadResponse.data;
-                          let socio: Socio = {};
-                          this.socioService.getSocios(socio).subscribe(
-                            sociosResponse => {
-                              this.socios = sociosResponse.data;
-                              this.error = false;
-                              this.loading = false;
-                            },
-                            error => {
-                              if (error.status === 401){
-                                this.router.navigate(['/'+PageEnum.AUTH]);
-                                this.error = true;
+                          if (!this.socioInput) {
+                            let socio: Socio = {};
+                            this.socioService.getSocios(socio).subscribe(
+                              sociosResponse => {
+                                this.socios = sociosResponse.data;
+                                this.error = false;
                                 this.loading = false;
-                              }else{
-                                console.log('ERROR', error);
-                                this.error = true;
-                                this.loading = false;
+                              },
+                              error => {
+                                if (error.status === 401){
+                                  this.router.navigate(['/'+PageEnum.AUTH]);
+                                  this.error = true;
+                                  this.loading = false;
+                                }else{
+                                  console.log('ERROR', error);
+                                  this.error = true;
+                                  this.loading = false;
+                                }
                               }
-                            }
-                          );
+                            );
+                          } else {
+                            this.socios = [this.socioInput]
+                            this.error = false;
+                            this.loading = false;
+                          }
                         },
                         errorEnfermedad => {
                           if (errorEnfermedad.status === 401){
@@ -202,31 +219,36 @@ export class AltaAdherenteComponent implements OnInit {
       this.adherenteToInsert.fechaNacimiento = new Date(adherenteForm.fechaNacimiento['year'] + '-' + adherenteForm.fechaNacimiento['month'] + '-' + adherenteForm.fechaNacimiento['day']);
       this.adherenteToInsert.idEnfermedad = this.adherenteToInsert.idEnfermedad == null ? this.enfermedades[0].id : this.adherenteToInsert.idEnfermedad;
       console.log(this.adherenteToInsert);
-      this.adherenteService.createAdherente(this.adherenteToInsert).subscribe(
-        response => {
-          if (response.success){
-            
-            this.error = false;
-            this.loading = false;
-            const modalRef = this.modalService.open(FechaCoberturaComponent, { size: 'xl' });
-            modalRef.componentInstance.adherente = response.data;
-            modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
-              if (receivedEntry)
-                this.success = true;
-                this.error = false;
-            });
-          }else{
+      if (this.socioInput) {
+        this.adherenteToInsert.fechaCobertura = new Date(adherenteForm.fechaCobertura['year'] + '-' + adherenteForm.fechaCobertura['month'] + '-' + adherenteForm.fechaCobertura['day']);
+        this.datosAdherenteAgregado.emit(this.adherenteToInsert);
+      } else {
+        this.adherenteService.createAdherente(this.adherenteToInsert).subscribe(
+          response => {
+            if (response.success){
+              
+              this.error = false;
+              this.loading = false;
+              const modalRef = this.modalService.open(FechaCoberturaComponent, { size: 'xl' });
+              modalRef.componentInstance.adherente = response.data;
+              modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
+                if (receivedEntry)
+                  this.success = true;
+                  this.error = false;
+              });
+            }else{
+              this.loading = false;
+              this.error = true;
+              this.success = false;
+            }
+          },
+          err => {
             this.loading = false;
             this.error = true;
             this.success = false;
           }
-        },
-        err => {
-          this.loading = false;
-          this.error = true;
-          this.success = false;
-        }
-      );
+        );
+      }
     }
   }
 
@@ -261,10 +283,32 @@ export class AltaAdherenteComponent implements OnInit {
 
   updateEnfermedad(event: any){
     this.adherenteToInsert.idEnfermedad = this.enfermedades[event.target.selectedIndex].id;
+    this.updateFechaCobertura();
   }
 
   updateSocio(event: any){
     this.adherenteToInsert.idSocio = this.socios[event.target.selectedIndex].id;
+  }
+
+  updateFechaNacimiento(event: any){
+    this.updateFechaCobertura();
+  }
+
+  updateFechaCobertura(){
+    var adherenteForm : Adherente = this.altaAdherenteForm.getRawValue();
+    var newFechaNacimiento: Date = new Date(adherenteForm.fechaNacimiento['year'] + '-' + adherenteForm.fechaNacimiento['month'] + '-' + adherenteForm.fechaNacimiento['day']);
+    var fechaCoberturaGetRequestDTO: FechaCoberturaGetRequestDTO = {
+      fechaNacimientoAsociado: newFechaNacimiento,
+      idEnfermedadAsociado: this.adherenteToInsert.idEnfermedad ? this.adherenteToInsert.idEnfermedad : this.enfermedades[0].id
+    }
+    this.fechaCoberturaService.getFechaCobertura(fechaCoberturaGetRequestDTO).subscribe(
+      response => {
+        this.adherenteToInsert.fechaCobertura = response.data['fechaCobertura'];
+        var fechaCobertura: Date = new Date(this.adherenteToInsert.fechaCobertura);
+        var fechaCoberturaForDatePicker = {year: fechaCobertura.getFullYear(), month: fechaCobertura.getMonth()+1, day: fechaCobertura.getDate()+1};
+        this.altaAdherenteForm.get('fechaCobertura').setValue(fechaCoberturaForDatePicker);
+      }
+    );
   }
 
   onCancel(){

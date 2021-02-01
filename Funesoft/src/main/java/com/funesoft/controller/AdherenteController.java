@@ -54,12 +54,16 @@ public class AdherenteController {
     @Autowired
     private AdherenteBajaRepository adherenteBajaRepository;
     
-    public Adherente insertSocio (@NotNull AdherenteDTO adherenteDTO){
+    public Adherente insertAdherente (@NotNull AdherenteDTO adherenteDTO){
 
         final Adherente adherente = new Adherente(adherenteDTO);
         
-        //CALCULO LA COBERTURA
-        adherente.setFechaCobertura(coberturaController.calculoCobertura(adherente));
+        if (adherenteDTO.getFechaCobertura() == null) {
+            //CALCULO LA COBERTURA
+            adherente.setFechaCobertura(coberturaController.calculoCobertura(adherente));
+        } else {
+            adherente.setFechaCobertura(adherenteDTO.getFechaCobertura());
+        }
 
         adherente.setUsuarioModifica(CurrentUser.getInstance());
         adherente.setEstado(estadoRepository.findByNroEstado(EstadoEnum.ALTA.getCodigo()));
@@ -126,6 +130,10 @@ public class AdherenteController {
             adherenteRepository.save(adherente);
         }
         return adherentes;
+    }
+    
+    public List<Adherente> insertAll(final List<Adherente> adherentesToInsert) {
+        return adherenteRepository.saveAll(adherentesToInsert);
     }
     
 }

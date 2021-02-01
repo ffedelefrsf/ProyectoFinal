@@ -1,260 +1,251 @@
-<div class="container-scroller">
-    <app-navbar></app-navbar>
-    <div class="container-fluid page-body-wrapper">
-        <app-side-menu></app-side-menu>
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div id="alta-adherentes">
-                    <div class="card" *ngIf="!loading">
-                        <div class="card-body">
-                            <h4 class="card-title">Nuevo adherente</h4>
-                            <form class="form-sample" [formGroup]="altaAdherenteForm" (ngSubmit)="createAdherente()">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Nombre</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" placeholder="Nombre"
-                                                    formControlName="nombre" value=""
-                                                    [style.border]="altaAdherenteForm.controls['nombre'].errors && altaAdherenteForm.controls['nombre'].touched ? '1px solid red' : null"
-                                                    maxlength="100" />
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="El nombre ingresado es incorrecto"
-                                                    *ngIf="altaAdherenteForm.controls['nombre'].errors && altaAdherenteForm.controls['nombre'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Apellido</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" placeholder="Apellido"
-                                                    formControlName="apellido" value=""
-                                                    [style.border]="altaAdherenteForm.controls['apellido'].errors && altaAdherenteForm.controls['apellido'].touched ? '1px solid red' : null"
-                                                    maxlength="100" />
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="El apellido ingresado es incorrecto"
-                                                    *ngIf="altaAdherenteForm.controls['apellido'].errors && altaAdherenteForm.controls['apellido'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Número de documento</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Número de documento" formControlName="dni" value=""
-                                                    [style.border]="altaAdherenteForm.controls['dni'].errors && altaAdherenteForm.controls['dni'].touched ? '1px solid red' : null"
-                                                    maxlength="8" />
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="El número de documento ingresado es incorrecto"
-                                                    *ngIf="altaAdherenteForm.controls['dni'].errors && altaAdherenteForm.controls['dni'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Email</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" placeholder="Email"
-                                                    formControlName="email" value=""
-                                                    [style.border]="altaAdherenteForm.controls['email'].errors && altaAdherenteForm.controls['email'].touched ? '1px solid red' : null"
-                                                    maxlength="100" />
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="El email ingresado es incorrecto"
-                                                    *ngIf="altaAdherenteForm.controls['email'].errors && altaAdherenteForm.controls['email'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Sexo</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" formControlName="sexo">
-                                                    <option>Masculino</option>
-                                                    <option>Femenino</option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle" title="Debe seleccionar un sexo"
-                                                    *ngIf="altaAdherenteForm.controls['sexo'].errors && altaAdherenteForm.controls['sexo'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
-                                            <div class="col-sm-9">
-                                                <input class="form-control" type="text" placeholder="dd/mm/yyyy"
-                                                    formControlName="fechaNacimiento" value=""
-                                                    [style.border]="altaAdherenteForm.controls['fechaNacimiento'].errors && altaAdherenteForm.controls['fechaNacimiento'].touched ? '1px solid red' : null"
-                                                    ngbDatepicker #fechaNacimientoDatePicker="ngbDatepicker"
-                                                    [minDate]="{year: 1900, month: 1, day: 1}"
-                                                    [maxDate]="{year: currentYear, month: currentMonth, day: currentDay}"
-                                                    (click)="fechaNacimientoDatePicker.toggle()" readonly />
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar una fecha de nacimiento"
-                                                    *ngIf="altaAdherenteForm.controls['fechaNacimiento'].errors && altaAdherenteForm.controls['fechaNacimiento'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Domicilio</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" placeholder="Domicilio"
-                                                    formControlName="direccion" value=""
-                                                    [style.border]="altaAdherenteForm.controls['direccion'].errors && altaAdherenteForm.controls['direccion'].touched ? '1px solid red' : null"
-                                                    maxlength="100" />
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="La dirección ingresada es incorrecta"
-                                                    *ngIf="altaAdherenteForm.controls['direccion'].errors && altaAdherenteForm.controls['direccion'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Teléfono</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" placeholder="Teléfono"
-                                                    formControlName="telefono" value=""
-                                                    [style.border]="altaAdherenteForm.controls['telefono'].errors && altaAdherenteForm.controls['telefono'].touched ? '1px solid red' : null"
-                                                    maxlength="10" />
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="El número de teléfono ingresado es incorrecto"
-                                                    *ngIf="altaAdherenteForm.controls['telefono'].errors && altaAdherenteForm.controls['telefono'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Provincia</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" formControlName="provincia"
-                                                    (change)="updateProvincias($event)">
-                                                    <option *ngFor="let provincia of provincias"
-                                                        [value]="provincia.nombre"
-                                                        [selected]="provincia.nombre=='ENTRE RÍOS'">{{provincia.nombre}}</option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar una provincia"
-                                                    *ngIf="altaAdherenteForm.controls['provincia'].errors && altaAdherenteForm.controls['provincia'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Localidad</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" formControlName="localidad"
-                                                    (change)="updateLocalidades($event)"
-                                                    [disabled]="altaAdherenteForm.controls['provincia'].errors">
-                                                    <option *ngFor="let localidad of localidades"
-                                                        [value]="localidad.nombre">{{localidad.nombre}}</option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar una localidad"
-                                                    *ngIf="altaAdherenteForm.controls['localidad'].errors && altaAdherenteForm.controls['localidad'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Zona</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" formControlName="zona"
-                                                    (change)="updateZonas($event)">
-                                                    <option *ngFor="let zona of zonas" [value]="zona.nombre">
-                                                        {{zona.nombre}}</option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una zona"
-                                                    *ngIf="altaAdherenteForm.controls['zona'].errors && altaAdherenteForm.controls['zona'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Obra social</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" formControlName="obraSocial"
-                                                    (change)="updateObraSocial($event)">
-                                                    <option *ngFor="let obraSocial of obrasSociales"
-                                                        [value]="obraSocial.descripcion">{{obraSocial.descripcion}}
-                                                    </option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar una obra social"
-                                                    *ngIf="altaAdherenteForm.controls['obraSocial'].errors && altaAdherenteForm.controls['obraSocial'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Socio</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" formControlName="socio"
-                                                    (change)="updateSocio($event)">
-                                                    <option *ngFor="let socio of socios"
-                                                        [value]="socio.nombre + socio.apellido">{{socio.apellido}}, {{socio.nombre}}
-                                                    </option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar un socio"
-                                                    *ngIf="altaAdherenteForm.controls['socio'].errors && altaAdherenteForm.controls['socio'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-3 col-form-label">Patología preexistente</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" formControlName="enfermedad"
-                                                    (change)="updateEnfermedad($event)">
-                                                    <option *ngFor="let enfermedad of enfermedades"
-                                                        [value]="enfermedad.descripcion"
-                                                        [selected]="enfermedad.descripcion=='SIN ENFERMEDAD'">{{enfermedad.descripcion}}
-                                                    </option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar una enfermedad"
-                                                    *ngIf="altaAdherenteForm.controls['enfermedad'].errors && altaAdherenteForm.controls['enfermedad'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group buttons-section">
-                                    <button type="button" id="cancel" class="btn btn-light"
-                                        (click)="onCancel()">Cancel</button>
-                                    <button type="submit" id="crear" class="btn btn-dark mr-2"
-                                        [disabled]="!altaAdherenteForm.valid || altaAdherenteForm.pending">Crear</button>
-                                </div>
-                            </form>
-                            <br>
-                            <div class="alert alert-fill-success" role="alert" *ngIf="success && !loading && !error">
-                                <i class="mdi mdi-alert-circle"></i>
-                                El adherente ha sido creado con éxito.
+<div id="alta-adherentes">
+    <div class="card" *ngIf="!loading" [ngStyle]="{'background': socioInput ? 'none' : '' }">
+        <div class="card-body" [ngStyle]="{'padding-bottom': socioInput ? 'unset' : '' }">
+            <h4 class="card-title" *ngIf="!socioInput">Nuevo adherente</h4>
+            <form class="form-sample" [formGroup]="altaAdherenteForm" (ngSubmit)="createAdherente()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Nombre</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre"
+                                    value=""
+                                    [style.border]="altaAdherenteForm.controls['nombre'].errors && altaAdherenteForm.controls['nombre'].touched ? '1px solid red' : null"
+                                    maxlength="100" />
+                                <i class="fa fa-exclamation-circle" title="El nombre ingresado es incorrecto"
+                                    *ngIf="altaAdherenteForm.controls['nombre'].errors && altaAdherenteForm.controls['nombre'].touched"></i>
                             </div>
-                            <div class="alert alert-danger" role="alert" *ngIf="error && !loading && !success">
-                                Ha ocurrido un error.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Apellido</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Apellido"
+                                    formControlName="apellido" value=""
+                                    [style.border]="altaAdherenteForm.controls['apellido'].errors && altaAdherenteForm.controls['apellido'].touched ? '1px solid red' : null"
+                                    maxlength="100" />
+                                <i class="fa fa-exclamation-circle" title="El apellido ingresado es incorrecto"
+                                    *ngIf="altaAdherenteForm.controls['apellido'].errors && altaAdherenteForm.controls['apellido'].touched"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="spinner-border text-primary" role="status" *ngIf="loading">
-                    <span class="sr-only">Loading...</span>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Número de documento</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Número de documento"
+                                    formControlName="dni" value=""
+                                    [style.border]="altaAdherenteForm.controls['dni'].errors && altaAdherenteForm.controls['dni'].touched ? '1px solid red' : null"
+                                    maxlength="8" />
+                                <i class="fa fa-exclamation-circle"
+                                    title="El número de documento ingresado es incorrecto"
+                                    *ngIf="altaAdherenteForm.controls['dni'].errors && altaAdherenteForm.controls['dni'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Email" formControlName="email"
+                                    value=""
+                                    [style.border]="altaAdherenteForm.controls['email'].errors && altaAdherenteForm.controls['email'].touched ? '1px solid red' : null"
+                                    maxlength="100" />
+                                <i class="fa fa-exclamation-circle" title="El email ingresado es incorrecto"
+                                    *ngIf="altaAdherenteForm.controls['email'].errors && altaAdherenteForm.controls['email'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Sexo</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" formControlName="sexo">
+                                    <option>Masculino</option>
+                                    <option>Femenino</option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar un sexo"
+                                    *ngIf="altaAdherenteForm.controls['sexo'].errors && altaAdherenteForm.controls['sexo'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" placeholder="dd/mm/yyyy"
+                                    formControlName="fechaNacimiento" value=""
+                                    [style.border]="altaAdherenteForm.controls['fechaNacimiento'].errors && altaAdherenteForm.controls['fechaNacimiento'].touched ? '1px solid red' : null"
+                                    ngbDatepicker #fechaNacimientoDatePicker="ngbDatepicker"
+                                    [minDate]="{year: 1900, month: 1, day: 1}"
+                                    [maxDate]="{year: currentYear, month: currentMonth, day: currentDay}"
+                                    (click)="fechaNacimientoDatePicker.toggle()"
+                                    (ngModelChange)="updateFechaNacimiento($event)" readonly/>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una fecha de nacimiento"
+                                    *ngIf="altaAdherenteForm.controls['fechaNacimiento'].errors && altaAdherenteForm.controls['fechaNacimiento'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Domicilio</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Domicilio"
+                                    formControlName="direccion" value=""
+                                    [style.border]="altaAdherenteForm.controls['direccion'].errors && altaAdherenteForm.controls['direccion'].touched ? '1px solid red' : null"
+                                    maxlength="100" />
+                                <i class="fa fa-exclamation-circle" title="La dirección ingresada es incorrecta"
+                                    *ngIf="altaAdherenteForm.controls['direccion'].errors && altaAdherenteForm.controls['direccion'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Teléfono</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Teléfono"
+                                    formControlName="telefono" value=""
+                                    [style.border]="altaAdherenteForm.controls['telefono'].errors && altaAdherenteForm.controls['telefono'].touched ? '1px solid red' : null"
+                                    maxlength="10" />
+                                <i class="fa fa-exclamation-circle"
+                                    title="El número de teléfono ingresado es incorrecto"
+                                    *ngIf="altaAdherenteForm.controls['telefono'].errors && altaAdherenteForm.controls['telefono'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Provincia</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" formControlName="provincia"
+                                    (change)="updateProvincias($event)">
+                                    <option *ngFor="let provincia of provincias" [value]="provincia.nombre"
+                                        [selected]="provincia.nombre=='ENTRE RÍOS'">{{provincia.nombre}}</option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una provincia"
+                                    *ngIf="altaAdherenteForm.controls['provincia'].errors && altaAdherenteForm.controls['provincia'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Localidad</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" formControlName="localidad"
+                                    (change)="updateLocalidades($event)"
+                                    [disabled]="altaAdherenteForm.controls['provincia'].errors">
+                                    <option *ngFor="let localidad of localidades" [value]="localidad.nombre">
+                                        {{localidad.nombre}}</option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una localidad"
+                                    *ngIf="altaAdherenteForm.controls['localidad'].errors && altaAdherenteForm.controls['localidad'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Zona</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" formControlName="zona" (change)="updateZonas($event)">
+                                    <option *ngFor="let zona of zonas" [value]="zona.nombre">
+                                        {{zona.nombre}}</option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una zona"
+                                    *ngIf="altaAdherenteForm.controls['zona'].errors && altaAdherenteForm.controls['zona'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Obra social</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" formControlName="obraSocial"
+                                    (change)="updateObraSocial($event)">
+                                    <option *ngFor="let obraSocial of obrasSociales" [value]="obraSocial.descripcion">
+                                        {{obraSocial.descripcion}}
+                                    </option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una obra social"
+                                    *ngIf="altaAdherenteForm.controls['obraSocial'].errors && altaAdherenteForm.controls['obraSocial'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Socio</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" formControlName="socio" (change)="updateSocio($event)">
+                                    <option *ngFor="let socio of socios" [value]="socio.nombre + socio.apellido" [selected]="socioInput != null && socio.id==socioInput.id">
+                                        {{socio.apellido}}, {{socio.nombre}}
+                                    </option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar un socio"
+                                    *ngIf="altaAdherenteForm.controls['socio'].errors && altaAdherenteForm.controls['socio'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Patología preexistente</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" formControlName="enfermedad"
+                                    (change)="updateEnfermedad($event)">
+                                    <option *ngFor="let enfermedad of enfermedades" [value]="enfermedad.descripcion"
+                                        [selected]="enfermedad.descripcion=='SIN ENFERMEDAD'">{{enfermedad.descripcion}}
+                                    </option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una enfermedad"
+                                    *ngIf="altaAdherenteForm.controls['enfermedad'].errors && altaAdherenteForm.controls['enfermedad'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="socioInput">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Fecha de cobertura</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" placeholder="Fecha de cobertura"
+                                    formControlName="fechaCobertura"
+                                    [style.border]="altaAdherenteForm.controls['fechaCobertura'].errors ? '1px solid red' : null"
+                                    ngbDatepicker #fechaCoberturaDatePicker="ngbDatepicker"
+                                    [minDate]="{year: 1900, month: 1, day: 1}"
+                                    [maxDate]="{year: 2300, month: 1, day: 1}"
+                                    (click)="fechaCoberturaDatePicker.toggle()" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group buttons-section">
+                    <button type="button" id="cancel" class="btn btn-light" (click)="onCancel()">Cancel</button>
+                    <button type="submit" id="crear" class="btn btn-dark mr-2"
+                        >{{socioInput ? 'Agregar' : 'Crear'}}</button>
+                </div>
+            </form>
+            <br>
+            <div class="alert alert-fill-success" role="alert" *ngIf="success && !loading && !error">
+                <i class="mdi mdi-alert-circle"></i>
+                El adherente ha sido creado con éxito.
             </div>
-            <app-footer></app-footer>
+            <div class="alert alert-danger" role="alert" *ngIf="error && !loading && !success">
+                Ha ocurrido un error.
+            </div>
         </div>
     </div>
+</div>
+<div class="spinner-border text-primary" role="status" *ngIf="loading">
+    <span class="sr-only">Loading...</span>
 </div>
