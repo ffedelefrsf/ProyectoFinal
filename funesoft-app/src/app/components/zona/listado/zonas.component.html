@@ -1,55 +1,44 @@
-<div class="container-scroller">
-    <app-navbar></app-navbar>
-    <div class="container-fluid page-body-wrapper">
-        <app-side-menu></app-side-menu>
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div id="listado-zonas">
-                    <div class="card" *ngIf="!loading && !error">
-                        <div class="card-body">
-                            <h4 class="card-title">Padrón de zonas</h4>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Número de zona</th>
-                                            <th>Nombre</th>
-                                            <th>Acciones</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let zona of zonasArray">
-                                            <td>{{zona.nroZona}}</td>
-                                            <td>{{zona.nombre}}</td>
-                                            <td>
-                                                <div ngbDropdown class="d-inline-block">
-                                                    <button class="btn btn-outline-primary" type="button"
-                                                        id="dropdownMenuOutlineButton1" ngbDropdownToggle>
-                                                        Acciones
-                                                    </button>
-                                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1">
-                                                        <a class="dropdown-header" href="#">Cobradores</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-header" (click)="deleteZona(zona)">Dar de baja</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
-                        Ha ocurrido un error, inténtelo más tarde.
-                    </div>
-                </div>
-                <div class="spinner-border text-primary" role="status" *ngIf="loading">
-                    <span class="sr-only">Loading...</span>
-                </div>
+<div id="listado-zonas">
+    <div class="card" *ngIf="!loading && !error">
+        <div class="card-body">
+            <h4 class="card-title">Padrón de zonas</h4>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Número de zona</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let zona of zonasArray">
+                            <td>{{zona.nroZona}}</td>
+                            <td>{{zona.nombre}}</td>
+                            <td>
+                                <div ngbDropdown class="d-inline-block">
+                                    <button class="btn btn-outline-primary" type="button"
+                                        id="dropdownMenuOutlineButton1" ngbDropdownToggle>
+                                        Acciones
+                                    </button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1">
+                                        <a class="dropdown-header" href="#">Cobradores</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-header" (click)="deleteZona(zona)">Dar de baja</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <app-footer></app-footer>
         </div>
     </div>
+    <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
+        Ha ocurrido un error, inténtelo más tarde.
+    </div>
+</div>
+<div class="spinner-border text-primary" role="status" *ngIf="loading">
+    <span class="sr-only">Loading...</span>
 </div>

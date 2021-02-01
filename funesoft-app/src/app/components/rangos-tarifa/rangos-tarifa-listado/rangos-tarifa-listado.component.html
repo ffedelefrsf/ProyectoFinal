@@ -1,10 +1,4 @@
-<div class="container-scroller">
-    <app-navbar></app-navbar>
-    <div class="container-fluid page-body-wrapper">
-        <app-side-menu></app-side-menu>
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div id="listado-zonas">
+                <div id="listado-rangos">
                     <div class="card" *ngIf="!loading && !error">
                         <div class="card-body">
                             <h4 class="card-title">Rangos - Tarifa: {{tarifa.descripcion}}</h4>
@@ -50,8 +44,3 @@
                 <div class="spinner-border text-primary" role="status" *ngIf="loading">
                     <span class="sr-only">Loading...</span>
                 </div>
-            </div>
-            <app-footer></app-footer>
-        </div>
-    </div>
-</div>

@@ -1,141 +1,123 @@
-<div class="container-scroller">
-    <app-navbar></app-navbar>
-    <div class="container-fluid page-body-wrapper">
-        <app-side-menu></app-side-menu>
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div id="alta-tarifas">
-                    <div class="col-12 grid-margin">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Nuevo cobrador</h4>
-                                <form class="forms-sample" [formGroup]="altaCobradorForm" (ngSubmit)="createCobrador()">
+<div id="alta-cobrador">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Nuevo cobrador</h4>
+                <form class="forms-sample" [formGroup]="altaCobradorForm" (ngSubmit)="createCobrador()">
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="nombreLabel">Nombre</label>
-                                                <input type="text" class="form-control" placeholder="Nombre"
-                                                    formControlName="nombre">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="apellidoLabel">Apellido</label>
-                                                <input type="text" class="form-control" placeholder="Apellido"
-                                                    formControlName="apellido" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="nroDocLabel">Número de documento</label>
-                                                <input type="text" class="form-control" placeholder="12345678"
-                                                    formControlName="dni">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="direccionLabel">Dirección</label>
-                                                <input type="text" class="form-control" placeholder="Alte. Brown 158"
-                                                    formControlName="direccion">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="nroTelefonoLabel">Teléfono</label>
-                                                <input type="tel" class="form-control" placeholder="3438430254"
-                                                    formControlName="telefono">
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="El número de teléfono ingresado es incorrecto"
-                                                    *ngIf="altaCobradorForm.controls['telefono'].errors && altaCobradorForm.controls['telefono'].touched"></i>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="emailLabel">Email</label>
-                                                <input type="email" class="form-control"
-                                                    placeholder="cocheriazurdo@cocheriazurdo.com"
-                                                    formControlName="email">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="sexoLabel">Sexo</label>
-                                                <select class="form-control" formControlName="sexo">
-                                                    <option>Masculino</option>
-                                                    <option>Femenino</option>
-                                                </select> </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="fechaNacLabel">Fecha de nacimiento</label>
-                                                <input type="date" class="form-control" placeholder="01/09/1995"
-                                                    formControlName="fechaNacimiento">
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar una fecha de nacimiento"
-                                                    *ngIf="altaCobradorForm.controls['fechaNacimiento'].errors && altaCobradorForm.controls['fechaNacimiento'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="descripcionLabel">Provincia</label>
-                                                <select class="form-control" formControlName="provincia"
-                                                    (change)="updateProvincias($event)">
-                                                    <option *ngFor="let provincia of provincias"
-                                                        [value]="provincia.nombre"
-                                                        [selected]="provincia.nombre=='ENTRE RÍOS'">{{provincia.nombre}}</option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar una provincia"
-                                                    *ngIf="altaCobradorForm.controls['provincia'].errors && altaCobradorForm.controls['provincia'].touched"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="descripcionLabel">Localidad</label>
-                                                <select class="form-control" formControlName="localidad"
-                                                    (change)="updateLocalidades($event)">
-                                                    <option *ngFor="let localidad of localidades"
-                                                        [value]="localidad.nombre">{{localidad.nombre}}</option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle"
-                                                    title="Debe seleccionar una localidad"
-                                                    *ngIf="altaCobradorForm.controls['localidad'].errors && altaCobradorForm.controls['localidad'].touched"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-success mr-2">Agregar</button>
-                                    <button class="btn btn-light" (click)="onCancel()">Cancelar</button>
-                                    <br><br>
-                                    <div class="alert alert-success" role="alert" *ngIf="success && !error">
-                                        El cobrador ha sido agregado con exito!
-                                    </div>
-
-                                    <div class="alert alert-danger" role="alert" *ngIf="error && !success">
-                                        Hubo un problema al agregar el cobrador. Intente nuevamente.
-                                    </div>
-
-                                </form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombreLabel">Nombre</label>
+                                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="apellidoLabel">Apellido</label>
+                                <input type="text" class="form-control" placeholder="Apellido"
+                                    formControlName="apellido" value="">
                             </div>
                         </div>
                     </div>
-                </div>
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nroDocLabel">Número de documento</label>
+                                <input type="text" class="form-control" placeholder="12345678" formControlName="dni">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="direccionLabel">Dirección</label>
+                                <input type="text" class="form-control" placeholder="Alte. Brown 158"
+                                    formControlName="direccion">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nroTelefonoLabel">Teléfono</label>
+                                <input type="tel" class="form-control" placeholder="3438430254"
+                                    formControlName="telefono">
+                                <i class="fa fa-exclamation-circle"
+                                    title="El número de teléfono ingresado es incorrecto"
+                                    *ngIf="altaCobradorForm.controls['telefono'].errors && altaCobradorForm.controls['telefono'].touched"></i>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="emailLabel">Email</label>
+                                <input type="email" class="form-control" placeholder="cocheriazurdo@cocheriazurdo.com"
+                                    formControlName="email">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="sexoLabel">Sexo</label>
+                                <select class="form-control" formControlName="sexo">
+                                    <option>Masculino</option>
+                                    <option>Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fechaNacLabel">Fecha de nacimiento</label>
+                                <input type="date" class="form-control" placeholder="01/09/1995"
+                                    formControlName="fechaNacimiento">
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una fecha de nacimiento"
+                                    *ngIf="altaCobradorForm.controls['fechaNacimiento'].errors && altaCobradorForm.controls['fechaNacimiento'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="descripcionLabel">Provincia</label>
+                                <select class="form-control" formControlName="provincia"
+                                    (change)="updateProvincias($event)">
+                                    <option *ngFor="let provincia of provincias" [value]="provincia.nombre"
+                                        [selected]="provincia.nombre=='ENTRE RÍOS'">{{provincia.nombre}}</option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una provincia"
+                                    *ngIf="altaCobradorForm.controls['provincia'].errors && altaCobradorForm.controls['provincia'].touched"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="descripcionLabel">Localidad</label>
+                                <select class="form-control" formControlName="localidad"
+                                    (change)="updateLocalidades($event)">
+                                    <option *ngFor="let localidad of localidades" [value]="localidad.nombre">
+                                        {{localidad.nombre}}</option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una localidad"
+                                    *ngIf="altaCobradorForm.controls['localidad'].errors && altaCobradorForm.controls['localidad'].touched"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success mr-2">Agregar</button>
+                    <button class="btn btn-light" (click)="onCancel()">Cancelar</button>
+                    <br><br>
+                    <div class="alert alert-success" role="alert" *ngIf="success && !error">
+                        El cobrador ha sido agregado con exito!
+                    </div>
+
+                    <div class="alert alert-danger" role="alert" *ngIf="error && !success">
+                        Hubo un problema al agregar el cobrador. Intente nuevamente.
+                    </div>
+
+                </form>
             </div>
-            <app-footer></app-footer>
         </div>
     </div>
 </div>

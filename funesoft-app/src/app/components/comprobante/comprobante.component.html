@@ -1,85 +1,70 @@
-<div class="container-scroller">
-  <app-navbar></app-navbar>
-  <div class="container-fluid page-body-wrapper">
-    <app-side-menu></app-side-menu>
-    <div class="main-panel">
-      <div class="content-wrapper">
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Comprobantes</h4>
 
-        <div class="row">
-          <div class="col-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Comprobantes</h4>
-
-                <div class="row" style="margin-top: 24px; margin-bottom: 16px; display: flex; align-items: baseline;">
-                  <div class="titleHistorial">
-                    <p style="margin-left: 12px; margin-right: 12px;">Generar comprobantes</p>
-                  </div>
-                  <div class="buttonHistorial">
-                    <button type="button" class="btn btn-outline-info btn-xs"
-                      (click)="generarComprobantes()">Generar</button>
-                  </div>
-                </div>
-
-                <div class="row" style="margin-bottom: 16px; display: flex; align-items: baseline;">
-                  <div class="titleHistorial">
-                    <p style="margin-left: 12px; margin-right: 12px;">Historial de comprobantes</p>
-                  </div>
-                  <div class="buttonHistorial">
-                    <button type="button" class="btn btn-outline-info btn-xs"
-                      (click)="getAllComprobantes()">Consultar</button>
-                  </div>
-                </div>
-
-                <div class="table-responsive">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>
-                          #
-                        </th>
-                        <th>
-                          Nro. Comprobante
-                        </th>
-                        <th>
-                          Estado
-                        </th>
-                        <th>
-                          Monto $
-                        </th>
-                        <th>
-                          Socio
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody *ngIf="(comprobantesDTO.length > 0) && showTable">
-                      <tr *ngFor="let cbte of comprobantesDTO; let i = index">
-                        <td class="font-weight-medium">
-                          {{ i + 1 }}
-                        </td>
-                        <td>
-                          {{ cbte.nroComprobante }}
-                        </td>
-                        <td>
-                          <label class="badge badge-danger" *ngIf="!cbte.pagado">Pendiente</label>
-                          <label class="badge badge-success" *ngIf="cbte.pagado">Pagado</label>
-                        </td>
-                        <td>
-                          {{ cbte.importeTotal }}
-                        </td>
-                        <td> {{ cbte.socio.id }} </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-              </div>
-            </div>
+        <div class="row" style="margin-top: 24px; margin-bottom: 16px; display: flex; align-items: baseline;">
+          <div class="titleHistorial">
+            <p style="margin-left: 12px; margin-right: 12px;">Generar comprobantes</p>
+          </div>
+          <div class="buttonHistorial">
+            <button type="button" class="btn btn-outline-info btn-xs" (click)="generarComprobantes()">Generar</button>
           </div>
         </div>
 
+        <div class="row" style="margin-bottom: 16px; display: flex; align-items: baseline;">
+          <div class="titleHistorial">
+            <p style="margin-left: 12px; margin-right: 12px;">Historial de comprobantes</p>
+          </div>
+          <div class="buttonHistorial">
+            <button type="button" class="btn btn-outline-info btn-xs" (click)="getAllComprobantes()">Consultar</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>
+                  #
+                </th>
+                <th>
+                  Nro. Comprobante
+                </th>
+                <th>
+                  Estado
+                </th>
+                <th>
+                  Monto $
+                </th>
+                <th>
+                  Socio
+                </th>
+              </tr>
+            </thead>
+            <tbody *ngIf="(comprobantesDTO.length > 0) && showTable">
+              <tr *ngFor="let cbte of comprobantesDTO; let i = index">
+                <td class="font-weight-medium">
+                  {{ i + 1 }}
+                </td>
+                <td>
+                  {{ cbte.nroComprobante }}
+                </td>
+                <td>
+                  <label class="badge badge-danger" *ngIf="!cbte.pagado">Pendiente</label>
+                  <label class="badge badge-success" *ngIf="cbte.pagado">Pagado</label>
+                </td>
+                <td>
+                  {{ cbte.importeTotal }}
+                </td>
+                <td> {{ cbte.socio.id }} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
-      <app-footer></app-footer>
     </div>
   </div>
 </div>

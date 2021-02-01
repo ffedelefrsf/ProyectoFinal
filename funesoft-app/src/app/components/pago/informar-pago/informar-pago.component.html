@@ -1,157 +1,145 @@
-<div class="container-scroller">
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
-        <p style="color: white"> Cargando... </p>
-    </ngx-spinner>
-    <app-navbar></app-navbar>
-    <div class="container-fluid page-body-wrapper">
-        <app-side-menu></app-side-menu>
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div id="alta-tarifas">
-                    <div class="col-12 grid-margin">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title"></h4>
-                                <form class="forms-sample" [formGroup]="informarPagoForm">
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+    <p style="color: white"> Cargando... </p>
+</ngx-spinner>
 
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label for="planLabel">Socio</label>
-                                                <select class="form-control" formControlName="socio"
-                                                    [(ngModel)]="selectedValue" (change)="changeSocio()">
-                                                    <option *ngFor="let socio of socios" [ngValue]="socio">
-                                                        {{socio.apellido}} {{socio.nombre}}
-                                                    </option>
-                                                </select>
-                                                <i class="fa fa-exclamation-circle" title="Debe seleccionar un socio"
-                                                    *ngIf="informarPagoForm.controls['socio'].errors && informarPagoForm.controls['socio'].touched"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="dniLabel">Documento</label>
-                                                <input type="text" class="form-control" placeholder="DNI"
-                                                value="{{selectedValue!=undefined ? selectedValue.dni : 'DNI'}}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="dniLabel">Plan</label>
-                                                <input type="text" class="form-control" placeholder="Plan"
-                                                value="{{selectedValue!=undefined ? selectedValue.tarifa.plan.descripcion : 'Plan'}}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="dniLabel">Tarifa</label>
-                                                <input type="text" class="form-control" placeholder="Tarifa"
-                                                value="{{selectedValue!=undefined ? selectedValue.tarifa.descripcion : 'Tarifa'}}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <div class="form-group">
-                                                <label for="dniLabel">Estado</label>
-                                                <td class="pr-0 text-right">
-                                                    <div class="badge badge-outline-danger" *ngIf="!activo">BAJA</div>
-                                                    <div class="badge badge-outline-success" *ngIf="activo">ALTA</div>
-                                                </td>
-                                            </div>
-                                        </div>
-                                    </div>
+<div id="alta-tarifas">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"></h4>
+                <form class="forms-sample" [formGroup]="informarPagoForm">
 
-                                    <p class="card-description" style="margin-top: 10px;">
-                                        Estado de cuenta
-                                    </p>
-
-                                    <div class="row">
-                                        <div class="side-left">
-                                            <p class="titleSaldo">El saldo del
-                                                titular seleccionado al {{currentDate | date:'dd/MM/yyyy'}}</p>
-                                        </div>
-                                        <div class="saldo">
-                                            <p class="display-3 mb-4 font-weight-light" *ngIf="saldo">{{ saldo }}
-                                            </p>
-                                            <p class="display-3 mb-4 font-weight-light" *ngIf="!saldo">$ 0</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" style="margin-bottom: 16px; display: flex; align-items: baseline;">
-                                        <div class="titleHistorial">
-                                            <p style="margin-left: 12px;">Historial de comprobantes</p>
-                                        </div>
-                                        <div class="buttonHistorial">
-                                            <button type="button" class="btn btn-outline-info btn-xs"
-                                                (click)="readComprobantes()">Consultar</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="alert alert-warning" role="alert"
-                                        *ngIf="!(comprobantesDTO.length > 0) && showTable">
-                                        Ups! No existen comprobantes para el socio seleccionado...
-                                    </div>
-
-                                    <div class="table-responsive" *ngIf="(comprobantesDTO.length > 0) && showTable">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        #
-                                                    </th>
-                                                    <th>
-                                                        Nro. Comprobante
-                                                    </th>
-                                                    <th>
-                                                        Estado
-                                                    </th>
-                                                    <th>
-                                                        Monto
-                                                    </th>
-                                                    <th>
-                                                        Vencimiento
-                                                    </th>
-                                                    <th>
-                                                        Pago
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let cbte of comprobantesDTO; let i = index">
-                                                    <td class="font-weight-medium">
-                                                        {{ i + 1 }}
-                                                    </td>
-                                                    <td>
-                                                        {{ cbte.nroComprobante }}
-                                                    </td>
-                                                    <td>
-                                                        <label class="badge badge-danger"
-                                                            *ngIf="!cbte.pagado">Pendiente</label>
-                                                        <label class="badge badge-success"
-                                                            *ngIf="cbte.pagado">Pagado</label>
-                                                    </td>
-                                                    <td>
-                                                        {{ cbte.importeTotal }}
-                                                    </td>
-                                                    <td class="text-danger"> {{ cbte.vencimiento }} </td>
-                                                    <!-- <td class="text-success"> 04/09/2020 </td> -->
-                                                    <td>
-                                                        <button type="button" class="btn btn-outline-primary btn-xs"
-                                                            (click)="createPago(cbte)" *ngIf="!cbte.pagado">Informar
-                                                            pago</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </form>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="planLabel">Socio</label>
+                                <select class="form-control" formControlName="socio" [(ngModel)]="selectedValue"
+                                    (change)="changeSocio()">
+                                    <option *ngFor="let socio of socios" [ngValue]="socio">
+                                        {{socio.apellido}} {{socio.nombre}}
+                                    </option>
+                                </select>
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar un socio"
+                                    *ngIf="informarPagoForm.controls['socio'].errors && informarPagoForm.controls['socio'].touched"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="dniLabel">Documento</label>
+                                <input type="text" class="form-control" placeholder="DNI"
+                                    value="{{selectedValue!=undefined ? selectedValue.dni : 'DNI'}}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="dniLabel">Plan</label>
+                                <input type="text" class="form-control" placeholder="Plan"
+                                    value="{{selectedValue!=undefined ? selectedValue.tarifa.plan.descripcion : 'Plan'}}"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="dniLabel">Tarifa</label>
+                                <input type="text" class="form-control" placeholder="Tarifa"
+                                    value="{{selectedValue!=undefined ? selectedValue.tarifa.descripcion : 'Tarifa'}}"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label for="dniLabel">Estado</label>
+                                <td class="pr-0 text-right">
+                                    <div class="badge badge-outline-danger" *ngIf="!activo">BAJA</div>
+                                    <div class="badge badge-outline-success" *ngIf="activo">ALTA</div>
+                                </td>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                    <p class="card-description" style="margin-top: 10px;">
+                        Estado de cuenta
+                    </p>
+
+                    <div class="row">
+                        <div class="side-left">
+                            <p class="titleSaldo">El saldo del
+                                titular seleccionado al {{currentDate | date:'dd/MM/yyyy'}}</p>
+                        </div>
+                        <div class="saldo">
+                            <p class="display-3 mb-4 font-weight-light" *ngIf="saldo">{{ saldo }}
+                            </p>
+                            <p class="display-3 mb-4 font-weight-light" *ngIf="!saldo">$ 0</p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 16px; display: flex; align-items: baseline;">
+                        <div class="titleHistorial">
+                            <p style="margin-left: 12px;">Historial de comprobantes</p>
+                        </div>
+                        <div class="buttonHistorial">
+                            <button type="button" class="btn btn-outline-info btn-xs"
+                                (click)="readComprobantes()">Consultar</button>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning" role="alert" *ngIf="!(comprobantesDTO.length > 0) && showTable">
+                        Ups! No existen comprobantes para el socio seleccionado...
+                    </div>
+
+                    <div class="table-responsive" *ngIf="(comprobantesDTO.length > 0) && showTable">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        Nro. Comprobante
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>
+                                    <th>
+                                        Monto
+                                    </th>
+                                    <th>
+                                        Vencimiento
+                                    </th>
+                                    <th>
+                                        Pago
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cbte of comprobantesDTO; let i = index">
+                                    <td class="font-weight-medium">
+                                        {{ i + 1 }}
+                                    </td>
+                                    <td>
+                                        {{ cbte.nroComprobante }}
+                                    </td>
+                                    <td>
+                                        <label class="badge badge-danger" *ngIf="!cbte.pagado">Pendiente</label>
+                                        <label class="badge badge-success" *ngIf="cbte.pagado">Pagado</label>
+                                    </td>
+                                    <td>
+                                        {{ cbte.importeTotal }}
+                                    </td>
+                                    <td class="text-danger"> {{ cbte.vencimiento }} </td>
+                                    <!-- <td class="text-success"> 04/09/2020 </td> -->
+                                    <td>
+                                        <button type="button" class="btn btn-outline-primary btn-xs"
+                                            (click)="createPago(cbte)" *ngIf="!cbte.pagado">Informar
+                                            pago</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </form>
             </div>
-            <app-footer></app-footer>
         </div>
     </div>
 </div>
