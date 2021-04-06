@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -65,7 +64,6 @@ public class Socio implements Serializable {
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "NOMBRE")
-    @Convert(converter = StringAttributeConverter.class)
     private String nombre;
     
     @Basic(optional = false)
