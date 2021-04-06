@@ -54,3 +54,16 @@
 #accordionContent{
     display: contents;
 }
+
+.empty-table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-table-text {
+    font-style: italic;
+    font-size: 10pt;
+    margin-top: 10px;
+    color: grey;
+}

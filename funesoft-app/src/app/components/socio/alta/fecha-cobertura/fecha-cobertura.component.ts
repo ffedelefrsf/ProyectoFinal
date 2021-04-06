@@ -33,8 +33,9 @@ export class FechaCoberturaComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('received', this.socio, this.adherente);
     this.loading = true;
-    if (this.adherente === null){
+    if (this.adherente == null){
       this.fechaCoberturaForm = this.formBuilder.group({
         fechaCobertura: this.formBuilder.control(this.socio.fechaCobertura, [Validators.required])
       });

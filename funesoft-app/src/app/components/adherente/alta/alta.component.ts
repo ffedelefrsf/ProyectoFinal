@@ -55,7 +55,7 @@ export class AltaAdherenteComponent implements OnInit {
 
   @Input() socioInput: Socio;
 
-  @Output() datosAdherenteAgregado = new EventEmitter<AdherenteAltaDTO>();
+  @Output() datosAdherenteAgregado = new EventEmitter<any>();
 
   constructor(private router: Router,
     private provinciaService: ProvinciaService,
@@ -96,7 +96,7 @@ export class AltaAdherenteComponent implements OnInit {
       provincia: this.formBuilder.control('ENTRE RÍOS', [Validators.required]),
       obraSocial: this.formBuilder.control('', [Validators.required]),
       enfermedad: this.formBuilder.control('SIN ENFERMEDAD', [Validators.required]),
-      socio: this.formBuilder.control(this.socioInput ? this.socioInput : '', [Validators.required]),
+      socio: this.formBuilder.control({value: this.socioInput ? this.socioInput : '', disabled: this.socioInput}, [Validators.required]),
       fechaCobertura: this.formBuilder.control('', [Validators.required])
     });
     var fechaCobertura: Date = new Date();
@@ -221,7 +221,7 @@ export class AltaAdherenteComponent implements OnInit {
       console.log(this.adherenteToInsert);
       if (this.socioInput) {
         this.adherenteToInsert.fechaCobertura = new Date(adherenteForm.fechaCobertura['year'] + '-' + adherenteForm.fechaCobertura['month'] + '-' + adherenteForm.fechaCobertura['day']);
-        this.datosAdherenteAgregado.emit(this.adherenteToInsert);
+        this.datosAdherenteAgregado.emit({ adherenteToInsert: this.adherenteToInsert, form: this.altaAdherenteForm });
       } else {
         this.adherenteService.createAdherente(this.adherenteToInsert).subscribe(
           response => {

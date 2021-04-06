@@ -231,8 +231,7 @@
                 </div>
                 <div class="form-group buttons-section">
                     <button type="button" id="cancel" class="btn btn-light" (click)="onCancel()">Cancel</button>
-                    <button type="submit" id="crear" class="btn btn-dark mr-2"
-                        >{{socioInput ? 'Agregar' : 'Crear'}}</button>
+                    <button type="submit" id="crear" class="btn btn-dark mr-2" [disabled]="!altaAdherenteForm.valid || altaAdherenteForm.pending">{{socioInput ? 'Agregar' : 'Crear'}}</button>
                 </div>
             </form>
             <br>

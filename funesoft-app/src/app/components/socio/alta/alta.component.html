@@ -227,20 +227,54 @@
                         </div>
                     </div>
                 </div>
+                <div class="table-responsive" style="margin-top: 20px;" *ngIf="altaSocioForm.valid && !altaSocioForm.pending && ['TITULAR Y ADHERENTE', 'FAMILIAR'].includes(altaSocioForm.controls['plan'].value)">
+                    <div style="display: flex; justify-content: flex-start; align-items: center;">
+                        <h4 class="card-title" style="display: contents;">Adherentes</h4>
+                        <i class="fa fa-plus-square fa-lg" style="cursor: pointer; color: #424964; margin-left: 5px;" (click)="addAdherente()"></i>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Número de documento</th>
+                                <th>Apellido</th>
+                                <th>Nombre</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let adherente of adherentesToInsert; index as i">
+                                <td>{{adherente.dni}}</td>
+                                <td>{{adherente.apellido}}</td>
+                                <td>{{adherente.nombre}}</td>
+                                <td>
+                                    <!-- <i class="fa fa-search fa-lg" routerLink="/socio/alta" [state]="{ example: 'data' }" routerLinkActive="active"></i>
+                                <i class="fa fa-edit fa-lg" (click)="editSocio(socio)"></i>
+                                <i class="fa fa-plus-square fa-lg" *ngIf="socio.estado.nroEstado === 0" routerLink="/icons" routerLinkActive="active"></i>
+                                <i class="fa fa-minus-square fa-lg" *ngIf="socio.estado.nroEstado === 1" routerLink="/icons" routerLinkActive="active"></i>
+                                    -->
+                                    <i class="fa fa-minus-square fa-lg" style="cursor: pointer; color: #c50e0e;" (click)="removeAdherente(i)" routerLinkActive="active"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="empty-table-container" *ngIf="adherentesToInsert.length === 0">
+                        <p class="empty-table-text">No se han agregado adherentes.</p>
+                    </div>
+                    <ngb-accordion [closeOthers]="true" activeIds="static-3" class="accordion accordion-inverse-primary"
+                        *ngIf="planConAdherentes">
+                        <ngb-panel id="static-4">
+                            <ng-template ngbPanelTitle>
+                                <h6 class="mb-0">
+                                    Adherente {{adherentesToInsert.length + 1}}
+                                </h6>
+                            </ng-template>
+                            <ng-template ngbPanelContent id="accordionContent">
+                                <app-alta-adherente [socioInput]="socioToInsert" (datosAdherenteAgregado)="adherenteAgregado($event)"></app-alta-adherente>
+                            </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                </div>
                 <!-- *ngIf="altaSocioForm.valid" -->
-                <ngb-accordion [closeOthers]="true" activeIds="static-3" class="accordion accordion-inverse-primary"
-                    *ngIf="planConAdherentes">
-                    <ngb-panel id="static-4">
-                        <ng-template ngbPanelTitle>
-                            <h6 class="mb-0">
-                                Nuevo Adherente
-                            </h6>
-                        </ng-template>
-                        <ng-template ngbPanelContent id="accordionContent">
-                            <app-alta-adherente [socioInput]="socioToInsert" (datosAdherenteAgregado)="adherenteAgregado($event)"></app-alta-adherente>
-                        </ng-template>
-                    </ngb-panel>
-                </ngb-accordion>
                 <div class="form-group buttons-section">
                     <button type="button" id="cancel" class="btn btn-light" (click)="onCancel()">Cancel</button>
                     <button type="submit" id="crear" class="btn btn-dark mr-2"

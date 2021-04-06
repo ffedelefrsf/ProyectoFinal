@@ -220,9 +220,12 @@ export class AltaSocioComponent implements OnInit {
             const modalRef = this.modalService.open(FechaCoberturaComponent, { size: 'xl' });
             modalRef.componentInstance.socio = response.data;
             modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
-              if (receivedEntry)
+              if (receivedEntry) {
                 this.success = true;
                 this.error = false;
+              }
+              this.altaSocioForm.reset();
+              this.planConAdherentes = false;
             });
           }else{
             this.loading = false;
@@ -239,8 +242,12 @@ export class AltaSocioComponent implements OnInit {
     }
   }
 
-  adherenteAgregado(event: AdherenteAltaDTO){
-    this.adherentesToInsert.push(event);
+  adherenteAgregado(event: any){
+    const adherenteToInsert: AdherenteAltaDTO = event.adherenteToInsert;
+    this.adherentesToInsert.push(adherenteToInsert);
+    event.form.reset();
+    this.planConAdherentes = false;
+    console.log('this.planConAdherentes', this.planConAdherentes);
     console.log('this.adherentesToInsert', this.adherentesToInsert);
   }
 
@@ -261,6 +268,27 @@ export class AltaSocioComponent implements OnInit {
     );
   }
 
+  addAdherente() {
+    const currentPlan = this.altaSocioForm.controls['plan'].value;
+    if (['TITULAR Y ADHERENTE', 'FAMILIAR'].includes(currentPlan)) {
+      if (this.adherentesToInsert.length < 1 && currentPlan === 'TITULAR Y ADHERENTE') {
+        this.planConAdherentes = false;
+        this.planConAdherentes = true;
+      } else if (currentPlan === 'FAMILIAR') {
+        this.planConAdherentes = false;
+        this.planConAdherentes = true;
+      }
+    }
+  }
+
+  removeAdherente(index: number) {
+    if (index === 0) {
+      this.adherentesToInsert.shift();
+    } else {
+      this.adherentesToInsert.splice(1, index);
+    }
+  }
+
   updateObraSocial(event: any){
     this.socioToInsert.idObraSocial = this.obrasSociales[event.target.selectedIndex].id;
   }
@@ -270,6 +298,7 @@ export class AltaSocioComponent implements OnInit {
   }
 
   updatePlan(event: any){
+    this.tarifas = [];
     var selectedIdPlan: number = this.planes[event.target.selectedIndex].id;
     if (selectedIdPlan === PlanesEnum.FAMILIAR || selectedIdPlan === PlanesEnum.TITULAR_Y_ADHERENTE) {
       this.planConAdherentes = true;
@@ -281,6 +310,7 @@ export class AltaSocioComponent implements OnInit {
         id: selectedIdPlan
       }
     };
+    this.adherentesToInsert = [];
     this.tarifaService.getTarifas(tarifa).subscribe(
       tarifasResponse => {
         this.tarifas = tarifasResponse.data;
@@ -294,7 +324,6 @@ export class AltaSocioComponent implements OnInit {
         }
       }
     );
-    this.altaSocioForm.controls['tarifa'].reset();
   }
   
   updateTarifa(event: any){

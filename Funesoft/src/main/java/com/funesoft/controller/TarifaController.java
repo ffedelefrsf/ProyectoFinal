@@ -16,6 +16,7 @@ import com.funesoft.repository.RangoTarifaRepository;
 import com.funesoft.repository.SocioRepository;
 import com.funesoft.repository.TarifaRepository;
 import com.funesoft.utilities.BusinessException;
+import com.funesoft.utilities.CurrentUser;
 
 import java.util.HashMap;
 import java.util.List;
@@ -165,7 +166,7 @@ public class TarifaController {
         try {
 
             Tarifa tarifa = tarifaRepository.save(new Tarifa(tarifaDTO));
-
+            tarifa.setUsuarioModifica(CurrentUser.getInstance());
             //CARGO LOS RANGOS
             if (rangoTarifaController.insertRango(tarifa, tarifaDTO.getListRango()) != null) {
                 return tarifa;

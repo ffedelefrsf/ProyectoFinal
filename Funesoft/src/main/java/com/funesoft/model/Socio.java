@@ -7,6 +7,7 @@ package com.funesoft.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.funesoft.dto.SocioDTO;
+import com.funesoft.utilities.StringAttributeConverter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -63,6 +65,7 @@ public class Socio implements Serializable {
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "NOMBRE")
+    @Convert(converter = StringAttributeConverter.class)
     private String nombre;
     
     @Basic(optional = false)
