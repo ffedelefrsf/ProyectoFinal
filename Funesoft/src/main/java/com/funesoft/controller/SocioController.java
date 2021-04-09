@@ -13,22 +13,15 @@ import com.funesoft.repository.EstadoRepository;
 import com.funesoft.repository.MotivoBajaRepository;
 import com.funesoft.repository.SocioBajaRepository;
 import com.funesoft.repository.SocioRepository;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
 import com.funesoft.utilities.EstadoEnum;
-import java.util.Date;
 import javax.validation.constraints.NotNull;
-
-import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
-
-import javax.validation.constraints.NotNull;
 import org.apache.commons.collections.CollectionUtils;
 
 /**

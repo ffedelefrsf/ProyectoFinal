@@ -36,4 +36,5 @@ export enum EndpointEnum{
     DELETE_OBRA_SOCIAL = '/obraSocial/delete',
     CREATE_PAGO = '/pago/informarPago',
     DELETE_TARIFA = '/tarifa/delete',
+    GET_ESTADISTICAS = '/estadistica/getAll',
 }

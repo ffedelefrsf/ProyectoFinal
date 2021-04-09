@@ -7,14 +7,14 @@
             <i class="mdi mdi-cube text-danger icon-lg"></i>
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Total Ingreso</p>
+            <p class="mb-0 text-right">{{ estadisticas[0].titulo }}</p>
             <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">$65,650</h3>
+              <h3 class="font-weight-medium text-right mb-0">{{ estadisticas[0].valor }}</h3>
             </div>
           </div>
         </div>
         <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 10% menos
+          <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> {{ estadisticas[0].subtitulo }}
         </p>
       </div>
     </div>
@@ -27,14 +27,14 @@
             <i class="mdi mdi-receipt text-warning icon-lg"></i>
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Socios activos</p>
+            <p class="mb-0 text-right">{{ estadisticas[1].titulo }}</p>
             <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">3455</h3>
+              <h3 class="font-weight-medium text-right mb-0">{{ estadisticas[1].valor }}</h3>
             </div>
           </div>
         </div>
         <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> de 5253
+          <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> {{ estadisticas[1].subtitulo }}
         </p>
       </div>
     </div>
@@ -47,14 +47,14 @@
             <i class="mdi mdi-poll-box text-success icon-lg"></i>
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Nuevos socios</p>
+            <p class="mb-0 text-right">{{ estadisticas[2].titulo }}</p>
             <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">125</h3>
+              <h3 class="font-weight-medium text-right mb-0">{{ estadisticas[2].valor }}</h3>
             </div>
           </div>
         </div>
         <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Este mes
+          <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> {{ estadisticas[2].subtitulo | titlecase}}
         </p>
       </div>
     </div>
@@ -67,14 +67,14 @@
             <i class="mdi mdi-compass icon-lg text-warning"></i>
           </div>
           <div class="float-right">
-            <p class="mb-0 text-right">Tarifas</p>
+            <p class="mb-0 text-right">{{ estadisticas[3].titulo }}</p>
             <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">246</h3>
+              <h3 class="font-weight-medium text-right mb-0">{{ estadisticas[3].valor }}</h3>
             </div>
           </div>
         </div>
         <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> 82 por plan
+          <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> {{ estadisticas[3].subtitulo }}
         </p>
       </div>
     </div>
@@ -86,10 +86,10 @@
     <div class="card card-weather">
       <div class="card-body">
         <div class="weather-date-location">
-          <h3>Miércoles</h3>
+          <h3>{{ currentDay | titlecase }}</h3>
           <p class="text-gray">
-            <span class="weather-date" style="padding-right: 5px;">17 de Junio, 2020</span>
-            <span class="weather-location">Bovril, Entre Ríos</span>
+            <span class="weather-date" style="padding-right: 5px;">{{ currentDate }}</span>
+            <span class="weather-location">- Bovril, Entre Ríos</span>
           </p>
         </div>
         <div class="weather-data d-flex">
@@ -156,7 +156,7 @@
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Deudas</h4>
+        <h4 class="card-title">Comprobantes a pagar</h4>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>

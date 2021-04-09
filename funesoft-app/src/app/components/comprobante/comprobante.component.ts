@@ -138,6 +138,7 @@ export class ComprobanteComponent implements OnInit {
 
 
   getPDF(){
+    this.spinner.show();
     this.comprobanteService.getPDF()
     .subscribe(
       (data: Blob) => {
