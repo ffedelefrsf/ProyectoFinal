@@ -28,6 +28,7 @@
     "core-js": "^3.6.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.0",
+    "moment": "^2.29.1",
     "ng-bootstrap": "^1.6.3",
     "ngx-spinner": "^8.1.0",
     "rxjs": "~6.5.4",

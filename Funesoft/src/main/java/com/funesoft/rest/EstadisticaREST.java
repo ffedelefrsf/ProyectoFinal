@@ -38,4 +38,42 @@ public class EstadisticaREST {
         }
     }
 
+    @GetMapping("getDeudores")
+    public FunesoftResponseDTO getDeudores() {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    estadisticaController.getDeudores(),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+    }
+
+    @GetMapping("getHistorico")
+    public FunesoftResponseDTO getHistorico() {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    estadisticaController.getHistorico(),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+    }
+
 }

@@ -37,4 +37,6 @@ export enum EndpointEnum{
     CREATE_PAGO = '/pago/informarPago',
     DELETE_TARIFA = '/tarifa/delete',
     GET_ESTADISTICAS = '/estadistica/getAll',
+    GET_DEUDORES = '/estadistica/getDeudores',
+    GET_HISTORICO = '/estadistica/getHistorico',
 }

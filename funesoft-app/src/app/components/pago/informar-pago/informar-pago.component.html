@@ -92,9 +92,6 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        #
-                                    </th>
-                                    <th>
                                         Nro. Comprobante
                                     </th>
                                     <th>
@@ -113,9 +110,6 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let cbte of comprobantesDTO; let i = index">
-                                    <td class="font-weight-medium">
-                                        {{ i + 1 }}
-                                    </td>
                                     <td>
                                         {{ cbte.nroComprobante }}
                                     </td>

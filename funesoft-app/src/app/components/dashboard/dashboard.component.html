@@ -94,11 +94,11 @@
         </div>
         <div class="weather-data d-flex">
           <div class="mr-auto">
-            <h4 class="display-3">32
+            <h4 class="display-3">27
               <span class="symbol">&deg;</span>C
             </h4>
             <p>
-              Caluroso
+              Cálido
             </p>
           </div>
         </div>
@@ -110,25 +110,18 @@
     <div class="card">
       <div class="card-body">
         <h2 class="card-title text-primary mb-5">Rendimiento histórico</h2>
-        <div class="wrapper d-flex justify-content-between">
+
+        <div class="wrapper d-flex justify-content-between" *ngFor="let historico of historicos">
           <div class="side-left">
-            <p class="mb-2">Mejor rendimiento</p>
-            <p class="display-3 mb-4 font-weight-light">+45.2%</p>
+            <p class="mb-2"> {{ historico.texto }} </p>
+            <p class="display-3 mb-4 font-weight-light"> {{ historico.valor }} </p>
           </div>
           <div class="side-right">
-            <small class="text-muted">2017</small>
+            <small class="text-muted"> {{ historico.anio }} </small>
           </div>
         </div>
-        <div class="wrapper d-flex justify-content-between">
-          <div class="side-left">
-            <p class="mb-2">Peor rendimiento</p>
-            <p class="display-3 mb-5 font-weight-light">-35.3%</p>
-          </div>
-          <div class="side-right">
-            <small class="text-muted">2015</small>
-          </div>
-        </div>
-        <div class="wrapper">
+
+        <!-- <div class="wrapper">
           <div class="d-flex justify-content-between">
             <p class="mb-2">Ventas</p>
             <p class="mb-2 text-primary">25</p>
@@ -147,7 +140,7 @@
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
               style="width: 56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -156,173 +149,83 @@
   <div class="col-lg-12 grid-margin">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Comprobantes a pagar</h4>
+        <h4 class="card-title">Potenciales bajas</h4>
+
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
                 <th>
-                  #
+                  Socio
                 </th>
                 <th>
-                  Nombre
+                  Titular
                 </th>
                 <th>
-                  Progreso
+                  Saldo
                 </th>
                 <th>
-                  Monto
+                  Meses impagos
                 </th>
                 <th>
-                  Rendimiento
+                  Baja propuesta
                 </th>
                 <th>
-                  Baja
+                  Acciones
                 </th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="font-weight-medium">
-                  1
-                </td>
+            <tbody *ngIf="(deudoresDTO.length > 0)">
+              <tr *ngFor="let deudor of deudoresDTO; let i = index">
+                <td> {{ deudor.idSocio }} </td>
                 <td>
-                  Herman Beck
+                  {{ deudor.nombre + " " + deudor.apellido }}
                 </td>
+                <td> {{ "$ " + deudor.saldo }} </td>
                 <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 25%"
-                      aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="wrapper d-flex justify-content-between" style="margin-bottom: 2px;">
+                    <div class="side-left">
+                    </div>
+                    <div class="side-right">
+                      <small class="text-muted">{{ deudor.mesesDebe }}</small>
+                    </div>
+                  </div>
+                  <div class="progress" *ngIf="deudor.mesesDebe === 0">
+                    <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 0%"
+                      aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress" *ngIf="deudor.mesesDebe === 1">
+                    <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 33%"
+                      aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress" *ngIf="deudor.mesesDebe === 2">
+                    <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 66%"
+                      aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="progress" *ngIf="deudor.mesesDebe > 2">
+                     <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 100%"
+                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </td>
                 <td>
-                  $ 77.99
-                </td>
-                <td class="text-danger"> 53.64%
-                  <i class="mdi mdi-arrow-down"></i>
-                </td>
+                  <div *ngIf="deudor.mesesDebe > 2">
+                    <div class="text-warning" *ngIf="!compareDate(deudor.fechaPrimerCbte)">
+                      {{ getFechaBaja(deudor.fechaPrimerCbte) }}
+                    </div>    
+                    <div class="text-danger" *ngIf="compareDate(deudor.fechaPrimerCbte)">
+                      {{ getFechaBaja(deudor.fechaPrimerCbte) }}
+                    </div> 
+                  </div>               
+                </td>      
                 <td>
-                  May 15, 2015
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-medium">
-                  2
-                </td>
-                <td>
-                  Messsy Adam
-                </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 75%"
-                      aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td>
-                  $245.30
-                </td>
-                <td class="text-success"> 24.56%
-                  <i class="mdi mdi-arrow-up"></i>
-                </td>
-                <td>
-                  July 1, 2015
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-medium">
-                  3
-                </td>
-                <td>
-                  John Richards
-                </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 90%"
-                      aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td>
-                  $138.00
-                </td>
-                <td class="text-danger"> 28.76%
-                  <i class="mdi mdi-arrow-down"></i>
-                </td>
-                <td>
-                  Apr 12, 2015
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-medium">
-                  4
-                </td>
-                <td>
-                  Peter Meggik
-                </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 50%"
-                      aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td>
-                  $ 77.99
-                </td>
-                <td class="text-danger"> 53.45%
-                  <i class="mdi mdi-arrow-down"></i>
-                </td>
-                <td>
-                  May 15, 2015
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-medium">
-                  5
-                </td>
-                <td>
-                  Edward
-                </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 35%"
-                      aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td>
-                  $ 160.25
-                </td>
-                <td class="text-success"> 18.32%
-                  <i class="mdi mdi-arrow-up"></i>
-                </td>
-                <td>
-                  May 03, 2015
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-medium">
-                  6
-                </td>
-                <td>
-                  Henry Tom
-                </td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 20%"
-                      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </td>
-                <td>
-                  $ 150.00
-                </td>
-                <td class="text-danger"> 24.67%
-                  <i class="mdi mdi-arrow-down"></i>
-                </td>
-                <td>
-                  June 16, 2015
-                </td>
+                  <button type="button" class="btn btn-outline-danger btn-xs"
+                      (click)="darBaja(deudor)">Dar de baja</button>
+              </td>          
               </tr>
             </tbody>
           </table>
         </div>
+        
       </div>
     </div>
   </div>

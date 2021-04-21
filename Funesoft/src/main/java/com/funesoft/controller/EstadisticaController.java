@@ -118,4 +118,45 @@ public class EstadisticaController {
         return dto;
     }
 
+    public List<DeudoresDTO> getDeudores(){
+
+        List<DeudoresDTO> deudores = new ArrayList<>();
+
+        estadisticaRepository.findDeudores().forEach(
+                (deudor) -> {
+                    DeudoresDTO dto = new DeudoresDTO();
+                    dto.setIdSocio(Integer.valueOf(deudor[0].toString()));
+                    dto.setNombre(deudor[1].toString());
+                    dto.setApellido(deudor[2].toString());
+                    dto.setSaldo(Double.valueOf(deudor[3].toString()));
+                    dto.setMesesDebe(Integer.valueOf(deudor[4].toString()));
+                    dto.setFechaPrimerCbte(deudor[5].toString().split(" ")[0]);
+                    deudores.add(dto);
+                }
+        );
+
+        return deudores;
+    }
+
+    public List<HistoricoDTO> getHistorico(){
+
+        List<HistoricoDTO> historicos = new ArrayList<>();
+
+        List<Object[]> economico = estadisticaRepository.findMejorEconomico();
+        HistoricoDTO histEconomico = new HistoricoDTO();
+        histEconomico.setTexto("Mejor rendimiento económico");
+        histEconomico.setValor("+$" + economico.get(0)[1].toString());
+        histEconomico.setAnio(economico.get(0)[0].toString());
+        historicos.add(histEconomico);
+
+        List<Object[]> alta =  estadisticaRepository.findMejorAlta();
+        HistoricoDTO histAlta = new HistoricoDTO();
+        histAlta.setTexto("Mejor rendimiento en altas");
+        histAlta.setValor(alta.get(0)[1].toString());
+        histAlta.setAnio(alta.get(0)[0].toString());
+        historicos.add(histAlta);
+
+        return historicos;
+    }
+
 }

@@ -27,10 +27,10 @@
             <thead>
               <tr>
                 <th>
-                  #
+                  Comprobante
                 </th>
                 <th>
-                  Nro. Comprobante
+                  Socio
                 </th>
                 <th>
                   Estado
@@ -39,17 +39,17 @@
                   Monto $
                 </th>
                 <th>
-                  Socio
+                  Vencimiento
                 </th>
               </tr>
             </thead>
             <tbody *ngIf="(comprobantesDTO.length > 0) && showTable">
               <tr *ngFor="let cbte of comprobantesDTO; let i = index">
-                <td class="font-weight-medium">
-                  {{ i + 1 }}
-                </td>
                 <td>
                   {{ cbte.nroComprobante }}
+                </td>
+                <td>
+                  {{ cbte.socio.id }} - {{ cbte.socio.apellido + " " + cbte.socio.nombre }}
                 </td>
                 <td>
                   <label class="badge badge-danger" *ngIf="!cbte.pagado">Pendiente</label>
