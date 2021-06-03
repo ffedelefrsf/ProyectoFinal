@@ -19,6 +19,7 @@
                             <th>Apellido</th>
                             <th>Nombre</th>
                             <th>Socio DNI</th>
+                            <th>Cobertura</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
@@ -29,6 +30,12 @@
                             <td>{{adherente.apellido}}</td>
                             <td>{{adherente.nombre}}</td>
                             <td>{{adherente.socio.dni}}</td>
+                            <td>
+                                <label class="badge badge-success"
+                                    *ngIf="adherente.fechaCobertura <= currentDate">CUBIERTO</label>
+                                <label class="badge badge-danger"
+                                    *ngIf="adherente.fechaCobertura > currentDate">SIN COBERTURA</label>
+                            </td>
                             <td>
                                 <label class="badge badge-danger"
                                     *ngIf="adherente.estado.nroEstado === 2">{{adherente.estado.descripcion}}</label>

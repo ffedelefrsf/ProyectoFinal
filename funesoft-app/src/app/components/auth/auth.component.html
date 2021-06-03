@@ -5,15 +5,15 @@
         <div class="card-body">
           <form class="form-login" [formGroup]="authForm" (ngSubmit)="auth()">
             <div class="form-group">
-              <label for="inputEmail">Username</label>
+              <label for="inputEmail">Usuario</label>
               <input type="text" class="form-control" formControlName="username" id="inputEmail" placeholder="Username">
             </div>
             <div class="form-group">
-              <label for="inputPassword">Password</label>
+              <label for="inputPassword">Contraseña</label>
               <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Password">
             </div>
             <div class="form-group buttons-section">
-              <button type="submit" id="sign-in" class="btn btn-dark mr-2">Sign In</button>
+              <button type="submit" id="sign-in" class="btn btn-dark mr-2">Acceder</button>
               <!-- <button id="cancel" class="btn btn-light">Cancel</button> -->
             </div>
           </form>

@@ -15,6 +15,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
 import { GetAdherenteBySocioDNIRequestDTO } from '@app/dtos/getAdherenteBySocioDNIRequest.dto';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-listado',
@@ -32,6 +33,7 @@ export class ListadoAdherenteComponent implements OnInit {
   dniSocios: string[];
   public typeaheadBasicModel: any;
   public sidebarOpened = false;
+  currentDate: String;
 
   constructor(private adherenteService: AdherenteService,
               private socioService: SocioService,
@@ -41,6 +43,7 @@ export class ListadoAdherenteComponent implements OnInit {
     {config.placement = 'bottom-right'; }
 
   ngOnInit() {
+    this.currentDate = new DatePipe("en-US").transform(new Date(), 'yyyy-MM-dd');
     this.currentRate = 8;
     this.getSociosDNI();
     this.getAdherentes();
