@@ -67,7 +67,6 @@ export class CobradorListadoComponent implements OnInit {
       if (result.isConfirmed) {
         this.cobradorService.deleteCobrador(cobrador).subscribe(
           response => {
-            debugger
             if (response.success) {
               this.cobradoresArray.splice(this.cobradoresArray.lastIndexOf(cobrador), 1);
               Swal.fire(

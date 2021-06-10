@@ -100,7 +100,12 @@ public class EstadisticaController {
 
         dto.setTitulo("Socios activos");
         dto.setValor(item.get(0)[1].toString());
-        dto.setSubtitulo("De " + (Integer.parseInt(item.get(0)[1].toString()) + Integer.parseInt(item.get(1)[1].toString())));
+        if(item.size() > 1){
+            dto.setSubtitulo("De " + (Integer.parseInt(item.get(0)[1].toString()) + Integer.parseInt(item.get(1)[1].toString())));
+        } else {
+            dto.setSubtitulo("De " + (Integer.parseInt(item.get(0)[1].toString())));
+        }
+
 
         return dto;
     }

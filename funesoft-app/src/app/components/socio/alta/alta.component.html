@@ -74,6 +74,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" placeholder="01/09/1995"
+                                    formControlName="fechaNacimiento">
+                                <i class="fa fa-exclamation-circle" title="Debe seleccionar una fecha de nacimiento"
+                                    *ngIf="altaSocioForm.controls['fechaNacimiento'].errors && altaSocioForm.controls['fechaNacimiento'].touched"></i>
+                            </div>
+                        </div>
+                    </div> -->
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="col-sm-3 col-form-label">Fecha de nacimiento</label>
@@ -90,6 +103,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -227,10 +241,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive" style="margin-top: 20px;" *ngIf="altaSocioForm.valid && !altaSocioForm.pending && ['TITULAR Y ADHERENTE', 'FAMILIAR'].includes(altaSocioForm.controls['plan'].value)">
+                <div class="table-responsive" style="margin-top: 20px;"
+                    *ngIf="altaSocioForm.valid && !altaSocioForm.pending && ['TITULAR Y ADHERENTE', 'FAMILIAR'].includes(altaSocioForm.controls['plan'].value)">
                     <div style="display: flex; justify-content: flex-start; align-items: center;">
                         <h4 class="card-title" style="display: contents;">Adherentes</h4>
-                        <i class="fa fa-plus-square fa-lg" style="cursor: pointer; color: #424964; margin-left: 5px;" (click)="addAdherente()"></i>
+                        <i class="fa fa-plus-square fa-lg" style="cursor: pointer; color: #424964; margin-left: 5px;"
+                            (click)="addAdherente()"></i>
                     </div>
                     <table class="table table-hover">
                         <thead>
@@ -252,7 +268,8 @@
                                 <i class="fa fa-plus-square fa-lg" *ngIf="socio.estado.nroEstado === 0" routerLink="/icons" routerLinkActive="active"></i>
                                 <i class="fa fa-minus-square fa-lg" *ngIf="socio.estado.nroEstado === 1" routerLink="/icons" routerLinkActive="active"></i>
                                     -->
-                                    <i class="fa fa-minus-square fa-lg" style="cursor: pointer; color: #c50e0e;" (click)="removeAdherente(i)" routerLinkActive="active"></i>
+                                    <i class="fa fa-minus-square fa-lg" style="cursor: pointer; color: #c50e0e;"
+                                        (click)="removeAdherente(i)" routerLinkActive="active"></i>
                                 </td>
                             </tr>
                         </tbody>
@@ -269,7 +286,8 @@
                                 </h6>
                             </ng-template>
                             <ng-template ngbPanelContent id="accordionContent">
-                                <app-alta-adherente [socioInput]="socioToInsert" (datosAdherenteAgregado)="adherenteAgregado($event)"></app-alta-adherente>
+                                <app-alta-adherente [socioInput]="socioToInsert"
+                                    (datosAdherenteAgregado)="adherenteAgregado($event)"></app-alta-adherente>
                             </ng-template>
                         </ngb-panel>
                     </ngb-accordion>

@@ -32,7 +32,6 @@ export class ObraSocialAltaComponent implements OnInit {
   }
 
   createOs() {
-    debugger
     if (!this.altaOsForm.invalid) {
       var altaOsForm: ObraSocial = this.altaOsForm.getRawValue();
       this.obraSocialInsert.descripcion = altaOsForm.descripcion;
