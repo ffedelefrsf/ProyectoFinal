@@ -24,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Controller
 public class CoberturaController {
     
-    private static final Integer CONSTANTE = 10;
+    public static final Integer CONSTANTE = 10;
     
     @Autowired
     private CoberturaPesoRepository coberturaPesoRepository;

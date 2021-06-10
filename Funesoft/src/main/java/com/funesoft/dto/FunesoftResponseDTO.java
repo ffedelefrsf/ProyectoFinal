@@ -56,5 +56,10 @@ public class FunesoftResponseDTO implements Serializable {
         this.setMessage(message);
         this.setErrores(errores);
     }
+
+    @Override
+    public String toString() {
+        return "FunesoftResponseDTO{" + "success=" + success + ", data=" + data + ", message=" + message + ", date=" + date + ", errores=" + errores + '}';
+    }
     
 }

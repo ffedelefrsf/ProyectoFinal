@@ -165,8 +165,9 @@ public class TarifaController {
     public Tarifa insertTarifa(@NotNull final TarifaDTO tarifaDTO) throws BusinessException {
         try {
 
-            Tarifa tarifa = tarifaRepository.save(new Tarifa(tarifaDTO));
+            Tarifa tarifa = new Tarifa(tarifaDTO);
             tarifa.setUsuarioModifica(CurrentUser.getInstance());
+            tarifa = tarifaRepository.save(tarifa);
             //CARGO LOS RANGOS
             if (rangoTarifaController.insertRango(tarifa, tarifaDTO.getListRango()) != null) {
                 return tarifa;

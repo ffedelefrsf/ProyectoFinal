@@ -60,7 +60,7 @@ public class SocioController {
     public Socio insertSocio (@NotNull SocioDTO socioDTO){
 
         Socio socio = new Socio(socioDTO);
-                
+        
         //CALCULO LA COBERTURA
         socio.setFechaCobertura(coberturaController.calculoCobertura(socio));
 
