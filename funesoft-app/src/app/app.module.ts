@@ -57,6 +57,8 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ObraSocialAltaComponent } from './components/obra-social/obra-social-alta/obra-social-alta.component';
 import { ObraSocialListadoComponent } from './components/obra-social/obra-social-listado/obra-social-listado.component';
+import { FilterDataPipe } from './utils/filter-data.pipe';
+import { FilterTarifaPipe } from './utils/filter-tarifa.pipe';
 
 @NgModule({
   declarations: [
@@ -105,7 +107,9 @@ import { ObraSocialListadoComponent } from './components/obra-social/obra-social
     HeaderComponent,
     InformarPagoComponent,
     ObraSocialAltaComponent,
-    ObraSocialListadoComponent
+    ObraSocialListadoComponent,
+    FilterDataPipe,
+    FilterTarifaPipe
   ],
   imports: [
     BrowserModule,

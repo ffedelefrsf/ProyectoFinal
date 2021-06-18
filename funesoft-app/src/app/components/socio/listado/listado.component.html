@@ -1,7 +1,13 @@
 <div id="listado-socios">
     <div class="card" *ngIf="!loading && !error">
         <div class="card-body">
-            <h4 class="card-title">Padrón de socios titulares</h4>
+            <h4 class="card-title" style="margin-bottom: 16px">Padrón de socios titulares</h4>
+
+            <div class="" style="margin-bottom: 16px">
+                <input type="text" class="form-control" name="filterDatos" placeholder="Búsqueda..."
+                    [(ngModel)]="filterDatos">
+            </div>
+
             <div id="table-list" class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -15,15 +21,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let socio of sociosArray">
+                        <tr *ngFor="let socio of sociosArray | filterData:filterDatos">
                             <td>{{socio.dni}}</td>
                             <td>{{socio.apellido}}</td>
                             <td>{{socio.nombre}}</td>
                             <td>
                                 <label class="badge badge-success"
                                     *ngIf="socio.fechaCobertura <= currentDate">CUBIERTO</label>
-                                <label class="badge badge-danger"
-                                    *ngIf="socio.fechaCobertura > currentDate">SIN COBERTURA</label>
+                                <label class="badge badge-danger" *ngIf="socio.fechaCobertura > currentDate">SIN
+                                    COBERTURA</label>
                             </td>
                             <td>
                                 <label class="badge badge-danger"

@@ -22,6 +22,8 @@ export class ListadoSocioComponent implements OnInit {
   public sidebarOpened = false;
   currentDate: String;
 
+  filterDatos = '';
+
   constructor(private socioService: SocioService,
               private router: Router,
               private modalService: NgbModal,

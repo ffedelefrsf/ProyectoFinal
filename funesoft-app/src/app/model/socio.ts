@@ -25,5 +25,5 @@ export interface Socio{
     usuarioModifica?: Usuario,
     estado?: Estado,
     enfermedad?: Enfermedad,
-    edad?: number
+    edad?: number,
 }

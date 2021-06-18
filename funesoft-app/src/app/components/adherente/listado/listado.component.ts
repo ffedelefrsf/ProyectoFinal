@@ -34,6 +34,7 @@ export class ListadoAdherenteComponent implements OnInit {
   public typeaheadBasicModel: any;
   public sidebarOpened = false;
   currentDate: String;
+  filterDatos = '';
 
   constructor(private adherenteService: AdherenteService,
               private socioService: SocioService,

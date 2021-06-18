@@ -1,16 +1,13 @@
 <div id="listado-adherentes">
-    <div class="card">
-        <div class="row">
-            <div class="col-md-6">
-                <h4 id="custom-title" class="card-title">Padrón de adherentes</h4>
-            </div>
-            <div id="custom-typehead" class="col-md-6">
-                <input id="typeahead-basic" type="text" class="form-control" placeholder="DNI socio"
-                    [(ngModel)]="typeaheadBasicModel" [ngbTypeahead]="search"
-                    (input)="onSearchChange($event.target.value)" (selectItem)="onSearchChange($event.item)" />
-            </div>
-        </div>
+    <div class="card" *ngIf="!loading && !error">
         <div class="card-body">
+            <h4 id="custom-title" class="card-title" style="margin-bottom: 16px">Padrón de adherentes</h4>
+
+            <div class="" style="margin-bottom: 16px">
+                <input type="text" class="form-control" name="filterDatos" placeholder="Búsqueda..."
+                    [(ngModel)]="filterDatos">
+            </div>
+
             <div id="table-list" class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -25,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let adherente of adherenteArray">
+                        <tr *ngFor="let adherente of adherenteArray | filterData:filterDatos">
                             <td>{{adherente.dni}}</td>
                             <td>{{adherente.apellido}}</td>
                             <td>{{adherente.nombre}}</td>
@@ -33,8 +30,8 @@
                             <td>
                                 <label class="badge badge-success"
                                     *ngIf="adherente.fechaCobertura <= currentDate">CUBIERTO</label>
-                                <label class="badge badge-danger"
-                                    *ngIf="adherente.fechaCobertura > currentDate">SIN COBERTURA</label>
+                                <label class="badge badge-danger" *ngIf="adherente.fechaCobertura > currentDate">SIN
+                                    COBERTURA</label>
                             </td>
                             <td>
                                 <label class="badge badge-danger"
@@ -58,7 +55,8 @@
                                             (click)="detalleAdherente(adherente)">Información</a>
                                         <div class="dropdown-divider"></div>
                                         <a type="button" class="dropdown-header"
-                                            (click)="deleteAdherente(adherente)">Dar de baja</a>
+                                            (click)="deleteAdherente(adherente)">Dar de
+                                            baja</a>
                                         <div class="dropdown-divider"></div>
                                         <a type="button" class="dropdown-header"
                                             (click)="editAdherente(adherente)">Modificar</a>
@@ -71,9 +69,9 @@
                 </table>
             </div>
         </div>
-    </div>
-    <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
-        Ha ocurrido un error, inténtelo más tarde.
+        <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
+            Ha ocurrido un error, inténtelo más tarde.
+        </div>
     </div>
 </div>
 <div class="spinner-border text-primary" role="status" *ngIf="loading">

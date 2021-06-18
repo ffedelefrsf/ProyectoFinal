@@ -1,7 +1,13 @@
 <div id="listado-zonas">
     <div class="card" *ngIf="!loading && !error">
         <div class="card-body">
-            <h4 class="card-title">Padrón de tarifas</h4>
+            <h4 class="card-title" style="margin-bottom: 16px">Padrón de tarifas</h4>
+
+            <div class="" style="margin-bottom: 16px">
+                <input type="text" class="form-control" name="filterDatos" placeholder="Búsqueda..."
+                    [(ngModel)]="filterDatos">
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -15,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let tarifa of tarifasArray; let i = index">
+                        <tr *ngFor="let tarifa of tarifasArray | filterTarifa:filterDatos ; let i = index">
                             <td>{{i + 1 }}</td>
                             <td>{{tarifa.nroTarifa}}</td>
                             <td>{{tarifa.descripcion}}</td>

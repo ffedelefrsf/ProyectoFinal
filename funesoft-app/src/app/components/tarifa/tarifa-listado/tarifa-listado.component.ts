@@ -17,6 +17,7 @@ export class TarifaListadoComponent implements OnInit {
   tarifasArray: Tarifa[];
   error: boolean = false;
   public sidebarOpened = false;
+  filterDatos = '';
 
   constructor(private tarifaService: TarifaService,
     private router: Router,
