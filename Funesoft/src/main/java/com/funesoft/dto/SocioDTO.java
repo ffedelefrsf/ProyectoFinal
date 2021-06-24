@@ -77,5 +77,10 @@ public class SocioDTO{
         this.idEnfermedad = idEnfermedad;
         this.adherentesAltaDTO = adherenteAltaDTO;
     }
+
+    @Override
+    public String toString() {
+        return "SocioDTO{" + "id=" + id + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", sexo=" + sexo + ", fechaNacimiento=" + fechaNacimiento + ", usuarioAlta=" + usuarioAlta + ", saldo=" + saldo + ", idTarifa=" + idTarifa + ", idZona=" + idZona + ", idLocalidad=" + idLocalidad + ", idObraSocial=" + idObraSocial + ", idEnfermedad=" + idEnfermedad + ", adherentesAltaDTO=" + adherentesAltaDTO + '}';
+    }
     
 }

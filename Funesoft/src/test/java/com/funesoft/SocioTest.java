@@ -13,7 +13,11 @@ import com.funesoft.model.CoberturaEnfermedad;
 import com.funesoft.model.CoberturaPeso;
 import com.funesoft.model.Enfermedad;
 import com.funesoft.model.Estado;
+import com.funesoft.model.Localidad;
+import com.funesoft.model.ObraSocial;
 import com.funesoft.model.Socio;
+import com.funesoft.model.Tarifa;
+import com.funesoft.model.Zona;
 import com.funesoft.repository.CoberturaEdadRepository;
 import com.funesoft.repository.CoberturaEnfermedadRepository;
 import com.funesoft.repository.CoberturaPesoRepository;
@@ -27,7 +31,10 @@ import com.funesoft.utilities.EstadoEnum;
 import com.funesoft.utilities.JsonHelper;
 import com.ibm.icu.util.Calendar;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,11 +45,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Example;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -87,6 +96,174 @@ public class SocioTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(socioREST).build();
+    }
+    
+    @Test
+    @DisplayName ("TEST Get All Socios")
+    public void getAllSociosTest() throws Exception {
+        
+        final List<Socio> toReturn = new ArrayList();
+        toReturn.add(new Socio());
+        
+        final String requestBody = JsonHelper.objectToString(new Socio());
+        
+        // SUCCESS
+        when(socioRepository.findAll(Example.of(new Socio()))).thenReturn(toReturn);
+        mockMvc.perform(post("/socio/get")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(requestBody)
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.success").value(true));
+        
+        // FAILED EMPTY REQUEST
+        mockMvc.perform(post("/socio/get")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("")
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isBadRequest());
+        
+    }
+    
+    @Test
+    @DisplayName ("TEST Get Socio")
+    public void getSocioTest() throws Exception {
+        
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final List<Socio> toReturn = new ArrayList();
+        
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(1997, 5, 6);
+        
+        final SocioDTO socioDTO = new SocioDTO();
+        socioDTO.setId(1);
+        socioDTO.setDni(40053701);
+        socioDTO.setApellido("Fedele");
+        socioDTO.setNombre("Fausto");
+        socioDTO.setDireccion("Candido Pujato 2754");
+        socioDTO.setTelefono("3404516973");
+        socioDTO.setEmail("faustofedele2013@gmail.com");
+        socioDTO.setSexo("Masculino");
+        socioDTO.setFechaNacimiento(calendar.getTime());
+        socioDTO.setUsuarioAlta(1);
+        socioDTO.setSaldo(1253d);
+        socioDTO.setAdherentesAltaDTO(new ArrayList());
+        final Socio socio = new Socio(socioDTO);
+        toReturn.add(socio);
+        
+        final String requestBody = JsonHelper.objectToString(socio);
+        
+        final List responseList = new ArrayList();
+        responseList.add(objectMapper.convertValue(socio, Map.class));
+        // SUCCESS
+        when(socioRepository.findAll(Example.of(socio))).thenReturn(toReturn);
+        mockMvc.perform(post("/socio/get")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(requestBody)
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.success").value(true))
+            .andExpect(jsonPath("$.data").value(responseList));
+        
+        // FAILED EMPTY REQUEST
+        mockMvc.perform(post("/socio/get")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("")
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isBadRequest());
+        
+    }
+    
+    @Test
+    @DisplayName ("TEST Get All DNIs")
+    public void getAllDNIsTest() throws Exception {
+        
+        final List<String> toReturn = new ArrayList();
+        toReturn.add("17997379");
+        toReturn.add("40053701");
+        
+        final String requestBody = "";
+        
+        // SUCCESS
+        when(socioRepository.findDniByOrderByDniDesc()).thenReturn(toReturn);
+        mockMvc.perform(get("/socio/getDNIs")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(requestBody)
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.success").value(true))
+            .andExpect(jsonPath("$.data").value(toReturn));
+        
+    }
+    
+    @Test
+    @DisplayName ("TEST Update Tarifa")
+    public void updateTarifaTest() throws Exception {
+        
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final List<Socio> toReturn = new ArrayList();
+        
+        final Enfermedad enfermedad = new Enfermedad();
+        enfermedad.setId(1);
+        
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(1997, 5, 6);
+        
+        final SocioDTO socioDTO = new SocioDTO();
+        socioDTO.setId(1);
+        socioDTO.setDni(40053701);
+        socioDTO.setApellido("Fedele");
+        socioDTO.setNombre("Fausto");
+        socioDTO.setDireccion("Candido Pujato 2754");
+        socioDTO.setTelefono("3404516973");
+        socioDTO.setEmail("faustofedele2013@gmail.com");
+        socioDTO.setSexo("Masculino");
+        socioDTO.setFechaNacimiento(calendar.getTime());
+        socioDTO.setUsuarioAlta(1);
+        socioDTO.setSaldo(1253d);
+        socioDTO.setAdherentesAltaDTO(new ArrayList());
+        final Socio socio = new Socio(socioDTO);
+        socio.setId(socioDTO.getId());
+        socio.setTarifa(new Tarifa());
+        socio.setZona(new Zona());
+        socio.setLocalidad(new Localidad());
+        socio.setObraSocial(new ObraSocial());
+        socio.setEnfermedad(new Enfermedad());
+        socio.setUsuarioModifica(CurrentUser.getInstance());
+        socio.setEstado(new Estado());
+        socio.setFechaCobertura(new Date());
+        toReturn.add(socio);
+        
+        final String requestBody = JsonHelper.objectToString(socio);
+        
+        final Optional<Socio> optional = Optional.of(new Socio());
+        
+        // FAILED IF IT DOESN'T EXISTS
+        mockMvc.perform(post("/socio/update")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(requestBody)
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.success").value(false));
+        
+        // FAILED EMPTY REQUEST
+        mockMvc.perform(post("/socio/update")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("")
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isBadRequest());
+        
+        // SUCCESS
+        when(socioRepository.findById(socio.getId())).thenReturn(optional);
+        when(socioRepository.save(socio)).thenReturn(socio);
+        mockMvc.perform(post("/socio/update")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(requestBody)
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.success").value(true))
+            .andExpect(jsonPath("$.data").value(objectMapper.convertValue(socio, Map.class)));
+        
     }
     
     @Test
