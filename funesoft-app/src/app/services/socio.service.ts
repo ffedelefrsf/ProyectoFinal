@@ -38,4 +38,8 @@ export class SocioService extends ApiService{
     return this.request(MethodEnum.GET, EndpointEnum.GET_MOTIVOS_BAJA, null, null);
   }
 
+  getMotivoBaja(socio: Socio): Observable<FunesoftResponseDTO<MotivoBaja>>{
+    return this.request(MethodEnum.POST, EndpointEnum.GET_MOTIVO_BAJA, null, socio);
+  }
+
 }
