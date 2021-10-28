@@ -22,7 +22,7 @@
     "@angular/router": "~8.2.14",
     "@mdi/font": "^4.8.95",
     "@ng-bootstrap/ng-bootstrap": "^5.2.0",
-    "@ng-select/ng-select": "^5.0.1",
+    "@ng-select/ng-select": "^3.7.3",
     "bootstrap": "^4.4.1",
     "compass-mixins": "^0.12.10",
     "core-js": "^3.6.4",

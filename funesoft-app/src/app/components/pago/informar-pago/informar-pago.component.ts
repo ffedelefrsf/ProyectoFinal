@@ -12,6 +12,7 @@ import { PagoService } from '@app/services/pago.service';
 import { SocioService } from '@app/services/socio.service';
 import { PageEnum } from '@app/utils/page.enum';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectConfig } from '@ng-select/ng-select';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -32,7 +33,6 @@ export class InformarPagoComponent implements OnInit {
   error: boolean = false;
 
   socios: Socio[] = [];
-  sociosName: string[] = [];
 
   comprobantesDTO: ComprobanteDTO[] = [];
 
@@ -53,6 +53,9 @@ export class InformarPagoComponent implements OnInit {
 
   pagoDTO: PagoDTO = {};
 
+  sociosSelect = [];
+  socioSelected;
+
   constructor(
     private socioService: SocioService,
     private comprobanteService: ComprobanteService,
@@ -61,7 +64,12 @@ export class InformarPagoComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private cobradorService: CobradorService,
     private pagoService: PagoService,
-  ) { }
+  ) {
+  }
+
+  selectedCar: number;
+
+  sociosDropdown = [];
 
   ngOnInit() {
 
@@ -85,7 +93,7 @@ export class InformarPagoComponent implements OnInit {
     this.socioService.getSocios(socio).subscribe(
       response => {
         this.socios = response.data.sort((a, b) => a.apellido.localeCompare(b.apellido));
-        // this.socios = response.data;
+        this.convertSocios();
         this.error = false;
         this.spinner.hide();
       },
@@ -107,6 +115,13 @@ export class InformarPagoComponent implements OnInit {
     );
   }
 
+  convertSocios() {
+    this.socios.map(element => {
+      element['name'] = element.apellido + " " + element.nombre;
+      return element;
+    });
+  }
+
   getAllComprobantes(socio: Socio) {
     this.spinner.show();
     let comprobante: Comprobante = {
@@ -116,7 +131,7 @@ export class InformarPagoComponent implements OnInit {
     };
     this.comprobanteService.getAll(comprobante).subscribe(
       response => {
-        this.comprobantesDTO = response.data.sort((a,b) => b.nroComprobante - a.nroComprobante);
+        this.comprobantesDTO = response.data.sort((a, b) => b.nroComprobante - a.nroComprobante);
         this.error = false;
         this.spinner.hide();
       },
@@ -139,10 +154,10 @@ export class InformarPagoComponent implements OnInit {
     );
   }
 
-  changeSocio() {
+  changeSocio(event: any) {
+    this.selectedValue = event;
     this.selectedSocio = true;
     this.showTable = false;
-    console.log("SOCIO: " + this.selectedValue);
     this.saldo = "$ " + this.selectedValue.saldo;
     this.activo = this.selectedValue.estado.id === 2 ? false : true;
   }
@@ -179,19 +194,19 @@ export class InformarPagoComponent implements OnInit {
 
         this.pagoService.informarPago(this.pagoDTO).subscribe(
           response => {
-            if (response.success){
+            if (response.success) {
               this.success = true;
               this.error = false;
               this.loading = false;
               cbte.pagado = true;
-              this.selectedValue.saldo = (parseFloat(this.saldo.substring(2)) + cbte.importeTotal); 
-              this.saldo  = '$ ' + this.selectedValue.saldo.toString();
+              this.selectedValue.saldo = (parseFloat(this.saldo.substring(2)) + cbte.importeTotal);
+              this.saldo = '$ ' + this.selectedValue.saldo.toString();
               Swal.fire(
                 'Informado!',
                 'El pago del comprobante ' + cbte.nroComprobante + ' fue realizado con éxito.',
                 'success'
               );
-            }else{
+            } else {
               this.loading = false;
               this.error = true;
               this.success = false;

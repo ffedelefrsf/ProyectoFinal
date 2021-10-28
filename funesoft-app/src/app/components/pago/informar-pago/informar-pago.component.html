@@ -13,12 +13,21 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="planLabel">Socio</label>
-                                <select class="form-control" formControlName="socio" [(ngModel)]="selectedValue"
+
+                                <!--Using items input-->
+                                <ng-select [items]="socios" 
+                                        bindLabel="name" 
+                                        bindValue="id" 
+                                        [(ngModel)]="socioSelected"
+                                        (change)="changeSocio($event)">
+                                </ng-select>
+
+                                <!-- <select class="form-control" formControlName="socio" [(ngModel)]="selectedValue"
                                     (change)="changeSocio()">
                                     <option *ngFor="let socio of socios" [ngValue]="socio">
                                         {{socio.apellido}} {{socio.nombre}}
                                     </option>
-                                </select>
+                                </select> -->
                                 <i class="fa fa-exclamation-circle" title="Debe seleccionar un socio"
                                     *ngIf="informarPagoForm.controls['socio'].errors && informarPagoForm.controls['socio'].touched"></i>
                             </div>
