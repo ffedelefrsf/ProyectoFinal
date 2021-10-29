@@ -14,6 +14,7 @@ import com.funesoft.dto.RemoveAllBySocioDTO;
 import com.funesoft.model.Adherente;
 import io.swagger.annotations.ApiOperation;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,6 +100,46 @@ public class AdherenteREST {
     @GetMapping (path = "currentUserJDBC")
     public String getUser(){
         return entityManager.createNativeQuery("SELECT CURRENT_USER()").getSingleResult().toString();
+    }
+
+    @GetMapping("generarPDF")
+    public FunesoftResponseDTO generarReporte(HttpServletResponse response) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    adherenteController.generateReport(response),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+
+    }
+
+    @GetMapping("generarXLS")
+    public FunesoftResponseDTO generarReporteXLS(HttpServletResponse response) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    adherenteController.generateReportXLS(response),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+
     }
     
 }

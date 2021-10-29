@@ -17,7 +17,13 @@
                             <th>Nombre</th>
                             <th>Cobertura</th>
                             <th>Estado</th>
-                            <th></th>
+                            <th style="padding-bottom: 6px; padding-left: 81px;">
+                                <div class="">
+                                    <img class="cursor" (click)="downloadPDF()" src="/assets/images/pdf2.png" height="30px"
+                                        width="30px" alt="Descargar en PDF">
+                                    <img class="cursor" (click)="downloadXLS()"  src="/assets/images/xls.png" height="30px" width="30px" alt="Descargar en XLS">
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

@@ -16,6 +16,7 @@ import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
 import { GetAdherenteBySocioDNIRequestDTO } from '@app/dtos/getAdherenteBySocioDNIRequest.dto';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-listado',
@@ -171,5 +172,45 @@ export class ListadoAdherenteComponent implements OnInit {
       document.querySelector('.sidebar-offcanvas').classList.remove('active');
     }
   }
+
+  downloadPDF() {
+    Swal.fire({
+      icon: 'success',
+      title: '¡Generado!',
+      titleText: 'Preparando la descarga del .PDF',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.adherenteService.getPDF()
+    .subscribe(
+      (data: Blob) => {
+        var file = new Blob([data], { type: 'application/pdf' })
+        var fileURL = URL.createObjectURL(file);
+
+        window.open(fileURL); 
+        var a         = document.createElement('a');
+        a.href        = fileURL; 
+        a.target      = '_blank';
+        a.download    = 'padrón de socios - ' + this.currentDate + '.pdf';
+        document.body.appendChild(a);
+        a.click();
+      },
+      (error) => {
+        console.log('getPDF error: ',error);
+      }
+    );
+}
+
+downloadXLS() {
+  Swal.fire({
+    icon: 'success',
+    title: '¡Generado!',
+    titleText: 'El archivo .XLS se guardó en el dispositivo',
+    showConfirmButton: false,
+    timer: 1500
+  })
+  this.adherenteService.getXLS()
+  .subscribe();
+}
 
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -128,4 +129,45 @@ public class SocioREST {
             );
         }
     }
+
+    @GetMapping("generarPDF")
+    public FunesoftResponseDTO generarReporte(HttpServletResponse response) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    socioController.generateReport(response),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+
+    }
+
+    @GetMapping("generarXLS")
+    public FunesoftResponseDTO generarReporteXLS(HttpServletResponse response) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    socioController.generateReportXLS(response),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+
+    }
+
 }

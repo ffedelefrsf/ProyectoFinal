@@ -8,6 +8,7 @@ import { MethodEnum } from '@app/utils/method.enum';
 import { EndpointEnum } from '@app/utils/endpoint.enum';
 import { MotivoBaja } from '@app/model/motivoBaja';
 import { SocioBajaDTO } from '@app/dtos/socioBaja.dto';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,21 @@ export class SocioService extends ApiService{
 
   getMotivoBaja(socio: Socio): Observable<FunesoftResponseDTO<MotivoBaja>>{
     return this.request(MethodEnum.POST, EndpointEnum.GET_MOTIVO_BAJA, null, socio);
+  }
+
+  getPDF(): Observable<Blob>
+  {
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+
+      return this.http.get<Blob>('http://localhost:8080/Funesoft/socio/generarPDF', { headers : headers,responseType : 
+      'blob' as 'json'});
+  }
+
+  getXLS(): Observable<Blob>
+  {
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+      return this.http.get<Blob>('http://localhost:8080/Funesoft/socio/generarXLS', { headers : headers,responseType : 
+      'blob' as 'json'});
   }
 
 }

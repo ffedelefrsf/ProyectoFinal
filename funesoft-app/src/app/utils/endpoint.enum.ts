@@ -40,4 +40,5 @@ export enum EndpointEnum{
     GET_ESTADISTICAS = '/estadistica/getAll',
     GET_DEUDORES = '/estadistica/getDeudores',
     GET_HISTORICO = '/estadistica/getHistorico',
+    GET_REPORTE_SOCIOS = '/socio/generarReporte',
 }

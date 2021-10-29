@@ -8,6 +8,7 @@ import { PageEnum } from '@app/utils/page.enum';
 import { DetalleSocioComponent } from '@app/components/socio/detalle/detalle.component';
 import { BajaSocioComponent } from '@app/components/socio/baja/baja.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-listado',
@@ -96,6 +97,46 @@ export class ListadoSocioComponent implements OnInit {
     else {
       document.querySelector('.sidebar-offcanvas').classList.remove('active');
     }
+  }
+
+  downloadPDF() {
+      Swal.fire({
+        icon: 'success',
+        title: '¡Generado!',
+        titleText: 'Preparando la descarga del .PDF',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.socioService.getPDF()
+      .subscribe(
+        (data: Blob) => {
+          var file = new Blob([data], { type: 'application/pdf' })
+          var fileURL = URL.createObjectURL(file);
+  
+          window.open(fileURL); 
+          var a         = document.createElement('a');
+          a.href        = fileURL; 
+          a.target      = '_blank';
+          a.download    = 'padrón de socios - ' + this.currentDate + '.pdf';
+          document.body.appendChild(a);
+          a.click();
+        },
+        (error) => {
+          console.log('getPDF error: ',error);
+        }
+      );
+  }
+
+  downloadXLS() {
+    Swal.fire({
+      icon: 'success',
+      title: '¡Generado!',
+      titleText: 'El archivo .XLS se guardó en el dispositivo',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.socioService.getXLS()
+    .subscribe();
   }
 
 }
