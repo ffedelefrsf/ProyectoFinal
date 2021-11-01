@@ -47,13 +47,13 @@ export class ComprobanteComponent implements OnInit {
   generarComprobantes(){
 
     Swal.fire({
-      title: 'Estás seguro?',
+      title: '¿Estás seguro?',
       text: "Se generarán los comprobantes del mes actual",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, estoy seguro!'
+      confirmButtonText: '¡Si, estoy seguro!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.comprobanteService.generarComprobantesMasivos().subscribe(
@@ -66,7 +66,7 @@ export class ComprobanteComponent implements OnInit {
               this.imprimirComprobantes();
               Swal.fire({
                 icon: 'success',
-                title: 'Generados!',
+                title: '¡Generados!',
                 titleText: 'Preparando descarga...',
                 showConfirmButton: false,
                 timer: 1500
@@ -78,7 +78,7 @@ export class ComprobanteComponent implements OnInit {
               this.generados = false;
               Swal.fire(
                 'Error',
-                'Se produjo un error. Intente nuevamente',
+                'Se produjo un error. Intente nuevamente.',
                 'error'
               );
             }

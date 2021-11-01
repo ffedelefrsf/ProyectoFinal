@@ -180,6 +180,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-3 col-form-label">Estado</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="direccion"
+                                        value="{{socio.estado.descripcion}}" disabled="true" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" *ngIf="isBaja">
+                            <div class="form-group">
+                                <label class="col-sm-3 col-form-label">Motivo de baja</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="direccion"
+                                        value="{{ motivoBaja }}" disabled="true" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group buttons-section">
                         <button type="button" id="accept" class="btn btn-light"
                             (click)="activeModal.close('Close click')">Aceptar</button>

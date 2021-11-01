@@ -10,6 +10,7 @@ import { AdherenteAltaDTO } from '@app/dtos/adherenteAlta.dto';
 import { MotivoBaja } from '@app/model/motivoBaja';
 import { AdherenteBajaDTO } from '@app/dtos/adherenteBaja.dto';
 import { GetAdherenteBySocioDNIRequestDTO } from '@app/dtos/getAdherenteBySocioDNIRequest.dto';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,18 @@ export class AdherenteService extends ApiService{
 
   getMotivosBaja(): Observable<FunesoftResponseDTO<MotivoBaja>>{
     return this.request(MethodEnum.GET, EndpointEnum.GET_MOTIVOS_BAJA, null, null);
+  }
+
+  getPDF(): Observable<Blob>
+  {
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+      return this.http.get<Blob>('http://localhost:8080/Funesoft/adherente/generarPDF', { headers : headers});
+  }
+
+  getXLS(): Observable<Blob>
+  {
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+      return this.http.get<Blob>('http://localhost:8080/Funesoft/adherente/generarXLS', { headers : headers});
   }
 
 }

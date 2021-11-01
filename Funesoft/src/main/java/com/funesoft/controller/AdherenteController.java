@@ -21,13 +21,29 @@ import com.funesoft.repository.SocioRepository;
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
 import com.funesoft.utilities.EstadoEnum;
+
+import java.io.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
+
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Example;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 
 /**
  *
@@ -53,6 +69,10 @@ public class AdherenteController {
     
     @Autowired
     private AdherenteBajaRepository adherenteBajaRepository;
+
+    @Autowired
+    @Qualifier("jdbcTemplate")
+    private JdbcTemplate jdbcTemplate;
     
     public Adherente insertAdherente (@NotNull AdherenteDTO adherenteDTO){
 
@@ -135,6 +155,71 @@ public class AdherenteController {
     
     public List<Adherente> insertAll(final List<Adherente> adherentesToInsert) {
         return adherenteRepository.saveAll(adherentesToInsert);
+    }
+
+    public String generateReport(HttpServletResponse response) throws SQLException, IOException, JRException {
+        try {
+
+            response.setContentType("application/x-download");
+            response.setHeader("Content-Disposition", String.format("attachment; filename=\"padron_adherentes.pdf\""));
+
+            OutputStream out = response.getOutputStream();
+
+            String reportPath = "classpath:padron_adherentes.jrxml";
+
+            File file = ResourceUtils.getFile(reportPath);
+            InputStream input = new FileInputStream(file);
+            JasperReport jasperReport = JasperCompileManager.compileReport(input);
+
+            Connection conn = jdbcTemplate.getDataSource().getConnection();
+
+            Map<String, Object> parameters = new HashMap<>();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            JasperExportManager.exportReportToPdfStream(jasperPrint, out);
+
+            return "XLS File Generated";
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getMessage();
+            throw e;
+        }
+
+    }
+
+    public String generateReportXLS(HttpServletResponse response) throws SQLException, IOException, JRException {
+        try {
+
+            String reportPath = "classpath:padron_adherentes.jrxml";
+
+            File file = ResourceUtils.getFile(reportPath);
+            InputStream input = new FileInputStream(file);
+            JasperReport jasperReport = JasperCompileManager.compileReport(input);
+            Connection conn = jdbcTemplate.getDataSource().getConnection();
+            Map<String, Object> parameters = new HashMap<>();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+
+            JRXlsxExporter xlsExporter = new JRXlsxExporter();
+
+            String outXlsName = "adherentes_padron.xlsx";
+            xlsExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+            xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outXlsName));
+            SimpleXlsxReportConfiguration xlsReportConfiguration = new SimpleXlsxReportConfiguration();
+            xlsReportConfiguration.setOnePagePerSheet(false);
+            xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(true);
+            xlsReportConfiguration.setDetectCellType(false);
+            xlsReportConfiguration.setWhitePageBackground(false);
+            xlsExporter.setConfiguration(xlsReportConfiguration);
+
+            xlsExporter.exportReport();
+
+            return "XLS File Generated";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getMessage();
+            throw e;
+        }
+
     }
     
 }

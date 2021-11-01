@@ -59,6 +59,7 @@ import { ObraSocialAltaComponent } from './components/obra-social/obra-social-al
 import { ObraSocialListadoComponent } from './components/obra-social/obra-social-listado/obra-social-listado.component';
 import { FilterDataPipe } from './utils/filter-data.pipe';
 import { FilterTarifaPipe } from './utils/filter-tarifa.pipe';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { FilterTarifaPipe } from './utils/filter-tarifa.pipe';
     FormsModule,
     NgbModule,
     NgxSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgSelectModule
   ],
   providers:  [AuthService, 
               ProvinciaService,
