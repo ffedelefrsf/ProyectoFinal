@@ -1,11 +1,19 @@
 package com.funesoft;
 
+import com.funesoft.dto.CobradorDTO;
+import com.funesoft.dto.ZonaCobradoresDTO;
 import com.funesoft.dto.ZonaDTO;
+import com.funesoft.model.Cobrador;
 import com.funesoft.model.Zona;
+import com.funesoft.model.ZonaCobrador;
+import com.funesoft.repository.ZonaCobradorRepository;
 import com.funesoft.repository.ZonaRepository;
 import com.funesoft.rest.ZonaREST;
+import com.funesoft.utilities.CurrentUser;
 import com.funesoft.utilities.JsonHelper;
+import com.ibm.icu.util.Calendar;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +46,9 @@ public class ZonaTest {
     @MockBean
     private ZonaRepository zonaRepository;
     
+    @MockBean
+    private ZonaCobradorRepository zonaCobradorRepository;
+    
     @Autowired
     private ZonaREST zonaREST;
     
@@ -67,6 +78,47 @@ public class ZonaTest {
         
         // FAILED EMPTY REQUEST
         mockMvc.perform(post("/zona/getAll")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("")
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isBadRequest());
+        
+    }
+    
+    @Test
+    @DisplayName ("TEST Insert Zona")
+    public void insertZonasTest() throws Exception {
+        
+        final Zona zona = new Zona(new ZonaDTO(1, 1, "My zona"));
+        final List<Cobrador> cobradores = new ArrayList();
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(1997, 5, 6);
+        final Cobrador cobrador = new Cobrador(new CobradorDTO(1, 40053701, "Fedele", "Fausto", "Avellaneda 2178", "3404516973", "faustofedele2013@gmail.com", "Masculino", calendar.getTime(), new Date(), null, 1));
+        cobradores.add(cobrador);
+        
+        final ZonaCobradoresDTO zonaCobradoresDTO = new ZonaCobradoresDTO();
+        zonaCobradoresDTO.setCobradores(cobradores);
+        zonaCobradoresDTO.setZona(zona);
+        final String requestBody = JsonHelper.objectToString(zonaCobradoresDTO);
+        
+        // SUCCESS
+        zona.setUsuarioModifica(CurrentUser.getInstance());
+        when(zonaRepository.save(zonaCobradoresDTO.getZona())).thenReturn(zona);
+        ZonaCobrador zonaCobrador = new ZonaCobrador();
+        zonaCobrador.setZona(zonaCobradoresDTO.getZona());
+        zonaCobrador.setCobrador(cobrador);
+        zonaCobrador.setUsuarioModifica(CurrentUser.getInstance());
+        when(zonaCobradorRepository.save(zonaCobrador)).thenReturn(zonaCobrador);
+        
+        mockMvc.perform(post("/zona/insert")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(requestBody)
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.success").value(true));
+        
+        // FAILED EMPTY REQUEST
+        mockMvc.perform(post("/zona/insert")
             .contentType(MediaType.APPLICATION_JSON)
             .content("")
             .accept(MediaType.APPLICATION_JSON_VALUE))

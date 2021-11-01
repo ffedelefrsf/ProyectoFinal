@@ -156,6 +156,50 @@
       </a>
     </li>
 
+    <li class="nav-item" type="button" (click)="servicioGroup = !servicioGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="servicioGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!servicioGroup"></i>
+        <span class="menu-title">Servicios</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="servicioGroup" routerLink="/servicios" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Padrón</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="servicioGroup" routerLink="/servicios/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Alta</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" (click)="ventaGroup = !ventaGroup">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-double-down" *ngIf="ventaGroup"></i>
+        <i class="menu-icon fa fa-angle-double-up" *ngIf="!ventaGroup"></i>
+        <span class="menu-title">Ventas</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="ventaGroup" routerLink="/venta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Padrón</span>
+      </a>
+    </li>
+
+    <li class="nav-item" type="button" [ngbCollapse]="ventaGroup" routerLink="/venta/alta" routerLinkActive="active">
+      <a class="nav-link">
+        <i class="menu-icon fa fa-angle-right"></i>
+        <span class="menu-title">Alta</span>
+      </a>
+    </li>
+
 
     <li class="nav-item" type="button" (click)="comprobanteGroup = !comprobanteGroup">
       <a class="nav-link">

@@ -26,4 +26,19 @@ public class CobradorDTO {
     private Date fechaBaja;
     private Integer idLocalidad;
 
+    public CobradorDTO(Integer id, Integer dni, String apellido, String nombre, String direccion, String telefono, String email, String sexo, Date fechaNacimiento, Date fechaAlta, Date fechaBaja, Integer idLocalidad) {
+        this.id = id;
+        this.dni = dni;
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.email = email;
+        this.sexo = sexo;
+        this.fechaNacimiento = fechaNacimiento;
+        this.fechaAlta = fechaAlta;
+        this.fechaBaja = fechaBaja;
+        this.idLocalidad = idLocalidad;
+    }
+    
 }

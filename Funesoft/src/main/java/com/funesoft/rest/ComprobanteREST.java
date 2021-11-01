@@ -39,6 +39,7 @@ public class ComprobanteREST {
     //DECREMENTA EL SALDO DE UN SOCIO
     @PostMapping("generarComprobantesMasivos")
     private FunesoftResponseDTO generarComprobanteMasivos() {
+        System.out.println("llega");
         try {
             return new FunesoftResponseDTO(
                     true,

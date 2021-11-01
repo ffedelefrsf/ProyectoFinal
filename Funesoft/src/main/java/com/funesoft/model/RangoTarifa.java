@@ -64,11 +64,17 @@ public class RangoTarifa implements Serializable {
     private Usuario usuarioModifica;
 
     public RangoTarifa(RangoTarifaDTO dto, Tarifa tarifa, Usuario user) {
+        System.out.println("1");
         this.edadDesde = dto.getEdadDesde();
+        System.out.println("2");
         this.edadHasta = dto.getEdadHasta();
+        System.out.println("3");
         this.valor = dto.getValor().floatValue();
+        System.out.println("4");
         this.tarifa = tarifa;
+        System.out.println("5");
         this.usuarioModifica = user;
+        System.out.println("6");
     }
 
     public RangoTarifa(RangoTarifa rango, Tarifa tarifa, Usuario user) {
@@ -121,7 +127,7 @@ public class RangoTarifa implements Serializable {
 
     @Override
     public String toString() {
-        return "RangoTarifa{" + "id=" + id + ", edadDesde=" + edadDesde + ", edadHasta=" + edadHasta + ", valor=" + valor + ", tarifa=" + tarifa.toString() + ", usuarioModifica=" + usuarioModifica.toString() + '}';
+        return "RangoTarifa{" + "id=" + id + ", edadDesde=" + edadDesde + ", edadHasta=" + edadHasta + ", valor=" + valor + ", tarifa=" + tarifa.toString() + ", usuarioModifica=" + (usuarioModifica != null ? usuarioModifica.toString() : "null") + '}';
     }
 
 }

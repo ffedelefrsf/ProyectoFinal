@@ -15,6 +15,8 @@ export class SideMenuComponent implements OnInit {
   obraSocialGroup: boolean = true;
   comprobanteGroup: boolean = true;
   pagoGroup: boolean = true;
+  servicioGroup: boolean = true;
+  ventaGroup: boolean = true;
 
   constructor() { }
 

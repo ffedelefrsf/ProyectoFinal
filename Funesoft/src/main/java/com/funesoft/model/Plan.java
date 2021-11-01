@@ -94,7 +94,7 @@ public class Plan implements Serializable {
 
     @Override
     public String toString() {
-        return "Plan{" + "id=" + id + ", nroPlan=" + nroPlan + ", descripcion=" + descripcion + ", usuarioModifica=" + usuarioModifica.toString() + '}';
+        return "Plan{" + "id=" + id + ", nroPlan=" + nroPlan + ", descripcion=" + descripcion + ", usuarioModifica=" + (usuarioModifica != null ? usuarioModifica.toString() : "null") + '}';
     }
     
     

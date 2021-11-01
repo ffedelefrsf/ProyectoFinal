@@ -24,4 +24,8 @@ export enum PageEnum{
     INFORMAR_PAGO = 'pago/informar',
     OBRA_SOCIAL_LISTADO = 'obra-social',
     OBRA_SOCIAL_ALTA = 'obra-social/alta',
+    SERVICIOS_LISTADO = 'servicios',
+    SERVICIOS_ALTA = 'servicios/alta',
+    VENTA_LISTADO = 'venta',
+    VENTA_ALTA = 'venta/alta',
 }

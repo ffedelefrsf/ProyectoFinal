@@ -16,4 +16,11 @@ public class RangoTarifaDTO {
         private Double valor;
         private Usuario usuarioModifica;
 
+    public RangoTarifaDTO(Integer edadDesde, Integer edadHasta, Double valor, Usuario usuarioModifica) {
+        this.edadDesde = edadDesde;
+        this.edadHasta = edadHasta;
+        this.valor = valor;
+        this.usuarioModifica = usuarioModifica;
+    }
+    
 }
