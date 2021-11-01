@@ -60,6 +60,10 @@ import { ObraSocialListadoComponent } from './components/obra-social/obra-social
 import { FilterDataPipe } from './utils/filter-data.pipe';
 import { FilterTarifaPipe } from './utils/filter-tarifa.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ServicioAltaComponent } from './components/servicio/alta/servicio-alta.component';
+import { ServicioListadoComponent } from './components/servicio/listado/servicio-listado.component';
+import { VentaListadoComponent } from './components/venta/listado/venta-listado.component';
+import { VentaAltaComponent } from './components/venta/alta/venta-alta.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +114,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ObraSocialAltaComponent,
     ObraSocialListadoComponent,
     FilterDataPipe,
-    FilterTarifaPipe
+    FilterTarifaPipe,
+    ServicioAltaComponent,
+    ServicioListadoComponent,
+    VentaListadoComponent,
+    VentaAltaComponent,
   ],
   imports: [
     BrowserModule,
