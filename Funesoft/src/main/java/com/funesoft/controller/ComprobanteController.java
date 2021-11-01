@@ -15,11 +15,14 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -56,6 +59,8 @@ public class ComprobanteController {
     @Autowired
     private PagoController pagoController;
 
+    @Autowired
+    private EntityManager entityManager;
 
     public List<Comprobante> generarComprobantesMasivos() throws BusinessException, ExecutionException, InterruptedException {
 
@@ -215,7 +220,7 @@ public class ComprobanteController {
 
     }
 
-    public List<ComprobanteDTO> getAll(Comprobante comprobante) {
+    public List<ComprobanteDTO> getAll(Comprobante comprobante) throws ParseException {
         List<Comprobante> cbtes = comprobanteRepository.findAll(Example.of(comprobante));
         List<ComprobanteDTO> cbtesDTO = new ArrayList<>();
 
@@ -234,9 +239,20 @@ public class ComprobanteController {
         return cbtesDTO;
     }
 
-    public String getVencimiento(Comprobante comprobante) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return formatter.format(new Date("01/09/1995"));
+    public String getVencimiento(Comprobante comprobante) throws ParseException {
+
+        List<Timestamp> fecha_gen = entityManager.createNativeQuery("SELECT CA.FECHA " +
+                "FROM comprobantes_audit CA " +
+                "WHERE CA.METODO = 'INSERT' AND CA.ID = " + comprobante.getId()).getResultList();
+
+        Date date = new Date(fecha_gen.get(0).getTime());
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MONTH, 3);
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+
+        return format1.format(cal.getTime());
     }
 
 }
