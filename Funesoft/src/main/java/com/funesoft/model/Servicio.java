@@ -108,4 +108,8 @@ public class Servicio implements Serializable {
         this.usuarioModifica = servicioDTO.getUsuarioModifica();
     }
 
+    public Servicio (Integer id){
+        this.id = id;
+    }
+
 }

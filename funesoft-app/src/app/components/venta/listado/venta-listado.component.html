@@ -1,1 +1,46 @@
-<p>venta-listado works!</p>
+<div id="listado-ventas">
+    <div class="card" *ngIf="!loading && !error">
+        <div class="card-body">
+            <h4 class="card-title">Padrón de ventas</h4>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Número de servicio</th>
+                            <th>Descripción</th>
+                            <th>Servicio</th>
+                            <th>Valor</th>
+                            <th>Acciones</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let venta of ventasArray">
+                            <td>{{venta.nroVenta}}</td>
+                            <td>{{venta.descripcion}}</td>
+                            <td>{{venta.servicio.descripcion}}</td>
+                            <td>{{venta.servicio.valor}}</td>
+                            <td>
+                                <div ngbDropdown class="d-inline-block">
+                                    <button class="btn btn-outline-primary" type="button"
+                                        id="dropdownMenuOutlineButton1" ngbDropdownToggle>
+                                        Acciones
+                                    </button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuOutlineButton1">
+                                        <a class="dropdown-header" (click)="deleteVenta(venta)">Eliminar</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="!loading && error">
+        Ha ocurrido un error, inténtelo más tarde.
+    </div>
+</div>
+<div class="spinner-border text-primary" role="status" *ngIf="loading">
+    <span class="sr-only">Loading...</span>
+</div>

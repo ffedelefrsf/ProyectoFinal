@@ -73,7 +73,7 @@ public class EstadisticaController {
         if(items.size() > 1 || itemsVentas.size() > 1){
             dto.setTitulo("Ingreso anual");
             dto.setValor("$" + ingresoAnual);
-            dto.setSubtitulo(valorInicial > valorFinal ? "" : "+" + new DecimalFormat("#").format((((valorFinal - valorInicial)/valorInicial)*100)) + "% que en " + anioInicial);
+            dto.setSubtitulo((valorInicial > valorFinal ? "" : "+") + new DecimalFormat("#").format((((valorFinal - valorInicial)/valorInicial)*100)) + "% que en " + anioInicial);
         } else if(items.size() == 1 && itemsVentas.size() == 1){
             dto.setTitulo("Ingreso anual");
             dto.setValor("$" + ingresoAnual);

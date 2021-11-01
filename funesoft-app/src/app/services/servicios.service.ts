@@ -12,15 +12,15 @@ import { ApiService } from './api.service';
 export class ServiciosService extends ApiService {
 
   getServicios(servicio: Servicio): Observable<FunesoftResponseDTO<Servicio>>{
-    return this.request(MethodEnum.POST, EndpointEnum.GET_TARIFAS, null, servicio);
+    return this.request(MethodEnum.POST, EndpointEnum.GET_SERVICIOS, null, servicio);
   }
 
   createServicio(servicio: Servicio): Observable<FunesoftResponseDTO<Servicio>>{
-    return this.request(MethodEnum.POST, EndpointEnum.CREATE_TARIFA, null, servicio);
+    return this.request(MethodEnum.POST, EndpointEnum.CREATE_SERVICIO, null, servicio);
   }
 
   deleteServicio(servicio: Servicio): Observable<FunesoftResponseDTO<Servicio>>{
-    return this.request(MethodEnum.POST, EndpointEnum.DELETE_TARIFA, null, servicio);
+    return this.request(MethodEnum.POST, EndpointEnum.DELETE_SERVICIO, null, servicio);
   }
 
 }

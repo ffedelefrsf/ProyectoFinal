@@ -1,1 +1,43 @@
-<p>venta-alta works!</p>
+<div id="alta-venta">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Nueva Venta</h4>
+
+                <form class="forms-sample" [formGroup]="altaVentaForm" (ngSubmit)="createVenta()">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nroVentaLabel">N° Venta</label>
+                                <input type="number" class="form-control" placeholder="Número de venta"
+                                    formControlName="nroVenta" value="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="descripcionLabel">Descripción</label>
+                                <input type="text" class="form-control" placeholder="Descripción"
+                                    formControlName="descripcion" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col-md-12">
+                            <!--Using items input-->
+                            <ng-select [items]="servicios" bindLabel="name" bindValue="id"
+                                [(ngModel)]="servicioSelected" (change)="changeServicio($event)">
+                            </ng-select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success mr-2">Agregar</button>
+                    <button class="btn btn-light" (click)="onCancel()">Cancelar</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -67,8 +67,6 @@ export class InformarPagoComponent implements OnInit {
   ) {
   }
 
-  selectedCar: number;
-
   sociosDropdown = [];
 
   ngOnInit() {

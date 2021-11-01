@@ -31,7 +31,6 @@ public class VentaREST {
     @Autowired
     private VentaController ventaController;
     
-    
     @PostMapping(path = "getAll")
     @ApiOperation(value = "Obtiene un listado de todas las ventas registradas en el sistema con los parámetros establecidos.")
     public FunesoftResponseDTO getAll(@RequestBody Venta venta){
@@ -71,5 +70,15 @@ public class VentaREST {
             return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
         }
     }
-    
+
+    @PostMapping(path = "getVentas")
+    @ApiOperation(value = "Obtiene un listado de todas las ventas registradas en el sistema con los parámetros establecidos.")
+    public FunesoftResponseDTO getVentas(@RequestBody Venta venta){
+        try{
+            return new FunesoftResponseDTO(true, ventaController.findAllVentasDTO(venta), null, null);
+        } catch (Exception exception){
+            return new FunesoftResponseDTO(false, null, exception.getMessage(), exception);
+        }
+    }
+
 }

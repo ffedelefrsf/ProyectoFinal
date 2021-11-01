@@ -1,1 +1,46 @@
-<p>servicio-alta works!</p>
+<div id="alta-servicio">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Nuevo Servicio</h4>
+
+                <form class="forms-sample" [formGroup]="altaServicioForm" (ngSubmit)="createServicio()">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nroServicioLabel">N° Servicio</label>
+                                <input type="number" class="form-control" placeholder="Número de servicio"
+                                    formControlName="nroServicio" value="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="descripcionLabel">Descripción</label>
+                                <input type="text" class="form-control" placeholder="Descripción" formControlName="descripcion"
+                                    value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="valorLabel">Valor</label>
+                                <input type="number" class="form-control" placeholder="Valor del servicio"
+                                    formControlName="valor" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-success mr-2">Agregar</button>
+                    <button class="btn btn-light" (click)="onCancel()">Cancelar</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

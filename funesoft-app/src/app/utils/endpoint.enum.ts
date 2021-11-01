@@ -41,4 +41,11 @@ export enum EndpointEnum{
     GET_DEUDORES = '/estadistica/getDeudores',
     GET_HISTORICO = '/estadistica/getHistorico',
     GET_REPORTE_SOCIOS = '/socio/generarReporte',
+    GET_SERVICIOS = '/servicio/getAll',
+    CREATE_SERVICIO = '/servicio/insert',
+    DELETE_SERVICIO = '/servicio/delete',
+    CREATE_VENTA = '/venta/insert',
+    GET_VENTA = '/venta/getAll',
+    GET_VENTAS = '/venta/getVentas',
+    DELETE_VENTA = '/venta/delete',
 }
