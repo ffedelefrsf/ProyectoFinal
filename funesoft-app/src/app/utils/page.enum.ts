@@ -28,4 +28,5 @@ export enum PageEnum{
     SERVICIOS_ALTA = 'servicios/alta',
     VENTA_LISTADO = 'venta',
     VENTA_ALTA = 'venta/alta',
+    REPORTES = 'report',
 }

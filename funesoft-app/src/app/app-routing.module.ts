@@ -33,6 +33,7 @@ import { ServicioAltaComponent } from './components/servicio/alta/servicio-alta.
 import { ServicioListadoComponent } from './components/servicio/listado/servicio-listado.component';
 import { VentaAltaComponent } from './components/venta/alta/venta-alta.component';
 import { VentaListadoComponent } from './components/venta/listado/venta-listado.component';
+import { ReportComponent } from './components/report/report.component';
 
 const routes: Routes = [
 
@@ -66,7 +67,8 @@ const routes: Routes = [
   {path: PageEnum.SERVICIOS_LISTADO, component: ServicioListadoComponent, canActivate: [AuthGuard]},
   {path: PageEnum.SERVICIOS_ALTA, component: ServicioAltaComponent, canActivate: [AuthGuard]},
   {path: PageEnum.VENTA_LISTADO, component: VentaListadoComponent, canActivate: [AuthGuard]},
-  {path: PageEnum.VENTA_ALTA, component: VentaAltaComponent, canActivate: [AuthGuard]}
+  {path: PageEnum.VENTA_ALTA, component: VentaAltaComponent, canActivate: [AuthGuard]},
+  {path: PageEnum.REPORTES, component: ReportComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

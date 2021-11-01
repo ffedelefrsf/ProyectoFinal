@@ -64,6 +64,7 @@ import { ServicioAltaComponent } from './components/servicio/alta/servicio-alta.
 import { ServicioListadoComponent } from './components/servicio/listado/servicio-listado.component';
 import { VentaListadoComponent } from './components/venta/listado/venta-listado.component';
 import { VentaAltaComponent } from './components/venta/alta/venta-alta.component';
+import { ReportComponent } from './components/report/report.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { VentaAltaComponent } from './components/venta/alta/venta-alta.component
     ServicioListadoComponent,
     VentaListadoComponent,
     VentaAltaComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,
