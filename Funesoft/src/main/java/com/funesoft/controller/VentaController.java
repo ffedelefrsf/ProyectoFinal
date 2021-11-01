@@ -38,7 +38,7 @@ public class VentaController {
     public Venta updateVenta(@NotNull Venta venta) throws BusinessException {
         Optional<Venta> ventaUpdate = ventaRepository.findById(venta.getId());
         if(!ventaUpdate.isPresent()){
-            throw new BusinessException("El servicio informado no existe");
+            throw new BusinessException("La venta informada no existe");
         }
         ventaUpdate.get().setUsuarioModifica(CurrentUser.getInstance());
         return ventaRepository.save(ventaUpdate.get());
@@ -47,7 +47,7 @@ public class VentaController {
     public Venta deleteVenta(@NotNull Integer idVenta) throws BusinessException {
         Optional<Venta> ventaDelete = ventaRepository.findById(idVenta);
         if(!ventaDelete.isPresent()){
-            throw new BusinessException("El servicio informado no existe");
+            throw new BusinessException("La venta informada no existe");
         }
         ventaDelete.get().setUsuarioModifica(CurrentUser.getInstance());
         ventaRepository.delete(ventaRepository.save(ventaDelete.get()));

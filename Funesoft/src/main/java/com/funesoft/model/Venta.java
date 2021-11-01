@@ -40,8 +40,8 @@ public class Venta implements Serializable {
     @Column(name = "ID")
     private Integer id;
     
-    @Column(name = "NRO_SERVICIO")
-    private Integer nroServicio;
+    @Column(name = "NRO_VENTA")
+    private Integer nroVenta;
     
     @Basic(optional = false)
     @NotNull
@@ -81,7 +81,7 @@ public class Venta implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.nroServicio, other.nroServicio)) {
+        if (!Objects.equals(this.nroVenta, other.nroVenta)) {
             return false;
         }
         if (!Objects.equals(this.servicio, other.servicio)) {
@@ -95,7 +95,7 @@ public class Venta implements Serializable {
 
     @Override
     public String toString() {
-        return "Venta{" + "id=" + id + ", nroServicio=" + nroServicio + ", descripcion=" + descripcion + ", servicio=" + servicio + ", usuarioModifica=" + usuarioModifica + '}';
+        return "Venta{" + "id=" + id + ", nroServicio=" + nroVenta + ", descripcion=" + descripcion + ", servicio=" + servicio + ", usuarioModifica=" + usuarioModifica + '}';
     }
     
 }

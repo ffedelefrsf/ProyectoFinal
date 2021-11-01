@@ -94,5 +94,22 @@ public class EstadisticaRepository {
         ).getResultList();
     }
 
+    public List<Object[]> findVentasAnual() {
+        return entityManager.createNativeQuery("SELECT YEAR(VA.FECHA), IFNULL(SUM(S.VALOR), 0) " +
+                "FROM sql10328339.venta V " +
+                "INNER JOIN sql10328339.venta_audit VA ON V.ID = VA.ID " +
+                "INNER JOIN sql10328339.servicios S ON S.ID = V.ID_SERVICIO " +
+                "GROUP BY YEAR(VA.FECHA)" +
+                "ORDER BY FECHA DESC LIMIT 2").getResultList();
+    }
+
+    public List<Object[]> findVentasHistoricas() {
+        return entityManager.createNativeQuery("SELECT YEAR(VA.FECHA), IFNULL(SUM(S.VALOR), 0) " +
+                "FROM sql10328339.venta V " +
+                "INNER JOIN sql10328339.venta_audit VA ON V.ID = VA.ID " +
+                "INNER JOIN sql10328339.servicios S ON S.ID = V.ID_SERVICIO " +
+                "GROUP BY YEAR(VA.FECHA) " +
+                "ORDER BY SUM(S.VALOR) DESC LIMIT 1 ").getResultList();
+    }
 
 }

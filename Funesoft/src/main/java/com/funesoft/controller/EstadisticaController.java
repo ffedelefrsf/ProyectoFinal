@@ -43,14 +43,16 @@ public class EstadisticaController {
     public EstadisticaDTO getIngresoAnual(){
 
         EstadisticaDTO dto = new EstadisticaDTO();
-        String ingresoAnual = "", anioInicial = "", sign = "";
+        Double ingresoAnual = 0D;
+        String anioInicial = "", sign = "";
         Double valorInicial = 0D, valorFinal = 0D;
 
         List<Object[]> items = estadisticaRepository.findIngresoAnual();
+        List<Object[]> itemsVentas = estadisticaRepository.findVentasAnual();
 
-        for (Object[] item : estadisticaRepository.findIngresoAnual()) {
+        for (Object[] item : items) {
             if(Integer.parseInt(item[0].toString()) == calendar.get(Calendar.YEAR)){
-                ingresoAnual = "$" + item[1].toString();
+                ingresoAnual = Double.valueOf(item[1].toString());
                 valorFinal = Double.parseDouble(item[1].toString());
             } else {
                 valorInicial = Double.parseDouble(item[1].toString());
@@ -58,15 +60,23 @@ public class EstadisticaController {
             }
         }
 
-        sign = valorInicial > valorFinal ? "-" : "+";
+        for (Object[] item : itemsVentas) {
+            if(Integer.parseInt(item[0].toString()) == calendar.get(Calendar.YEAR)){
+                ingresoAnual += Double.valueOf(item[1].toString());
+                valorFinal += Double.parseDouble(item[1].toString());
+            } else {
+                valorInicial += Double.parseDouble(item[1].toString());
+                anioInicial += item[0].toString();
+            }
+        }
 
-        if(items.size() > 1){
+        if(items.size() > 1 || itemsVentas.size() > 1){
             dto.setTitulo("Ingreso anual");
-            dto.setValor(ingresoAnual);
-            dto.setSubtitulo(sign  + new DecimalFormat("#").format((((valorFinal - valorInicial)/valorInicial)*100)) + "% que en " + anioInicial);
-        } else if(items.size() == 1){
+            dto.setValor("$" + ingresoAnual);
+            dto.setSubtitulo(valorInicial > valorFinal ? "" : "+" + new DecimalFormat("#").format((((valorFinal - valorInicial)/valorInicial)*100)) + "% que en " + anioInicial);
+        } else if(items.size() == 1 && itemsVentas.size() == 1){
             dto.setTitulo("Ingreso anual");
-            dto.setValor(ingresoAnual);
+            dto.setValor("$" + ingresoAnual);
             dto.setSubtitulo("En " + calendar.get(Calendar.YEAR));
         } else {
             dto.setTitulo("Ingreso anual");
@@ -148,8 +158,9 @@ public class EstadisticaController {
         List<HistoricoDTO> historicos = new ArrayList<>();
 
         List<Object[]> economico = estadisticaRepository.findMejorEconomico();
+
         HistoricoDTO histEconomico = new HistoricoDTO();
-        histEconomico.setTexto("Mejor rendimiento económico");
+        histEconomico.setTexto("Mejor rendimiento económico en planes");
         histEconomico.setValor("+$" + economico.get(0)[1].toString());
         histEconomico.setAnio(economico.get(0)[0].toString());
         historicos.add(histEconomico);
@@ -160,6 +171,13 @@ public class EstadisticaController {
         histAlta.setValor(alta.get(0)[1].toString());
         histAlta.setAnio(alta.get(0)[0].toString());
         historicos.add(histAlta);
+
+        List<Object[]> venta = estadisticaRepository.findVentasHistoricas();
+        HistoricoDTO histVenta = new HistoricoDTO();
+        histVenta.setTexto("Mejor rendimiento en venta de servicios");
+        histVenta.setValor("+$" + venta.get(0)[1].toString());
+        histVenta.setAnio(venta.get(0)[0].toString());
+        historicos.add(histVenta);
 
         return historicos;
     }
