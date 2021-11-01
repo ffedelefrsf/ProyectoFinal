@@ -197,8 +197,8 @@ public class SocioTest {
     }
     
     @Test
-    @DisplayName ("TEST Update Tarifa")
-    public void updateTarifaTest() throws Exception {
+    @DisplayName ("TEST Update Socio")
+    public void updateSocioTest() throws Exception {
         
         final ObjectMapper objectMapper = new ObjectMapper();
         final List<Socio> toReturn = new ArrayList();

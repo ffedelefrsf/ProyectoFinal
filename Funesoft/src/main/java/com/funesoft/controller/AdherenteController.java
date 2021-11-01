@@ -57,17 +57,18 @@ public class AdherenteController {
     public Adherente insertAdherente (@NotNull AdherenteDTO adherenteDTO){
 
         final Adherente adherente = new Adherente(adherenteDTO);
-        
+        System.out.println("llega");
         if (adherenteDTO.getFechaCobertura() == null) {
             //CALCULO LA COBERTURA
             adherente.setFechaCobertura(coberturaController.calculoCobertura(adherente));
+            System.out.println("llega 2");
         } else {
             adherente.setFechaCobertura(adherenteDTO.getFechaCobertura());
         }
-
+        System.out.println("llega 3");
         adherente.setUsuarioModifica(CurrentUser.getInstance());
         adherente.setEstado(estadoRepository.findByNroEstado(EstadoEnum.ALTA.getCodigo()));
-
+        System.out.println("llega");
         return adherenteRepository.save(adherente);
     }
     

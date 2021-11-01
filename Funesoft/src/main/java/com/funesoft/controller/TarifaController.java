@@ -78,7 +78,9 @@ public class TarifaController {
     public Map<Integer, Float> getValorTarifaByAsociado(@NotNull final Socio socio) throws BusinessException {
         final Tarifa tarifa;
         try {
+            System.out.println("socio " + socio.toString());
             tarifa = socioRepository.findById(socio.getId()).get().getTarifa();
+            System.out.println("tarifa " + tarifa.toString());
         } catch (NoResultException nrex) {
             throw new BusinessException("El socio no existe.");
         }
@@ -87,16 +89,20 @@ public class TarifaController {
         }
         // OBTENGO TODOS LOS RANGOS DE LA TARIFA
         final List<RangoTarifa> rangosTarifa = rangoTarifaRepository.findByTarifa(tarifa);
-
+        System.out.println("asdd ");
+        System.out.println("rangosTarifa " + rangosTarifa);
         final Plan plan = tarifa.getPlan();
         // ARMO UN MAP CON <DNI, VALOR A PAGAR>, SI DNI = 0 -> TOTAL
         final Map<Integer, Float> mapSalida = new HashMap();
         switch (plan.getDescripcion()) {
             case Plan.INDIVIDUAL:
+                System.out.println("plan 1");
                 try {
                     Float total = 0F;
                     for (RangoTarifa rango : rangosTarifa) {
                         final Short edad = socio.getEdad();
+                        System.out.println("edad " + edad);
+                        System.out.println("rango " + rango);
                         if (rango.getEdadDesde() <= edad && rango.getEdadHasta() >= edad) {
                             mapSalida.put(socio.getDni(), rango.getValor());
                             total += rango.getValor();

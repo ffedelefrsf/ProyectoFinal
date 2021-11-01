@@ -58,8 +58,9 @@ public class ComprobanteController {
 
 
     public List<Comprobante> generarComprobantesMasivos() throws BusinessException, ExecutionException, InterruptedException {
-
+        System.out.println("también llega");
         Future<List<Comprobante>> listComprobantes = generarComprobantesMasivosAsync();
+        System.out.println("pasa");
 
         return listComprobantes.get();
 
@@ -67,10 +68,10 @@ public class ComprobanteController {
 
     @Async
     public Future<List<Comprobante>> generarComprobantesMasivosAsync() throws BusinessException {
-
+        
         //RECUPERO LA LISTA DE SOCIOS ACTIVOS
         List<Socio> socios = socioRepository.findAllActivo();
-
+        
         if (socios.isEmpty()) {
             throw new BusinessException("No existen socios dados de alta");
         }
@@ -102,13 +103,14 @@ public class ComprobanteController {
 
         //Recupero el último comprobante
         Optional<Comprobante> ultimoCbte = comprobanteRepository.findUltimoComprobante();
+        System.out.println("ultimoCbte " + ultimoCbte.toString());
         BigInteger nroComprobante = ultimoCbte.isPresent() ? ultimoCbte.get().getNroComprobante().add(BigInteger.ONE) : BigInteger.ONE;
 
         for (Socio socio : socios) {
 
             //RECUPERO EL IMPORTE QUE PAGA EL SOCIO
             Map<Integer, Float> map = tarifaController.getValorTarifaByAsociado(socio);
-
+            System.out.println("map: " + map);
             //NO TENGO EN CUENTA EL SALDO DEL SOCIO. SI TIENE SALDO NEGATIVO SE LE INFORMADA MEDIANTE UN STRING
             Double valorCbte = map.get(0).doubleValue(); // - socio.getSaldo();
 
@@ -117,10 +119,11 @@ public class ComprobanteController {
                     valorCbte < 0D ? 0D : valorCbte,
                     socio
             );
-
             //DECREMENTO EL SALDO DEL SOCIO
             socio.setSaldo(socio.getSaldo() - map.get(0).doubleValue());
+            System.out.println("llega 3");
             socioRepository.save(socio);
+            System.out.println("llega 4");
 
             result.add(cbte);
 
@@ -136,7 +139,7 @@ public class ComprobanteController {
     }
 
     private Comprobante newComprobante(BigInteger nroComprobante, Double importeTotal, Socio socio) {
-
+        System.out.println("llega 2");
         return comprobanteRepository.save(
                 new Comprobante(
                         nroComprobante,
