@@ -12,13 +12,21 @@ import com.funesoft.repository.*;
 import com.funesoft.utilities.BusinessException;
 import com.funesoft.utilities.CurrentUser;
 import com.funesoft.utilities.EstadoEnum;
+import net.sf.jasperreports.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Example;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
+import java.io.*;
 import java.lang.reflect.Array;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -30,6 +38,10 @@ public class EstadisticaController {
     private EstadisticaRepository estadisticaRepository;
 
     Calendar calendar = Calendar.getInstance();
+
+    @Autowired
+    @Qualifier("jdbcTemplate")
+    private JdbcTemplate jdbcTemplate;
 
     public List<EstadisticaDTO> getEstadisticasHeader(){
         List<EstadisticaDTO> estadisticasDTO = new ArrayList<>();
@@ -180,6 +192,47 @@ public class EstadisticaController {
         historicos.add(histVenta);
 
         return historicos;
+    }
+
+    public String reportEstadoSocios(HttpServletResponse response) throws SQLException, IOException, JRException {
+        try {
+            response.setContentType("application/x-download");
+            response.setHeader("Content-Disposition", String.format("attachment; filename=\"estados_de_socios.pdf\""));
+            OutputStream out = response.getOutputStream();
+            String reportPath = "classpath:socios_estados.jrxml";
+            File file = ResourceUtils.getFile(reportPath);
+            InputStream input = new FileInputStream(file);
+            JasperReport jasperReport = JasperCompileManager.compileReport(input);
+            Connection conn = jdbcTemplate.getDataSource().getConnection();
+            Map<String, Object> parameters = new HashMap<>();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            JasperExportManager.exportReportToPdfStream(jasperPrint, out);
+            return "PDF File Generated";
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getMessage();
+            throw e;
+        }
+    }
+    public String reportComprobantesYPagos(HttpServletResponse response) throws SQLException, IOException, JRException {
+        try {
+            response.setContentType("application/x-download");
+            response.setHeader("Content-Disposition", String.format("attachment; filename=\"comprobantes_y_pagos.pdf\""));
+            OutputStream out = response.getOutputStream();
+            String reportPath = "classpath:comprobantes_pagos_socios.jrxml";
+            File file = ResourceUtils.getFile(reportPath);
+            InputStream input = new FileInputStream(file);
+            JasperReport jasperReport = JasperCompileManager.compileReport(input);
+            Connection conn = jdbcTemplate.getDataSource().getConnection();
+            Map<String, Object> parameters = new HashMap<>();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            JasperExportManager.exportReportToPdfStream(jasperPrint, out);
+            return "PDF File Generated";
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getMessage();
+            throw e;
+        }
     }
 
 }

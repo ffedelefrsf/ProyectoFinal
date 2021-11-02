@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="chart_2_cobertura_clientes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e230579-4194-4d72-9c15-9974e6a26ae6">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql - LocalHost"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select IF(table_c.FECHA_COBERTURA <= current_date(), "SI", "NO") as descripcion, COUNT(IF(table_c.FECHA_COBERTURA <= current_date(), "SI", "NO")) as cuenta
+from (
+select *
+from socios s
+union 
+select *
+from adherentes a2
+) as table_c
+group by IF(table_c.FECHA_COBERTURA <= current_date(), "SI", "NO")]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+	</field>
+	<field name="cuenta" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cuenta"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="228" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="280" height="28" uuid="d320db75-5a31-4709-8bde-418f0634caeb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cobertura]]></text>
+			</staticText>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="28" width="280" height="200" uuid="f8b57592-bd11-40f7-877f-f999528c14dd"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{cuenta}]]></keyExpression>
+					<valueExpression><![CDATA[$F{cuenta}]]></valueExpression>
+					<labelExpression><![CDATA[$F{descripcion}]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</pageHeader>
+</jasperReport>

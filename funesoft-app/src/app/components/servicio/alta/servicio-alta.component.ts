@@ -45,7 +45,6 @@ export class ServicioAltaComponent implements OnInit {
 
       this.servicioService.createServicio(this.servicioInsert).subscribe(
         response => {
-          debugger
           if (response.success){
             this.success = true;
             this.error = false;

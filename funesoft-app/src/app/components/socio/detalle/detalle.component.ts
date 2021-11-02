@@ -64,7 +64,6 @@ export class DetalleSocioComponent implements OnInit {
   }
 
   getMotivoBaja() {
-    debugger
     this.socioService.getMotivoBaja(this.socio).subscribe(
       response => {
         if(response.data) {

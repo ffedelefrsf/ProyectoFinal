@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="chart_1_importe_cbtes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c836d385-8aec-4966-8010-f0240f07e777">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql - LocalHost"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[-- chart 1
+select IF(ISNULL(P.ID), "DEBE", "PAGO") as descripcion, COUNT(IF(ISNULL(P.ID), "DEBE", "PAGO")) as cuenta
+from comprobantes c
+inner join comprobantes_audit ca on c.ID = ca.ID and month(ca.FECHA) = month(current_date()) and year(ca.FECHA) = year(current_date()) 
+left join pagos p on p.ID_COMPROBANTE = c.ID 
+group by IF(ISNULL(P.ID), "DEBE", "PAGO")]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+	</field>
+	<field name="cuenta" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cuenta"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="228" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="280" height="28" uuid="1fa5b612-befc-4843-83d2-f6e04998de2a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comprobantes del mes actual]]></text>
+			</staticText>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="28" width="280" height="200" uuid="044cf0b0-13d7-4946-a60e-b317caa94785"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{cuenta}]]></keyExpression>
+					<valueExpression><![CDATA[$F{cuenta}]]></valueExpression>
+					<labelExpression><![CDATA[$F{descripcion}]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</pageHeader>
+</jasperReport>

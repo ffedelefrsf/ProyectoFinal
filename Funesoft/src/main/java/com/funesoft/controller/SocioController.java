@@ -163,7 +163,7 @@ public class SocioController {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
             JasperExportManager.exportReportToPdfStream(jasperPrint, out);
 
-            return "XLS File Generated";
+            return "PDF File Generated";
         } catch (Exception e) {
             e.printStackTrace();
             e.getMessage();

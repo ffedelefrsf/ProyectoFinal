@@ -33,7 +33,6 @@ export class VentaListadoComponent implements OnInit {
     };
     this.ventaService.getVentas(venta).subscribe(
       response => {
-        debugger
         this.ventasArray = response.data;
         this.error = false;
       },

@@ -76,4 +76,41 @@ public class EstadisticaREST {
         }
     }
 
+    @GetMapping("estadosSociosPDF")
+    public FunesoftResponseDTO generarReporteEstados(HttpServletResponse response) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    estadisticaController.reportEstadoSocios(response),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+    }
+    @GetMapping("comprobantesYPagosPDF")
+    public FunesoftResponseDTO generarReporteCbtesYPagos(HttpServletResponse response) {
+        try {
+            return new FunesoftResponseDTO(
+                    true,
+                    estadisticaController.reportComprobantesYPagos(response),
+                    null,
+                    null
+            );
+        } catch (Exception exception) {
+            return new FunesoftResponseDTO(
+                    false,
+                    null,
+                    exception.getMessage(),
+                    exception
+            );
+        }
+    }
+
 }

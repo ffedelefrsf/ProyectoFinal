@@ -96,7 +96,6 @@ export class VentaAltaComponent implements OnInit {
 
       this.ventaService.createVenta(this.ventaInsert).subscribe(
         response => {
-          debugger
           if (response.success){
             this.success = true;
             this.error = false;

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="chart_1_estados_clientes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="07aeb457-b92b-4795-8650-a811d66d1cf7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql - LocalHost"/>
+	<queryString language="SQL">
+		<![CDATA[select e.DESCRIPCION, COUNT(*) as cuenta
+from (
+select *
+from socios s
+union 
+select *
+from adherentes a2
+) as table_c
+inner join estados e on e.ID = table_c.ID_ESTADO 
+group by table_c.ID_ESTADO ]]>
+	</queryString>
+	<field name="DESCRIPCION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DESCRIPCION"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estados"/>
+	</field>
+	<field name="cuenta" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cuenta"/>
+	</field>
+	<group name="DESCRIPCION">
+		<groupExpression><![CDATA[$F{DESCRIPCION}]]></groupExpression>
+	</group>
+	<group name="cuenta">
+		<groupExpression><![CDATA[$F{cuenta}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="233">
+			<staticText>
+				<reportElement x="0" y="0" width="280" height="28" uuid="7c73a2b6-ae58-49f7-b5cc-690c383e608f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="28" width="280" height="200" uuid="a7c4e1f9-34be-4344-b495-c689c11a40dd"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Report"/>
+					<keyExpression><![CDATA[$F{cuenta}]]></keyExpression>
+					<valueExpression><![CDATA[$F{cuenta}]]></valueExpression>
+					<labelExpression><![CDATA[$F{DESCRIPCION}]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</pageHeader>
+</jasperReport>
