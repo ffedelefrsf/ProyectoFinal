@@ -215,13 +215,6 @@
                     <button type="submit" class="btn btn-success mr-2">Agregar</button>
                     <button class="btn btn-light" (click)="onCancel()">Cancelar</button>
                     <br><br>
-                    <div class="alert alert-success" role="alert" *ngIf="success && !error">
-                        La tarifa ha sido agregada con exito!
-                    </div>
-
-                    <div class="alert alert-danger" role="alert" *ngIf="error && !success">
-                        Hubo un problema al agregar la tarifa. Intente nuevamente.
-                    </div>
 
                 </form>
             </div>

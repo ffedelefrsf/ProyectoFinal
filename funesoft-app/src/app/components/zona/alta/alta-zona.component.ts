@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 import { Cobrador } from '@app/model/cobrador';
 import { CobradorService } from '@app/services/cobrador.service';
 import { PageEnum } from '@app/utils/page.enum';
@@ -91,18 +93,35 @@ export class AltaZonaComponent implements OnInit {
         response => {
           if (response.success){
             this.success = true;
+            Swal.fire({
+              icon: 'success',
+              title: '¡Éxito!',
+              titleText: 'La zona ha sido agregada con éxito.',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.error = false;
             this.loading = false;
           }else{
             this.loading = false;
             this.error = true;
             this.success = false;
+            Swal.fire(
+              'Error',
+              'Se produjo un error. Intente nuevamente.',
+              'error'
+            );
             console.error(response.errores);
           }
         },
         err => {
           this.loading = false;
           this.error = true;
+          Swal.fire(
+            'Error',
+            'Se produjo un error. Intente nuevamente.',
+            'error'
+          );
           this.success = false;
         }
       );

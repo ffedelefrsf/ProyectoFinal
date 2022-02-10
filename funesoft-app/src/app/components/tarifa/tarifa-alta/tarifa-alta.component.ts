@@ -9,10 +9,10 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
-import { Tarifa } from '@app/model/tarifa';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 import { TarifaAltaDTO } from '@app/dtos/tarifaAlta.dto';
 import { TarifaAltaRangosDTO } from '@app/dtos/tarifaAltaRangos.dto';
-
 import { Plan } from '@app/model/plan';
 import { TarifaService } from '@app/services/tarifa.service';
 import { RangoTarifa } from '@app/model/rangoTarifa';
@@ -183,12 +183,24 @@ export class TarifaAltaComponent implements OnInit {
         response => {
           if (response.success){
             this.success = true;
+            Swal.fire({
+              icon: 'success',
+              title: '¡Éxito!',
+              titleText: 'La tarifa ha sido agregada con éxito.',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.error = false;
             this.loading = false;
           }else{
             this.loading = false;
             this.error = true;
             this.success = false;
+            Swal.fire(
+              'Error',
+              'Se produjo un error. Intente nuevamente.',
+              'error'
+            );
             console.error(response.errores[0]);
           }
         },
@@ -196,6 +208,11 @@ export class TarifaAltaComponent implements OnInit {
           this.loading = false;
           this.error = true;
           this.success = false;
+          Swal.fire(
+            'Error',
+            'Se produjo un error. Intente nuevamente.',
+            'error'
+          );
         }
       );
 

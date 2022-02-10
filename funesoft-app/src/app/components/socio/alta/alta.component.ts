@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { Provincia } from '@app/model/provincia';
 import { Zona } from '@app/model/zona';
@@ -222,6 +223,13 @@ export class AltaSocioComponent implements OnInit {
             modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
               if (receivedEntry) {
                 this.success = true;
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡Éxito!',
+                  titleText: 'El socio ha sido agregado con éxito.',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
                 this.error = false;
               }
               this.altaSocioForm.reset();
@@ -230,12 +238,22 @@ export class AltaSocioComponent implements OnInit {
           }else{
             this.loading = false;
             this.error = true;
+            Swal.fire(
+              'Error',
+              'Se produjo un error. Intente nuevamente.',
+              'error'
+            );
             this.success = false;
           }
         },
         err => {
           this.loading = false;
           this.error = true;
+          Swal.fire(
+            'Error',
+            'Se produjo un error. Intente nuevamente.',
+            'error'
+          );
           this.success = false;
         }
       );

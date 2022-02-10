@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { Adherente } from '@app/model/adherente';
 import { Provincia } from '@app/model/provincia';
@@ -218,15 +219,32 @@ export class ModificacionAdherenteComponent implements OnInit {
         response => {
           if (response.success){
             this.success = true;
+            Swal.fire({
+              icon: 'success',
+              title: '¡Éxito!',
+              titleText: 'El adherente ha sido modificado con éxito.',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.error = false;
             this.loading = false;
           }else{
             this.loading = false;
+            Swal.fire(
+              'Error',
+              'Se produjo un error. Intente nuevamente.',
+              'error'
+            );
             this.error = true;
           }
         },
         err => {
           this.loading = false;
+          Swal.fire(
+            'Error',
+            'Se produjo un error. Intente nuevamente.',
+            'error'
+          );
           this.error = true;
         }
       );

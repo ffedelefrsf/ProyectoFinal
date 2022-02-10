@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 import { CobradorDTO } from '@app/dtos/cobrador.dto';
 import { Cobrador } from '@app/model/cobrador';
 import { Localidad } from '@app/model/localidad';
@@ -105,18 +107,35 @@ export class CobradorAltaComponent implements OnInit {
         response => {
           if (response.success) {
             this.success = true;
+            Swal.fire({
+              icon: 'success',
+              title: '¡Éxito!',
+              titleText: 'El cobrador ha sido agregado con éxito.',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.error = false;
             this.loading = false;
           } else {
             this.loading = false;
             this.error = true;
             this.success = false;
+            Swal.fire(
+              'Error',
+              'Se produjo un error. Intente nuevamente.',
+              'error'
+            );
             console.error(response.errores[0]);
           }
         },
         err => {
           this.loading = false;
           this.error = true;
+          Swal.fire(
+            'Error',
+            'Se produjo un error. Intente nuevamente.',
+            'error'
+          );
           this.success = false;
         }
       );

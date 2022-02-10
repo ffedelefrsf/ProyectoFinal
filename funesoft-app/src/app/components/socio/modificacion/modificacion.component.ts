@@ -7,6 +7,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { Socio } from '@app/model/socio';
 import { LocalidadService } from '@app/services/localidad.service';
@@ -236,15 +237,32 @@ export class ModificacionSocioComponent implements OnInit {
         response => {
           if (response.success){
             this.success = true;
+            Swal.fire({
+              icon: 'success',
+              title: '¡Éxito!',
+              titleText: 'El socio ha sido modificado con éxito.',
+              showConfirmButton: false,
+              timer: 1500
+            });
             this.error = false;
             this.loading = false;
           }else{
             this.loading = false;
+            Swal.fire(
+              'Error',
+              'Se produjo un error. Intente nuevamente.',
+              'error'
+            );
             this.error = true;
           }
         },
         err => {
           this.loading = false;
+          Swal.fire(
+            'Error',
+            'Se produjo un error. Intente nuevamente.',
+            'error'
+          );
           this.error = true;
         }
       );

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { Provincia } from '@app/model/provincia';
 import { Zona } from '@app/model/zona';
@@ -232,18 +233,36 @@ export class AltaAdherenteComponent implements OnInit {
               const modalRef = this.modalService.open(FechaCoberturaComponent, { size: 'xl' });
               modalRef.componentInstance.adherente = response.data;
               modalRef.componentInstance.passEntry.subscribe((receivedEntry) => {
-                if (receivedEntry)
+                if (receivedEntry) {
                   this.success = true;
-                  this.error = false;
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    titleText: 'El adherente ha sido creado con éxito.',
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                }
+                this.error = false;
               });
             }else{
               this.loading = false;
+              Swal.fire(
+                'Error',
+                'Se produjo un error. Intente nuevamente.',
+                'error'
+              );
               this.error = true;
               this.success = false;
             }
           },
           err => {
             this.loading = false;
+            Swal.fire(
+              'Error',
+              'Se produjo un error. Intente nuevamente.',
+              'error'
+            );
             this.error = true;
             this.success = false;
           }
