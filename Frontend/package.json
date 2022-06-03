@@ -10,7 +10,7 @@
     "@ngrx/store": "9.0.0",
     "@ngrx/entity": "9.0.0",
     "jasmine-core": "3.4.0",
-    "@angular/core": "9.1.0",
+    "@angular/core": "11.0.5",
     "@ngrx/effects": "9.0.0",
     "@angular/forms": "9.1.0",
     "@angular/common": "9.1.0",
